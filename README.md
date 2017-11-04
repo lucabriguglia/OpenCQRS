@@ -22,10 +22,9 @@ Or via Paket CLI
 
 ## Using Weapsy.Mediator
 
-
 ### Register services
 
-In this example I'm using Scrutor but you can use the IOC of your choice.
+In this example I'm using [Scrutor](https://github.com/khellang/Scrutor).
 
 ```C#
 services.Scan(s => s
