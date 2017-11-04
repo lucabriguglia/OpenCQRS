@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
 
-Mediator for .NET Core
+Simple mediator for .NET Core
 
 ## Installing Weapsy.Mediator
 
@@ -103,7 +103,7 @@ public class SomethingHappenedHandlerAsyncTwo : IEventHandlerAsync<SomethingHapp
 }
 ```
 
-And finally, send the event using the mediator
+And finally, send the event using the mediator:
 
 ```C#
 var @event = new SomethingHappened();
