@@ -111,7 +111,7 @@ await _mediator.PublishAsync(@event)
 
 #### Query/Result
 
-First, create a dto and a message:
+First, create a model and a message:
 
 ```C#
 public class Something
