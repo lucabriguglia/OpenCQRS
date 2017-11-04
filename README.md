@@ -22,6 +22,7 @@ Or via Paket CLI
 
 ## Using Weapsy.Mediator
 
+
 ### Register services
 
 In this example I'm using Scrutor but you can use the IOC of your choice.
@@ -39,7 +40,8 @@ DoSomething is an sample command and the assumption is that all the handlers are
 Note that all handlers are available as asynchronous and as well as synchronous, but for these examples I'm using the asynchronous ones only.
 
 There are 3 kinds of messages:
-- Command, single handler- Event, multiple handlers
+- Command, single handler
+- Event, multiple handlers
 - Query/Result, single handler that returns a result
 
 #### Command
