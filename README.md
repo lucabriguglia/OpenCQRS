@@ -72,7 +72,6 @@ And finally, send the command using the mediator:
 var command = new DoSomething();
 await _mediator.SendAsync(command)
 ```
-
 #### Event
 
 First, create a message:
@@ -103,14 +102,59 @@ public class SomethingHappenedHandlerAsyncTwo : IEventHandlerAsync<SomethingHapp
 }
 ```
 
-And finally, send the event using the mediator:
+And finally, publish the event using the mediator:
 
 ```C#
 var @event = new SomethingHappened();
 await _mediator.PublishAsync(@event)
 ```
 
-..._work in progress_...
+#### Query/Result
+
+First, create a dto and a message:
+
+```C#
+public class Something
+{
+    public int Id { get; set; }
+}
+
+public class GetSomething : ICommand
+{
+    public int Id { get; set; }
+}
+```
+
+Next, create the handler:
+
+```C#
+public class GetSomethingQueryHandlerAsync : IQueryHandlerAsync<GetSomething, Something>
+{
+    public async Task<Something> RetrieveAsync(GetSomething query)
+    {
+        return await _db.Somethings.FirstOrDefaultAsync(x => x.Id == query.Id);
+    }
+}
+```
+
+And finally, get the result using the mediator:
+
+```C#
+var query = new GetSomething{ Id = 123 };
+var something = await _mediator.GetResultAsync<GetSomething, Something>(query);
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
