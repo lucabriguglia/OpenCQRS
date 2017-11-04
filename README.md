@@ -43,7 +43,7 @@ There are 3 kinds of messages:
 - Event, multiple handlers
 - Query/Result, single handler that returns a result
 
-#### Command
+#### Command (Simple usage)
 
 First, create a message:
 
@@ -71,6 +71,43 @@ And finally, send the command using the mediator:
 var command = new DoSomething();
 await _mediator.SendAsync(command)
 ```
+
+#### Command (With events)
+
+Using the SendAndPublishAsync method, the mediator will automatically publish the events returned by the handler.
+
+First, create a command and an event:
+
+```C#
+public class DoSomething : ICommand
+{
+}
+
+public class SomethingHappened : IEvent
+{
+}
+```
+
+Next, create the handler:
+
+```C#
+public class DoSomethingHandlerAsync : ICommandHandlerWithEventsAsync<DoSomething>
+{
+    public Task<IEnumerable<IEvent>> HandleAsync(DoSomething command)
+    {
+        await _myService.MyMethodAsync();
+        return new List<IEvent>{new SomethingHappened()};
+    }
+}
+```
+
+And finally, send the command and publish the events using the mediator:
+
+```C#
+var command = new DoSomething();
+await _mediator.SendAndPublishAsync(command)
+```
+
 #### Event
 
 First, create a message:
