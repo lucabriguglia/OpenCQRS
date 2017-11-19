@@ -41,7 +41,6 @@ Or via Paket CLI
 ## Using Weapsy.Mediator
 
 A fully working example, including CQRS and Event Sourcing, is available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
-
 ### Register services
 
 In ConfigureServices of Startup.cs:
@@ -89,7 +88,7 @@ There are 3 kinds of messages:
 - Event, multiple handlers
 - Query/Result, single handler that returns a result
 
-#### Command (Simple usage)
+#### Command (simple usage)
 
 First, create a message:
 
@@ -118,7 +117,7 @@ var command = new DoSomething();
 await _mediator.SendAsync(command)
 ```
 
-#### Command (With events)
+#### Command (with events)
 
 Using the SendAndPublishAsync method, the mediator will automatically publish the events returned by the handler.
 
@@ -153,6 +152,189 @@ And finally, send the command and publish the events using the mediator:
 var command = new DoSomething();
 await _mediator.SendAndPublishAsync(command)
 ```
+
+#### Command (with domain events and event sourcing)
+
+Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the mediator will automatically publish the events returned by the handler and save those events in the event store.
+Working example can be found in https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
+
+First, create a command and an event:
+
+```C#
+public class CreateProduct : DomainCommand
+{
+    public string Title { get; set; }
+}
+
+public class ProductCreated : DomainEvent
+{
+    public string Title { get; set; }
+}
+```
+
+Next, create a domain object that inherits from AggregateRoot.
+This is how a Procuct class might look like:
+
+```C#
+public class Product : AggregateRoot
+{
+    public string Title { get; private set; }
+
+    public Product()
+    {            
+    }
+
+    public Product(Guid id, string title) : base(id)
+    {
+        if (string.IsNullOrEmpty(title))
+            throw new ApplicationException("Product title is required.");
+
+        Title = title;
+
+        AddEvent(new ProductCreated
+        {
+            AggregateId = Id,
+            Title = Title
+        });
+    }
+
+    public void UpdateTitle(string title)
+    {
+        if (string.IsNullOrEmpty(title))
+            throw new ApplicationException("Product title is required.");
+
+        Title = title;
+
+        AddEvent(new ProductTitleUpdated
+        {
+            AggregateId = Id,
+            Title = Title
+        });
+    }
+
+    public void Apply(ProductCreated @event)
+    {
+        Id = @event.AggregateId;
+        Title = @event.Title;
+    }
+
+    public void Apply(ProductTitleUpdated @event)
+    {
+        Title = @event.Title;
+    }
+}
+```
+
+After every command has been executed, an event is added to the pending events list calling the AddEvent method.
+The Apply methods are used to load the object from history when GetById method of the Repository is called.
+Next, create the first handler:
+
+```C#
+public class CreateProductHandlerAsync : IDomainCommandHandlerAsync<CreateProduct>
+{
+    public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
+    {
+        await Task.CompletedTask;
+
+        var product = new Product(command.AggregateId, command.Title);
+
+        return product.Events;
+    }
+}
+```
+
+And finally, send the command using the mediator:
+
+```C#
+var command = new CreateProduct
+{
+    AggregateId = Guid.NewGuid(),
+    Title = "My brand new product"
+};
+await _mediator.SendAndPublishAsync<CreateProduct, Product>(command)
+```
+
+In a CQRS scenario, we want to create our read model.
+It can be achieved by creating an event handler:
+
+```C#
+public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
+{
+    public async Task HandleAsync(ProductCreated @event)
+    {
+        await Task.CompletedTask;
+
+        var model = new ProductViewModel
+        {
+            Id = @event.AggregateId,
+            Title = @event.Title
+        };
+
+        FakeReadDatabase.Products.Add(model);
+    }
+}
+```
+
+At this point, the aggregate and the first event have been saved in the event store and the product can be retrieved from the repository.
+New commands, events and handlers can now be created:
+
+```C#
+public class UpdateProductTitle : DomainCommand
+{
+    public string Title { get; set; }
+}
+
+public class ProductTitleUpdated : DomainEvent
+{
+    public string Title { get; set; }
+}
+
+public class UpdateProductTitleHandlerAsync : IDomainCommandHandlerAsync<UpdateProductTitle>
+{
+    private readonly IRepository<Product> _repository;
+
+    public UpdateProductTitleHandlerAsync(IRepository<Product> repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProductTitle command)
+    {
+        var product = await _repository.GetByIdAsync(command.AggregateId);
+
+        if (product == null)
+            throw new ApplicationException("Product not found.");
+
+        product.UpdateTitle(command.Title);
+
+        return product.Events;
+    }
+}
+
+public class ProductTitleUpdatedHandlerAsync : IEventHandlerAsync<ProductTitleUpdated>
+{
+    public async Task HandleAsync(ProductTitleUpdated @event)
+    {
+        await Task.CompletedTask;
+
+        var model = FakeReadDatabase.Products.Find(x => x.Id == @event.AggregateId);
+        model.Title = @event.Title;
+    }
+}
+```
+
+As per prevoius example, the mediator can be used to update the product.
+
+```C#
+await mediator.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
+{
+    AggregateId = productId,
+    Title = "Updated product title"
+});
+```
+
+A new event is saved and the read model is updated using the event handler.
+Next time the aggregate is loaded from the repository, two events will be applied in order to recreate the current state.
 
 #### Event
 
