@@ -1,13 +1,15 @@
 # Weapsy.Mediator
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
-[![Nuget Package](https://img.shields.io/badge/nuget-1.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
 
 Simple mediator for .NET Core
 
 ## Installing Weapsy.Mediator
 
-[Nuget Package](https://www.nuget.org/packages/Weapsy.Mediator/)
+Nuget Packages
+
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF)
 
 Via Package Manager
 
@@ -23,17 +25,45 @@ Or via Paket CLI
 
 ## Using Weapsy.Mediator
 
+A fully working example, including CQRS and Event Sourcing, is available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
+
 ### Register services
 
-In this example I'm using [Scrutor](https://github.com/khellang/Scrutor).
+In ConfigureServices of Startup.cs:
 
 ```C#
-services.Scan(s => s
-    .FromAssembliesOf(typeof(IMediator), typeof(DoSomething))
-    .AddClasses()
-    .AsImplementedInterfaces());
+services.AddWeapsyMediator(typeof(CreateProduct), typeof(GetProduct));
 ```
-DoSomething is an sample command and the assumption is that all the handlers are in the same assembly.
+
+CreateProduct is an sample command and GetProduct is a sample query.
+In this scenario, commands and queries are in two different assemblies.
+Both assemblies need to be registered.
+In order to be able to use the event sourcing functionality, an event store needs to be registered.
+
+```C#
+services.AddWeapsyEFEventStore();
+```
+
+At the moment, the only available is the Entity Framework event store but more will be available soon like Blob Storage or Xml.
+The EFEventStore uses a db contextg and it needs to be configured.
+Any of the data providers current supported in entity framework core can be used.
+In this case I'm using SqlServer:
+
+```C#
+services.AddDbContext<MediatorDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"));
+```
+
+If entity framework is used, databse can be installed adding this line in the Configure method of Startup.cs:
+
+```C#
+mediatorDbContext.Database.Migrate();
+```
+
+mediatorDbContext is passed as a parameter:
+
+```C#
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, MediatorDbContext mediatorDbContext)
+```
 
 ### Basics
 
