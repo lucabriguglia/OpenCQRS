@@ -1,7 +1,7 @@
 # Weapsy.Mediator
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
-[![Nuget Package](https://img.shields.io/badge/nuget-1.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
+[![Nuget Package](https://img.shields.io/badge/nuget-1.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
 
 Simple mediator for .NET Core
 
