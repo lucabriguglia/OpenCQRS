@@ -348,7 +348,6 @@ public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
     }
 }
 ```
-
 At this point, the aggregate and the first event have been saved in the event store and the product can be retrieved from the repository.
 New commands, events and handlers can now be added:
 
@@ -410,7 +409,7 @@ await mediator.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProduc
 A new event is saved and the read model is updated using the event handler.
 Next time the aggregate is loaded from the repository, two events will be applied in order to recreate the current state.
 
-### Roadmap
+## Roadmap
 
 - Add snapshot (memento) to event store
 - Add more event store providers
