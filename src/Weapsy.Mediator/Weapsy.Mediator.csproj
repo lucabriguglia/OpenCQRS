@@ -12,7 +12,8 @@
     <Copyright>2017 Luca Briguglia</Copyright>
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Mediator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Mediator</RepositoryUrl>
-    <PackageTags>.net core, mediator</PackageTags>
+    <PackageTags>.net core, mediator, ddd, cqrs, event sourcing</PackageTags>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
