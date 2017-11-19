@@ -26,7 +26,7 @@ namespace Weapsy.Mediator.Queries
             var queryHandler = _resolver.Resolve<IQueryHandlerAsync<TQuery, TResult>>();
 
             if (queryHandler == null)
-                throw new ApplicationException($"No handler found for query '{query.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type IQueryHandlerAsync<TQuery, TResult>> found for query '{query.GetType().FullName}'");
 
             return await queryHandler.RetrieveAsync(query);
         }

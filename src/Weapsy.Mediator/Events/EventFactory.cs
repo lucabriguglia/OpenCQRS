@@ -2,9 +2,9 @@
 
 namespace Weapsy.Mediator.Events
 {
-    public static class EventFactory
+    public class EventFactory : IEventFactory
     {
-        public static dynamic CreateConcreteEvent(object @event)
+        public dynamic CreateConcreteEvent(object @event)
         {
             var type = @event.GetType();
             var config = new MapperConfiguration(cfg => { cfg.CreateMap(type, type); });

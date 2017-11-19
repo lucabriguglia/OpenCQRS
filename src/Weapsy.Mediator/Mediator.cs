@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Weapsy.Mediator.Commands;
+using Weapsy.Mediator.Domain;
 using Weapsy.Mediator.Events;
 using Weapsy.Mediator.Queries;
 
@@ -7,6 +8,7 @@ namespace Weapsy.Mediator
 {
     /// <inheritdoc />
     /// <summary>
+    /// Mediator
     /// </summary>
     /// <seealso cref="T:Weapsy.Mediator.IMediator" />
     public class Mediator : IMediator
@@ -53,6 +55,20 @@ namespace Weapsy.Mediator
         public void SendAndPublish<TCommand>(TCommand command) where TCommand : ICommand
         {
             _commandSender.SendAndPublish(command);
+        }
+
+        public async Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand 
+            where TAggregate : IAggregateRoot
+        {
+            await _commandSenderAsync.SendAndPublishAsync<TCommand, TAggregate>(command);
+        }
+
+        public void SendAndPublish<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand 
+            where TAggregate : IAggregateRoot
+        {
+            _commandSender.SendAndPublish<TCommand, TAggregate>(command);
         }
 
         public async Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent

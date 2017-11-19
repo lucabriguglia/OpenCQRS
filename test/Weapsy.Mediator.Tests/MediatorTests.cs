@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using Weapsy.Mediator.Commands;
+using Weapsy.Mediator.Domain;
 using Weapsy.Mediator.Events;
 using Weapsy.Mediator.Queries;
 using Weapsy.Mediator.Tests.Fakes;
@@ -26,6 +27,7 @@ namespace Weapsy.Mediator.Tests
         private SomethingCreated _somethingCreated;
         private GetSomething _getSomething;
         private Something _something;
+        private CreateAggregate _createAggregate;
 
         [SetUp]
         public void SetUp()
@@ -34,6 +36,7 @@ namespace Weapsy.Mediator.Tests
             _somethingCreated = new SomethingCreated();
             _getSomething = new GetSomething();
             _something = new Something();
+            _createAggregate = new CreateAggregate();
 
             _commandSenderAsync = new Mock<ICommandSenderAsync>();
             _commandSenderAsync
@@ -42,12 +45,20 @@ namespace Weapsy.Mediator.Tests
             _commandSenderAsync
                 .Setup(x => x.SendAndPublishAsync(_createSomething))
                 .Returns(Task.CompletedTask);
+            _commandSenderAsync
+                .Setup(x => x.SendAndPublishAsync<ICommand>(_createSomething))
+                .Returns(Task.CompletedTask);
+            _commandSenderAsync
+                .Setup(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
+                .Returns(Task.CompletedTask);
 
             _commandSender = new Mock<ICommandSender>();
             _commandSender
                 .Setup(x => x.Send(_createSomething));
             _commandSender
                 .Setup(x => x.SendAndPublish(_createSomething));
+            _commandSender
+                .Setup(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate));
 
             _eventPublisherAsync = new Mock<IEventPublisherAsync>();
             _eventPublisherAsync
@@ -91,6 +102,13 @@ namespace Weapsy.Mediator.Tests
         }
 
         [Test]
+        public async Task SendsCommandAndPublishWithAggregateAsync()
+        {
+            await _sut.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
+            _commandSenderAsync.Verify(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+        }
+
+        [Test]
         public void SendsCommand()
         {
             _sut.Send(_createSomething);
@@ -102,6 +120,13 @@ namespace Weapsy.Mediator.Tests
         {
             _sut.SendAndPublish(_createSomething);
             _commandSender.Verify(x => x.SendAndPublish(_createSomething), Times.Once);
+        }
+
+        [Test]
+        public void SendsCommandAndPublishWithAggregate()
+        {
+            _sut.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate);
+            _commandSender.Verify(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
         }
 
         [Test]

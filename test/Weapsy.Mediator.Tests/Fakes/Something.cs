@@ -1,4 +1,6 @@
-﻿namespace Weapsy.Mediator.Tests.Fakes
+﻿using Weapsy.Mediator.Domain;
+
+namespace Weapsy.Mediator.Tests.Fakes
 {
     public class Something
     {       

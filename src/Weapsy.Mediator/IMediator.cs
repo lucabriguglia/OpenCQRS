@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Weapsy.Mediator.Commands;
+using Weapsy.Mediator.Domain;
 using Weapsy.Mediator.Events;
 using Weapsy.Mediator.Queries;
 
@@ -30,7 +31,7 @@ namespace Weapsy.Mediator
 
         /// <summary>
         /// Asynchronously sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEventsAsync.
+        /// The command handler must implement ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -39,12 +40,35 @@ namespace Weapsy.Mediator
 
         /// <summary>
         /// Sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEvents.
+        /// The command handler must implement ICommandHandlerWithEvents&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
         void SendAndPublish<TCommand>(TCommand command)
             where TCommand : ICommand;
+
+        /// <summary>
+        /// Asynchronously sends the command and the events returned by the handler will be published and saved to the event store.
+        /// The command handler must implement ICommandHandlerWithEventsAsync&lt;TCommand, TAggregate&gt;.
+        /// </summary>
+        /// <typeparam name="TCommand">The type of the command.</typeparam>
+        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        /// <param name="command">The command.</param>
+        /// <returns></returns>
+        Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command)
+            where TCommand : IDomainCommand
+            where TAggregate : IAggregateRoot;
+
+        /// <summary>
+        /// Sends the command the and publish the events returned by the command handler.
+        /// The command handler must implement ICommandHandlerWithEvents&lt;TCommand, TAggregate&gt;.
+        /// </summary>
+        /// <typeparam name="TCommand">The type of the command.</typeparam>
+        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        /// <param name="command">The command.</param>
+        void SendAndPublish<TCommand, TAggregate>(TCommand command)
+            where TCommand : IDomainCommand
+            where TAggregate : IAggregateRoot;
 
         /// <summary>
         /// Asynchronously publishes the specified event.
