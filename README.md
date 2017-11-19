@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
 
-Mediator for .NET Core
+Mediator for .NET Core that can be used in many scenarios, from a simple command/query pattern to a more complex CQRS with Event Sourcing implementation.
 
 ## Installing Weapsy.Mediator
 
@@ -23,8 +23,8 @@ Or via Paket CLI
 
     paket add Weapsy.Mediator
 
-For Event Sourcing, an event store implementation needs to be installed.
-The only available at the minute is the entity framework event store.
+For Event Sourcing, an event store provider needs to be installed.
+At the moment, the only available is the entity framework event store but more will be added soon (Blob Storage, Xml and MongoDB).
 
 Via Package Manager
 
@@ -41,9 +41,10 @@ Or via Paket CLI
 ## Using Weapsy.Mediator
 
 A fully working example, including CQRS and Event Sourcing, is available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
+
 ### Register services
 
-In ConfigureServices of Startup.cs:
+In ConfigureServices method of Startup.cs:
 
 ```C#
 services.AddWeapsyMediator(typeof(CreateProduct), typeof(GetProduct));
@@ -52,13 +53,13 @@ services.AddWeapsyMediator(typeof(CreateProduct), typeof(GetProduct));
 CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
-In order to use the event sourcing functionalities, an event store needs to be registered.
+In order to use the event sourcing functionalities, an event store provider needs to be added as well.
+In this case, we are using the entity framework event store.
 
 ```C#
 services.AddWeapsyEFEventStore();
 ```
 
-At the moment, the only available is the Entity Framework event store but more will be available soon like Blob Storage or Xml.
 The EFEventStore uses a db context and it needs to be configured.
 Any of the data providers currently supported in entity framework core can be used.
 In this case I'm using SqlServer:
@@ -81,7 +82,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, Mediator
 
 ### Basics
 
-Note that all handlers are available as asynchronous and as well as synchronous, but for these examples I'm using the asynchronous ones only.
+Note that all handlers are available as asynchronous and as well as synchronous, but for these examples I'm using the asynchronous versions only.
 
 There are 3 kinds of messages:
 - Command, single handler
@@ -228,7 +229,7 @@ var something = await _mediator.GetResultAsync<GetSomething, Something>(query);
 ### Advanced (CQRS and Event Sourcing)
 
 Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the mediator will automatically publish the events returned by the handler and save those events in the event store.
-Working example can be found in https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
+A working example can be found at https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
 
 First, create a command and an event:
 
@@ -297,9 +298,10 @@ public class Product : AggregateRoot
 }
 ```
 
-After every command has been executed, an event is added to the pending events list calling the AddEvent method.
+Note that the empty constructor is required in order to create a new object using reflection.
+After every command has been executed, an event is added to the pending event list calling the AddEvent method.
 The Apply methods are used to load the object from the history when GetById method of the Repository is called.
-Next, create the first handler:
+Create the first handler:
 
 ```C#
 public class CreateProductHandlerAsync : IDomainCommandHandlerAsync<CreateProduct>
@@ -315,7 +317,7 @@ public class CreateProductHandlerAsync : IDomainCommandHandlerAsync<CreateProduc
 }
 ```
 
-And finally, send the command using the mediator:
+Send the command using the mediator:
 
 ```C#
 var command = new CreateProduct
@@ -348,7 +350,7 @@ public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
 ```
 
 At this point, the aggregate and the first event have been saved in the event store and the product can be retrieved from the repository.
-New commands, events and handlers can now be created:
+New commands, events and handlers can now be added:
 
 ```C#
 public class UpdateProductTitle : DomainCommand
