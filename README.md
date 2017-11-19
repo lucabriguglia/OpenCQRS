@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
 
-Simple mediator for .NET Core
+Mediator for .NET Core
 
 ## Installing Weapsy.Mediator
 
@@ -23,6 +23,21 @@ Or via Paket CLI
 
     paket add Weapsy.Mediator
 
+For Event Sourcing, an event store implementation needs to be installed.
+The only available at the minute is the entity framework event store.
+
+Via Package Manager
+
+    Install-Package Weapsy.Mediator.EventStore.EF
+    
+Or via .NET CLI
+
+    dotnet add package Weapsy.Mediator.EventStore.EF
+    
+Or via Paket CLI
+
+    paket add Weapsy.Mediator.EventStore.EF
+
 ## Using Weapsy.Mediator
 
 A fully working example, including CQRS and Event Sourcing, is available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
@@ -38,15 +53,15 @@ services.AddWeapsyMediator(typeof(CreateProduct), typeof(GetProduct));
 CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
-In order to be able to use the event sourcing functionality, an event store needs to be registered.
+In order to use the event sourcing functionalities, an event store needs to be registered.
 
 ```C#
 services.AddWeapsyEFEventStore();
 ```
 
 At the moment, the only available is the Entity Framework event store but more will be available soon like Blob Storage or Xml.
-The EFEventStore uses a db contextg and it needs to be configured.
-Any of the data providers current supported in entity framework core can be used.
+The EFEventStore uses a db context and it needs to be configured.
+Any of the data providers currently supported in entity framework core can be used.
 In this case I'm using SqlServer:
 
 ```C#
