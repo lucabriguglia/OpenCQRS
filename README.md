@@ -153,7 +153,79 @@ var command = new DoSomething();
 await _mediator.SendAndPublishAsync(command)
 ```
 
-#### Command (with domain events and event sourcing)
+#### Event
+
+First, create a message:
+
+```C#
+public class SomethingHappened : IEvent
+{
+}
+```
+
+Next, create one or more handlers:
+
+```C#
+public class SomethingHappenedHandlerAsyncOne : IEventHandlerAsync<SomethingHappened>
+{
+    public Task HandleAsync(SomethingHappened @event)
+    {
+        await _myService.MyMethodAsync();
+    }
+}
+
+public class SomethingHappenedHandlerAsyncTwo : IEventHandlerAsync<SomethingHappened>
+{
+    public Task HandleAsync(SomethingHappened @event)
+    {
+        await _myService.MyMethodAsync();
+    }
+}
+```
+
+And finally, publish the event using the mediator:
+
+```C#
+var @event = new SomethingHappened();
+await _mediator.PublishAsync(@event)
+```
+
+#### Query/Result
+
+First, create a model and a message:
+
+```C#
+public class Something
+{
+    public int Id { get; set; }
+}
+
+public class GetSomething : ICommand
+{
+    public int Id { get; set; }
+}
+```
+
+Next, create the handler:
+
+```C#
+public class GetSomethingQueryHandlerAsync : IQueryHandlerAsync<GetSomething, Something>
+{
+    public async Task<Something> RetrieveAsync(GetSomething query)
+    {
+        return await _db.Somethings.FirstOrDefaultAsync(x => x.Id == query.Id);
+    }
+}
+```
+
+And finally, get the result using the mediator:
+
+```C#
+var query = new GetSomething{ Id = 123 };
+var something = await _mediator.GetResultAsync<GetSomething, Something>(query);
+```
+
+### Advanced (CQRS and Event Sourcing)
 
 Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the mediator will automatically publish the events returned by the handler and save those events in the event store.
 Working example can be found in https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
@@ -226,7 +298,7 @@ public class Product : AggregateRoot
 ```
 
 After every command has been executed, an event is added to the pending events list calling the AddEvent method.
-The Apply methods are used to load the object from history when GetById method of the Repository is called.
+The Apply methods are used to load the object from the history when GetById method of the Repository is called.
 Next, create the first handler:
 
 ```C#
@@ -336,102 +408,10 @@ await mediator.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProduc
 A new event is saved and the read model is updated using the event handler.
 Next time the aggregate is loaded from the repository, two events will be applied in order to recreate the current state.
 
-#### Event
+### Roadmap
 
-First, create a message:
-
-```C#
-public class SomethingHappened : IEvent
-{
-}
-```
-
-Next, create one or more handlers:
-
-```C#
-public class SomethingHappenedHandlerAsyncOne : IEventHandlerAsync<SomethingHappened>
-{
-    public Task HandleAsync(SomethingHappened @event)
-    {
-        await _myService.MyMethodAsync();
-    }
-}
-
-public class SomethingHappenedHandlerAsyncTwo : IEventHandlerAsync<SomethingHappened>
-{
-    public Task HandleAsync(SomethingHappened @event)
-    {
-        await _myService.MyMethodAsync();
-    }
-}
-```
-
-And finally, publish the event using the mediator:
-
-```C#
-var @event = new SomethingHappened();
-await _mediator.PublishAsync(@event)
-```
-
-#### Query/Result
-
-First, create a model and a message:
-
-```C#
-public class Something
-{
-    public int Id { get; set; }
-}
-
-public class GetSomething : ICommand
-{
-    public int Id { get; set; }
-}
-```
-
-Next, create the handler:
-
-```C#
-public class GetSomethingQueryHandlerAsync : IQueryHandlerAsync<GetSomething, Something>
-{
-    public async Task<Something> RetrieveAsync(GetSomething query)
-    {
-        return await _db.Somethings.FirstOrDefaultAsync(x => x.Id == query.Id);
-    }
-}
-```
-
-And finally, get the result using the mediator:
-
-```C#
-var query = new GetSomething{ Id = 123 };
-var something = await _mediator.GetResultAsync<GetSomething, Something>(query);
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Add snapshot (memento) to event store
+- Add more event store providers
+    - Xml
+    - Blob Storage
+    - MongoDB
