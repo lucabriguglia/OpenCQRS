@@ -10,7 +10,7 @@ namespace Weapsy.Mediator.Examples.Domain.Commands
         {
             await Task.CompletedTask;
 
-            var product = new Product(command.AggregateId, command.Title);
+            var product = new Product(command.AggregateRootId, command.Title);
 
             return product.Events;
         }

@@ -31,6 +31,7 @@ namespace Weapsy.Mediator.Domain
         protected void AddEvent(IDomainEvent @event)
         {
             Events.Add(@event);
+            this.AsDynamic().Apply(@event);
         }
     }
 }

@@ -57,15 +57,26 @@ In order to use the event sourcing functionalities, an event store provider need
 In this case, we are using the entity framework event store.
 
 ```C#
-services.AddWeapsyEFEventStore();
+services.AddWeapsyMediatorEF(Configuration);
 ```
 
 The EFEventStore uses a db context and it needs to be configured.
-Any of the data providers currently supported in entity framework core can be used.
-In this case I'm using SqlServer:
+First, add the following options in appsettings.json :
+
+```JSON
+"MediatorData": {
+	"Type": "EF", // Options: EF, XML, BlobStorage
+	"EFProvider": "MSSQL" // Options: MSSQL, MySQL, SQLite, PostgreSQL
+},
+"ConnectionStrings": {
+	"MediatorConnection": "Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
+```
+Next, configure the options when registering the services:
 
 ```C#
-services.AddDbContext<MediatorDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"));
+services.AddOptions();
+services.AddWeapsyMediatorEFOptions(Configuration);
 ```
 
 If entity framework is used, databse can be installed adding this line in the Configure method of Startup.cs:
@@ -262,12 +273,10 @@ public class Product : AggregateRoot
         if (string.IsNullOrEmpty(title))
             throw new ApplicationException("Product title is required.");
 
-        Title = title;
-
         AddEvent(new ProductCreated
         {
             AggregateId = Id,
-            Title = Title
+            Title = title
         });
     }
 
@@ -276,12 +285,10 @@ public class Product : AggregateRoot
         if (string.IsNullOrEmpty(title))
             throw new ApplicationException("Product title is required.");
 
-        Title = title;
-
         AddEvent(new ProductTitleUpdated
         {
             AggregateId = Id,
-            Title = Title
+            Title = title
         });
     }
 
@@ -300,7 +307,7 @@ public class Product : AggregateRoot
 
 Note that the empty constructor is required in order to create a new object using reflection.
 After every command has been executed, an event is added to the pending event list calling the AddEvent method.
-The Apply methods are used to load the object from the history when GetById method of the Repository is called.
+The Apply methods are called automatically when new events are added and are also used to load the object from the history when GetById method of the Repository is called.
 Create the first handler:
 
 ```C#
@@ -348,6 +355,7 @@ public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
     }
 }
 ```
+
 At this point, the aggregate and the first event have been saved in the event store and the product can be retrieved from the repository.
 New commands, events and handlers can now be added:
 
@@ -411,8 +419,8 @@ Next time the aggregate is loaded from the repository, two events will be applie
 
 ## Roadmap
 
-- Add snapshot (memento) to event store
 - Add more event store providers
     - Xml
     - Blob Storage
     - MongoDB
+- Add custom domain event properties

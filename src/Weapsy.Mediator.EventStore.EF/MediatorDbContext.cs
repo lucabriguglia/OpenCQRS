@@ -5,7 +5,7 @@ namespace Weapsy.Mediator.EventStore.EF
 {
     public class MediatorDbContext : DbContext
     {
-        public MediatorDbContext(DbContextOptions options)
+        public MediatorDbContext(DbContextOptions<MediatorDbContext> options)
             : base(options)
         {
         }

@@ -10,7 +10,7 @@ namespace Weapsy.Mediator.EventStore.EF.Factories
         {
             return new EventEntity
             {
-                AggregateId = @event.AggregateId,
+                AggregateId = @event.AggregateRootId,
                 SequenceNumber = version,
                 Type = @event.GetType().AssemblyQualifiedName,
                 Body = JsonConvert.SerializeObject(@event),

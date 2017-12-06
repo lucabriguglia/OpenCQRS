@@ -9,7 +9,7 @@ namespace Weapsy.Mediator.EventStore.EF.Factories
         {
             return new AggregateEntity
             {
-                Id = @event.AggregateId,
+                Id = @event.AggregateRootId,
                 Type = typeof(TAggregate).AssemblyQualifiedName
             };
         }

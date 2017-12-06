@@ -1,4 +1,4 @@
-﻿namespace Weapsy.Mediator.EventStore.EF.Factories
+﻿namespace Weapsy.Mediator.EventStore.EF
 {
     public interface IDbContextFactory
     {

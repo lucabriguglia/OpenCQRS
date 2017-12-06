@@ -10,7 +10,7 @@ namespace Weapsy.Mediator.Examples.Reporting.EventHandlers
         {
             await Task.CompletedTask;
 
-            var model = FakeReadDatabase.Products.Find(x => x.Id == @event.AggregateId);
+            var model = FakeReadDatabase.Products.Find(x => x.Id == @event.AggregateRootId);
             model.Title = @event.Title;
         }
     }

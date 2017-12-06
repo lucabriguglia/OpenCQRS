@@ -12,7 +12,7 @@ namespace Weapsy.Mediator.Examples.Reporting.EventHandlers
 
             var model = new ProductViewModel
             {
-                Id = @event.AggregateId,
+                Id = @event.AggregateRootId,
                 Title = @event.Title
             };
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Weapsy.Mediator.Domain
@@ -32,17 +33,25 @@ namespace Weapsy.Mediator.Domain
 
         public async Task<T> GetByIdAsync(Guid id)
         {
-            var aggregate = Activator.CreateInstance<T>(); // looking for a better solution without using new()
             var events = await _eventStore.GetEventsAsync(id);
-            aggregate.ApplyEvents(events);
+            var domainEvents = events as DomainEvent[] ?? events.ToArray();
+            if (!domainEvents.Any())
+                return default(T);
+
+            var aggregate = Activator.CreateInstance<T>(); // looking for a better solution without using new()           
+            aggregate.ApplyEvents(domainEvents);
             return aggregate;
         }
 
         public T GetById(Guid id)
         {
-            var aggregate = Activator.CreateInstance<T>(); // looking for a better solution without using new()
             var events = _eventStore.GetEvents(id);
-            aggregate.ApplyEvents(events);
+            var domainEvents = events as DomainEvent[] ?? events.ToArray();
+            if (!domainEvents.Any())
+                return default(T);
+
+            var aggregate = Activator.CreateInstance<T>(); // looking for a better solution without using new()           
+            aggregate.ApplyEvents(domainEvents);
             return aggregate;
         }
     }

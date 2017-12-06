@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Weapsy.Mediator.EventStore.EF.Factories
+namespace Weapsy.Mediator.EventStore.EF
 {
     public class MigrationsDbContextFactory : IDesignTimeDbContextFactory<MediatorDbContext>
     {

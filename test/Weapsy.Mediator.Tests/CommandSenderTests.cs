@@ -154,7 +154,7 @@ namespace Weapsy.Mediator.Tests
         }
 
         [Test]
-        public void SendAndPublishhWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
+        public void SendAndPublishWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
         {
             _resolver
                 .Setup(x => x.Resolve<IDomainCommandHandler<CreateAggregate>>())
@@ -163,21 +163,21 @@ namespace Weapsy.Mediator.Tests
         }
 
         [Test]
-        public void SendAndPublishhWithAggregateSendsCommand()
+        public void SendAndPublishWithAggregateSendsCommand()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
             _domainCommandHandler.Verify(x => x.Handle(_createAggregate), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishhWithAggregateSaveEvents()
+        public void SendAndPublishWithAggregateSaveEvents()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
             _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishhWithAggregatePublishEvents()
+        public void SendAndPublishWithAggregatePublishEvents()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
             _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);

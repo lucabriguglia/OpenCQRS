@@ -28,14 +28,14 @@ namespace Weapsy.Mediator.EventStore.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == @event.AggregateId);               
+                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == @event.AggregateRootId);               
                 if (aggregateEntity == null)
                 {
                     var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(@event);
                     dbContext.Aggregates.Add(newAggregateEntity);
                 }
 
-                var currentSequenceCount = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateId);
+                var currentSequenceCount = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
                 var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentSequenceCount + 1);
                 dbContext.Events.Add(newEventEntity);
 
@@ -47,14 +47,14 @@ namespace Weapsy.Mediator.EventStore.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == @event.AggregateId);
+                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == @event.AggregateRootId);
                 if (aggregateEntity == null)
                 {
                     var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(@event);
                     dbContext.Aggregates.Add(newAggregateEntity);
                 }
 
-                var currentSequenceCount = dbContext.Events.Count(x => x.AggregateId == @event.AggregateId);
+                var currentSequenceCount = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
                 var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentSequenceCount + 1);
                 dbContext.Events.Add(newEventEntity);
 

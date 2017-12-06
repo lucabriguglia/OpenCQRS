@@ -16,7 +16,7 @@ namespace Weapsy.Mediator.Examples.Domain.Commands
 
         public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProductTitle command)
         {
-            var product = await _repository.GetByIdAsync(command.AggregateId);
+            var product = await _repository.GetByIdAsync(command.AggregateRootId);
 
             if (product == null)
                 throw new ApplicationException("Product not found.");

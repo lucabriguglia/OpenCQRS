@@ -6,9 +6,9 @@ namespace Weapsy.Mediator.EventStore.EF.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder EnsureDbCreated(this IApplicationBuilder app)
+        public static IApplicationBuilder EnsureMediatorDbCreated(this IApplicationBuilder app)
         {
-            var dbContext = app.ApplicationServices.GetRequiredService<MediatorDbContext>();
+            var dbContext = app.ApplicationServices.GetService<MediatorDbContext>();
 
             dbContext.Database.Migrate();
 

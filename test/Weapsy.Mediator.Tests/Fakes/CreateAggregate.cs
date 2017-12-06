@@ -5,6 +5,6 @@ namespace Weapsy.Mediator.Tests.Fakes
 {
     public class CreateAggregate : IDomainCommand
     {
-        public Guid AggregateId { get; set; }
+        public Guid AggregateRootId { get; set; }
     }
 }

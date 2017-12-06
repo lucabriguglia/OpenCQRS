@@ -5,7 +5,7 @@ namespace Weapsy.Mediator.Domain
 {
     public interface IDomainEvent : IEvent
     {
-        Guid AggregateId { get; set; }
+        Guid AggregateRootId { get; set; }
         int Version { get; set; }
         new DateTime TimeStamp { get; set; }
     }

@@ -17,12 +17,10 @@ namespace Weapsy.Mediator.Examples.Domain
             if (string.IsNullOrEmpty(title))
                 throw new ApplicationException("Product title is required.");
 
-            Title = title;
-
             AddEvent(new ProductCreated
             {
-                AggregateId = Id,
-                Title = Title
+                AggregateRootId = Id,
+                Title = title
             });
         }
 
@@ -31,18 +29,16 @@ namespace Weapsy.Mediator.Examples.Domain
             if (string.IsNullOrEmpty(title))
                 throw new ApplicationException("Product title is required.");
 
-            Title = title;
-
             AddEvent(new ProductTitleUpdated
             {
-                AggregateId = Id,
-                Title = Title
+                AggregateRootId = Id,
+                Title = title
             });
         }
 
         public void Apply(ProductCreated @event)
         {
-            Id = @event.AggregateId;
+            Id = @event.AggregateRootId;
             Title = @event.Title;
         }
 

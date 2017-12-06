@@ -17,7 +17,7 @@ namespace Weapsy.Mediator.Examples.Web
             // ProductCreatedHandlerAsync should created the view model.
             await mediator.SendAndPublishAsync<CreateProduct, Product>(new CreateProduct
             {
-                AggregateId = productId,
+                AggregateRootId = productId,
                 Title = "My brand new product"
             });
 
@@ -25,7 +25,7 @@ namespace Weapsy.Mediator.Examples.Web
             // ProductTitleUpdatedHandlerAsync should update the view model with the new title.
             await mediator.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
             {
-                AggregateId = productId,
+                AggregateRootId = productId,
                 Title = "Updated product title"
             });
 
@@ -33,7 +33,7 @@ namespace Weapsy.Mediator.Examples.Web
             // ProductTitleUpdatedHandlerAsync should update the view model again with the new title.
             await mediator.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
             {
-                AggregateId = productId,
+                AggregateRootId = productId,
                 Title = "Yeah! Third title!"
             });
 
