@@ -8,8 +8,8 @@ Mediator for .NET Core that can be used in many scenarios, from a simple command
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.4.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.4.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF)
 
 Via Package Manager
 
