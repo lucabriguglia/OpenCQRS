@@ -1,3 +1,5 @@
+# THE FOLLOWING DOCUMENTATION REFERS TO A PREVIOUS VERSION - UPDATE IN PROGRESS
+
 # Weapsy.Mediator
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
@@ -8,8 +10,15 @@ Mediator for .NET Core that can be used in many scenarios, from a simple command
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.4.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.4.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
+
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.MySql-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
+
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.PostgreSql-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.PostgreSql)
+
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.Sqlite-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.Sqlite)
+
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.SqlServer-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.SqlServer)
 
 Via Package Manager
 
