@@ -71,9 +71,9 @@ namespace Weapsy.Mediator.Commands
             if (commandHandler == null)
                 throw new ApplicationException($"No handler of type IDomainCommandHandlerAsync<TCommand> found for command '{command.GetType().FullName}'");
 
-            var events = await commandHandler.HandleAsync(command);
+            var aggregateRoot = await commandHandler.HandleAsync(command);
 
-            foreach (var @event in events)
+            foreach (var @event in aggregateRoot.Events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                 await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);

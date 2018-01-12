@@ -2,6 +2,6 @@
 {
     public class ConnectionStrings
     {
-        public string MediatorConnection { get; set; }
+        public string EventStoreConnection { get; set; }
     }
 }

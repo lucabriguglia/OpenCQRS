@@ -1,7 +1,6 @@
 ﻿using Weapsy.Mediator.Domain;
-using Weapsy.Mediator.EventStore.EF.Entities;
 
-namespace Weapsy.Mediator.EventStore.EF.Factories
+namespace Weapsy.Mediator.EventStore.EF.Entities.Factories
 {
     public interface IEventEntityFactory
     {

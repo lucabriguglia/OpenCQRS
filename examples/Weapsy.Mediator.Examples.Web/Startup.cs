@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Weapsy.Mediator.EventStore.EF;
-using Weapsy.Mediator.EventStore.EF.Extensions;
+using Weapsy.Mediator.EventStore.EF.SqlServer;
 using Weapsy.Mediator.Examples.Domain.Commands;
 using Weapsy.Mediator.Examples.Reporting.Queries;
 using Weapsy.Mediator.Extensions;
@@ -28,8 +28,7 @@ namespace Weapsy.Mediator.Examples.Web
             services.AddOptions();
 
             services.AddWeapsyMediator(typeof(CreateProduct), typeof(GetProduct));
-            services.AddWeapsyMediatorEFOptions(Configuration);
-            services.AddWeapsyMediatorEF(Configuration);
+            services.AddWeapsyMediatorEventStore(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +42,7 @@ namespace Weapsy.Mediator.Examples.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.Run(async context =>
             {
                 // Create a sample product loading data from domain events.
                 var product = await GettingStarted.CreateProduct(mediator);

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Weapsy.Mediator.Domain;
-using Weapsy.Mediator.EventStore.EF.Factories;
+using Weapsy.Mediator.EventStore.EF.Entities.Factories;
 
 namespace Weapsy.Mediator.EventStore.EF
 {
@@ -71,7 +71,7 @@ namespace Weapsy.Mediator.EventStore.EF
                 var events = await dbContext.Events.Where(x => x.AggregateId == aggregateId).ToListAsync();
                 foreach (var @event in events)
                 {
-                    var domainEvent = JsonConvert.DeserializeObject(@event.Body, Type.GetType(@event.Type));
+                    var domainEvent = JsonConvert.DeserializeObject(@event.Data, Type.GetType(@event.Type));
                     result.Add((DomainEvent)domainEvent);
                 }
             }
@@ -88,7 +88,7 @@ namespace Weapsy.Mediator.EventStore.EF
                 var events = dbContext.Events.Where(x => x.AggregateId == aggregateId).ToList();
                 foreach (var @event in events)
                 {
-                    var domainEvent = JsonConvert.DeserializeObject(@event.Body, Type.GetType(@event.Type));
+                    var domainEvent = JsonConvert.DeserializeObject(@event.Data, Type.GetType(@event.Type));
                     result.Add((DomainEvent)domainEvent);
                 }
             }

@@ -6,14 +6,14 @@
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>
     <Product>Weapsy.Mediator</Product>
-    <Description>Mediator for .NET Core</Description>
+    <Description>Mediator for .NET Core that can be used in many scenarios, from a simple command/query pattern to a more complex CQRS with Event Sourcing.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Mediator/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>2017 Luca Briguglia</Copyright>
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Mediator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Mediator</RepositoryUrl>
     <PackageTags>.net core, mediator, ddd, cqrs, event sourcing</PackageTags>
-    <Version>1.4.0</Version>
+    <Version>1.5.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Weapsy.Mediator.Domain;
 
@@ -14,7 +13,7 @@ namespace Weapsy.Mediator.Examples.Domain.Commands
             _repository = repository;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProductTitle command)
+        public async Task<IAggregateRoot> HandleAsync(UpdateProductTitle command)
         {
             var product = await _repository.GetByIdAsync(command.AggregateRootId);
 
@@ -23,7 +22,7 @@ namespace Weapsy.Mediator.Examples.Domain.Commands
 
             product.UpdateTitle(command.Title);
 
-            return product.Events;
+            return product;
         }
     }
 }

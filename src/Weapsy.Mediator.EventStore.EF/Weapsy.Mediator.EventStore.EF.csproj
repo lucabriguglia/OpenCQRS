@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>1.4.0</Version>
+    <Version>1.5.0</Version>
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>
     <Product>Weapsy.Mediator</Product>
-    <Description>Entity Framework Core implementation for the Weapsy.Mediator event store</Description>
+    <Description>Entity Framework Core implementation for Weapsy.Mediator event store</Description>
     <Copyright>2017 Luca Briguglia</Copyright>
     <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Mediator/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Mediator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Mediator</RepositoryUrl>
     <RepositoryType></RepositoryType>
-    <PackageTags>.net core, mediator, ddd, cqrs, event sourcing</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>asp.net, core, mediator, ddd, cqrs, event sourcing, entity framework</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +21,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
   </ItemGroup>
 

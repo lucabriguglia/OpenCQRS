@@ -7,5 +7,7 @@ namespace Weapsy.Mediator.Domain
         public Guid AggregateRootId { get; set; }
         public int Version { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
+        public Guid UserId { get; set; }
+        public string Source { get; set; }
     }
 }

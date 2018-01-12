@@ -70,9 +70,9 @@ namespace Weapsy.Mediator.Commands
             if (commandHandler == null)
                 throw new ApplicationException($"No handler of type IDomainCommandHandler<TCommand> found for command '{command.GetType().FullName}'");
 
-            var events = commandHandler.Handle(command);
+            var aggregateRoot = commandHandler.Handle(command);
 
-            foreach (var @event in events)
+            foreach (var @event in aggregateRoot.Events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                 _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent);

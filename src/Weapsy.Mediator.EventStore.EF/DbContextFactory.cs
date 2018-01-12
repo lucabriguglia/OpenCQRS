@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Extensions.Options;
 using Weapsy.Mediator.Dependencies;
 using Weapsy.Mediator.EventStore.EF.Configuration;
@@ -8,27 +7,23 @@ namespace Weapsy.Mediator.EventStore.EF
 {
     public class DbContextFactory : IDbContextFactory
     {
-        private MediatorData DataConfiguration { get; }
-        private ConnectionStrings ConnectionStrings { get; }
         private readonly IResolver _resolver;
+        private readonly string _eventStoreConnection;
 
-        public DbContextFactory(IOptions<MediatorData> dataOptions,
-            IOptions<ConnectionStrings> connectionStringsOptions,
-            IResolver resolver)
+        public DbContextFactory(IResolver resolver, IOptions<ConnectionStrings> connectionStringsOptions)
         {
-            DataConfiguration = dataOptions.Value;
-            ConnectionStrings = connectionStringsOptions.Value;
             _resolver = resolver;
+            _eventStoreConnection = connectionStringsOptions.Value.EventStoreConnection;
         }
 
         public MediatorDbContext CreateDbContext()
         {
-            var dataProvider = _resolver.ResolveAll<IDataProvider>().SingleOrDefault(x => x.Provider == DataConfiguration.EFProvider);
+            var dataProvider = _resolver.Resolve<IDataProvider>();
 
             if (dataProvider == null)
-                throw new Exception("The Data Provider entry in appsettings.json is empty or the one specified has not been found.");
+                throw new ApplicationException("Event store data provider not found.");
 
-            return dataProvider.CreateDbContext(ConnectionStrings.MediatorConnection);
+            return dataProvider.CreateDbContext(_eventStoreConnection);
         }
     }
 }

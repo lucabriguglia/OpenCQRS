@@ -33,7 +33,7 @@ namespace Weapsy.Mediator.Tests
         private CreateAggregate _createAggregate;
         private AggregateCreated _aggregateCreated;
         private AggregateCreated _aggregateCreatedConcrete;
-        private IEnumerable<IDomainEvent> _domainEvents;
+        private Aggregate _aggregate;
 
         [SetUp]
         public void SetUp()
@@ -43,10 +43,10 @@ namespace Weapsy.Mediator.Tests
             _somethingCreatedConcrete = new SomethingCreated();
             _events = new List<IEvent> { _somethingCreated };
 
-            _createAggregate = new CreateAggregate();
-            _aggregateCreated = new AggregateCreated();
+            _createAggregate = new CreateAggregate();           
             _aggregateCreatedConcrete = new AggregateCreated();
-            _domainEvents = new List<IDomainEvent> { _aggregateCreated };
+            _aggregate = new Aggregate();
+            _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
 
             _eventPublisher = new Mock<IEventPublisherAsync>();
             _eventPublisher
@@ -82,7 +82,7 @@ namespace Weapsy.Mediator.Tests
             _domainCommandHandlerAsync = new Mock<IDomainCommandHandlerAsync<CreateAggregate>>();
             _domainCommandHandlerAsync
                 .Setup(x => x.HandleAsync(_createAggregate))
-                .ReturnsAsync(_domainEvents);
+                .ReturnsAsync(_aggregate);
 
             _resolver = new Mock<IResolver>();
             _resolver

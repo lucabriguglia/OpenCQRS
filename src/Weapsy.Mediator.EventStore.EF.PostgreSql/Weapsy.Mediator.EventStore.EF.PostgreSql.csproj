@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.5.0</Version>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Weapsy</Company>
+    <Product>Weapsy.Mediator</Product>
+    <Copyright>2017 Luca Briguglia</Copyright>
+    <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Mediator/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Mediator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/Weapsy.Mediator</RepositoryUrl>
+    <PackageTags>asp.net, core, mediator, ddd, cqrs, event sourcing, entity framework, postgresql</PackageTags>
+    <Description>PostgreSql database provider for Weapsy.Mediator event store</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Weapsy.Mediator.EventStore.EF\Weapsy.Mediator.EventStore.EF.csproj" />
+    <ProjectReference Include="..\Weapsy.Mediator\Weapsy.Mediator.csproj" />
+  </ItemGroup>
+
+</Project>

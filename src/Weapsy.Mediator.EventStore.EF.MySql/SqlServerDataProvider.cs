@@ -1,19 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Weapsy.Mediator.EventStore.EF.Configuration;
 
 // ReSharper disable InconsistentNaming
 
-namespace Weapsy.Mediator.EventStore.EF.Providers
+namespace Weapsy.Mediator.EventStore.EF.MySql
 {
-    public class MSSQLDataProvider : IDataProvider
+    public class SqlServerDataProvider : IDataProvider
     {
-        public DataProvider Provider { get; } = DataProvider.MSSQL;
-
         public IServiceCollection RegisterDbContext(IServiceCollection services, string connectionString)
         {
             services.AddDbContext<MediatorDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseMySQL(connectionString));
 
             return services;
         }
@@ -21,7 +18,7 @@ namespace Weapsy.Mediator.EventStore.EF.Providers
         public MediatorDbContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<MediatorDbContext>();
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseMySQL(connectionString);
 
             return new MediatorDbContext(optionsBuilder.Options);
         }

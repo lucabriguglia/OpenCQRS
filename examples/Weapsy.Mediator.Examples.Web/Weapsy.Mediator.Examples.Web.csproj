@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Weapsy.Mediator.EventStore.EF.SqlServer\Weapsy.Mediator.EventStore.EF.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\Weapsy.Mediator.EventStore.EF\Weapsy.Mediator.EventStore.EF.csproj" />
     <ProjectReference Include="..\..\src\Weapsy.Mediator.EventStore.Xml\Weapsy.Mediator.EventStore.Xml.csproj" />
     <ProjectReference Include="..\..\src\Weapsy.Mediator\Weapsy.Mediator.csproj" />
