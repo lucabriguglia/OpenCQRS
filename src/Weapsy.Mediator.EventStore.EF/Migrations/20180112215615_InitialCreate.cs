@@ -26,9 +26,11 @@ namespace Weapsy.Mediator.EventStore.EF.Migrations
                 {
                     AggregateId = table.Column<Guid>(nullable: false),
                     SequenceNumber = table.Column<int>(nullable: false),
-                    Body = table.Column<string>(nullable: true),
+                    Data = table.Column<string>(nullable: true),
+                    Source = table.Column<string>(nullable: true),
                     TimeStamp = table.Column<DateTime>(nullable: false),
-                    Type = table.Column<string>(nullable: true)
+                    Type = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

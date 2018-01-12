@@ -11,7 +11,7 @@ using Weapsy.Mediator.EventStore.EF;
 namespace Weapsy.Mediator.EventStore.EF.Migrations
 {
     [DbContext(typeof(MediatorDbContext))]
-    [Migration("20171116194544_InitialCreate")]
+    [Migration("20180112215615_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,11 +39,15 @@ namespace Weapsy.Mediator.EventStore.EF.Migrations
 
                     b.Property<int>("SequenceNumber");
 
-                    b.Property<string>("Body");
+                    b.Property<string>("Data");
+
+                    b.Property<string>("Source");
 
                     b.Property<DateTime>("TimeStamp");
 
                     b.Property<string>("Type");
+
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("AggregateId", "SequenceNumber");
 

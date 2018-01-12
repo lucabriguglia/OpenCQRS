@@ -38,11 +38,15 @@ namespace Weapsy.Mediator.EventStore.EF.Migrations
 
                     b.Property<int>("SequenceNumber");
 
-                    b.Property<string>("Body");
+                    b.Property<string>("Data");
+
+                    b.Property<string>("Source");
 
                     b.Property<DateTime>("TimeStamp");
 
                     b.Property<string>("Type");
+
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("AggregateId", "SequenceNumber");
 
