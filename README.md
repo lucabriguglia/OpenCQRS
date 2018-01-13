@@ -1,5 +1,3 @@
-# THE FOLLOWING DOCUMENTATION REFERS TO A PREVIOUS VERSION - UPDATE IN PROGRESS
-
 # Weapsy.Mediator
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
@@ -10,15 +8,17 @@ Mediator for .NET Core that can be used in many scenarios, from a simple command
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.MySql-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.PostgreSql-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.MySql-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.Sqlite-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.PostgreSql-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.SqlServer-1.5.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.Sqlite-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.Sqlite)
+
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.SqlServer-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.SqlServer)
 
 Via Package Manager
 
@@ -32,20 +32,22 @@ Or via Paket CLI
 
     paket add Weapsy.Mediator
 
-For Event Sourcing, an event store provider needs to be installed.
-At the moment, the only available is the entity framework event store but more will be added soon (Blob Storage, Xml and MongoDB).
+For Event Sourcing, an event store data provider needs to be installed.
+There are few already available but more are coming up.
+Install one between SqlServer, MySql, PostgreSql and Sqlite.
+The following example is for the SqlServer package.
 
 Via Package Manager
 
-    Install-Package Weapsy.Mediator.EventStore.EF
+    Install-Package Weapsy.Mediator.EventStore.EF.SqlServer
     
 Or via .NET CLI
 
-    dotnet add package Weapsy.Mediator.EventStore.EF
+    dotnet add package Weapsy.Mediator.EventStore.EF.SqlServer
     
 Or via Paket CLI
 
-    paket add Weapsy.Mediator.EventStore.EF
+    paket add Weapsy.Mediator.EventStore.EF.SqlServer
 
 ## Using Weapsy.Mediator
 
@@ -63,41 +65,29 @@ CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
 In order to use the event sourcing functionalities, an event store provider needs to be added as well.
-In this case, we are using the entity framework event store.
 
 ```C#
-services.AddWeapsyMediatorEF(Configuration);
+services.AddWeapsyMediatorEventStore(Configuration);
 ```
 
-The EFEventStore uses a db context and it needs to be configured.
-First, add the following options in appsettings.json :
+Add the connection string to appsettings.json :
 
 ```JSON
-"MediatorData": {
-	"Type": "EF", // Options: EF, XML, BlobStorage
-	"EFProvider": "MSSQL" // Options: MSSQL, MySQL, SQLite, PostgreSQL
-},
 "ConnectionStrings": {
-	"MediatorConnection": "Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"
+	"EventStoreConnection": "Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"
 }
 ```
-Next, configure the options when registering the services:
+
+If entity framework is used, database can be installed adding this line in the Configure method of Startup.cs:
 
 ```C#
-services.AddOptions();
-services.AddWeapsyMediatorEFOptions(Configuration);
+eventStoreDbContext.Database.Migrate();
 ```
 
-If entity framework is used, databse can be installed adding this line in the Configure method of Startup.cs:
+eventStoreDbContext is passed as a parameter:
 
 ```C#
-mediatorDbContext.Database.Migrate();
-```
-
-mediatorDbContext is passed as a parameter:
-
-```C#
-public void Configure(IApplicationBuilder app, IHostingEnvironment env, MediatorDbContext mediatorDbContext)
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, EventStoreDbContext eventStoreDbContext)
 ```
 
 ### Basics
@@ -314,7 +304,7 @@ public class Product : AggregateRoot
 }
 ```
 
-Note that the empty constructor is required in order to create a new object using reflection.
+Note that the empty constructor is required in order to create a new object.
 After every command has been executed, an event is added to the pending event list calling the AddEvent method.
 The Apply methods are called automatically when new events are added and are also used to load the object from the history when GetById method of the Repository is called.
 Create the first handler:
@@ -322,13 +312,13 @@ Create the first handler:
 ```C#
 public class CreateProductHandlerAsync : IDomainCommandHandlerAsync<CreateProduct>
 {
-    public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
+    public async Task<IAggregateRoot> HandleAsync(CreateProduct command)
     {
         await Task.CompletedTask;
 
         var product = new Product(command.AggregateId, command.Title);
 
-        return product.Events;
+        return product;
     }
 }
 ```
@@ -365,7 +355,7 @@ public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
 }
 ```
 
-At this point, the aggregate and the first event have been saved in the event store and the product can be retrieved from the repository.
+At this point, the aggregate and the first event have been saved to the event store and the product can be retrieved from the event store using the repository.
 New commands, events and handlers can now be added:
 
 ```C#
@@ -388,7 +378,7 @@ public class UpdateProductTitleHandlerAsync : IDomainCommandHandlerAsync<UpdateP
         _repository = repository;
     }
 
-    public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProductTitle command)
+    public async Task<IAggregateRoot> HandleAsync(UpdateProductTitle command)
     {
         var product = await _repository.GetByIdAsync(command.AggregateId);
 
@@ -397,7 +387,7 @@ public class UpdateProductTitleHandlerAsync : IDomainCommandHandlerAsync<UpdateP
 
         product.UpdateTitle(command.Title);
 
-        return product.Events;
+        return product;
     }
 }
 
@@ -431,5 +421,4 @@ Next time the aggregate is loaded from the repository, two events will be applie
 - Add more event store providers
     - Xml
     - Blob Storage
-    - MongoDB
-- Add custom domain event properties
+    - Cosmos DB
