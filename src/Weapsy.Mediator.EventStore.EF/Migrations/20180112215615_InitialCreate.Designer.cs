@@ -10,7 +10,7 @@ using Weapsy.Mediator.EventStore.EF;
 
 namespace Weapsy.Mediator.EventStore.EF.Migrations
 {
-    [DbContext(typeof(MediatorDbContext))]
+    [DbContext(typeof(EventStoreDbContext))]
     [Migration("20180112215615_InitialCreate")]
     partial class InitialCreate
     {

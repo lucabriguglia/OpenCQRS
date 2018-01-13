@@ -11,7 +11,7 @@ namespace Weapsy.Mediator.EventStore.EF.Extensions
         public static IServiceCollection AddWeapsyMediatorEF(this IServiceCollection services, IConfiguration configuration)
         {
             services.Scan(s => s
-                .FromAssembliesOf(typeof(MediatorDbContext))
+                .FromAssembliesOf(typeof(EventStoreDbContext))
                 .AddClasses()
                 .AsImplementedInterfaces());
 

@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Weapsy.Mediator.EventStore.EF
 {
-    public class MigrationsDbContextFactory : IDesignTimeDbContextFactory<MediatorDbContext>
+    public class MigrationsDbContextFactory : IDesignTimeDbContextFactory<EventStoreDbContext>
     {
-        public MediatorDbContext CreateDbContext(string[] args)
+        public EventStoreDbContext CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<MediatorDbContext>();
+            var builder = new DbContextOptionsBuilder<EventStoreDbContext>();
             builder.UseSqlServer("UsedForMigrationsOnlyUntilClassLibraryBugIsFixed");
 
-            return new MediatorDbContext(builder.Options);
+            return new EventStoreDbContext(builder.Options);
         }
     }
 }

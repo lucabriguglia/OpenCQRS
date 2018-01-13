@@ -2,6 +2,6 @@
 {
     public interface IDbContextFactory
     {
-        MediatorDbContext CreateDbContext();
+        EventStoreDbContext CreateDbContext();
     }
 }

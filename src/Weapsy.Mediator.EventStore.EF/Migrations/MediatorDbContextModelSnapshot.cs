@@ -10,7 +10,7 @@ using Weapsy.Mediator.EventStore.EF;
 
 namespace Weapsy.Mediator.EventStore.EF.Migrations
 {
-    [DbContext(typeof(MediatorDbContext))]
+    [DbContext(typeof(EventStoreDbContext))]
     partial class MediatorDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

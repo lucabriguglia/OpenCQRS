@@ -32,10 +32,10 @@ namespace Weapsy.Mediator.Examples.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMediator mediator, MediatorDbContext mediatorDbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMediator mediator, EventStoreDbContext eventStoreDbContext)
         {
             // Ensure Weapsy.Mediator database is installed.
-            mediatorDbContext.Database.Migrate();
+            eventStoreDbContext.Database.Migrate();
 
             if (env.IsDevelopment())
             {

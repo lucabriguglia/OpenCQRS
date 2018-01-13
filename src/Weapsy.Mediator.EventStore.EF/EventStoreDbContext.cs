@@ -3,9 +3,9 @@ using Weapsy.Mediator.EventStore.EF.Entities;
 
 namespace Weapsy.Mediator.EventStore.EF
 {
-    public class MediatorDbContext : DbContext
+    public class EventStoreDbContext : DbContext
     {
-        public MediatorDbContext(DbContextOptions<MediatorDbContext> options)
+        public EventStoreDbContext(DbContextOptions<EventStoreDbContext> options)
             : base(options)
         {
         }

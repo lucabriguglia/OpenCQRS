@@ -16,7 +16,7 @@ namespace Weapsy.Mediator.EventStore.EF
             _eventStoreConnection = connectionStringsOptions.Value.EventStoreConnection;
         }
 
-        public MediatorDbContext CreateDbContext()
+        public EventStoreDbContext CreateDbContext()
         {
             var dataProvider = _resolver.Resolve<IDataProvider>();
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Weapsy.Mediator.Domain;
 using Weapsy.Mediator.EventStore.EF.Extensions;
 
 namespace Weapsy.Mediator.EventStore.EF.SqlServer
@@ -11,12 +12,12 @@ namespace Weapsy.Mediator.EventStore.EF.SqlServer
         {
             services.AddWeapsyMediatorEF(configuration);
 
-            var connectionString = configuration.GetConnectionString("EventStoreConnection");
+            var connectionString = configuration.GetConnectionString(Constants.EventStoreConnection);
 
-            services.AddDbContext<MediatorDbContext>(options =>
+            services.AddDbContext<EventStoreDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddTransient<IDataProvider, SqlServerDataProvider>();
+            services.AddTransient<IDataProvider, DataProvider>();
 
             return services;
         }
