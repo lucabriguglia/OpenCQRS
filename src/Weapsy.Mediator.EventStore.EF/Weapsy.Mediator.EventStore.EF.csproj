@@ -6,14 +6,14 @@
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>
     <Product>Weapsy.Mediator</Product>
-    <Description>Entity Framework Core implementation for Weapsy.Mediator event store</Description>
+    <Description>EF Core data provider for Weapsy.Mediator event store.</Description>
     <Copyright>2017 Luca Briguglia</Copyright>
     <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Mediator/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Mediator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Mediator</RepositoryUrl>
     <RepositoryType></RepositoryType>
     <PackageTags>asp.net, core, mediator, ddd, cqrs, event sourcing, entity framework</PackageTags>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
