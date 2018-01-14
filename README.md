@@ -455,3 +455,4 @@ Note the two optional properties can be saved for the domain events:
 ## Roadmap
 
 - Add more event store providers
+- Add Azure Service Bus integration
