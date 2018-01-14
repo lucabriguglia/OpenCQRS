@@ -392,7 +392,7 @@ New commands, events and handlers can now be added:
 
 ```C#
 public class UpdateProductTitle : DomainCommand
-{
+- {
     public string Title { get; set; }
 }
 
@@ -454,5 +454,6 @@ Note the two optional properties can be saved for the domain events:
 
 ## Roadmap
 
+- Add settings for custom table names for entity framework
 - Add more event store providers
 - Add Azure Service Bus integration
