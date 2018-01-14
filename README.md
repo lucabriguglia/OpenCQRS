@@ -8,17 +8,19 @@ Library for .NET Core that can be used in many scenarios, from a simple command/
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.CosmosDB.Sql-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.MySql-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.PostgreSql-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.MySql-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.Sqlite-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.PostgreSql-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.SqlServer-1.5.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.Sqlite-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.Sqlite)
+
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.SqlServer-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.SqlServer)
 
 Via Package Manager
 
@@ -424,6 +426,3 @@ Note the two optional properties can be saved for the domain events:
 ## Roadmap
 
 - Add more event store providers
-    - Xml
-    - Blob Storage
-    - Cosmos DB
