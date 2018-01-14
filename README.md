@@ -46,14 +46,15 @@ Via Package Manager
 Or via .NET CLI
 
     dotnet add package Weapsy.Mediator.EventStore.EF.SqlServer
-    
+
+
 Or via Paket CLI
 
     paket add Weapsy.Mediator.EventStore.EF.SqlServer
 
 ## Using Weapsy.Mediator
 
-A fully working example, including CQRS and Event Sourcing, is available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
+Working examples for CQRS and Event Sourcing are available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
 
 ### Register services
 
@@ -67,12 +68,43 @@ CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
 In order to use the event sourcing functionalities, an event store provider needs to be added as well.
+Weapsy.Mediator currently supports the following data providers:
+- CosmosDB SQL (DocumentDB)
+- SqlServer
+- MySql
+- PostgreSql
+- Sqlite
+
+Please install the nuget package of your choice and register the event store:
 
 ```C#
 services.AddWeapsyMediatorEventStore(Configuration);
 ```
 
-Add the connection string to appsettings.json :
+For CosmosDB install the free emulator (https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator) and add the following settings to appsettings.json:
+
+```JSON
+{
+  "CosmosDBSettings": {
+    "ServerEndpoint": "https://localhost:8081",
+    "AuthKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+    "DatabaseId": "EventStore",
+    "AggregateCollectionId": "Aggregates",
+    "EventCollectionId": "Events"
+  }
+}
+```
+
+And add the following check in the Configure method:
+
+```C#
+public void Configure(IApplicationBuilder app, IOptions<CosmosDBSettings> settings)
+{
+    app.EnsureEventStoreDbCreated(settings);
+}
+```
+
+For all the others based on Entity Framework Core add just the connection string to appsettings.json:
 
 ```JSON
 "ConnectionStrings": {
@@ -80,16 +112,13 @@ Add the connection string to appsettings.json :
 }
 ```
 
-If entity framework is used, database can be installed adding this line in the Configure method of Startup.cs:
+And the following line can be added to the Configure method to ensure that the database in installed:
 
 ```C#
-eventStoreDbContext.Database.Migrate();
-```
-
-eventStoreDbContext is passed as a parameter:
-
-```C#
-public void Configure(IApplicationBuilder app, IHostingEnvironment env, EventStoreDbContext eventStoreDbContext)
+public void Configure(IApplicationBuilder app, EventStoreDbContext eventStoreDbContext)
+{
+    eventStoreDbContext.Database.Migrate();
+}
 ```
 
 ### Basics
