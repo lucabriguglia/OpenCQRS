@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
 
-Mediator for .NET Core that can be used in many scenarios, from a simple command/query pattern to a more complex CQRS with Event Sourcing implementation.
+Library for .NET Core that can be used in many scenarios, from a simple command/query pattern to a more complex CQRS with Event Sourcing.
 
 ## Installing Weapsy.Mediator
 
@@ -356,6 +356,7 @@ public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
 ```
 
 At this point, the aggregate and the first event have been saved to the event store and the product can be retrieved from the event store using the repository.
+
 New commands, events and handlers can now be added:
 
 ```C#
@@ -415,6 +416,10 @@ await mediator.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProduc
 
 A new event is saved and the read model is updated using the event handler.
 Next time the aggregate is loaded from the repository, two events will be applied in order to recreate the current state.
+
+Note the two optional properties can be saved for the domain events:
+- UserId (Guid)
+- Source (string)
 
 ## Roadmap
 
