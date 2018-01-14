@@ -7,22 +7,22 @@
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>
     <Product>Weapsy.Mediator</Product>
+    <Description>CosmosDB SQL (DocumentDB) database provider for Weapsy.Mediator event store.</Description>
     <Copyright>2017 Luca Briguglia</Copyright>
     <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Mediator/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Mediator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Mediator</RepositoryUrl>
-    <PackageTags>asp.net, core, mediator, ddd, cqrs, event sourcing, entity framework, sqlite</PackageTags>
-    <Description>Sqlite database provider for Weapsy.Mediator event store</Description>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-    <FileVersion>1.6.0.0</FileVersion>
+    <PackageTags>asp.net, core, mediator, ddd, cqrs, event sourcing, cosmosdb, documentdb</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.7.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Weapsy.Mediator.EventStore.EF\Weapsy.Mediator.EventStore.EF.csproj" />
     <ProjectReference Include="..\Weapsy.Mediator\Weapsy.Mediator.csproj" />
   </ItemGroup>
 

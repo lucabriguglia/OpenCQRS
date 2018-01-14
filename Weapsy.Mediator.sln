@@ -29,13 +29,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapsy.Mediator.EventStore.EF.SqlServer", "src\Weapsy.Mediator.EventStore.EF.SqlServer\Weapsy.Mediator.EventStore.EF.SqlServer.csproj", "{8D8CBCF9-7BA5-48BE-894B-9454E5B0A6AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Mediator.EventStore.EF.SqlServer", "src\Weapsy.Mediator.EventStore.EF.SqlServer\Weapsy.Mediator.EventStore.EF.SqlServer.csproj", "{8D8CBCF9-7BA5-48BE-894B-9454E5B0A6AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapsy.Mediator.EventStore.EF.MySql", "src\Weapsy.Mediator.EventStore.EF.MySql\Weapsy.Mediator.EventStore.EF.MySql.csproj", "{76CE14DB-051A-446D-B954-D162AC1261AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Mediator.EventStore.EF.MySql", "src\Weapsy.Mediator.EventStore.EF.MySql\Weapsy.Mediator.EventStore.EF.MySql.csproj", "{76CE14DB-051A-446D-B954-D162AC1261AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Mediator.EventStore.EF.Sqlite", "src\Weapsy.Mediator.EventStore.EF.Sqlite\Weapsy.Mediator.EventStore.EF.Sqlite.csproj", "{7685F15A-2C32-42AB-9487-095C304FF314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapsy.Mediator.EventStore.EF.PostgreSql", "src\Weapsy.Mediator.EventStore.EF.PostgreSql\Weapsy.Mediator.EventStore.EF.PostgreSql.csproj", "{605A6F5A-9A52-4DC2-B371-E3B9E361B7F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Mediator.EventStore.EF.PostgreSql", "src\Weapsy.Mediator.EventStore.EF.PostgreSql\Weapsy.Mediator.EventStore.EF.PostgreSql.csproj", "{605A6F5A-9A52-4DC2-B371-E3B9E361B7F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapsy.Mediator.EventStore.CosmosDB.Sql", "src\Weapsy.Mediator.EventStore.CosmosDB.Sql\Weapsy.Mediator.EventStore.CosmosDB.Sql.csproj", "{A331D2FC-0F74-483F-9CB6-FB6EE399D5F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapsy.Mediator.Examples.Shared", "examples\Weapsy.Mediator.Examples.Shared\Weapsy.Mediator.Examples.Shared.csproj", "{FE5CCAAA-517C-4934-8C83-6EEEFBB6A9AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapsy.Mediator.Examples.Web.CosmosDB.Sql", "examples\Weapsy.Mediator.Examples.Web.CosmosDB.Sql\Weapsy.Mediator.Examples.Web.CosmosDB.Sql.csproj", "{5A9E8BBA-AFA2-48D0-BC2F-1E41C22DAECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +93,18 @@ Global
 		{605A6F5A-9A52-4DC2-B371-E3B9E361B7F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{605A6F5A-9A52-4DC2-B371-E3B9E361B7F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{605A6F5A-9A52-4DC2-B371-E3B9E361B7F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A331D2FC-0F74-483F-9CB6-FB6EE399D5F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A331D2FC-0F74-483F-9CB6-FB6EE399D5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A331D2FC-0F74-483F-9CB6-FB6EE399D5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A331D2FC-0F74-483F-9CB6-FB6EE399D5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5CCAAA-517C-4934-8C83-6EEEFBB6A9AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5CCAAA-517C-4934-8C83-6EEEFBB6A9AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5CCAAA-517C-4934-8C83-6EEEFBB6A9AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5CCAAA-517C-4934-8C83-6EEEFBB6A9AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A9E8BBA-AFA2-48D0-BC2F-1E41C22DAECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A9E8BBA-AFA2-48D0-BC2F-1E41C22DAECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A9E8BBA-AFA2-48D0-BC2F-1E41C22DAECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A9E8BBA-AFA2-48D0-BC2F-1E41C22DAECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +121,9 @@ Global
 		{76CE14DB-051A-446D-B954-D162AC1261AC} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{7685F15A-2C32-42AB-9487-095C304FF314} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{605A6F5A-9A52-4DC2-B371-E3B9E361B7F3} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
+		{A331D2FC-0F74-483F-9CB6-FB6EE399D5F9} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
+		{FE5CCAAA-517C-4934-8C83-6EEEFBB6A9AC} = {F791EE52-C0E1-4B23-9D14-4275A7630449}
+		{5A9E8BBA-AFA2-48D0-BC2F-1E41C22DAECE} = {F791EE52-C0E1-4B23-9D14-4275A7630449}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}

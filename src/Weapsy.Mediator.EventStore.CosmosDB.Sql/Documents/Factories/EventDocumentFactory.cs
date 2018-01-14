@@ -1,0 +1,22 @@
+﻿using Newtonsoft.Json;
+using Weapsy.Mediator.Domain;
+
+namespace Weapsy.Mediator.EventStore.CosmosDB.Sql.Documents.Factories
+{
+    public class EventDocumentFactory : IEventDocumentFactory
+    {
+        public EventDocument CreateEvent(IDomainEvent @event, int version)
+        {
+            return new EventDocument
+            {
+                AggregateId = @event.AggregateRootId,
+                Sequence = version,
+                Type = @event.GetType().AssemblyQualifiedName,
+                Data = JsonConvert.SerializeObject(@event),
+                TimeStamp = @event.TimeStamp,
+                UserId = @event.UserId,
+                Source = @event.Source
+            };
+        }
+    }
+}

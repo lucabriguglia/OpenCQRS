@@ -5,7 +5,7 @@ using Weapsy.Mediator.Examples.Domain.Commands;
 using Weapsy.Mediator.Examples.Reporting;
 using Weapsy.Mediator.Examples.Reporting.Queries;
 
-namespace Weapsy.Mediator.Examples.Web
+namespace Weapsy.Mediator.Examples.Shared
 {
     public static class GettingStarted
     {

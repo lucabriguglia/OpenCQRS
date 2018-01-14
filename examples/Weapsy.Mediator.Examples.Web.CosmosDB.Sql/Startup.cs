@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Weapsy.Mediator.EventStore.EF;
-using Weapsy.Mediator.EventStore.EF.SqlServer;
+using Microsoft.Extensions.Options;
+using Weapsy.Mediator.EventStore.CosmosDB.Sql.Configuration;
+using Weapsy.Mediator.EventStore.CosmosDB.Sql.Extensions;
 using Weapsy.Mediator.Examples.Domain.Commands;
 using Weapsy.Mediator.Examples.Reporting.Queries;
 using Weapsy.Mediator.Examples.Shared;
 using Weapsy.Mediator.Extensions;
 
-namespace Weapsy.Mediator.Examples.Web
+namespace Weapsy.Mediator.Examples.Web.CosmosDB.Sql
 {
     public class Startup
     {
@@ -33,17 +33,16 @@ namespace Weapsy.Mediator.Examples.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMediator mediator, EventStoreDbContext eventStoreDbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMediator mediator, IOptions<CosmosDBSettings> settings)
         {
-            // Ensure Weapsy.Mediator database is installed.
-            eventStoreDbContext.Database.Migrate();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async context =>
+            app.EnsureEventStoreDbCreated(settings);
+
+            app.Run(async (context) =>
             {
                 // Create a sample product loading data from domain events.
                 var product = await GettingStarted.CreateProduct(mediator);
