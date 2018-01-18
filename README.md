@@ -1,75 +1,76 @@
-# Weapsy.Mediator
+# Weapsy.CQRS
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
 
-Library for .NET Core that can be used in many scenarios, from a simple command/query pattern to a more complex CQRS with Event Sourcing.
+CQRS and Event Sourcing library for .NET Core.
 
-## Installing Weapsy.Mediator
+## Installing Weapsy.CQRS
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.CosmosDB.Sql-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.MySql-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.MySql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.PostgreSql-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.PostgreSql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.Sqlite-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.Sqlite-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Mediator.EventStore.EF.SqlServer-1.6.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Mediator.EventStore.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.SqlServer-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.SqlServer)
 
 Via Package Manager
 
-    Install-Package Weapsy.Mediator
+    Install-Package Weapsy.Cqrs
     
 Or via .NET CLI
 
-    dotnet add package Weapsy.Mediator
+    dotnet add package Weapsy.Cqrs
     
 Or via Paket CLI
 
-    paket add Weapsy.Mediator
+    paket add Weapsy.Cqrs
 
 For Event Sourcing, an event store data provider needs to be installed.
 There are few already available but more are coming up.
-Install one between SqlServer, MySql, PostgreSql and Sqlite.
-The following example is for the SqlServer package.
+Install one between CosmosDB Sql (DocumnentDB), CosmosDB MongoDB, SqlServer, MySql, PostgreSql and Sqlite.
+The following example is for the MongoDB package.
 
 Via Package Manager
 
-    Install-Package Weapsy.Mediator.EventStore.EF.SqlServer
+    Install-Package Weapsy.Cqrs.EventStore.CosmosDB.MongoDB
     
 Or via .NET CLI
 
-    dotnet add package Weapsy.Mediator.EventStore.EF.SqlServer
+    dotnet add package Weapsy.Cqrs.EventStore.CosmosDB.MongoDB
 
 
 Or via Paket CLI
 
-    paket add Weapsy.Mediator.EventStore.EF.SqlServer
+    paket add Weapsy.Mediator.Cqrs.EventStore.CosmosDB.MongoDB
 
-## Using Weapsy.Mediator
+## Using Weapsy.CQRS
 
-Working examples for CQRS and Event Sourcing are available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
+Working examples for different database providers are available in the examples folder of the repository https://github.com/Weapsy/Weapsy.Cqrs/tree/master/examples
 
 ### Register services
 
 In ConfigureServices method of Startup.cs:
 
 ```C#
-services.AddWeapsyMediator(typeof(CreateProduct), typeof(GetProduct));
+services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
 ```
 
 CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
 In order to use the event sourcing functionalities, an event store provider needs to be added as well.
-Weapsy.Mediator currently supports the following data providers:
+Weapsy.Cqrs currently supports the following data providers:
 - CosmosDB SQL (DocumentDB)
+- CosmosDB MongoDB
 - SqlServer
 - MySql
 - PostgreSql
@@ -78,10 +79,12 @@ Weapsy.Mediator currently supports the following data providers:
 Please install the nuget package of your choice and register the event store:
 
 ```C#
-services.AddWeapsyMediatorEventStore(Configuration);
+services.AddWeapsyCqrsEventStore(Configuration);
 ```
 
-For CosmosDB install the free emulator (https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator) and add the following settings to appsettings.json:
+In order to use CosmosDB you need to install the free emulator (https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator) and add some settings to the appsettings.json.
+
+For CosmosDB SQL (DocumentDB):
 
 ```JSON
 {
@@ -91,6 +94,19 @@ For CosmosDB install the free emulator (https://docs.microsoft.com/en-us/azure/c
     "DatabaseId": "EventStore",
     "AggregateCollectionId": "Aggregates",
     "EventCollectionId": "Events"
+  }
+}
+```
+
+For CosmosDB MongoDB:
+
+```JSON
+{
+  "CosmosDBSettings": {
+    "ConnectionString": "mongodb://localhost:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==@localhost:10255/admin?ssl=true",
+    "DatabaseName": "EventStore",
+    "AggregateCollectionName": "Aggregates",
+    "EventCollectionName": "Events"
   }
 }
 ```
@@ -123,6 +139,7 @@ public void Configure(IApplicationBuilder app, EventStoreDbContext eventStoreDbC
 
 ### Basics
 
+There is a single interface to be used, IDispatcher in Weapsy.Cqrs namespace.
 Note that all handlers are available as asynchronous and as well as synchronous, but for these examples I'm using the asynchronous versions only.
 
 There are 3 kinds of messages:
@@ -152,16 +169,16 @@ public class DoSomethingHandlerAsync : ICommandHandlerAsync<DoSomething>
 }
 ```
 
-And finally, send the command using the mediator:
+And finally, send the command using the dispatcher:
 
 ```C#
 var command = new DoSomething();
-await _mediator.SendAsync(command)
+await _dispatcher.SendAsync(command)
 ```
 
 #### Command (with events)
 
-Using the SendAndPublishAsync method, the mediator will automatically publish the events returned by the handler.
+Using the SendAndPublishAsync method, the dispatcher will automatically publish the events returned by the handler.
 
 First, create a command and an event:
 
@@ -188,11 +205,11 @@ public class DoSomethingHandlerAsync : ICommandHandlerWithEventsAsync<DoSomethin
 }
 ```
 
-And finally, send the command and publish the events using the mediator:
+And finally, send the command and publish the events using the dispatcher:
 
 ```C#
 var command = new DoSomething();
-await _mediator.SendAndPublishAsync(command)
+await _dispatcher.SendAndPublishAsync(command)
 ```
 
 #### Event
@@ -229,7 +246,7 @@ And finally, publish the event using the mediator:
 
 ```C#
 var @event = new SomethingHappened();
-await _mediator.PublishAsync(@event)
+await _dispatcher.PublishAsync(@event)
 ```
 
 #### Query/Result
@@ -260,17 +277,17 @@ public class GetSomethingQueryHandlerAsync : IQueryHandlerAsync<GetSomething, So
 }
 ```
 
-And finally, get the result using the mediator:
+And finally, get the result using the dispatcher:
 
 ```C#
 var query = new GetSomething{ Id = 123 };
-var something = await _mediator.GetResultAsync<GetSomething, Something>(query);
+var something = await _dispatcher.GetResultAsync<GetSomething, Something>(query);
 ```
 
-### Advanced (CQRS and Event Sourcing)
+### Event Sourcing
 
-Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the mediator will automatically publish the events returned by the handler and save those events in the event store.
-A working example can be found at https://github.com/Weapsy/Weapsy.Mediator/tree/master/examples
+Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the dispatcher will automatically publish the events of the aggregate returned by the handler and save those events to the event store.
+A working example can be found at https://github.com/Weapsy/Weapsy.Cqrs/tree/master/examples
 
 First, create a command and an event:
 
@@ -354,7 +371,7 @@ public class CreateProductHandlerAsync : IDomainCommandHandlerAsync<CreateProduc
 }
 ```
 
-Send the command using the mediator:
+Send the command using the dispatcher:
 
 ```C#
 var command = new CreateProduct
@@ -362,10 +379,10 @@ var command = new CreateProduct
     AggregateId = Guid.NewGuid(),
     Title = "My brand new product"
 };
-await _mediator.SendAndPublishAsync<CreateProduct, Product>(command)
+await _dispatcher.SendAndPublishAsync<CreateProduct, Product>(command)
 ```
 
-In a CQRS scenario, we want to create our read model.
+At this stage, we might want to create our read model.
 It can be achieved by creating an event handler:
 
 ```C#
@@ -435,10 +452,10 @@ public class ProductTitleUpdatedHandlerAsync : IEventHandlerAsync<ProductTitleUp
 }
 ```
 
-As per prevoius example, the mediator can be used to update the product.
+As per prevoius example, the dispatcher can be used to update the product.
 
 ```C#
-await mediator.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
+await dispatcher.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
 {
     AggregateId = productId,
     Title = "Updated product title"
