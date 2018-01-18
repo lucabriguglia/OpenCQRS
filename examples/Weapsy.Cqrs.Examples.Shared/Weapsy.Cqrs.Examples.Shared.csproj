@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs.Examples.Domain\Weapsy.Cqrs.Examples.Domain.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs.Examples.Reporting\Weapsy.Cqrs.Examples.Reporting.csproj" />
+  </ItemGroup>
+
+</Project>

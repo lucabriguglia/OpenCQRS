@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageId>Weapsy.Cqrs.EventStore.EF.SqlServer</PackageId>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Weapsy</Company>
+    <Product>Weapsy.Cqrs</Product>
+    <Description>SQL Server database provider for Weapsy.Cqrs event store.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Cqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>2018 Luca Briguglia</Copyright>
+    <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Cqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/Weapsy.Cqrs</RepositoryUrl>
+    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, sql, sqlserver, mssql</PackageTags>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Weapsy.Cqrs.EventStore.EF\Weapsy.Cqrs.EventStore.EF.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
+  </ItemGroup>
+
+</Project>

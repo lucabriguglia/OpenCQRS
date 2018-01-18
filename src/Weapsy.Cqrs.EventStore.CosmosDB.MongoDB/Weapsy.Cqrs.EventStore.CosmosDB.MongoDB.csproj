@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageId>Weapsy.Cqrs.EventStore.CosmosDB.MongoDB</PackageId>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Weapsy</Company>
+    <Product>Weapsy.Cqrs</Product>
+    <Description>CosmosDB (MongoDB) database provider for Weapsy.Cqrs event store.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Cqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>2018 Luca Briguglia</Copyright>
+    <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Cqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/Weapsy.Cqrs</RepositoryUrl>
+    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, cosmosdb, mongodb</PackageTags>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
+  </ItemGroup>
+
+</Project>
