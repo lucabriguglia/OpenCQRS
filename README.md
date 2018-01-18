@@ -1,6 +1,6 @@
 # Weapsy.CQRS
 
-[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-mediator)
+[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-cqrs)
 
 CQRS and Event Sourcing library for .NET Core.
 
