@@ -10,6 +10,8 @@ Nuget Packages
 
 [![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB)
+
 [![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
 
 [![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
