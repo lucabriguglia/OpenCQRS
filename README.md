@@ -14,8 +14,6 @@ Nuget Packages
 
 [![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
-
 [![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.MySql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
 
 [![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.PostgreSql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.PostgreSql)
