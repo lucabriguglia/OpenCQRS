@@ -111,7 +111,7 @@ For CosmosDB MongoDB:
 }
 ```
 
-And add the following check in the Configure method (for CosmosDb SQL (DocumentDB) only):
+And add the following check in the Configure method (for CosmosDB SQL (DocumentDB) only):
 
 ```C#
 public void Configure(IApplicationBuilder app, IOptions<CosmosDBSettings> settings)
@@ -473,4 +473,6 @@ Note the two optional properties can be saved for the domain events:
 
 - Add settings for custom table names for entity framework
 - Add more event store providers
-- Add Azure Service Bus integration
+- Add message bus integration
+	- Azure Service Bus
+	- RabbitMQ
