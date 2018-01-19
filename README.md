@@ -111,7 +111,7 @@ For CosmosDB MongoDB:
 }
 ```
 
-And add the following check in the Configure method:
+And add the following check in the Configure method (for CosmosDb SQL (DocumentDB) only):
 
 ```C#
 public void Configure(IApplicationBuilder app, IOptions<CosmosDBSettings> settings)
