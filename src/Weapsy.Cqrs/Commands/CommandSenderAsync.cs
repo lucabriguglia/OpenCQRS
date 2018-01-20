@@ -15,21 +15,22 @@ namespace Weapsy.Cqrs.Commands
     {
         private readonly IResolver _resolver;
         private readonly IEventPublisherAsync _eventPublisher;
-        private readonly IEventStore _eventStore;
         private readonly IEventFactory _eventFactory;
+        private readonly IRepository<IAggregateRoot> _repository;
 
         public CommandSenderAsync(IResolver resolver,
             IEventPublisherAsync eventPublisher, 
-            IEventStore eventStore, 
-            IEventFactory eventFactory)
+            IEventFactory eventFactory, 
+            IRepository<IAggregateRoot> repository)
         {
             _resolver = resolver;
             _eventPublisher = eventPublisher;
-            _eventStore = eventStore;
             _eventFactory = eventFactory;
+            _repository = repository;
         }
 
-        public async Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
+        public async Task SendAsync<TCommand>(TCommand command) 
+            where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
@@ -42,7 +43,8 @@ namespace Weapsy.Cqrs.Commands
             await commandHandler.HandleAsync(command);
         }
 
-        public async Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
+        public async Task SendAndPublishAsync<TCommand>(TCommand command) 
+            where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
@@ -61,22 +63,25 @@ namespace Weapsy.Cqrs.Commands
             }
         }
 
-        public async Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command) where TCommand : IDomainCommand where TAggregate : IAggregateRoot
+        public async Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand
+            where TAggregate : IAggregateRoot
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<IDomainCommandHandlerAsync<TCommand>>();
+            var commandHandler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
 
             if (commandHandler == null)
-                throw new ApplicationException($"No handler of type IDomainCommandHandlerAsync<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type ICommandHandlerWithAggregateAsync<TCommand> found for command '{command.GetType().FullName}'");
 
             var aggregateRoot = await commandHandler.HandleAsync(command);
+
+            await _repository.SaveAsync(aggregateRoot);
 
             foreach (var @event in aggregateRoot.Events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
                 await _eventPublisher.PublishAsync(concreteEvent);
             }
         }

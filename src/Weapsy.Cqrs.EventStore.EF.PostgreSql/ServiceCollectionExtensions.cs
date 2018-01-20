@@ -12,7 +12,7 @@ namespace Weapsy.Cqrs.EventStore.EF.PostgreSql
         {
             services.AddWeapsyCqrsEF(configuration);
 
-            var connectionString = configuration.GetConnectionString(Constants.EventStoreConnection);
+            var connectionString = configuration.GetSection(Constants.EventStoreConnectionString).Value;
 
             services.AddDbContext<EventStoreDbContext>(options =>
                 options.UseNpgsql(connectionString));

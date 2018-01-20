@@ -14,18 +14,18 @@ namespace Weapsy.Cqrs.Commands
     {
         private readonly IResolver _resolver;
         private readonly IEventPublisher _eventPublisher;
-        private readonly IEventStore _eventStore;
         private readonly IEventFactory _eventFactory;
+        private readonly IRepository<IAggregateRoot> _repository;
 
         public CommandSender(IResolver resolver,
-            IEventPublisher eventPublisher, 
-            IEventStore eventStore, 
-            IEventFactory eventFactory)
+            IEventPublisher eventPublisher,  
+            IEventFactory eventFactory, 
+            IRepository<IAggregateRoot> repository)
         {
             _resolver = resolver;
             _eventPublisher = eventPublisher;
-            _eventStore = eventStore;
             _eventFactory = eventFactory;
+            _repository = repository;
         }
 
         public void Send<TCommand>(TCommand command) where TCommand : ICommand
@@ -65,17 +65,17 @@ namespace Weapsy.Cqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<IDomainCommandHandler<TCommand>>();
+            var commandHandler = _resolver.Resolve<ICommandHandlerWithAggregate<TCommand>>();
 
             if (commandHandler == null)
-                throw new ApplicationException($"No handler of type IDomainCommandHandler<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
 
             var aggregateRoot = commandHandler.Handle(command);
+            _repository.Save(aggregateRoot);
 
             foreach (var @event in aggregateRoot.Events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent);
                 _eventPublisher.Publish(concreteEvent);
             }
         }

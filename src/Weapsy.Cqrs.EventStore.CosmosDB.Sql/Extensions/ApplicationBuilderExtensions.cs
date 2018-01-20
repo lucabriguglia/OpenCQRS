@@ -10,7 +10,7 @@ namespace Weapsy.Cqrs.EventStore.CosmosDB.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder EnsureEventStoreDbCreated(this IApplicationBuilder app, IOptions<CosmosDBSettings> settings)
+        public static IApplicationBuilder EnsureEventStoreDbCreated(this IApplicationBuilder app, IOptions<EventStoreConfiguration> settings)
         {
             var documentClient = app.ApplicationServices.GetRequiredService<IDocumentClient>();
 

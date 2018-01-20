@@ -1,6 +1,6 @@
 ﻿namespace Weapsy.Cqrs.EventStore.CosmosDB.MongoDB.Configuration
 {
-    public class CosmosDBSettings
+    public class EventStoreConfiguration
     {
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }

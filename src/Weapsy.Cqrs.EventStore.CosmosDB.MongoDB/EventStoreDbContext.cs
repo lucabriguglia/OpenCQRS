@@ -11,7 +11,7 @@ namespace Weapsy.Cqrs.EventStore.CosmosDB.MongoDB
         private readonly string _aggregateCollectionName;
         private readonly string _eventCollectionName;
 
-        public EventStoreDbContext(IOptions<CosmosDBSettings> settings)
+        public EventStoreDbContext(IOptions<EventStoreConfiguration> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
             _database = client.GetDatabase(settings.Value.DatabaseName);

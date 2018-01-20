@@ -9,11 +9,11 @@
     <Description>SQL Server database provider for Weapsy.Cqrs event store.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Cqrs/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>2018 Luca Briguglia</Copyright>
+    <Copyright>Copyright Luca Briguglia</Copyright>
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Cqrs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Cqrs</RepositoryUrl>
     <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, sql, sqlserver, mssql</PackageTags>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

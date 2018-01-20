@@ -15,7 +15,7 @@ namespace Weapsy.Cqrs.EventStore.EF.Extensions
                 .AddClasses()
                 .AsImplementedInterfaces());
 
-            services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
+            services.Configure<EventStoreConfiguration>(configuration.GetSection("EventStoreConfiguration"));
 
             return services;
         }

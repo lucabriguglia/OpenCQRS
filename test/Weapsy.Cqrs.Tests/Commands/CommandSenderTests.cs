@@ -17,12 +17,12 @@ namespace Weapsy.Cqrs.Tests.Commands
 
         private Mock<IResolver> _resolver;
         private Mock<IEventPublisher> _eventPublisher;
-        private Mock<IEventStore> _eventStore;
+        private Mock<IRepository<IAggregateRoot>> _repository;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
         private Mock<ICommandHandlerWithEvents<CreateSomething>> _commandHandlerWithEvents;
-        private Mock<IDomainCommandHandler<CreateAggregate>> _domainCommandHandler;
+        private Mock<ICommandHandlerWithAggregate<CreateAggregate>> _domainCommandHandler;
 
         private CreateSomething _createSomething;
         private SomethingCreated _somethingCreated;
@@ -53,9 +53,9 @@ namespace Weapsy.Cqrs.Tests.Commands
             _eventPublisher
                 .Setup(x => x.Publish(_aggregateCreatedConcrete));
 
-            _eventStore = new Mock<IEventStore>();
-            _eventStore
-                .Setup(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete));
+            _repository = new Mock<IRepository<IAggregateRoot>>();
+            _repository
+                .Setup(x => x.Save(_aggregate));
 
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
@@ -74,7 +74,7 @@ namespace Weapsy.Cqrs.Tests.Commands
                 .Setup(x => x.Handle(_createSomething))
                 .Returns(_events);
 
-            _domainCommandHandler = new Mock<IDomainCommandHandler<CreateAggregate>>();
+            _domainCommandHandler = new Mock<ICommandHandlerWithAggregate<CreateAggregate>>();
             _domainCommandHandler
                 .Setup(x => x.Handle(_createAggregate))
                 .Returns(_aggregate);
@@ -87,10 +87,10 @@ namespace Weapsy.Cqrs.Tests.Commands
                 .Setup(x => x.Resolve<ICommandHandlerWithEvents<CreateSomething>>())
                 .Returns(_commandHandlerWithEvents.Object);
             _resolver
-                .Setup(x => x.Resolve<IDomainCommandHandler<CreateAggregate>>())
+                .Setup(x => x.Resolve<ICommandHandlerWithAggregate<CreateAggregate>>())
                 .Returns(_domainCommandHandler.Object);
 
-            _sut = new CommandSender(_resolver.Object, _eventPublisher.Object, _eventStore.Object, _eventFactory.Object);
+            _sut = new CommandSender(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _repository.Object);
         }
 
         [Test]
@@ -157,8 +157,8 @@ namespace Weapsy.Cqrs.Tests.Commands
         public void SendAndPublishWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
         {
             _resolver
-                .Setup(x => x.Resolve<IDomainCommandHandler<CreateAggregate>>())
-                .Returns((IDomainCommandHandler<CreateAggregate>)null);
+                .Setup(x => x.Resolve<ICommandHandlerWithAggregate<CreateAggregate>>())
+                .Returns((ICommandHandlerWithAggregate<CreateAggregate>)null);
             Assert.Throws<ApplicationException>(() => _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate));
         }
 
@@ -173,7 +173,7 @@ namespace Weapsy.Cqrs.Tests.Commands
         public void SendAndPublishWithAggregateSaveEvents()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
+            _repository.Verify(x => x.Save(_aggregate), Times.Once);
         }
 
         [Test]

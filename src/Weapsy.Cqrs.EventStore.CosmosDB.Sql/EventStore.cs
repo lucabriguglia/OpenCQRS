@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Weapsy.Cqrs.Domain;
-using Weapsy.Cqrs.EventStore.CosmosDB.Sql.Configuration;
 using Weapsy.Cqrs.EventStore.CosmosDB.Sql.Documents;
 using Weapsy.Cqrs.EventStore.CosmosDB.Sql.Documents.Factories;
 

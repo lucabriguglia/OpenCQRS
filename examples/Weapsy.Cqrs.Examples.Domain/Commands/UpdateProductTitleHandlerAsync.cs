@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Weapsy.Cqrs.Commands;
 using Weapsy.Cqrs.Domain;
 
 namespace Weapsy.Cqrs.Examples.Domain.Commands
 {
-    public class UpdateProductTitleHandlerAsync : IDomainCommandHandlerAsync<UpdateProductTitle>
+    public class UpdateProductTitleHandlerAsync : ICommandHandlerWithAggregateAsync<UpdateProductTitle>
     {
         private readonly IRepository<Product> _repository;
 

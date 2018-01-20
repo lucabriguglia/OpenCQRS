@@ -15,9 +15,9 @@ namespace Weapsy.Cqrs.EventStore.CosmosDB.Sql
     internal class DocumentDbRepository<TDocument> : IDocumentDbRepository<TDocument> where TDocument : class
     {
         private readonly IDocumentClient _documentClient;
-        private readonly IOptions<CosmosDBSettings> _settings;
+        private readonly IOptions<EventStoreConfiguration> _settings;
 
-        public DocumentDbRepository(IDocumentClient documentClient, IOptions<CosmosDBSettings> settings)
+        public DocumentDbRepository(IDocumentClient documentClient, IOptions<EventStoreConfiguration> settings)
         {
             _documentClient = documentClient;
             _settings = settings;

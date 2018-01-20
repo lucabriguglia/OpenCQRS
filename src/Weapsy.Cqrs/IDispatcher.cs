@@ -49,7 +49,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement ICommandHandlerWithEventsAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -61,7 +61,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEvents&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>

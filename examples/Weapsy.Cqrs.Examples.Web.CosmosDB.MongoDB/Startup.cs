@@ -33,7 +33,7 @@ namespace Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher, IOptions<CosmosDBSettings> settings)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher, IOptions<EventStoreConfiguration> settings)
         {
             if (env.IsDevelopment())
             {

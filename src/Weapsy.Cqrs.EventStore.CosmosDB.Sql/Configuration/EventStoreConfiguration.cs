@@ -1,6 +1,6 @@
 ﻿namespace Weapsy.Cqrs.EventStore.CosmosDB.Sql.Configuration
 {
-    public class CosmosDBSettings
+    public class EventStoreConfiguration
     {
         public string ServiceEndpoint { get; set; }
         public string AuthKey { get; set; }

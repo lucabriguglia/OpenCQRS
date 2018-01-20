@@ -13,10 +13,10 @@ namespace Weapsy.Cqrs.EventStore.CosmosDB.Sql.Extensions
     {
         public static IServiceCollection AddWeapsyCqrsEventStore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<CosmosDBSettings>(configuration.GetSection("CosmosDBSettings"));
+            services.Configure<EventStoreConfiguration>(configuration.GetSection("EventStoreConfiguration"));
 
-            var endpoint = configuration.GetSection("CosmosDBSettings:ServerEndpoint").Value;
-            var key = configuration.GetSection("CosmosDBSettings:AuthKey").Value;
+            var endpoint = configuration.GetSection("EventStoreConfiguration:ServerEndpoint").Value;
+            var key = configuration.GetSection("EventStoreConfiguration:AuthKey").Value;
             services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
             services.AddTransient<IEventStore, EventStore>();

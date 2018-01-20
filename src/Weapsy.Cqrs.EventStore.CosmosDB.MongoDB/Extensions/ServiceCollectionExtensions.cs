@@ -10,7 +10,7 @@ namespace Weapsy.Cqrs.EventStore.CosmosDB.MongoDB.Extensions
     {
         public static IServiceCollection AddWeapsyCqrsEventStore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<CosmosDBSettings>(configuration.GetSection("CosmosDBSettings"));
+            services.Configure<EventStoreConfiguration>(configuration.GetSection("EventStoreConfiguration"));
 
             services.AddTransient<IEventStore, EventStore>();
             services.AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>();

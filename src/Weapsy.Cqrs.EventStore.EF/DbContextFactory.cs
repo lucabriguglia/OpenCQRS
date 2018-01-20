@@ -14,11 +14,11 @@ namespace Weapsy.Cqrs.EventStore.EF
         /// Initializes a new instance of the <see cref="DbContextFactory"/> class.
         /// </summary>
         /// <param name="resolver">The resolver.</param>
-        /// <param name="connectionStringsOptions">The connection strings options.</param>
-        public DbContextFactory(IResolver resolver, IOptions<ConnectionStrings> connectionStringsOptions)
+        /// <param name="eventStoreConfiguration">The connection strings options.</param>
+        public DbContextFactory(IResolver resolver, IOptions<EventStoreConfiguration> eventStoreConfiguration)
         {
             _resolver = resolver;
-            _eventStoreConnection = connectionStringsOptions.Value.EventStoreConnection;
+            _eventStoreConnection = eventStoreConfiguration.Value.ConnectionString;
         }
 
         public EventStoreDbContext CreateDbContext()
