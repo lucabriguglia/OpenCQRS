@@ -88,7 +88,7 @@ For CosmosDB SQL (DocumentDB):
 
 ```JSON
 {
-  "CosmosDBSettings": {
+  "EventStoreConfiguration": {
     "ServerEndpoint": "https://localhost:8081",
     "AuthKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
     "DatabaseId": "EventStore",
@@ -102,7 +102,7 @@ For CosmosDB MongoDB:
 
 ```JSON
 {
-  "CosmosDBSettings": {
+  "EventStoreConfiguration": {
     "ConnectionString": "mongodb://localhost:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==@localhost:10255/admin?ssl=true",
     "DatabaseName": "EventStore",
     "AggregateCollectionName": "Aggregates",
@@ -123,8 +123,10 @@ public void Configure(IApplicationBuilder app, IOptions<CosmosDBSettings> settin
 For all the others based on Entity Framework Core add just the connection string to appsettings.json:
 
 ```JSON
-"ConnectionStrings": {
-	"EventStoreConnection": "Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"
+{
+  "EventStoreConfiguration": {
+    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
 }
 ```
 
