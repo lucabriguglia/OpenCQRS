@@ -8,19 +8,19 @@ CQRS and Event Sourcing library for .NET Core.
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.MySql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.MySql-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.PostgreSql-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.PostgreSql-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.Sqlite-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.Sqlite-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.SqlServer-2.0.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.SqlServer-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.SqlServer)
 
 Via Package Manager
 
@@ -358,7 +358,7 @@ The Apply methods are called automatically when new events are added and are als
 Create the first handler:
 
 ```C#
-public class CreateProductHandlerAsync : IDomainCommandHandlerAsync<CreateProduct>
+public class CreateProductHandlerAsync : ICommandHandlerWithAggregateAsync<CreateProduct>
 {
     public async Task<IAggregateRoot> HandleAsync(CreateProduct command)
     {
@@ -418,7 +418,7 @@ public class ProductTitleUpdated : DomainEvent
     public string Title { get; set; }
 }
 
-public class UpdateProductTitleHandlerAsync : IDomainCommandHandlerAsync<UpdateProductTitle>
+public class UpdateProductTitleHandlerAsync : ICommandHandlerWithAggregate<UpdateProductTitle>
 {
     private readonly IRepository<Product> _repository;
 
