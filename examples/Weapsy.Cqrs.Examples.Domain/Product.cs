@@ -36,13 +36,13 @@ namespace Weapsy.Cqrs.Examples.Domain
             });
         }
 
-        public void Apply(ProductCreated @event)
+        private void Apply(ProductCreated @event)
         {
             Id = @event.AggregateRootId;
             Title = @event.Title;
         }
 
-        public void Apply(ProductTitleUpdated @event)
+        private void Apply(ProductTitleUpdated @event)
         {
             Title = @event.Title;
         }

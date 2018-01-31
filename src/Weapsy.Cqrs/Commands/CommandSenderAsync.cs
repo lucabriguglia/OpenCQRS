@@ -16,17 +16,17 @@ namespace Weapsy.Cqrs.Commands
         private readonly IResolver _resolver;
         private readonly IEventPublisherAsync _eventPublisher;
         private readonly IEventFactory _eventFactory;
-        private readonly IRepository<IAggregateRoot> _repository;
+        private readonly IEventStore _eventStore;
 
         public CommandSenderAsync(IResolver resolver,
             IEventPublisherAsync eventPublisher, 
-            IEventFactory eventFactory, 
-            IRepository<IAggregateRoot> repository)
+            IEventFactory eventFactory,
+            IEventStore eventStore)
         {
             _resolver = resolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
-            _repository = repository;
+            _eventStore = eventStore;
         }
 
         public async Task SendAsync<TCommand>(TCommand command) 
@@ -77,11 +77,10 @@ namespace Weapsy.Cqrs.Commands
 
             var aggregateRoot = await commandHandler.HandleAsync(command);
 
-            await _repository.SaveAsync(aggregateRoot);
-
             foreach (var @event in aggregateRoot.Events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
                 await _eventPublisher.PublishAsync(concreteEvent);
             }
         }

@@ -15,17 +15,17 @@ namespace Weapsy.Cqrs.Commands
         private readonly IResolver _resolver;
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventFactory _eventFactory;
-        private readonly IRepository<IAggregateRoot> _repository;
+        private readonly IEventStore _eventStore;
 
         public CommandSender(IResolver resolver,
             IEventPublisher eventPublisher,  
-            IEventFactory eventFactory, 
-            IRepository<IAggregateRoot> repository)
+            IEventFactory eventFactory,
+            IEventStore eventStore)
         {
             _resolver = resolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
-            _repository = repository;
+            _eventStore = eventStore;
         }
 
         public void Send<TCommand>(TCommand command) where TCommand : ICommand
@@ -71,11 +71,11 @@ namespace Weapsy.Cqrs.Commands
                 throw new ApplicationException($"No handler of type ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
 
             var aggregateRoot = commandHandler.Handle(command);
-            _repository.Save(aggregateRoot);
 
             foreach (var @event in aggregateRoot.Events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent);
                 _eventPublisher.Publish(concreteEvent);
             }
         }

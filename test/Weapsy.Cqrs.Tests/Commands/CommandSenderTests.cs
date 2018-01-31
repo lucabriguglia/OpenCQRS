@@ -17,7 +17,7 @@ namespace Weapsy.Cqrs.Tests.Commands
 
         private Mock<IResolver> _resolver;
         private Mock<IEventPublisher> _eventPublisher;
-        private Mock<IRepository<IAggregateRoot>> _repository;
+        private Mock<IEventStore> _eventStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
@@ -53,9 +53,9 @@ namespace Weapsy.Cqrs.Tests.Commands
             _eventPublisher
                 .Setup(x => x.Publish(_aggregateCreatedConcrete));
 
-            _repository = new Mock<IRepository<IAggregateRoot>>();
-            _repository
-                .Setup(x => x.Save(_aggregate));
+            _eventStore = new Mock<IEventStore>();
+            _eventStore
+                .Setup(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete));
 
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
@@ -90,7 +90,7 @@ namespace Weapsy.Cqrs.Tests.Commands
                 .Setup(x => x.Resolve<ICommandHandlerWithAggregate<CreateAggregate>>())
                 .Returns(_domainCommandHandler.Object);
 
-            _sut = new CommandSender(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _repository.Object);
+            _sut = new CommandSender(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object);
         }
 
         [Test]
@@ -173,7 +173,7 @@ namespace Weapsy.Cqrs.Tests.Commands
         public void SendAndPublishWithAggregateSaveEvents()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _repository.Verify(x => x.Save(_aggregate), Times.Once);
+            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
