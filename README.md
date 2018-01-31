@@ -8,7 +8,7 @@ CQRS and Event Sourcing library for .NET Core.
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.1.1-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
 [![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB-2.1.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB)
 
