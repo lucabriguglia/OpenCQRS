@@ -15,7 +15,7 @@ namespace Weapsy.Cqrs.Extensions
         /// </summary>
         /// <param name="services">The services.</param>
         /// <param name="types">The types.</param>
-        public static void AddWeapsyCqrs(this IServiceCollection services, params Type[] types)
+        public static IServiceCollection AddWeapsyCqrs(this IServiceCollection services, params Type[] types)
         {
             // Convert to list and add IMediator.
             var typeList = types.ToList();
@@ -29,6 +29,8 @@ namespace Weapsy.Cqrs.Extensions
 
             // Register repository
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            
+            return services;
         }
     }
 }
