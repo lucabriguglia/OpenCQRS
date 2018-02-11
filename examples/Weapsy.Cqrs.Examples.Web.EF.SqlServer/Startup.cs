@@ -35,7 +35,7 @@ namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher, EventStoreDbContext eventStoreDbContext)
         {
-            // Ensure Weapsy.Mediator database is installed.
+            // Ensure Weapsy.Cqrs database is installed.
             eventStoreDbContext.Database.Migrate();
 
             if (env.IsDevelopment())
