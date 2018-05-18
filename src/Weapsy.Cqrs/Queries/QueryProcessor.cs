@@ -17,17 +17,18 @@ namespace Weapsy.Cqrs.Queries
             _resolver = resolver;
         }
 
+        /// <inheritdoc />
         public TResult Process<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var queryHandler = _resolver.Resolve<IQueryHandler<TQuery, TResult>>();
+            var handler = _resolver.Resolve<IQueryHandler<TQuery, TResult>>();
 
-            if (queryHandler == null)
-                throw new ApplicationException($"No handler of type IQueryHandler<TQuery, TResult> found for query '{query.GetType().FullName}'");
+            if (handler == null)
+                throw new ApplicationException($"No handler of type Weapsy.Cqrs.Queries.IQueryHandler<TQuery, TResult> found for query '{query.GetType().FullName}'");
 
-            return queryHandler.Retrieve(query);
+            return handler.Retrieve(query);
         }
     }
 }

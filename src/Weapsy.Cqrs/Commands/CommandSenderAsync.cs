@@ -14,55 +14,58 @@ namespace Weapsy.Cqrs.Commands
     public class CommandSenderAsync : ICommandSenderAsync
     {
         private readonly IResolver _resolver;
-        private readonly IEventPublisherAsync _eventPublisher;
+        private readonly IEventPublisherAsync _eventPublisherAsync;
         private readonly IEventFactory _eventFactory;
         private readonly IEventStore _eventStore;
 
         public CommandSenderAsync(IResolver resolver,
-            IEventPublisherAsync eventPublisher, 
+            IEventPublisherAsync eventPublisherAsync, 
             IEventFactory eventFactory,
             IEventStore eventStore)
         {
             _resolver = resolver;
-            _eventPublisher = eventPublisher;
+            _eventPublisherAsync = eventPublisherAsync;
             _eventFactory = eventFactory;
             _eventStore = eventStore;
         }
 
+        /// <inheritdoc />
         public async Task SendAsync<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<ICommandHandlerAsync<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandlerAsync<TCommand>>();
 
-            if (commandHandler == null)
+            if (handler == null)
                 throw new ApplicationException($"No handler of type CommandHandlerAsync<TCommand> found for command '{command.GetType().FullName}'");
 
-            await commandHandler.HandleAsync(command);
+            await handler.HandleAsync(command);
         }
 
+        /// <inheritdoc />
         public async Task SendAndPublishAsync<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<ICommandHandlerWithEventsAsync<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandlerWithEventsAsync<TCommand>>();
 
-            if (commandHandler == null)
+            if (handler == null)
                 throw new ApplicationException($"No handler of type ICommandHandlerWithEventsAsync<TCommand> found for command '{command.GetType().FullName}'");
 
-            var events = await commandHandler.HandleAsync(command);
+            var events = await handler.HandleAsync(command);
 
             foreach (var @event in events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventPublisher.PublishAsync(concreteEvent);
+                await _eventPublisherAsync.PublishAsync(concreteEvent);
             }
         }
 
+        /// <inheritdoc />
         public async Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command) 
             where TCommand : IDomainCommand
             where TAggregate : IAggregateRoot
@@ -70,18 +73,18 @@ namespace Weapsy.Cqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
 
-            if (commandHandler == null)
+            if (handler == null)
                 throw new ApplicationException($"No handler of type ICommandHandlerWithAggregateAsync<TCommand> found for command '{command.GetType().FullName}'");
 
-            var aggregateRoot = await commandHandler.HandleAsync(command);
+            var aggregateRoot = await handler.HandleAsync(command);
 
             foreach (var @event in aggregateRoot.Events)
             {
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                 await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
-                await _eventPublisher.PublishAsync(concreteEvent);
+                await _eventPublisherAsync.PublishAsync(concreteEvent);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Weapsy.Cqrs.Commands
     {
         /// <summary>
         /// Asynchronously sends the specified command.
-        /// The command handler must implement ICommandHandlerAsync&lt;TCommand&gt;.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerAsync.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -18,8 +18,8 @@ namespace Weapsy.Cqrs.Commands
             where TCommand : ICommand;
 
         /// <summary>
-        /// Asynchronously sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
+        /// Asynchronously sends the command and publishes the events returned by the command handler.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -28,7 +28,7 @@ namespace Weapsy.Cqrs.Commands
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement ICommandHandlerWithEventsAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>

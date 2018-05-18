@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Weapsy.Cqrs.Domain;
 using Weapsy.Cqrs.EventStore.EF.Extensions;
 
 namespace Weapsy.Cqrs.EventStore.EF.PostgreSql
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddWeapsyCqrsEventStore(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsPostgreSqlEventStore(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddWeapsyCqrsEF(configuration);
 

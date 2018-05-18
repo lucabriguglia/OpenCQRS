@@ -28,30 +28,32 @@ namespace Weapsy.Cqrs.Commands
             _eventStore = eventStore;
         }
 
+        /// <inheritdoc />
         public void Send<TCommand>(TCommand command) where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<ICommandHandler<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandler<TCommand>>();
 
-            if (commandHandler == null)
-                throw new ApplicationException($"No handler of type ICommandHandler<TCommand> found for command '{command.GetType().FullName}'");
+            if (handler == null)
+                throw new ApplicationException($"No handler of type Weapsy.Cqrs.Commands.ICommandHandler<TCommand> found for command '{command.GetType().FullName}'");
 
-            commandHandler.Handle(command);
+            handler.Handle(command);
         }
 
+        /// <inheritdoc />
         public void SendAndPublish<TCommand>(TCommand command) where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<ICommandHandlerWithEvents<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandlerWithEvents<TCommand>>();
 
-            if (commandHandler == null)
-                throw new ApplicationException($"No handler of type ICommandHandlerWithEvents<TCommand> found for command '{command.GetType().FullName}'");
+            if (handler == null)
+                throw new ApplicationException($"No handler of type Weapsy.Cqrs.Commands.ICommandHandlerWithEvents<TCommand> found for command '{command.GetType().FullName}'");
 
-            var events = commandHandler.Handle(command);
+            var events = handler.Handle(command);
 
             foreach (var @event in events)
             {
@@ -60,17 +62,18 @@ namespace Weapsy.Cqrs.Commands
             }
         }
 
+        /// <inheritdoc />
         public void SendAndPublish<TCommand, TAggregate>(TCommand command) where TCommand : IDomainCommand where TAggregate : IAggregateRoot
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var commandHandler = _resolver.Resolve<ICommandHandlerWithAggregate<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandlerWithAggregate<TCommand>>();
 
-            if (commandHandler == null)
-                throw new ApplicationException($"No handler of type ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
+            if (handler == null)
+                throw new ApplicationException($"No handler of type Weapsy.Cqrs.Commands.ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
 
-            var aggregateRoot = commandHandler.Handle(command);
+            var aggregateRoot = handler.Handle(command);
 
             foreach (var @event in aggregateRoot.Events)
             {

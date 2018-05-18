@@ -13,7 +13,7 @@ namespace Weapsy.Cqrs
     {
         /// <summary>
         /// Asynchronously sends the specified command.
-        /// The command handler must implement ICommandHandlerAsync.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerAsync.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -22,7 +22,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement Weapsy.Mediator.Commands.ICommandHandler.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandler.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -30,8 +30,8 @@ namespace Weapsy.Cqrs
             where TCommand : ICommand;
 
         /// <summary>
-        /// Asynchronously sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
+        /// Asynchronously sends the command and publishes the events returned by the command handler.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -39,8 +39,8 @@ namespace Weapsy.Cqrs
             where TCommand : ICommand;
 
         /// <summary>
-        /// Sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEvents&lt;TCommand&gt;.
+        /// Sends the command and publishes the events returned by the command handler.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithEvents&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -49,7 +49,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -60,8 +60,8 @@ namespace Weapsy.Cqrs
             where TAggregate : IAggregateRoot;
 
         /// <summary>
-        /// Sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
+        /// Sends the command and the events returned by the handler will be published and saved to the event store.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -72,7 +72,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously publishes the specified event.
-        /// The event handler must implement IEventHandlerAsync.
+        /// The event handler must implement Weapsy.Cqrs.Events.IEventHandlerAsync.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -81,7 +81,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Publishes the specified event.
-        /// The event handler must implement IEventHandler.
+        /// The event handler must implement Weapsy.Cqrs.Events.IEventHandler.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -90,7 +90,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously gets the result.
-        /// The query handler must implement IQueryHandlerAsync.
+        /// The query handler must implement Weapsy.Cqrs.Queries.IQueryHandlerAsync.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>
@@ -101,7 +101,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Gets the result.
-        /// The query handler must implement IQueryHandler.
+        /// The query handler must implement Weapsy.Cqrs.Queries.IQueryHandler.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>

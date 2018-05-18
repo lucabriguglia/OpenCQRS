@@ -37,26 +37,31 @@ namespace Weapsy.Cqrs
             _queryProcessor = queryProcessor;
         }
 
+        /// <inheritdoc />
         public async Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             await _commandSenderAsync.SendAsync(command);
         }
 
+        /// <inheritdoc />
         public void Send<TCommand>(TCommand command) where TCommand : ICommand
         {
             _commandSender.Send(command);
         }
 
+        /// <inheritdoc />
         public async Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             await _commandSenderAsync.SendAndPublishAsync(command);
         }
 
+        /// <inheritdoc />
         public void SendAndPublish<TCommand>(TCommand command) where TCommand : ICommand
         {
             _commandSender.SendAndPublish(command);
         }
 
+        /// <inheritdoc />
         public async Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command) 
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
@@ -64,6 +69,7 @@ namespace Weapsy.Cqrs
             await _commandSenderAsync.SendAndPublishAsync<TCommand, TAggregate>(command);
         }
 
+        /// <inheritdoc />
         public void SendAndPublish<TCommand, TAggregate>(TCommand command) 
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
@@ -71,21 +77,25 @@ namespace Weapsy.Cqrs
             _commandSender.SendAndPublish<TCommand, TAggregate>(command);
         }
 
+        /// <inheritdoc />
         public async Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
             await _eventPublisherAsync.PublishAsync(@event);
         }
 
+        /// <inheritdoc />
         public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
         {
             _eventPublisher.Publish(@event);
         }
 
+        /// <inheritdoc />
         public async Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
             return await _queryProcessorAsync.ProcessAsync<TQuery, TResult>(query);
         }
 
+        /// <inheritdoc />
         public TResult GetResult<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
             return _queryProcessor.Process<TQuery, TResult>(query);

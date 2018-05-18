@@ -17,14 +17,15 @@ namespace Weapsy.Cqrs.Events
             _resolver = resolver;
         }
 
+        /// <inheritdoc />
         public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
         {
             if (@event == null)
                 throw new ArgumentNullException(nameof(@event));
 
-            var eventHandlers = _resolver.ResolveAll<IEventHandler<TEvent>>();
+            var handlers = _resolver.ResolveAll<IEventHandler<TEvent>>();
 
-            foreach (var handler in eventHandlers)
+            foreach (var handler in handlers)
                 handler.Handle(@event);
         }
     }

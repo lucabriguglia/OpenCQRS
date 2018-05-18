@@ -29,7 +29,7 @@ namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
             services.AddOptions();
 
             services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
-            services.AddWeapsyCqrsEventStore(Configuration);
+            services.AddWeapsyCqrsSqlServerEventStore(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

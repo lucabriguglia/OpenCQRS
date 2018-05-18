@@ -9,7 +9,7 @@ namespace Weapsy.Cqrs.Commands
     {
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement ICommandHandler&lt;TCommand&gt;.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandler.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -17,8 +17,8 @@ namespace Weapsy.Cqrs.Commands
             where TCommand : ICommand;
 
         /// <summary>
-        /// Sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEvents&lt;TCommand&gt;.
+        /// Sends the command and publishes the events returned by the command handler.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithEvents&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -26,8 +26,8 @@ namespace Weapsy.Cqrs.Commands
             where TCommand : ICommand;
 
         /// <summary>
-        /// Sends the command the and publish the events returned by the command handler.
-        /// The command handler must implement ICommandHandlerWithEvents&lt;TCommand, TAggregate&gt;.
+        /// Sends the command and the events returned by the handler will be published and saved to the event store.
+        /// The command handler must implement Weapsy.Cqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>

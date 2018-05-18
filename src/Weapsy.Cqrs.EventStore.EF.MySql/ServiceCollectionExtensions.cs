@@ -8,7 +8,7 @@ namespace Weapsy.Cqrs.EventStore.EF.MySql
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddWeapsyCqrsEventStore(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsMySqlEventStore(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddWeapsyCqrsEF(configuration);
 
