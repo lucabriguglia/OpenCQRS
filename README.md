@@ -8,19 +8,19 @@ CQRS and Event Sourcing library for .NET Core.
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.1.2-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.2.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB-2.1.2-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB-2.2.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.1.2-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.2.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.MySql-2.1.2-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.MySql-2.2.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.PostgreSql-2.1.2-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.PostgreSql-2.2.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.Sqlite-2.1.2-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.Sqlite-2.2.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.SqlServer-2.1.2-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.SqlServer-2.2.0-brightgreen.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.SqlServer)
 
 Via Package Manager
 
@@ -473,6 +473,7 @@ Note the two optional properties can be saved for the domain events:
 
 ## Roadmap
 
+- Store commands
 - Add settings for custom table names for entity framework
 - Add more event store providers
 - Add message bus integration
