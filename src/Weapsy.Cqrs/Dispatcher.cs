@@ -50,6 +50,18 @@ namespace Weapsy.Cqrs
         }
 
         /// <inheritdoc />
+        public async Task SendAsync<TCommand, TAggregate>(TCommand command) where TCommand : IDomainCommand where TAggregate : IAggregateRoot
+        {
+            await _commandSenderAsync.SendAsync<TCommand, TAggregate>(command);
+        }
+
+        /// <inheritdoc />
+        public void Send<TCommand, TAggregate>(TCommand command) where TCommand : IDomainCommand where TAggregate : IAggregateRoot
+        {
+            _commandSender.Send<TCommand, TAggregate>(command);
+        }
+
+        /// <inheritdoc />
         public async Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             await _commandSenderAsync.SendAndPublishAsync(command);

@@ -122,6 +122,36 @@ namespace Weapsy.Cqrs.Tests.Commands
         }
 
         [Test]
+        public void SendWithAggregateAsyncThrowsExceptionWhenCommandIsNull()
+        {
+            _createAggregate = null;
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate));
+        }
+
+        [Test]
+        public void SendWithAggregateAsyncThrowsExceptionWhenCommandHandlerIsNotFound()
+        {
+            _resolver
+                .Setup(x => x.Resolve<ICommandHandlerWithAggregateAsync<CreateAggregate>>())
+                .Returns((ICommandHandlerWithAggregateAsync<CreateAggregate>)null);
+            Assert.ThrowsAsync<ApplicationException>(async () => await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate));
+        }
+
+        [Test]
+        public async Task SendWithAggregateAsyncSendsCommand()
+        {
+            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandHandlerWithAggregateAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public async Task SendWithAggregateAsyncSaveEvents()
+        {
+            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete), Times.Once);
+        }
+
+        [Test]
         public void SendAndPublishAsyncThrowsExceptionWhenCommandIsNull()
         {
             _createSomething = null;
@@ -145,7 +175,7 @@ namespace Weapsy.Cqrs.Tests.Commands
         }
 
         [Test]
-        public async Task SendAndPublishAsyncPublishEvents()
+        public async Task SendAndPublishAsyncPublishesEvents()
         {
             await _sut.SendAndPublishAsync(_createSomething);
             _eventPublisher.Verify(x => x.PublishAsync(_somethingCreatedConcrete), Times.Once);

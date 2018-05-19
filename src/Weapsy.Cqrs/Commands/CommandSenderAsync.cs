@@ -45,6 +45,28 @@ namespace Weapsy.Cqrs.Commands
         }
 
         /// <inheritdoc />
+        public async Task SendAsync<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand 
+            where TAggregate : IAggregateRoot
+        {
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            var handler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
+
+            if (handler == null)
+                throw new ApplicationException($"No handler of type ICommandHandlerWithAggregateAsync<TCommand> found for command '{command.GetType().FullName}'");
+
+            var aggregateRoot = await handler.HandleAsync(command);
+
+            foreach (var @event in aggregateRoot.Events)
+            {
+                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
+            }
+        }
+
+        /// <inheritdoc />
         public async Task SendAndPublishAsync<TCommand>(TCommand command) 
             where TCommand : ICommand
         {

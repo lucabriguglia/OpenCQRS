@@ -117,6 +117,36 @@ namespace Weapsy.Cqrs.Tests.Commands
         }
 
         [Test]
+        public void SendWithAggregateThrowsExceptionWhenCommandIsNull()
+        {
+            _createAggregate = null;
+            Assert.Throws<ArgumentNullException>(() => _sut.Send<CreateAggregate, Aggregate>(_createAggregate));
+        }
+
+        [Test]
+        public void SendhWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
+        {
+            _resolver
+                .Setup(x => x.Resolve<ICommandHandlerWithAggregate<CreateAggregate>>())
+                .Returns((ICommandHandlerWithAggregate<CreateAggregate>)null);
+            Assert.Throws<ApplicationException>(() => _sut.Send<CreateAggregate, Aggregate>(_createAggregate));
+        }
+
+        [Test]
+        public void SendWithAggregateSendsCommand()
+        {
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _domainCommandHandler.Verify(x => x.Handle(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public void SendWithAggregateSaveEvents()
+        {
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
+        }
+
+        [Test]
         public void SendAndPublishThrowsExceptionWhenCommandIsNull()
         {
             _createSomething = null;

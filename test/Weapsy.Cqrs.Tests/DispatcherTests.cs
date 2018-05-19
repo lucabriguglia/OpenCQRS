@@ -43,10 +43,10 @@ namespace Weapsy.Cqrs.Tests
                 .Setup(x => x.SendAsync(_createSomething))
                 .Returns(Task.CompletedTask);
             _commandSenderAsync
-                .Setup(x => x.SendAndPublishAsync(_createSomething))
+                .Setup(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
                 .Returns(Task.CompletedTask);
             _commandSenderAsync
-                .Setup(x => x.SendAndPublishAsync<ICommand>(_createSomething))
+                .Setup(x => x.SendAndPublishAsync(_createSomething))
                 .Returns(Task.CompletedTask);
             _commandSenderAsync
                 .Setup(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
@@ -55,6 +55,8 @@ namespace Weapsy.Cqrs.Tests
             _commandSender = new Mock<ICommandSender>();
             _commandSender
                 .Setup(x => x.Send(_createSomething));
+            _commandSender
+                .Setup(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate));
             _commandSender
                 .Setup(x => x.SendAndPublish(_createSomething));
             _commandSender
@@ -95,14 +97,21 @@ namespace Weapsy.Cqrs.Tests
         }
 
         [Test]
-        public async Task SendsCommandAndPublishAsync()
+        public async Task SendsCommandhWithAggregateAsync()
+        {
+            await _sut.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
+            _commandSenderAsync.Verify(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public async Task SendsCommandAndPublishesEventsAsync()
         {
             await _sut.SendAndPublishAsync(_createSomething);
             _commandSenderAsync.Verify(x => x.SendAndPublishAsync(_createSomething), Times.Once);
         }
 
         [Test]
-        public async Task SendsCommandAndPublishWithAggregateAsync()
+        public async Task SendsCommandAndPublisesEventshWithAggregateAsync()
         {
             await _sut.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
             _commandSenderAsync.Verify(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
@@ -116,14 +125,21 @@ namespace Weapsy.Cqrs.Tests
         }
 
         [Test]
-        public void SendsCommandAndPublish()
+        public void SendsCommandhWithAggregate()
+        {
+            _sut.Send<IDomainCommand, IAggregateRoot>(_createAggregate);
+            _commandSender.Verify(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public void SendsCommandAndPublishesEvents()
         {
             _sut.SendAndPublish(_createSomething);
             _commandSender.Verify(x => x.SendAndPublish(_createSomething), Times.Once);
         }
 
         [Test]
-        public void SendsCommandAndPublishWithAggregate()
+        public void SendsCommandAndPublisesEventshWithAggregate()
         {
             _sut.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate);
             _commandSender.Verify(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
