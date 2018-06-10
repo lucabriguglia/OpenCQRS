@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <PackageId>Weapsy.Cqrs.EventStore.EF.MySql</PackageId>
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>

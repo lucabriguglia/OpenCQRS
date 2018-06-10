@@ -2,7 +2,7 @@
 using Weapsy.Cqrs.Commands;
 using Weapsy.Cqrs.Domain;
 
-namespace Weapsy.Cqrs.Examples.Domain.Commands
+namespace Weapsy.Cqrs.Examples.Domain.Commands.Handlers
 {
     public class CreateProductHandlerAsync : ICommandHandlerWithAggregateAsync<CreateProduct>
     {

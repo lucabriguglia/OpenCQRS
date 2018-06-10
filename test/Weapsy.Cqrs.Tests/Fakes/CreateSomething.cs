@@ -2,7 +2,7 @@
 
 namespace Weapsy.Cqrs.Tests.Fakes
 {
-    public class CreateSomething : ICommand
+    public class CreateSomething : Command
     {
     }
 }

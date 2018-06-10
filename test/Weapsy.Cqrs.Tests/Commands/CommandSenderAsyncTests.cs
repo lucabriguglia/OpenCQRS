@@ -19,6 +19,7 @@ namespace Weapsy.Cqrs.Tests.Commands
         private Mock<IResolver> _resolver;
         private Mock<IEventPublisherAsync> _eventPublisher;
         private Mock<IEventStore> _eventStore;
+        private Mock<ICommandStore> _commandStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
@@ -61,6 +62,11 @@ namespace Weapsy.Cqrs.Tests.Commands
                 .Setup(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete))
                 .Returns(Task.CompletedTask);
 
+            _commandStore = new Mock<ICommandStore>();
+            _commandStore
+                .Setup(x => x.SaveCommandAsync<Aggregate>(_createAggregate))
+                .Returns(Task.CompletedTask);
+
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
                 .Setup(x => x.CreateConcreteEvent(_somethingCreated))
@@ -95,7 +101,7 @@ namespace Weapsy.Cqrs.Tests.Commands
                 .Setup(x => x.Resolve<ICommandHandlerWithAggregateAsync<CreateAggregate>>())
                 .Returns(_commandHandlerWithAggregateAsync.Object);
 
-            _sut = new CommandSenderAsync(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object);
+            _sut = new CommandSenderAsync(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
         }
 
         [Test]

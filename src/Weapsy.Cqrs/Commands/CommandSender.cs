@@ -16,16 +16,19 @@ namespace Weapsy.Cqrs.Commands
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventFactory _eventFactory;
         private readonly IEventStore _eventStore;
+        private readonly ICommandStore _commandStore;
 
         public CommandSender(IResolver resolver,
             IEventPublisher eventPublisher,  
             IEventFactory eventFactory,
-            IEventStore eventStore)
+            IEventStore eventStore, 
+            ICommandStore commandStore)
         {
             _resolver = resolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
             _eventStore = eventStore;
+            _commandStore = commandStore;
         }
 
         /// <inheritdoc />
@@ -48,6 +51,8 @@ namespace Weapsy.Cqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
+            _commandStore.SaveCommand<TAggregate>(command);
+
             var handler = _resolver.Resolve<ICommandHandlerWithAggregate<TCommand>>();
 
             if (handler == null)
@@ -57,6 +62,7 @@ namespace Weapsy.Cqrs.Commands
 
             foreach (var @event in aggregateRoot.Events)
             {
+                @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                 _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent);
             }
@@ -88,6 +94,8 @@ namespace Weapsy.Cqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
+            _commandStore.SaveCommand<TAggregate>(command);
+
             var handler = _resolver.Resolve<ICommandHandlerWithAggregate<TCommand>>();
 
             if (handler == null)
@@ -97,6 +105,7 @@ namespace Weapsy.Cqrs.Commands
 
             foreach (var @event in aggregateRoot.Events)
             {
+                @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                 _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent);
                 _eventPublisher.Publish(concreteEvent);

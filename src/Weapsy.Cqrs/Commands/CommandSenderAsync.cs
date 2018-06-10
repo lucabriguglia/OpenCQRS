@@ -17,16 +17,19 @@ namespace Weapsy.Cqrs.Commands
         private readonly IEventPublisherAsync _eventPublisherAsync;
         private readonly IEventFactory _eventFactory;
         private readonly IEventStore _eventStore;
+        private readonly ICommandStore _commandStore;
 
         public CommandSenderAsync(IResolver resolver,
             IEventPublisherAsync eventPublisherAsync, 
             IEventFactory eventFactory,
-            IEventStore eventStore)
+            IEventStore eventStore, 
+            ICommandStore commandStore)
         {
             _resolver = resolver;
             _eventPublisherAsync = eventPublisherAsync;
             _eventFactory = eventFactory;
             _eventStore = eventStore;
+            _commandStore = commandStore;
         }
 
         /// <inheritdoc />
@@ -52,6 +55,8 @@ namespace Weapsy.Cqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
+            await _commandStore.SaveCommandAsync<TAggregate>(command);
+
             var handler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
 
             if (handler == null)
@@ -61,6 +66,7 @@ namespace Weapsy.Cqrs.Commands
 
             foreach (var @event in aggregateRoot.Events)
             {
+                @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                 await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
             }
@@ -95,6 +101,8 @@ namespace Weapsy.Cqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
+            await _commandStore.SaveCommandAsync<TAggregate>(command);
+
             var handler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
 
             if (handler == null)
@@ -104,6 +112,7 @@ namespace Weapsy.Cqrs.Commands
 
             foreach (var @event in aggregateRoot.Events)
             {
+                @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                 await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
                 await _eventPublisherAsync.PublishAsync(concreteEvent);

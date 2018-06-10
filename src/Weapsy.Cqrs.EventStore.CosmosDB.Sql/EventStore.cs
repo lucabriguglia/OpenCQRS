@@ -83,5 +83,25 @@ namespace Weapsy.Cqrs.EventStore.CosmosDB.Sql
 
             return result;
         }
+
+        public Task<IEnumerable<DomainEvent>> GetEventsByCommandIdAsync(Guid aggregateId, Guid commandId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DomainEvent> GetEventsByCommandId(Guid aggregateId, Guid commandId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<DomainEvent>> GetEventsByEventTypesAsync(Guid aggregateId, IEnumerable<Type> types)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DomainEvent> GetEventsByEventTypes(Guid aggregateId, IEnumerable<Type> types)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

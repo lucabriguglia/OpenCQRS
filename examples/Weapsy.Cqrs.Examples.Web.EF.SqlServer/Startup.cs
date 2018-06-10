@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Weapsy.Cqrs.EventStore.EF;
-using Weapsy.Cqrs.EventStore.EF.SqlServer;
+using Weapsy.Cqrs.EF;
+using Weapsy.Cqrs.EF.SqlServer;
 using Weapsy.Cqrs.Examples.Domain.Commands;
 using Weapsy.Cqrs.Examples.Reporting.Queries;
 using Weapsy.Cqrs.Examples.Shared;
@@ -27,16 +27,17 @@ namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
+            services.AddHttpContextAccessor();
 
             services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
             services.AddWeapsyCqrsSqlServerEventStore(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher, EventStoreDbContext eventStoreDbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher, DomainDbContext domainDbContext)
         {
             // Ensure Weapsy.Cqrs database is installed.
-            eventStoreDbContext.Database.Migrate();
+            domainDbContext.Database.Migrate();
 
             if (env.IsDevelopment())
             {

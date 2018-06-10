@@ -19,18 +19,21 @@ namespace Weapsy.Cqrs.Domain
             _eventStore = eventStore;
         }
 
+        /// <inheritdoc />
         public async Task SaveAsync(T aggregate)
         {
             foreach (var @event in aggregate.Events)
                 await _eventStore.SaveEventAsync<T>(@event);
         }
 
+        /// <inheritdoc />
         public void Save(T aggregate)
         {
             foreach (var @event in aggregate.Events)
                 _eventStore.SaveEvent<T>(@event);       
         }
 
+        /// <inheritdoc />
         public async Task<T> GetByIdAsync(Guid id)
         {
             var events = await _eventStore.GetEventsAsync(id);
@@ -38,11 +41,12 @@ namespace Weapsy.Cqrs.Domain
             if (!domainEvents.Any())
                 return default(T);
 
-            var aggregate = Activator.CreateInstance<T>(); // looking for a better solution without using new()           
+            var aggregate = Activator.CreateInstance<T>();        
             aggregate.ApplyEvents(domainEvents);
             return aggregate;
         }
 
+        /// <inheritdoc />
         public T GetById(Guid id)
         {
             var events = _eventStore.GetEvents(id);
@@ -50,7 +54,7 @@ namespace Weapsy.Cqrs.Domain
             if (!domainEvents.Any())
                 return default(T);
 
-            var aggregate = Activator.CreateInstance<T>(); // looking for a better solution without using new()           
+            var aggregate = Activator.CreateInstance<T>();          
             aggregate.ApplyEvents(domainEvents);
             return aggregate;
         }

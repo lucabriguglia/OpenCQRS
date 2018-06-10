@@ -28,6 +28,10 @@ namespace Weapsy.Cqrs.Domain
                 this.AsDynamic().Apply(@event);
         }
 
+        /// <summary>
+        /// Adds the event to the new events collection and calls the related apply method.
+        /// </summary>
+        /// <param name="event">The event.</param>
         protected void AddEvent(IDomainEvent @event)
         {
             Events.Add(@event);
