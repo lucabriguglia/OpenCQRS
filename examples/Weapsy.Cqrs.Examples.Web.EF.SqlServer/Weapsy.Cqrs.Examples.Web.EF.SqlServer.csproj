@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs.EF.SqlServer\Weapsy.Cqrs.EF.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\Weapsy.Cqrs.EF\Weapsy.Cqrs.EF.csproj" />
     <ProjectReference Include="..\..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
-    <ProjectReference Include="..\..\Weapsy.Cqrs.EF.SqlServer\Weapsy.Cqrs.EF.SqlServer.csproj" />
     <ProjectReference Include="..\Weapsy.Cqrs.Examples.Shared\Weapsy.Cqrs.Examples.Shared.csproj" />
   </ItemGroup>
 

@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Weapsy.Cqrs.EF\Weapsy.Cqrs.EF.csproj" />
-    <ProjectReference Include="..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs.EF\Weapsy.Cqrs.EF.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
   </ItemGroup>
 
 </Project>
