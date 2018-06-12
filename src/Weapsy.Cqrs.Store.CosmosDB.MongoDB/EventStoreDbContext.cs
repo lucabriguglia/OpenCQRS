@@ -1,0 +1,28 @@
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration;
+using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents;
+
+namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
+{
+    public class EventStoreDbContext
+    {
+        private readonly IMongoDatabase _database;
+        private readonly string _aggregateCollectionName;
+        private readonly string _eventCollectionName;
+
+        public EventStoreDbContext(IOptions<EventStoreConfiguration> settings)
+        {
+            var client = new MongoClient(settings.Value.ConnectionString);
+            _database = client.GetDatabase(settings.Value.DatabaseName);
+            _aggregateCollectionName = settings.Value.AggregateCollectionName;
+            _eventCollectionName = settings.Value.EventCollectionName;
+        }
+
+        public IMongoCollection<AggregateDocument> Aggregates => 
+            _database.GetCollection<AggregateDocument>(_aggregateCollectionName);
+
+        public IMongoCollection<EventDocument> Events =>
+            _database.GetCollection<EventDocument>(_eventCollectionName);
+    }
+}

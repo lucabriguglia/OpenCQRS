@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Weapsy.Cqrs.EF;
-using Weapsy.Cqrs.EF.SqlServer;
 using Weapsy.Cqrs.Examples.Domain.Commands;
 using Weapsy.Cqrs.Examples.Reporting.Queries;
 using Weapsy.Cqrs.Examples.Shared;
 using Weapsy.Cqrs.Extensions;
+using Weapsy.Cqrs.Store.EF;
+using Weapsy.Cqrs.Store.EF.SqlServer;
 
 namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
 {
@@ -30,7 +30,7 @@ namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
             services.AddHttpContextAccessor();
 
             services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
-            services.AddWeapsyCqrsSqlServerEventStore(Configuration);
+            services.AddWeapsyCqrsSqlServerStore(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

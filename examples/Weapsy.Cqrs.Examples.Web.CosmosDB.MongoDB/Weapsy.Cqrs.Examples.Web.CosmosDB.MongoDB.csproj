@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Weapsy.Cqrs.EventStore.CosmosDB.MongoDB\Weapsy.Cqrs.EventStore.CosmosDB.MongoDB.csproj" />
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs.Store.CosmosDB.MongoDB\Weapsy.Cqrs.Store.CosmosDB.MongoDB.csproj" />
     <ProjectReference Include="..\..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
     <ProjectReference Include="..\Weapsy.Cqrs.Examples.Domain\Weapsy.Cqrs.Examples.Domain.csproj" />
     <ProjectReference Include="..\Weapsy.Cqrs.Examples.Reporting\Weapsy.Cqrs.Examples.Reporting.csproj" />

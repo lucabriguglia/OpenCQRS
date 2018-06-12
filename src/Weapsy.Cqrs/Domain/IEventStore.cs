@@ -36,37 +36,5 @@ namespace Weapsy.Cqrs.Domain
         /// <param name="aggregateId">The aggregate identifier.</param>
         /// <returns></returns>
         IEnumerable<DomainEvent> GetEvents(Guid aggregateId);
-
-        /// <summary>
-        /// Gets the events by command identifier asynchronously.
-        /// </summary>
-        /// <param name="aggregateId">The aggregate identifier.</param>
-        /// <param name="commandId">The command identifier.</param>
-        /// <returns></returns>
-        Task<IEnumerable<DomainEvent>> GetEventsByCommandIdAsync(Guid aggregateId, Guid commandId);
-
-        /// <summary>
-        /// Gets the events by command identifier.
-        /// </summary>
-        /// <param name="aggregateId">The aggregate identifier.</param>
-        /// <param name="commandId">The command identifier.</param>
-        /// <returns></returns>
-        IEnumerable<DomainEvent> GetEventsByCommandId(Guid aggregateId, Guid commandId);
-
-        /// <summary>
-        /// Gets the events by event types asynchronously.
-        /// </summary>
-        /// <param name="aggregateId">The aggregate identifier.</param>
-        /// <param name="types">The types.</param>
-        /// <returns></returns>
-        Task<IEnumerable<DomainEvent>> GetEventsByEventTypesAsync(Guid aggregateId, IEnumerable<Type> types);
-
-        /// <summary>
-        /// Gets the events by event types.
-        /// </summary>
-        /// <param name="aggregateId">The aggregate identifier.</param>
-        /// <param name="types">The types.</param>
-        /// <returns></returns>
-        IEnumerable<DomainEvent> GetEventsByEventTypes(Guid aggregateId, IEnumerable<Type> types);
     }
 }
