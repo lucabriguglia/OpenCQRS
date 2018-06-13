@@ -17,7 +17,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Stores
         private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly IEventDocumentFactory _eventDocumentFactory;
 
-        public EventStore(IOptions<EventStoreConfiguration> settings, 
+        public EventStore(IOptions<StoreConfiguration> settings, 
             IAggregateDocumentFactory aggregateDocumentFactory, 
             IEventDocumentFactory eventDocumentFactory)
         {
