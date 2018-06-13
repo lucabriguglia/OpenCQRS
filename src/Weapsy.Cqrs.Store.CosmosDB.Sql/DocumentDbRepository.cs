@@ -74,10 +74,14 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql
         private Uri GetUri(string documentId = "")
         {
             var databaseId = _settings.Value.DatabaseId;
+
             var collectionId = typeof(TDocument) == typeof(AggregateDocument)
                 ? _settings.Value.AggregateCollectionId
-                : _settings.Value.EventCollectionId;
-            return string.IsNullOrEmpty(documentId) 
+                : typeof(TDocument) == typeof(CommandDocument)
+                    ? _settings.Value.CommandCollectionId
+                    : _settings.Value.EventCollectionId;
+
+            return string.IsNullOrEmpty(documentId)
                 ? UriFactory.CreateDocumentCollectionUri(databaseId, collectionId)
                 : UriFactory.CreateDocumentUri(databaseId, collectionId, documentId);
         }

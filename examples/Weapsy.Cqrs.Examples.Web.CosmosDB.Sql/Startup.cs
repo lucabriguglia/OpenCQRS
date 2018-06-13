@@ -27,6 +27,7 @@ namespace Weapsy.Cqrs.Examples.Web.CosmosDB.Sql
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
+            services.AddHttpContextAccessor();
 
             services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
             services.AddWeapsyCqrsCosmosDbSqlStore(Configuration);

@@ -9,11 +9,11 @@ using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration;
 using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents;
 using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents.Factories;
 
-namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
+namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Stores
 {
     public class EventStore : IEventStore
     {
-        private readonly EventStoreDbContext _dbContext;
+        private readonly DomainDbContext _dbContext;
         private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly IEventDocumentFactory _eventDocumentFactory;
 
@@ -21,7 +21,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
             IAggregateDocumentFactory aggregateDocumentFactory, 
             IEventDocumentFactory eventDocumentFactory)
         {
-            _dbContext = new EventStoreDbContext(settings);
+            _dbContext = new DomainDbContext(settings);
             _aggregateDocumentFactory = aggregateDocumentFactory;
             _eventDocumentFactory = eventDocumentFactory;
         }

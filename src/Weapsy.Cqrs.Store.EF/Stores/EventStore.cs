@@ -71,7 +71,11 @@ namespace Weapsy.Cqrs.Store.EF.Stores
 
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var events = await dbContext.Events.Where(x => x.AggregateId == aggregateId).ToListAsync();
+                var events = await dbContext.Events
+                    .Where(x => x.AggregateId == aggregateId)
+                    .OrderBy(x => x.Sequence)
+                    .ToListAsync();
+
                 foreach (var @event in events)
                 {
                     var domainEvent = JsonConvert.DeserializeObject(@event.Data, Type.GetType(@event.Type));
@@ -89,7 +93,11 @@ namespace Weapsy.Cqrs.Store.EF.Stores
 
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var events = dbContext.Events.Where(x => x.AggregateId == aggregateId).ToList();
+                var events = dbContext.Events
+                    .Where(x => x.AggregateId == aggregateId)
+                    .OrderBy(x => x.Sequence)
+                    .ToList();
+
                 foreach (var @event in events)
                 {
                     var domainEvent = JsonConvert.DeserializeObject(@event.Data, Type.GetType(@event.Type));

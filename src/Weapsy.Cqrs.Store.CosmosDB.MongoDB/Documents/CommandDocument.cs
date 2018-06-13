@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents
 {
-    public class EventDocument
+    public class CommandDocument
     {
         [BsonId]
         [BsonElement("id")]
@@ -11,12 +11,6 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents
 
         [BsonElement("aggregateId")]
         public string AggregateId { get; set; }
-
-        [BsonElement("commandId")]
-        public string CommandId { get; set; }
-
-        [BsonElement("sequence")]
-        public long Sequence { get; set; }
 
         [BsonElement("type")]
         public string Type { get; set; }

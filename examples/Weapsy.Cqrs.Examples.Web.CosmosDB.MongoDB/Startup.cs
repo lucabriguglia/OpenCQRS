@@ -27,6 +27,7 @@ namespace Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
+            services.AddHttpContextAccessor();
 
             services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
             services.AddWeapsyCqrsCosmosDbMongoDbStore(Configuration);
