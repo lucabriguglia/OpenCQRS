@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PackageId>Weapsy.Cqrs.EventStore.EF.Sqlite</PackageId>
+    <PackageId>Weapsy.Cqrs.Store.EF.Sqlite</PackageId>
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>
     <Product>Weapsy.Cqrs</Product>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PackageId>Weapsy.Cqrs.EventStore.CosmosDB.MongoDB</PackageId>
+    <PackageId>Weapsy.Cqrs.Store.CosmosDB.MongoDB</PackageId>
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>
     <Product>Weapsy.Cqrs</Product>
