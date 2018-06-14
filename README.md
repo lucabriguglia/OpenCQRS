@@ -50,7 +50,7 @@ Or via .NET CLI
 
 Or via Paket CLI
 
-    paket add Weapsy.Mediator.Cqrs.Store.CosmosDB.MongoDB
+    paket add Weapsy.Cqrs.Store.CosmosDB.MongoDB
 
 ## Using Weapsy.CQRS
 
