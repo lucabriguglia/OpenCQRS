@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Weapsy.Cqrs.Domain;
 using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration;
 using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents.Factories;
-using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Stores;
 
 namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Extensions
 {

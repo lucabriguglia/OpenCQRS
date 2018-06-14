@@ -6,7 +6,7 @@ using Weapsy.Cqrs.Domain;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents.Factories;
 
-namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Stores
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql
 {
     internal class EventStore : IEventStore
     {

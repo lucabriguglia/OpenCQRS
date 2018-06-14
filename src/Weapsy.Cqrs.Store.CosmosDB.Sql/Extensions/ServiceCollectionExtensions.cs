@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Weapsy.Cqrs.Domain;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents.Factories;
-using Weapsy.Cqrs.Store.CosmosDB.Sql.Stores;
 
 namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Extensions
 {

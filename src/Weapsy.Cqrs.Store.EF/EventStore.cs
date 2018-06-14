@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Weapsy.Cqrs.Domain;
 using Weapsy.Cqrs.Store.EF.Entities.Factories;
 
-namespace Weapsy.Cqrs.Store.EF.Stores
+namespace Weapsy.Cqrs.Store.EF
 {
     public class EventStore : IEventStore
     {

@@ -9,7 +9,7 @@ using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration;
 using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents;
 using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents.Factories;
 
-namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Stores
+namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
 {
     public class EventStore : IEventStore
     {
