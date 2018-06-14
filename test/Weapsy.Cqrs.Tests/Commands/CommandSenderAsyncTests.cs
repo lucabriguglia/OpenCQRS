@@ -151,6 +151,13 @@ namespace Weapsy.Cqrs.Tests.Commands
         }
 
         [Test]
+        public async Task SendWithAggregateAsyncSaveCommand()
+        {
+            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
+        }
+
+        [Test]
         public async Task SendWithAggregateAsyncSaveEvents()
         {
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
@@ -208,6 +215,13 @@ namespace Weapsy.Cqrs.Tests.Commands
         {
             await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
             _commandHandlerWithAggregateAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public async Task SendAndPublishWithAggregateAsyncSaveCommand()
+        {
+            await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
         }
 
         [Test]
