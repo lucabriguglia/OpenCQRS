@@ -8,19 +8,19 @@ CQRS and Event Sourcing library for .NET Core.
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-2.2.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB-2.2.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.MongoDB-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.CosmosDB.Sql-2.2.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.Sql-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.MySql-2.2.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.MySql-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.PostgreSql-2.2.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.PostgreSql-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.Sqlite-2.2.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.Sqlite-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.EventStore.EF.SqlServer-2.2.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.EventStore.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.SqlServer-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.SqlServer)
 
 Via Package Manager
 
@@ -41,16 +41,16 @@ The following example is for the MongoDB package.
 
 Via Package Manager
 
-    Install-Package Weapsy.Cqrs.EventStore.CosmosDB.MongoDB
+    Install-Package Weapsy.Cqrs.Store.CosmosDB.MongoDB
     
 Or via .NET CLI
 
-    dotnet add package Weapsy.Cqrs.EventStore.CosmosDB.MongoDB
+    dotnet add package Weapsy.Cqrs.Store.CosmosDB.MongoDB
 
 
 Or via Paket CLI
 
-    paket add Weapsy.Mediator.Cqrs.EventStore.CosmosDB.MongoDB
+    paket add Weapsy.Mediator.Cqrs.Store.CosmosDB.MongoDB
 
 ## Using Weapsy.CQRS
 
@@ -79,7 +79,7 @@ Weapsy.Cqrs currently supports the following data providers:
 Please install the nuget package of your choice and register the event store:
 
 ```C#
-services.AddWeapsyCqrsEventStore(Configuration);
+services.AddWeapsyCqrsStore[PACKAGENAME](Configuration);
 ```
 
 In order to use CosmosDB you need to install the free emulator (https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator) and add some settings to the appsettings.json.
@@ -88,11 +88,12 @@ For CosmosDB SQL (DocumentDB):
 
 ```JSON
 {
-  "EventStoreConfiguration": {
+  "StoreConfiguration": {
     "ServerEndpoint": "https://localhost:8081",
     "AuthKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-    "DatabaseId": "EventStore",
+    "DatabaseId": "DomainStore",
     "AggregateCollectionId": "Aggregates",
+    "CommandCollectionId": "Commands",
     "EventCollectionId": "Events"
   }
 }
@@ -102,10 +103,11 @@ For CosmosDB MongoDB:
 
 ```JSON
 {
-  "EventStoreConfiguration": {
+  "StoreConfiguration": {
     "ConnectionString": "mongodb://localhost:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==@localhost:10255/admin?ssl=true",
-    "DatabaseName": "EventStore",
+    "DatabaseName": "DomainStore",
     "AggregateCollectionName": "Aggregates",
+    "CommandCollectionName": "Commands",
     "EventCollectionName": "Events"
   }
 }
@@ -116,7 +118,7 @@ And add the following check in the Configure method (for CosmosDB SQL (DocumentD
 ```C#
 public void Configure(IApplicationBuilder app, IOptions<CosmosDBSettings> settings)
 {
-    app.EnsureEventStoreDbCreated(settings);
+    app.EnsureDomainDbCreated(settings);
 }
 ```
 
@@ -124,8 +126,8 @@ For all the others based on Entity Framework Core add just the connection string
 
 ```JSON
 {
-  "EventStoreConfiguration": {
-    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=EventStore;Trusted_Connection=True;MultipleActiveResultSets=true"
+  "StoreConfiguration": {
+    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=DomainDb;Trusted_Connection=True;MultipleActiveResultSets=true"
   }
 }
 ```
@@ -133,9 +135,9 @@ For all the others based on Entity Framework Core add just the connection string
 And the following line can be added to the Configure method to ensure that the database in installed:
 
 ```C#
-public void Configure(IApplicationBuilder app, EventStoreDbContext eventStoreDbContext)
+public void Configure(IApplicationBuilder app, DomainDbContext domainDbContext)
 {
-    eventStoreDbContext.Database.Migrate();
+    domainDbContext.Database.Migrate();
 }
 ```
 
