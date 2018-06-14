@@ -12,6 +12,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents.Factories
             {
                 Id = Guid.NewGuid().ToString(),
                 AggregateId = @event.AggregateRootId.ToString(),
+                CommandId = @event.CommandId.ToString(),
                 Sequence = version,
                 Type = @event.GetType().AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(@event),

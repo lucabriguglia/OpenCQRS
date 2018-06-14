@@ -32,7 +32,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Stores
             var aggregate = await _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefaultAsync();
             if (aggregate == null)
             {
-                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event);
+                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
                 await _dbContext.Aggregates.InsertOneAsync(aggregateDocument);
             }
 
@@ -48,7 +48,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Stores
             var aggregate = _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefault();
             if (aggregate == null)
             {
-                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event);
+                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
                 _dbContext.Aggregates.InsertOne(aggregateDocument);
             }
 

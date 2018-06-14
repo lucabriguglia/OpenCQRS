@@ -13,8 +13,10 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Extensions
         {
             services.Configure<StoreConfiguration>(configuration.GetSection("StoreConfiguration"));
 
+            services.AddTransient<ICommandStore, CommandStore>();
             services.AddTransient<IEventStore, EventStore>();
             services.AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>();
+            services.AddTransient<ICommandDocumentFactory, CommandDocumentFactory>();
             services.AddTransient<IEventDocumentFactory, EventDocumentFactory>();
 
             return services;
