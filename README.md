@@ -8,19 +8,19 @@ CQRS and Event Sourcing library for .NET Core.
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-3.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.MongoDB-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.MongoDB-3.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.Sql-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.Sql-3.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.MySql-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.MySql-3.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.PostgreSql-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.PostgreSql-3.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.Sqlite-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.Sqlite-3.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.SqlServer-3.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.SqlServer-3.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.SqlServer)
 
 Via Package Manager
 
@@ -472,12 +472,3 @@ Next time the aggregate is loaded from the repository, two events will be applie
 Note the two optional properties can be saved for the domain events:
 - UserId (Guid)
 - Source (string)
-
-## Roadmap
-
-- Store commands
-- Add settings for custom table names for entity framework
-- Add more event store providers
-- Add message bus integration
-	- Azure Service Bus
-	- RabbitMQ
