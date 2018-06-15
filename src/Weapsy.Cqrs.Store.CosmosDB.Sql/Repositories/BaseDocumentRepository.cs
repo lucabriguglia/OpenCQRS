@@ -8,19 +8,20 @@ using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Extensions.Options;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration;
-using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents;
 
-namespace Weapsy.Cqrs.Store.CosmosDB.Sql
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories
 {
-    internal class DocumentDbRepository<TDocument> : IDocumentDbRepository<TDocument> where TDocument : class
+    internal abstract class BaseDocumentRepository<TDocument> : IDocumentRepository<TDocument> where TDocument : class
     {
         private readonly IDocumentClient _documentClient;
-        private readonly IOptions<StoreConfiguration> _settings;
+        private readonly string _databaseId;
+        private readonly string _collectionId;
 
-        public DocumentDbRepository(IDocumentClient documentClient, IOptions<StoreConfiguration> settings)
+        protected BaseDocumentRepository(string collectionId, IDocumentClient documentClient, IOptions<StoreConfiguration> settings)
         {
             _documentClient = documentClient;
-            _settings = settings;
+            _databaseId = settings.Value.DatabaseId;
+            _collectionId = collectionId;
         }
 
         public async Task<Document> CreateDocumentAsync(TDocument document)
@@ -28,11 +29,11 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql
             return await _documentClient.CreateDocumentAsync(GetUri(), document);
         }
 
-        public async Task<TDocument> GetDocumentAsync(string id)
+        public async Task<TDocument> GetDocumentAsync(string documentId)
         {
             try
             {
-                Document document = await _documentClient.ReadDocumentAsync(GetUri(id));
+                Document document = await _documentClient.ReadDocumentAsync(GetUri(documentId));
                 return (TDocument)(dynamic)document;
             }
             catch (DocumentClientException e)
@@ -73,17 +74,9 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql
 
         private Uri GetUri(string documentId = "")
         {
-            var databaseId = _settings.Value.DatabaseId;
-
-            var collectionId = typeof(TDocument) == typeof(AggregateDocument)
-                ? _settings.Value.AggregateCollectionId
-                : typeof(TDocument) == typeof(CommandDocument)
-                    ? _settings.Value.CommandCollectionId
-                    : _settings.Value.EventCollectionId;
-
-            return string.IsNullOrEmpty(documentId)
-                ? UriFactory.CreateDocumentCollectionUri(databaseId, collectionId)
-                : UriFactory.CreateDocumentUri(databaseId, collectionId, documentId);
+            return !string.IsNullOrEmpty(documentId) 
+                ? UriFactory.CreateDocumentUri(_databaseId, _collectionId, documentId) 
+                : UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId);
         }
     }
 }

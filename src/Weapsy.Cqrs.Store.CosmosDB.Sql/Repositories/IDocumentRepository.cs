@@ -4,12 +4,12 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 
-namespace Weapsy.Cqrs.Store.CosmosDB.Sql
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories
 {
-    internal interface IDocumentDbRepository<TDocument> where TDocument : class
+    internal interface IDocumentRepository<TDocument> where TDocument : class
     {
         Task<Document> CreateDocumentAsync(TDocument document);
-        Task<TDocument> GetDocumentAsync(string id);
+        Task<TDocument> GetDocumentAsync(string documentId);
         Task<IList<TDocument>> GetDocumentsAsync(Expression<Func<TDocument, bool>> predicate);
         Task<int> GetCountAsync(Expression<Func<TDocument, bool>> predicate);
     }

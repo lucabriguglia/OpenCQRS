@@ -5,18 +5,19 @@ using Newtonsoft.Json;
 using Weapsy.Cqrs.Domain;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents.Factories;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories;
 
 namespace Weapsy.Cqrs.Store.CosmosDB.Sql
 {
     internal class EventStore : IEventStore
     {
-        private readonly IDocumentDbRepository<AggregateDocument> _aggregateRepository;
-        private readonly IDocumentDbRepository<EventDocument> _eventRepository;
+        private readonly IDocumentRepository<AggregateDocument> _aggregateRepository;
+        private readonly IDocumentRepository<EventDocument> _eventRepository;
         private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly IEventDocumentFactory _eventDocumentFactory;
 
-        public EventStore(IDocumentDbRepository<AggregateDocument> aggregateRepository, 
-            IDocumentDbRepository<EventDocument> eventRepository,
+        public EventStore(IDocumentRepository<AggregateDocument> aggregateRepository, 
+            IDocumentRepository<EventDocument> eventRepository,
             IAggregateDocumentFactory aggregateDocumentFactory,
             IEventDocumentFactory eventDocumentFactory)
         {

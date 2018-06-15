@@ -5,18 +5,19 @@ using Newtonsoft.Json;
 using Weapsy.Cqrs.Domain;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents;
 using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents.Factories;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories;
 
 namespace Weapsy.Cqrs.Store.CosmosDB.Sql
 {
     internal class CommandStore : ICommandStore
     {
-        private readonly IDocumentDbRepository<AggregateDocument> _aggregateRepository;
-        private readonly IDocumentDbRepository<CommandDocument> _commandRepository;
+        private readonly IDocumentRepository<AggregateDocument> _aggregateRepository;
+        private readonly IDocumentRepository<CommandDocument> _commandRepository;
         private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly ICommandDocumentFactory _commandDocumentFactory;
 
-        public CommandStore(IDocumentDbRepository<AggregateDocument> aggregateRepository, 
-            IDocumentDbRepository<CommandDocument> commandRepository,
+        public CommandStore(IDocumentRepository<AggregateDocument> aggregateRepository, 
+            IDocumentRepository<CommandDocument> commandRepository,
             IAggregateDocumentFactory aggregateDocumentFactory,
             ICommandDocumentFactory commandDocumentFactory)
         {
