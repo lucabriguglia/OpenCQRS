@@ -88,7 +88,7 @@ For CosmosDB SQL (DocumentDB):
 
 ```JSON
 {
-  "StoreConfiguration": {
+  "DomainDbConfiguration": {
     "ServerEndpoint": "https://localhost:8081",
     "AuthKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
     "DatabaseId": "DomainStore",
@@ -103,7 +103,7 @@ For CosmosDB MongoDB:
 
 ```JSON
 {
-  "StoreConfiguration": {
+  "DomainDbConfiguration": {
     "ConnectionString": "mongodb://localhost:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==@localhost:10255/admin?ssl=true",
     "DatabaseName": "DomainStore",
     "AggregateCollectionName": "Aggregates",
@@ -126,7 +126,7 @@ For all the others based on Entity Framework Core add just the connection string
 
 ```JSON
 {
-  "StoreConfiguration": {
+  "DomainDbConfiguration": {
     "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=DomainDb;Trusted_Connection=True;MultipleActiveResultSets=true"
   }
 }

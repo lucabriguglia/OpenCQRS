@@ -7,7 +7,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories
 {
     internal class CommandRepository : BaseDocumentRepository<CommandDocument>
     {
-        public CommandRepository(IDocumentClient documentClient, IOptions<StoreConfiguration> settings) 
+        public CommandRepository(IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings) 
             : base(settings.Value.CommandCollectionId, documentClient, settings)
         {
         }

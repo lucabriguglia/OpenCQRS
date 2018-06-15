@@ -17,7 +17,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories
         private readonly string _databaseId;
         private readonly string _collectionId;
 
-        protected BaseDocumentRepository(string collectionId, IDocumentClient documentClient, IOptions<StoreConfiguration> settings)
+        protected BaseDocumentRepository(string collectionId, IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings)
         {
             _documentClient = documentClient;
             _databaseId = settings.Value.DatabaseId;

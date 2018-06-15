@@ -1,6 +1,6 @@
 ﻿namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration
 {
-    public class StoreConfiguration
+    public class DomainDbConfiguration
     {
         public string ServiceEndpoint { get; set; }
         public string AuthKey { get; set; }

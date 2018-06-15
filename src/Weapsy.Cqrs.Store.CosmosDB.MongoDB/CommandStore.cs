@@ -17,7 +17,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
         private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly ICommandDocumentFactory _commandDocumentFactory;
 
-        public CommandStore(IOptions<StoreConfiguration> settings, 
+        public CommandStore(IOptions<DomainDbConfiguration> settings, 
             IAggregateDocumentFactory aggregateDocumentFactory, 
             ICommandDocumentFactory commandDocumentFactory)
         {

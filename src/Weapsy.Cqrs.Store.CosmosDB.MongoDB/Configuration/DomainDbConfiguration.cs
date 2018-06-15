@@ -1,6 +1,6 @@
 ﻿namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration
 {
-    public class StoreConfiguration
+    public class DomainDbConfiguration
     {
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }

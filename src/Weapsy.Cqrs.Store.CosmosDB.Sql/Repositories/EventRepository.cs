@@ -7,7 +7,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories
 {
     internal class EventRepository : BaseDocumentRepository<EventDocument>
     {
-        public EventRepository(IDocumentClient documentClient, IOptions<StoreConfiguration> settings) 
+        public EventRepository(IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings) 
             : base(settings.Value.EventCollectionId, documentClient, settings)
         {
         }

@@ -15,10 +15,10 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Extensions
     {
         public static IServiceCollection AddWeapsyCqrsCosmosDbSqlStore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<StoreConfiguration>(configuration.GetSection("StoreConfiguration"));
+            services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
 
-            var endpoint = configuration.GetSection("StoreConfiguration:ServerEndpoint").Value;
-            var key = configuration.GetSection("StoreConfiguration:AuthKey").Value;
+            var endpoint = configuration.GetSection("DomainDbConfiguration:ServerEndpoint").Value;
+            var key = configuration.GetSection("DomainDbConfiguration:AuthKey").Value;
             services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
             services.AddTransient<ICommandStore, CommandStore>();

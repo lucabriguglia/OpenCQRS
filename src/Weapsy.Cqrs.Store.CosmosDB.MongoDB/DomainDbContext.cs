@@ -12,7 +12,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
         private readonly string _commandCollectionName;
         private readonly string _eventCollectionName;
 
-        public DomainDbContext(IOptions<StoreConfiguration> settings)
+        public DomainDbContext(IOptions<DomainDbConfiguration> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
             _database = client.GetDatabase(settings.Value.DatabaseName);

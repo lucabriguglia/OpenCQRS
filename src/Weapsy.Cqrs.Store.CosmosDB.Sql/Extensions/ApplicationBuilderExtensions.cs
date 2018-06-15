@@ -10,7 +10,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder EnsureCosmosDbSqlDbCreated(this IApplicationBuilder app, IOptions<StoreConfiguration> settings)
+        public static IApplicationBuilder EnsureCosmosDbSqlDbCreated(this IApplicationBuilder app, IOptions<DomainDbConfiguration> settings)
         {
             var documentClient = app.ApplicationServices.GetRequiredService<IDocumentClient>();
 

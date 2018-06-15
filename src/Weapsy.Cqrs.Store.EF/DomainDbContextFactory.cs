@@ -10,10 +10,10 @@ namespace Weapsy.Cqrs.Store.EF
         private readonly IResolver _resolver;
         private readonly string _eventStoreConnection;
 
-        public DomainDbContextFactory(IResolver resolver, IOptions<DomainDbConfiguration> eventStoreConfiguration)
+        public DomainDbContextFactory(IResolver resolver, IOptions<DomainDbConfiguration> domainDbConfiguration)
         {
             _resolver = resolver;
-            _eventStoreConnection = eventStoreConfiguration.Value.ConnectionString;
+            _eventStoreConnection = domainDbConfiguration.Value.ConnectionString;
         }
 
         public DomainDbContext CreateDbContext()
