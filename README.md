@@ -1,6 +1,6 @@
 # OpenCQRS
 
-[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy-cqrs)
+[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/opencqrs)
 
 CQRS and Event Sourcing library for .NET Core.
 
