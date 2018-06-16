@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpenCqrs\OpenCqrs.csproj" />
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PackageId>OpenCqrs</PackageId>
+    <PackageId>Weapsy.Cqrs</PackageId>
     <Authors>Luca Briguglia</Authors>
     <Company>Weapsy</Company>
-    <Product>OpenCqrs</Product>
+    <Product>Weapsy.CQRS</Product>
     <Description>.NET Core library for CQRS and Event Sourcing.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/Weapsy/OpenCqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/Weapsy/Weapsy.Cqrs/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>Copyright Luca Briguglia</Copyright>
-    <PackageProjectUrl>https://github.com/Weapsy/OpenCqrs</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Weapsy/OpenCqrs</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Cqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/Weapsy.Cqrs</RepositoryUrl>
     <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing</PackageTags>
     <Version>4.0.0</Version>
   </PropertyGroup>

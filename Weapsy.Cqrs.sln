@@ -15,35 +15,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs", "src\OpenCqrs\OpenCqrs.csproj", "{E70FB190-16A9-4C74-86B0-766A135FE556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs", "src\Weapsy.Cqrs\Weapsy.Cqrs.csproj", "{E70FB190-16A9-4C74-86B0-766A135FE556}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF", "src\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj", "{1A11F0DD-BF65-4A0C-B61F-FD89646F2554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Store.EF", "src\Weapsy.Cqrs.Store.EF\Weapsy.Cqrs.Store.EF.csproj", "{1A11F0DD-BF65-4A0C-B61F-FD89646F2554}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF.SqlServer", "src\OpenCqrs.Store.EF.SqlServer\OpenCqrs.Store.EF.SqlServer.csproj", "{62C4D2A3-C7D4-41AC-A1AD-2CC2E2F38AFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Store.EF.SqlServer", "src\Weapsy.Cqrs.Store.EF.SqlServer\Weapsy.Cqrs.Store.EF.SqlServer.csproj", "{62C4D2A3-C7D4-41AC-A1AD-2CC2E2F38AFB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF.MySql", "src\OpenCqrs.Store.EF.MySql\OpenCqrs.Store.EF.MySql.csproj", "{150521FC-AC83-409B-9D45-D9CA73E1DCA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Store.EF.MySql", "src\Weapsy.Cqrs.Store.EF.MySql\Weapsy.Cqrs.Store.EF.MySql.csproj", "{150521FC-AC83-409B-9D45-D9CA73E1DCA3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF.PostgreSql", "src\OpenCqrs.Store.EF.PostgreSql\OpenCqrs.Store.EF.PostgreSql.csproj", "{C5CADA65-356F-4FDA-A1F6-1C22786D42EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Store.EF.PostgreSql", "src\Weapsy.Cqrs.Store.EF.PostgreSql\Weapsy.Cqrs.Store.EF.PostgreSql.csproj", "{C5CADA65-356F-4FDA-A1F6-1C22786D42EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF.Sqlite", "src\OpenCqrs.Store.EF.Sqlite\OpenCqrs.Store.EF.Sqlite.csproj", "{1A1F277E-F7B6-4CE8-BC00-0B92DCB4F977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Store.EF.Sqlite", "src\Weapsy.Cqrs.Store.EF.Sqlite\Weapsy.Cqrs.Store.EF.Sqlite.csproj", "{1A1F277E-F7B6-4CE8-BC00-0B92DCB4F977}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.CosmosDB.Sql", "src\OpenCqrs.Store.CosmosDB.Sql\OpenCqrs.Store.CosmosDB.Sql.csproj", "{C7FC8979-2A4B-419B-9D30-C125D45C1FC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Store.CosmosDB.Sql", "src\Weapsy.Cqrs.Store.CosmosDB.Sql\Weapsy.Cqrs.Store.CosmosDB.Sql.csproj", "{C7FC8979-2A4B-419B-9D30-C125D45C1FC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.CosmosDB.MongoDB", "src\OpenCqrs.Store.CosmosDB.MongoDB\OpenCqrs.Store.CosmosDB.MongoDB.csproj", "{95CB07E0-A387-4ED6-AC91-4FDA7D83979D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Store.CosmosDB.MongoDB", "src\Weapsy.Cqrs.Store.CosmosDB.MongoDB\Weapsy.Cqrs.Store.CosmosDB.MongoDB.csproj", "{95CB07E0-A387-4ED6-AC91-4FDA7D83979D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Examples.Domain", "examples\OpenCqrs.Examples.Domain\OpenCqrs.Examples.Domain.csproj", "{C9173FDB-A710-4A5D-B70E-DE9517DB25F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Examples.Domain", "examples\Weapsy.Cqrs.Examples.Domain\Weapsy.Cqrs.Examples.Domain.csproj", "{C9173FDB-A710-4A5D-B70E-DE9517DB25F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Examples.Reporting", "examples\OpenCqrs.Examples.Reporting\OpenCqrs.Examples.Reporting.csproj", "{EB188642-C052-4931-913A-6A8636B82840}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Examples.Reporting", "examples\Weapsy.Cqrs.Examples.Reporting\Weapsy.Cqrs.Examples.Reporting.csproj", "{EB188642-C052-4931-913A-6A8636B82840}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Examples.Shared", "examples\OpenCqrs.Examples.Shared\OpenCqrs.Examples.Shared.csproj", "{EEF2634D-703C-4585-A02F-491C6D9EF635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Examples.Shared", "examples\Weapsy.Cqrs.Examples.Shared\Weapsy.Cqrs.Examples.Shared.csproj", "{EEF2634D-703C-4585-A02F-491C6D9EF635}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Examples.Web.EF.SqlServer", "examples\OpenCqrs.Examples.Web.EF.SqlServer\OpenCqrs.Examples.Web.EF.SqlServer.csproj", "{ADBCCF75-B217-49FC-B925-6661F45B5F40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Examples.Web.EF.SqlServer", "examples\Weapsy.Cqrs.Examples.Web.EF.SqlServer\Weapsy.Cqrs.Examples.Web.EF.SqlServer.csproj", "{ADBCCF75-B217-49FC-B925-6661F45B5F40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Examples.Web.CosmosDB.Sql", "examples\OpenCqrs.Examples.Web.CosmosDB.Sql\OpenCqrs.Examples.Web.CosmosDB.Sql.csproj", "{18BE9525-FC4D-4421-BB8A-3A78044977FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Examples.Web.CosmosDB.Sql", "examples\Weapsy.Cqrs.Examples.Web.CosmosDB.Sql\Weapsy.Cqrs.Examples.Web.CosmosDB.Sql.csproj", "{18BE9525-FC4D-4421-BB8A-3A78044977FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Tests", "test\OpenCqrs.Tests\OpenCqrs.Tests.csproj", "{BA0FB58E-B8AA-4DC3-95FF-49540C00074D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Tests", "test\Weapsy.Cqrs.Tests\Weapsy.Cqrs.Tests.csproj", "{BA0FB58E-B8AA-4DC3-95FF-49540C00074D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Examples.Web.CosmosDB.MongoDB", "examples\OpenCqrs.Examples.Web.CosmosDB.MongoDB\OpenCqrs.Examples.Web.CosmosDB.MongoDB.csproj", "{E85D6149-3F36-470B-B472-D7AAF7A8DAF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB", "examples\Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB\Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB.csproj", "{E85D6149-3F36-470B-B472-D7AAF7A8DAF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

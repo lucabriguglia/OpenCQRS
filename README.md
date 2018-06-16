@@ -1,38 +1,38 @@
-# OpenCQRS
+# Weapsy.CQRS
 
-[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/opencqrs)
+[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/weapsy.cqrs)
 
 CQRS and Event Sourcing library for .NET Core.
 
-## Installing OpenCQRS
+## Installing Weapsy.CQRS
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-4.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.MongoDB-4.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.Sql-4.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.MySql-4.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.PostgreSql-4.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.Sqlite-4.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.SqlServer-4.0.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.SqlServer)
 
 Via Package Manager
 
-    Install-Package OpenCqrs
+    Install-Package Weapsy.Cqrs
     
 Or via .NET CLI
 
-    dotnet add package OpenCqrs
+    dotnet add package Weapsy.Cqrs
     
 Or via Paket CLI
 
-    paket add OpenCqrs
+    paket add Weapsy.Cqrs
 
 For Event Sourcing, an event store data provider needs to be installed.
 There are few already available but more are coming up.
@@ -41,34 +41,34 @@ The following example is for the MongoDB package.
 
 Via Package Manager
 
-    Install-Package OpenCqrs.Store.CosmosDB.MongoDB
+    Install-Package Weapsy.Cqrs.Store.CosmosDB.MongoDB
     
 Or via .NET CLI
 
-    dotnet add package OpenCqrs.Store.CosmosDB.MongoDB
+    dotnet add package Weapsy.Cqrs.Store.CosmosDB.MongoDB
 
 
 Or via Paket CLI
 
-    paket add OpenCqrs.Store.CosmosDB.MongoDB
+    paket add Weapsy.Cqrs.Store.CosmosDB.MongoDB
 
-## Using OpenCQRS
+## Using Weapsy.CQRS
 
-Working examples for different database providers are available in the examples folder of the repository https://github.com/lucabriguglia/OpenCQRS/tree/master/examples
+Working examples for different database providers are available in the examples folder of the repository https://github.com/lucabriguglia/Weapsy.CQRS/tree/master/examples
 
 ### Register services
 
 In ConfigureServices method of Startup.cs:
 
 ```C#
-services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
+services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
 ```
 
 CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
 In order to use the event sourcing functionalities, an event store provider needs to be added as well.
-OpenCqrs currently supports the following data providers:
+Weapsy.CQRS currently supports the following data providers:
 - CosmosDB SQL (DocumentDB)
 - CosmosDB MongoDB
 - SqlServer
@@ -79,7 +79,7 @@ OpenCqrs currently supports the following data providers:
 Please install the nuget package of your choice and register the event store:
 
 ```C#
-services.AddOpenCqrsSqlServerProvider(Configuration);
+services.AddWeapsyCqrsSqlServerProvider(Configuration);
 ```
 
 In order to use CosmosDB you need to install the free emulator (https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator) and add some settings to the appsettings.json.
@@ -143,7 +143,7 @@ public void Configure(IApplicationBuilder app, DomainDbContext domainDbContext)
 
 ### Basics
 
-There is a single interface to be used, IDispatcher in OpenCqrs namespace.
+There is a single interface to be used, IDispatcher in Weapsy.Cqrs namespace.
 Note that all handlers are available as asynchronous and as well as synchronous, but for these examples I'm using the asynchronous versions only.
 
 There are 3 kinds of messages:
@@ -291,7 +291,7 @@ var something = await _dispatcher.GetResultAsync<GetSomething, Something>(query)
 ### Event Sourcing
 
 Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the dispatcher will automatically publish the events of the aggregate returned by the handler and save those events to the event store.
-A working example can be found at https://github.com/lucabriguglia/OpenCQRS/tree/master/examples
+A working example can be found at https://github.com/lucabriguglia/Weapsy.CQRS/tree/master/examples
 
 First, create a command and an event:
 

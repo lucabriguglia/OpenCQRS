@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpenCqrs.Store.CosmosDB.Sql\OpenCqrs.Store.CosmosDB.Sql.csproj" />
-    <ProjectReference Include="..\..\src\OpenCqrs\OpenCqrs.csproj" />
-    <ProjectReference Include="..\OpenCqrs.Examples.Shared\OpenCqrs.Examples.Shared.csproj" />
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs.Store.CosmosDB.Sql\Weapsy.Cqrs.Store.CosmosDB.Sql.csproj" />
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs.Examples.Shared\Weapsy.Cqrs.Examples.Shared.csproj" />
   </ItemGroup>
 
 </Project>

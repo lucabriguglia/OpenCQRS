@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpenCqrs\OpenCqrs.csproj" />
-    <ProjectReference Include="..\OpenCqrs.Examples.Domain\OpenCqrs.Examples.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
   </ItemGroup>
 
 </Project>

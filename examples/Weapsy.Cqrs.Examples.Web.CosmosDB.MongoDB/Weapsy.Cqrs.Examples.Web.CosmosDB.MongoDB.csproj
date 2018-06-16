@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs.Store.CosmosDB.MongoDB\Weapsy.Cqrs.Store.CosmosDB.MongoDB.csproj" />
+    <ProjectReference Include="..\..\src\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs.Examples.Domain\Weapsy.Cqrs.Examples.Domain.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs.Examples.Reporting\Weapsy.Cqrs.Examples.Reporting.csproj" />
+    <ProjectReference Include="..\Weapsy.Cqrs.Examples.Shared\Weapsy.Cqrs.Examples.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
