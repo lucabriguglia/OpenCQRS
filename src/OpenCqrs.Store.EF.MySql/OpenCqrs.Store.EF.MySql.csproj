@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageId>OpenCqrs.Store.EF.MySql</PackageId>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Weapsy</Company>
+    <Product>OpenCqrs</Product>
+    <Description>MySQL database provider for OpenCqrs event store.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Weapsy/OpenCqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright Luca Briguglia</Copyright>
+    <PackageProjectUrl>https://github.com/Weapsy/OpenCqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/OpenCqrs</RepositoryUrl>
+    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, mysql</PackageTags>
+    <Version>4.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj" />
+    <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
+  </ItemGroup>
+
+</Project>

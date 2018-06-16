@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageId>OpenCqrs.Store.EF.Sqlite</PackageId>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Weapsy</Company>
+    <Product>OpenCqrs</Product>
+    <Description>SQLite database provider for OpenCqrs event store.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Weapsy/OpenCqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright Luca Briguglia</Copyright>
+    <PackageProjectUrl>https://github.com/Weapsy/OpenCqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/OpenCqrs</RepositoryUrl>
+    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, sqlite</PackageTags>
+    <Version>4.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj" />
+    <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
+  </ItemGroup>
+
+</Project>

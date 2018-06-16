@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageId>OpenCqrs.Store.EF</PackageId>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Weapsy</Company>
+    <Product>OpenCqrs</Product>
+    <Description>Entity Framework Core database provider for OpenCqrs event store.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Weapsy/OpenCqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright Luca Briguglia</Copyright>
+    <PackageProjectUrl>https://github.com/Weapsy/OpenCqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/OpenCqrs</RepositoryUrl>
+    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework</PackageTags>
+    <Version>4.0.0</Version>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageId>OpenCqrs</PackageId>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Weapsy</Company>
+    <Product>OpenCqrs</Product>
+    <Description>.NET Core library for CQRS and Event Sourcing.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Weapsy/OpenCqrs/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright Luca Briguglia</Copyright>
+    <PackageProjectUrl>https://github.com/Weapsy/OpenCqrs</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Weapsy/OpenCqrs</RepositoryUrl>
+    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing</PackageTags>
+    <Version>4.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="ReflectionMagic" Version="3.1.0" />
+    <PackageReference Include="Scrutor" Version="2.2.2" />
+  </ItemGroup>
+
+</Project>
