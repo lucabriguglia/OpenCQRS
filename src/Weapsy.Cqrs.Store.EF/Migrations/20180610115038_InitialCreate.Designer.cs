@@ -20,7 +20,7 @@ namespace Weapsy.Cqrs.Store.EF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OpenCqrs.EF.Entities.AggregateEntity", b =>
+            modelBuilder.Entity("WeapsyCqrs.EF.Entities.AggregateEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -32,7 +32,7 @@ namespace Weapsy.Cqrs.Store.EF.Migrations
                     b.ToTable("DomainAggregate");
                 });
 
-            modelBuilder.Entity("OpenCqrs.EF.Entities.CommandEntity", b =>
+            modelBuilder.Entity("WeapsyCqrs.EF.Entities.CommandEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -54,7 +54,7 @@ namespace Weapsy.Cqrs.Store.EF.Migrations
                     b.ToTable("DomainCommand");
                 });
 
-            modelBuilder.Entity("OpenCqrs.EF.Entities.EventEntity", b =>
+            modelBuilder.Entity("WeapsyCqrs.EF.Entities.EventEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();

@@ -8,7 +8,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsCosmosDbMongoDbProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsCosmosDbMongoDbProvider(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
 

@@ -7,9 +7,9 @@ namespace Weapsy.Cqrs.Store.EF.MySql
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsMySqlProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsMySqlProvider(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddOpenCqrsEF(configuration);
+            services.AddWeapsyCqrsEFProvider(configuration);
 
             var connectionString = configuration.GetSection(Constants.DomainDbConfigurationConnectionString).Value;
 

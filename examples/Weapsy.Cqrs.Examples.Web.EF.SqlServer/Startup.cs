@@ -29,14 +29,14 @@ namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
             services.AddOptions();
             services.AddHttpContextAccessor();
 
-            services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
-            services.AddOpenCqrsSqlServerProvider(Configuration);
+            services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
+            services.AddWeapsyCqrsSqlServerProvider(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher, DomainDbContext domainDbContext)
         {
-            // Ensure OpenCqrs database is installed.
+            // Ensure WeapsyCqrs database is installed.
             domainDbContext.Database.Migrate();
 
             if (env.IsDevelopment())

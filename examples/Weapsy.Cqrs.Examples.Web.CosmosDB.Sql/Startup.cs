@@ -29,8 +29,8 @@ namespace Weapsy.Cqrs.Examples.Web.CosmosDB.Sql
             services.AddOptions();
             services.AddHttpContextAccessor();
 
-            services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
-            services.AddOpenCqrsCosmosDbSqlProvider(Configuration);
+            services.AddWeapsyCqrs(typeof(CreateProduct), typeof(GetProduct));
+            services.AddWeapsyCqrsCosmosDbSqlProvider(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

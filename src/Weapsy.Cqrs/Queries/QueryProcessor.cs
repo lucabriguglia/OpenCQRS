@@ -7,7 +7,7 @@ namespace Weapsy.Cqrs.Queries
     /// <summary>
     /// IQueryDispatcher
     /// </summary>
-    /// <seealso cref="T:OpenCqrs.Queries.IQueryDispatcher" />
+    /// <seealso cref="T:WeapsyCqrs.Queries.IQueryDispatcher" />
     public class QueryProcessor : IQueryProcessor
     {
         private readonly IResolver _resolver;
@@ -26,7 +26,7 @@ namespace Weapsy.Cqrs.Queries
             var handler = _resolver.Resolve<IQueryHandler<TQuery, TResult>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Queries.IQueryHandler<TQuery, TResult> found for query '{query.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type WeapsyCqrs.Queries.IQueryHandler<TQuery, TResult> found for query '{query.GetType().FullName}'");
 
             return handler.Retrieve(query);
         }

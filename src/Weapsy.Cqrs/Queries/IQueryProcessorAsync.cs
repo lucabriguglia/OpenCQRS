@@ -9,7 +9,7 @@ namespace Weapsy.Cqrs.Queries
     {
         /// <summary>
         /// Asynchronously gets the result.
-        /// The query handler must implement OpenCqrs.Queries.IQueryHandlerAsync.
+        /// The query handler must implement WeapsyCqrs.Queries.IQueryHandlerAsync.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>

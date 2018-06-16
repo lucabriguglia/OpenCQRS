@@ -13,7 +13,7 @@ namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsCosmosDbSqlProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsCosmosDbSqlProvider(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
 

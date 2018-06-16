@@ -7,9 +7,9 @@ namespace Weapsy.Cqrs.Store.EF.SqlServer
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsSqlServerProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsSqlServerProvider(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddOpenCqrsEF(configuration);
+            services.AddWeapsyCqrsEFProvider(configuration);
 
             var connectionString = configuration.GetSection(Constants.DomainDbConfigurationConnectionString).Value;
 

@@ -8,7 +8,7 @@ namespace Weapsy.Cqrs.Queries
     /// <summary>
     /// QueryDispatcherAsync
     /// </summary>
-    /// <seealso cref="T:OpenCqrs.Queries.IQueryDispatcherAsync" />
+    /// <seealso cref="T:WeapsyCqrs.Queries.IQueryDispatcherAsync" />
     public class QueryProcessorAsync : IQueryProcessorAsync
     {
         private readonly IResolver _resolver;
@@ -27,7 +27,7 @@ namespace Weapsy.Cqrs.Queries
             var handler = _resolver.Resolve<IQueryHandlerAsync<TQuery, TResult>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Queries.IQueryHandlerAsync<TQuery, TResult>> found for query '{query.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type WeapsyCqrs.Queries.IQueryHandlerAsync<TQuery, TResult>> found for query '{query.GetType().FullName}'");
 
             return await handler.RetrieveAsync(query);
         }

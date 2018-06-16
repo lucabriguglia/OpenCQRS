@@ -10,7 +10,7 @@ namespace Weapsy.Cqrs.Commands
     {
         /// <summary>
         /// Asynchronously sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerAsync.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerAsync.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -19,7 +19,7 @@ namespace Weapsy.Cqrs.Commands
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -30,7 +30,7 @@ namespace Weapsy.Cqrs.Commands
 
         /// <summary>
         /// Asynchronously sends the command and publishes the events returned by the command handler.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -39,7 +39,7 @@ namespace Weapsy.Cqrs.Commands
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>

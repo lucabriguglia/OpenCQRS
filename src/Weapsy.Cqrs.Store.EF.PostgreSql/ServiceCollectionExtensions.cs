@@ -7,9 +7,9 @@ namespace Weapsy.Cqrs.Store.EF.PostgreSql
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsPostgreSqlProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsPostgreSqlProvider(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddOpenCqrsEF(configuration);
+            services.AddWeapsyCqrsEFProvider(configuration);
 
             var connectionString = configuration.GetSection(Constants.DomainDbConfigurationConnectionString).Value;
 

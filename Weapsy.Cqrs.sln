@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Tests", "test\W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB", "examples\Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB\Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB.csproj", "{E85D6149-3F36-470B-B472-D7AAF7A8DAF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapsy.Cqrs.Bus.ServiceBus", "src\Weapsy.Cqrs.Bus.ServiceBus\Weapsy.Cqrs.Bus.ServiceBus.csproj", "{C3467348-3A8B-4558-B954-6A124E187FC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{E85D6149-3F36-470B-B472-D7AAF7A8DAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E85D6149-3F36-470B-B472-D7AAF7A8DAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E85D6149-3F36-470B-B472-D7AAF7A8DAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3467348-3A8B-4558-B954-6A124E187FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3467348-3A8B-4558-B954-6A124E187FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3467348-3A8B-4558-B954-6A124E187FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3467348-3A8B-4558-B954-6A124E187FC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,6 +137,7 @@ Global
 		{18BE9525-FC4D-4421-BB8A-3A78044977FD} = {F791EE52-C0E1-4B23-9D14-4275A7630449}
 		{BA0FB58E-B8AA-4DC3-95FF-49540C00074D} = {54E87113-D720-41C2-A0DE-C4D61FB15AE5}
 		{E85D6149-3F36-470B-B472-D7AAF7A8DAF1} = {F791EE52-C0E1-4B23-9D14-4275A7630449}
+		{C3467348-3A8B-4558-B954-6A124E187FC3} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}

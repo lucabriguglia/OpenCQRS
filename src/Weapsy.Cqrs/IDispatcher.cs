@@ -13,7 +13,7 @@ namespace Weapsy.Cqrs
     {
         /// <summary>
         /// Asynchronously sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerAsync.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerAsync.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -22,7 +22,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandler.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandler.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -31,7 +31,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -42,7 +42,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -53,7 +53,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously sends the command and publishes the events returned by the command handler.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithEventsAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -62,7 +62,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Sends the command and publishes the events returned by the command handler.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithEvents&lt;TCommand&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithEvents&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -71,7 +71,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -83,7 +83,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -94,7 +94,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously publishes the specified event.
-        /// The event handler must implement OpenCqrs.Events.IEventHandlerAsync.
+        /// The event handler must implement WeapsyCqrs.Events.IEventHandlerAsync.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -103,7 +103,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Publishes the specified event.
-        /// The event handler must implement OpenCqrs.Events.IEventHandler.
+        /// The event handler must implement WeapsyCqrs.Events.IEventHandler.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -112,7 +112,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Asynchronously gets the result.
-        /// The query handler must implement OpenCqrs.Queries.IQueryHandlerAsync.
+        /// The query handler must implement WeapsyCqrs.Queries.IQueryHandlerAsync.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>
@@ -123,7 +123,7 @@ namespace Weapsy.Cqrs
 
         /// <summary>
         /// Gets the result.
-        /// The query handler must implement OpenCqrs.Queries.IQueryHandler.
+        /// The query handler must implement WeapsyCqrs.Queries.IQueryHandler.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>

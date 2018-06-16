@@ -7,9 +7,9 @@ namespace Weapsy.Cqrs.Store.EF.Sqlite
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsSqliteProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsSqliteProvider(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddOpenCqrsEF(configuration);
+            services.AddWeapsyCqrsEFProvider(configuration);
 
             var connectionString = configuration.GetSection(Constants.DomainDbConfigurationConnectionString).Value;
 

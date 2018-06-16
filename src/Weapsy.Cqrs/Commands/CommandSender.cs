@@ -33,7 +33,7 @@ namespace Weapsy.Cqrs.Commands
 
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandler.
+        /// The command handler must implement WeapsyCqrs.Commands.ICommandHandler.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -46,7 +46,7 @@ namespace Weapsy.Cqrs.Commands
             var handler = _resolver.Resolve<ICommandHandler<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Commands.ICommandHandler<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type WeapsyCqrs.Commands.ICommandHandler<TCommand> found for command '{command.GetType().FullName}'");
 
             handler.Handle(command);
         }
@@ -62,7 +62,7 @@ namespace Weapsy.Cqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithAggregate<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Commands.ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type WeapsyCqrs.Commands.ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
 
             var aggregateRoot = handler.Handle(command);
 
@@ -83,7 +83,7 @@ namespace Weapsy.Cqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithEvents<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Commands.ICommandHandlerWithEvents<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type WeapsyCqrs.Commands.ICommandHandlerWithEvents<TCommand> found for command '{command.GetType().FullName}'");
 
             var events = handler.Handle(command);
 
@@ -105,7 +105,7 @@ namespace Weapsy.Cqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithAggregate<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Commands.ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type WeapsyCqrs.Commands.ICommandHandlerWithAggregate<TCommand> found for command '{command.GetType().FullName}'");
 
             var aggregateRoot = handler.Handle(command);
 

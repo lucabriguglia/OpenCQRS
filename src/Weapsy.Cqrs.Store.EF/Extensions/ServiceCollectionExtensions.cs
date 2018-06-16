@@ -8,7 +8,7 @@ namespace Weapsy.Cqrs.Store.EF.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsEF(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWeapsyCqrsEFProvider(this IServiceCollection services, IConfiguration configuration)
         {
             services.Scan(s => s
                 .FromAssembliesOf(typeof(DomainDbContext))
