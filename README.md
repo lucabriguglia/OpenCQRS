@@ -54,7 +54,7 @@ Or via Paket CLI
 
 ## Using Weapsy.CQRS
 
-Working examples for different database providers are available in the examples folder of the repository https://github.com/lucabriguglia/Weapsy.CQRS/tree/master/examples
+Working examples for different database providers are available in the examples folder of the repository https://github.com/Weapsy/Weapsy.CQRS/tree/master/examples
 
 ### Register services
 
@@ -291,7 +291,7 @@ var something = await _dispatcher.GetResultAsync<GetSomething, Something>(query)
 ### Event Sourcing
 
 Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the dispatcher will automatically publish the events of the aggregate returned by the handler and save those events to the event store.
-A working example can be found at https://github.com/lucabriguglia/Weapsy.CQRS/tree/master/examples
+A working example can be found at https://github.com/Weapsy/Weapsy.CQRS/tree/master/examples
 
 First, create a command and an event:
 
