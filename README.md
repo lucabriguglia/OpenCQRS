@@ -1,5 +1,4 @@
 # _Just rebranded as OpenCQRS_
-***
 
 # Weapsy.CQRS
 
