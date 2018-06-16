@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OpenCqrs.Domain
+namespace Weapsy.Cqrs.Domain
 {
     public interface ICommandStore
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ReflectionMagic;
 
-namespace OpenCqrs.Domain
+namespace Weapsy.Cqrs.Domain
 {
     public abstract class AggregateRoot : IAggregateRoot
     {

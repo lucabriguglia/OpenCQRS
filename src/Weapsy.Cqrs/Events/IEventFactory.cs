@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Events
+﻿namespace Weapsy.Cqrs.Events
 {
     /// <summary>
     /// IEventFactory

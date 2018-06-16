@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Commands
+namespace Weapsy.Cqrs.Commands
 {
     public interface ICommandHandlerWithAggregate<in TCommand> where TCommand : IDomainCommand
     {

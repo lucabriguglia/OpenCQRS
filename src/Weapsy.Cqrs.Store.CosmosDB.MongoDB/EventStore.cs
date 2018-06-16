@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.CosmosDB.MongoDB.Configuration;
-using OpenCqrs.Store.CosmosDB.MongoDB.Documents;
-using OpenCqrs.Store.CosmosDB.MongoDB.Documents.Factories;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration;
+using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents;
+using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents.Factories;
 
-namespace OpenCqrs.Store.CosmosDB.MongoDB
+namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
 {
     public class EventStore : IEventStore
     {

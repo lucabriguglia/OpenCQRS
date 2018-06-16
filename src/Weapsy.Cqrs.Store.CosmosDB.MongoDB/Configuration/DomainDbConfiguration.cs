@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.CosmosDB.MongoDB.Configuration
+﻿namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration
 {
     public class DomainDbConfiguration
     {

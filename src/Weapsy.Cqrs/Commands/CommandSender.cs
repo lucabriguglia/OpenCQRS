@@ -1,15 +1,15 @@
 ﻿using System;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Domain;
-using OpenCqrs.Events;
+using Weapsy.Cqrs.Dependencies;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Events;
 
-namespace OpenCqrs.Commands
+namespace Weapsy.Cqrs.Commands
 {
     /// <inheritdoc />
     /// <summary>
     /// CommandSender
     /// </summary>
-    /// <seealso cref="T:OpenCqrs.Commands.ICommandSender" />
+    /// <seealso cref="T:Weapsy.Cqrs.Commands.ICommandSender" />
     public class CommandSender : ICommandSender
     {
         private readonly IResolver _resolver;

@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Tests.Fakes
+﻿namespace Weapsy.Cqrs.Tests.Fakes
 {
     public class Something
     {       

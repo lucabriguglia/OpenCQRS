@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Events;
-using OpenCqrs.Tests.Fakes;
+using Weapsy.Cqrs.Dependencies;
+using Weapsy.Cqrs.Events;
+using Weapsy.Cqrs.Tests.Fakes;
 
-namespace OpenCqrs.Tests.Events
+namespace Weapsy.Cqrs.Tests.Events
 {
     [TestFixture]
     public class EventPublisherTests

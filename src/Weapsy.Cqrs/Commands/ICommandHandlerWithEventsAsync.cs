@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenCqrs.Events;
+using Weapsy.Cqrs.Events;
 
-namespace OpenCqrs.Commands
+namespace Weapsy.Cqrs.Commands
 {
     public interface ICommandHandlerWithEventsAsync<in TCommand> where TCommand : ICommand
     {

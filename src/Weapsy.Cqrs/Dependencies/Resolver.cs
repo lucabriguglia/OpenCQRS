@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OpenCqrs.Dependencies
+namespace Weapsy.Cqrs.Dependencies
 {
     public class Resolver : IResolver
     {

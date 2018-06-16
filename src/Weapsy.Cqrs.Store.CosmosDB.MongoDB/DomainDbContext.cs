@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using OpenCqrs.Store.CosmosDB.MongoDB.Configuration;
-using OpenCqrs.Store.CosmosDB.MongoDB.Documents;
+using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Configuration;
+using Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents;
 
-namespace OpenCqrs.Store.CosmosDB.MongoDB
+namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB
 {
     public class DomainDbContext
     {

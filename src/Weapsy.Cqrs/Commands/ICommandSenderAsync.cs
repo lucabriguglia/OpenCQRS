@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Domain;
+using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Commands
+namespace Weapsy.Cqrs.Commands
 {
     /// <summary>
     /// ICommandSender

@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using OpenCqrs.Dependencies;
+using Weapsy.Cqrs.Dependencies;
 
-namespace OpenCqrs.Queries
+namespace Weapsy.Cqrs.Queries
 {
     /// <inheritdoc />
     /// <summary>

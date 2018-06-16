@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenCqrs.Commands;
+using Weapsy.Cqrs.Commands;
 
-namespace OpenCqrs.Domain
+namespace Weapsy.Cqrs.Domain
 {
     public interface IDomainCommand : ICommand
     {

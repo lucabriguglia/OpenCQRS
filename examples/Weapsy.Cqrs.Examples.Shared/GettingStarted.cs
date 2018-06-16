@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OpenCqrs.Examples.Domain;
-using OpenCqrs.Examples.Domain.Commands;
-using OpenCqrs.Examples.Reporting;
-using OpenCqrs.Examples.Reporting.Queries;
+using Weapsy.Cqrs.Examples.Domain;
+using Weapsy.Cqrs.Examples.Domain.Commands;
+using Weapsy.Cqrs.Examples.Reporting;
+using Weapsy.Cqrs.Examples.Reporting.Queries;
 
-namespace OpenCqrs.Examples.Shared
+namespace Weapsy.Cqrs.Examples.Shared
 {
     public static class GettingStarted
     {

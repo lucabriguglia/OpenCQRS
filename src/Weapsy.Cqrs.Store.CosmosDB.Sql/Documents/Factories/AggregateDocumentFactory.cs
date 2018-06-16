@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenCqrs.Domain;
+using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Store.CosmosDB.Sql.Documents.Factories
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Documents.Factories
 {
     public class AggregateDocumentFactory : IAggregateDocumentFactory
     {

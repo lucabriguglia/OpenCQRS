@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.EF
+﻿namespace Weapsy.Cqrs.Store.EF
 {
     public interface IDatabaseProvider
     {

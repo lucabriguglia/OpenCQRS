@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace OpenCqrs.Examples.Web.EF.SqlServer
+namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
 {
     public class Program
     {

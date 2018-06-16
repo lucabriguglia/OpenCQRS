@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Examples.Domain.Events
+namespace Weapsy.Cqrs.Examples.Domain.Events
 {
     public class ProductCreated : DomainEvent
     {

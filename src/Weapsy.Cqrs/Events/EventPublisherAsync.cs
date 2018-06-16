@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OpenCqrs.Dependencies;
+using Weapsy.Cqrs.Dependencies;
 
-namespace OpenCqrs.Events
+namespace Weapsy.Cqrs.Events
 {
     /// <inheritdoc />
     /// <summary>
     /// EventPublisherAsync
     /// </summary>
-    /// <seealso cref="T:OpenCqrs.Events.IEventPublisherAsync" />
+    /// <seealso cref="T:Weapsy.Cqrs.Events.IEventPublisherAsync" />
     public class EventPublisherAsync : IEventPublisherAsync
     {
         private readonly IResolver _resolver;

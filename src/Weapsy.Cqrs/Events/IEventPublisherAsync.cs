@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OpenCqrs.Events
+namespace Weapsy.Cqrs.Events
 {
     /// <summary>
     /// IEventPublisherAsync

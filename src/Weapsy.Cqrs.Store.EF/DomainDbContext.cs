@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OpenCqrs.Store.EF.Entities;
+using Weapsy.Cqrs.Store.EF.Entities;
 
-namespace OpenCqrs.Store.EF
+namespace Weapsy.Cqrs.Store.EF
 {
     public class DomainDbContext : DbContext
     {

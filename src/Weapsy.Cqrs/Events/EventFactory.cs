@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace OpenCqrs.Events
+namespace Weapsy.Cqrs.Events
 {
     public class EventFactory : IEventFactory
     {

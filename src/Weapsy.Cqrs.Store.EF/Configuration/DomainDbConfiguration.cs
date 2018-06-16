@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.EF.Configuration
+﻿namespace Weapsy.Cqrs.Store.EF.Configuration
 {
     public class DomainDbConfiguration
     {

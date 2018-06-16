@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Examples.Domain.Commands;
-using OpenCqrs.Examples.Reporting.Queries;
-using OpenCqrs.Examples.Shared;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.EF;
-using OpenCqrs.Store.EF.SqlServer;
+using Weapsy.Cqrs.Examples.Domain.Commands;
+using Weapsy.Cqrs.Examples.Reporting.Queries;
+using Weapsy.Cqrs.Examples.Shared;
+using Weapsy.Cqrs.Extensions;
+using Weapsy.Cqrs.Store.EF;
+using Weapsy.Cqrs.Store.EF.SqlServer;
 
-namespace OpenCqrs.Examples.Web.EF.SqlServer
+namespace Weapsy.Cqrs.Examples.Web.EF.SqlServer
 {
     public class Startup
     {

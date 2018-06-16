@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCqrs.Store.EF.Entities
+namespace Weapsy.Cqrs.Store.EF.Entities
 {
     public class CommandEntity
     {

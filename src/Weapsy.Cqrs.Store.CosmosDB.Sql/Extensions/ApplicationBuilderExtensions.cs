@@ -4,9 +4,9 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Store.CosmosDB.Sql.Configuration;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration;
 
-namespace OpenCqrs.Store.CosmosDB.Sql.Extensions
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

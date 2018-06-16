@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace OpenCqrs.Store.CosmosDB.Sql.Documents
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Documents
 {
     public class AggregateDocument
     {

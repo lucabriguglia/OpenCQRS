@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Commands;
-using OpenCqrs.Domain;
-using OpenCqrs.Events;
-using OpenCqrs.Queries;
+using Weapsy.Cqrs.Commands;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Events;
+using Weapsy.Cqrs.Queries;
 
-namespace OpenCqrs
+namespace Weapsy.Cqrs
 {
     /// <summary>
     /// IDispatcher

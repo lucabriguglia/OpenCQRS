@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Queries;
-using OpenCqrs.Tests.Fakes;
+using Weapsy.Cqrs.Dependencies;
+using Weapsy.Cqrs.Queries;
+using Weapsy.Cqrs.Tests.Fakes;
 
-namespace OpenCqrs.Tests.Queries
+namespace Weapsy.Cqrs.Tests.Queries
 {
     [TestFixture]
     public class QueryProcessorAsyncTests

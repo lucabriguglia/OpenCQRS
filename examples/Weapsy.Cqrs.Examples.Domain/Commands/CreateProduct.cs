@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Examples.Domain.Commands
+namespace Weapsy.Cqrs.Examples.Domain.Commands
 {
     public class CreateProduct : DomainCommand
     {

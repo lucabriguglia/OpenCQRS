@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Store.EF.Configuration;
+using Weapsy.Cqrs.Store.EF.Configuration;
 
 // ReSharper disable InconsistentNaming
 
-namespace OpenCqrs.Store.EF.Extensions
+namespace Weapsy.Cqrs.Store.EF.Extensions
 {
     public static class ServiceCollectionExtensions
     {

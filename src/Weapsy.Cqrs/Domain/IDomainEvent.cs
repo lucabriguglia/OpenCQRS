@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenCqrs.Events;
+using Weapsy.Cqrs.Events;
 
-namespace OpenCqrs.Domain
+namespace Weapsy.Cqrs.Domain
 {
     public interface IDomainEvent : IEvent
     {

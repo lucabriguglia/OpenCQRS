@@ -1,13 +1,13 @@
 ﻿using System;
-using OpenCqrs.Dependencies;
+using Weapsy.Cqrs.Dependencies;
 
-namespace OpenCqrs.Events
+namespace Weapsy.Cqrs.Events
 {
     /// <inheritdoc />
     /// <summary>
     /// EventPublisher
     /// </summary>
-    /// <seealso cref="T:OpenCqrs.Events.IEventPublisher" />
+    /// <seealso cref="T:Weapsy.Cqrs.Events.IEventPublisher" />
     public class EventPublisher : IEventPublisher
     {
         private readonly IResolver _resolver;

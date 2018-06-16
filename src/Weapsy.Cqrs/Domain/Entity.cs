@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCqrs.Domain
+namespace Weapsy.Cqrs.Domain
 {
     public abstract class Entity : IEntity
     {

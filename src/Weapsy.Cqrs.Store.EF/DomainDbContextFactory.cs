@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Store.EF.Configuration;
+using Weapsy.Cqrs.Dependencies;
+using Weapsy.Cqrs.Store.EF.Configuration;
 
-namespace OpenCqrs.Store.EF
+namespace Weapsy.Cqrs.Store.EF
 {
     public class DomainDbContextFactory : IDomainDbContextFactory
     {

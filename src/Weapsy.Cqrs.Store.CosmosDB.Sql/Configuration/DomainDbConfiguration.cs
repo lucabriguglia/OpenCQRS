@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.CosmosDB.Sql.Configuration
+﻿namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration
 {
     public class DomainDbConfiguration
     {

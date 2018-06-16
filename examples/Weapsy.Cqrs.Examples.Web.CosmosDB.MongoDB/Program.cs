@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace OpenCqrs.Examples.Web.CosmosDB.MongoDB
+namespace Weapsy.Cqrs.Examples.Web.CosmosDB.MongoDB
 {
     public class Program
     {

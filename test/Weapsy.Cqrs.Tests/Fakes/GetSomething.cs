@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Queries;
+﻿using Weapsy.Cqrs.Queries;
 
-namespace OpenCqrs.Tests.Fakes
+namespace Weapsy.Cqrs.Tests.Fakes
 {
     public class GetSomething : IQuery
     {

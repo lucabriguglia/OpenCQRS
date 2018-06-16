@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace OpenCqrs.Store.EF.MySql
+namespace Weapsy.Cqrs.Store.EF.MySql
 {
     public class MySqlDatabaseProvider : IDatabaseProvider
     {

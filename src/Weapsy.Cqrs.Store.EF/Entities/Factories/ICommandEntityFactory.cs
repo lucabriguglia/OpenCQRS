@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Store.EF.Entities.Factories
+namespace Weapsy.Cqrs.Store.EF.Entities.Factories
 {
     public interface ICommandEntityFactory
     {

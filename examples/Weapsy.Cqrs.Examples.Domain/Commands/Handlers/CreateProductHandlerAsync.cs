@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Commands;
-using OpenCqrs.Domain;
+using Weapsy.Cqrs.Commands;
+using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Examples.Domain.Commands.Handlers
+namespace Weapsy.Cqrs.Examples.Domain.Commands.Handlers
 {
     public class CreateProductHandlerAsync : ICommandHandlerWithAggregateAsync<CreateProduct>
     {

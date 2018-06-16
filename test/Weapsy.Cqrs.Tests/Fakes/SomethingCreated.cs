@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Events;
+﻿using Weapsy.Cqrs.Events;
 
-namespace OpenCqrs.Tests.Fakes
+namespace Weapsy.Cqrs.Tests.Fakes
 {
     public class SomethingCreated : Event
     {

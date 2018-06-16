@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace OpenCqrs.Store.CosmosDB.MongoDB.Documents
+namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents
 {
     public class AggregateDocument
     {

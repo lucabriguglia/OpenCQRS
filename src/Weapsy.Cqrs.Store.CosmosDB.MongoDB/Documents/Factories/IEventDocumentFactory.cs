@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Store.CosmosDB.MongoDB.Documents.Factories
+namespace Weapsy.Cqrs.Store.CosmosDB.MongoDB.Documents.Factories
 {
     public interface IEventDocumentFactory
     {

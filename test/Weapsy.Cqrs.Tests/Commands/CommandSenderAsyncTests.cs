@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using OpenCqrs.Commands;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Domain;
-using OpenCqrs.Events;
-using OpenCqrs.Tests.Fakes;
+using Weapsy.Cqrs.Commands;
+using Weapsy.Cqrs.Dependencies;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Events;
+using Weapsy.Cqrs.Tests.Fakes;
 
-namespace OpenCqrs.Tests.Commands
+namespace Weapsy.Cqrs.Tests.Commands
 {
     [TestFixture]
     public class CommandSenderAsyncTests

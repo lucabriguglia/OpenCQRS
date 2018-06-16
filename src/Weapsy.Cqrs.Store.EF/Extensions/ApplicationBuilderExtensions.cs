@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OpenCqrs.Store.EF.Extensions
+namespace Weapsy.Cqrs.Store.EF.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

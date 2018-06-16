@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenCqrs.Queries;
+using Weapsy.Cqrs.Queries;
 
-namespace OpenCqrs.Examples.Reporting.Queries
+namespace Weapsy.Cqrs.Examples.Reporting.Queries
 {
     public class GetProduct : IQuery
     {

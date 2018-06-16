@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Tests.Fakes
+namespace Weapsy.Cqrs.Tests.Fakes
 {
     public class CreateAggregate : DomainCommand
     {

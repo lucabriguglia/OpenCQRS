@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OpenCqrs.Commands
+namespace Weapsy.Cqrs.Commands
 {
     public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommand
     {

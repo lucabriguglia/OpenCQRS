@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Examples.Domain.Commands;
-using OpenCqrs.Examples.Reporting.Queries;
-using OpenCqrs.Examples.Shared;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.CosmosDB.Sql.Configuration;
-using OpenCqrs.Store.CosmosDB.Sql.Extensions;
+using Weapsy.Cqrs.Examples.Domain.Commands;
+using Weapsy.Cqrs.Examples.Reporting.Queries;
+using Weapsy.Cqrs.Examples.Shared;
+using Weapsy.Cqrs.Extensions;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Extensions;
 
-namespace OpenCqrs.Examples.Web.CosmosDB.Sql
+namespace Weapsy.Cqrs.Examples.Web.CosmosDB.Sql
 {
     public class Startup
     {

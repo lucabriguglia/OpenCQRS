@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using OpenCqrs.Events;
+using Weapsy.Cqrs.Events;
 
-namespace OpenCqrs.Commands
+namespace Weapsy.Cqrs.Commands
 {
     public interface ICommandHandlerWithEvents<in TCommand> where TCommand : ICommand
     {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Events;
-using OpenCqrs.Examples.Domain.Events;
+using Weapsy.Cqrs.Events;
+using Weapsy.Cqrs.Examples.Domain.Events;
 
-namespace OpenCqrs.Examples.Reporting.EventHandlers
+namespace Weapsy.Cqrs.Examples.Reporting.EventHandlers
 {
     public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
     {

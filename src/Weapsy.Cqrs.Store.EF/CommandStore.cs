@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.EF.Entities.Factories;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Store.EF.Entities.Factories;
 
-namespace OpenCqrs.Store.EF
+namespace Weapsy.Cqrs.Store.EF
 {
     public class CommandStore : ICommandStore
     {

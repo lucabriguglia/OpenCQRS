@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace OpenCqrs.Store.EF.Migrations
+namespace Weapsy.Cqrs.Store.EF.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
     [Migration("20180610115038_InitialCreate")]

@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using OpenCqrs.Commands;
-using OpenCqrs.Domain;
-using OpenCqrs.Events;
-using OpenCqrs.Queries;
-using OpenCqrs.Tests.Fakes;
+using Weapsy.Cqrs.Commands;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Events;
+using Weapsy.Cqrs.Queries;
+using Weapsy.Cqrs.Tests.Fakes;
 
-namespace OpenCqrs.Tests
+namespace Weapsy.Cqrs.Tests
 {
     [TestFixture]
     public class DispatcherTests

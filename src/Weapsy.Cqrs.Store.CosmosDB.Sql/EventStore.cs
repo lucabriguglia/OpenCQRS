@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.CosmosDB.Sql.Documents;
-using OpenCqrs.Store.CosmosDB.Sql.Documents.Factories;
-using OpenCqrs.Store.CosmosDB.Sql.Repositories;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents.Factories;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories;
 
-namespace OpenCqrs.Store.CosmosDB.Sql
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql
 {
     internal class EventStore : IEventStore
     {

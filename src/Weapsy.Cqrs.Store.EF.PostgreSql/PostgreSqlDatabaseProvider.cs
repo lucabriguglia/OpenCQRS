@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace OpenCqrs.Store.EF.PostgreSql
+namespace Weapsy.Cqrs.Store.EF.PostgreSql
 {
     public class PostgreSqlDatabaseProvider : IDatabaseProvider
     {

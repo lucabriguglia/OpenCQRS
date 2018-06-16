@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OpenCqrs.Examples.Reporting
+namespace Weapsy.Cqrs.Examples.Reporting
 {
     public static class FakeReadDatabase
     {

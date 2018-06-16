@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Store.EF.Extensions;
+using Weapsy.Cqrs.Store.EF.Extensions;
 
-namespace OpenCqrs.Store.EF.SqlServer
+namespace Weapsy.Cqrs.Store.EF.SqlServer
 {
     public static class ServiceCollectionExtensions
     {

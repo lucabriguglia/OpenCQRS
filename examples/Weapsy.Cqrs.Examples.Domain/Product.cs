@@ -1,8 +1,8 @@
 ﻿using System;
-using OpenCqrs.Domain;
-using OpenCqrs.Examples.Domain.Events;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Examples.Domain.Events;
 
-namespace OpenCqrs.Examples.Domain
+namespace Weapsy.Cqrs.Examples.Domain
 {
     public class Product : AggregateRoot
     {

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace OpenCqrs.Store.EF.Migrations
+namespace Weapsy.Cqrs.Store.EF.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
     partial class DomainDbContextModelSnapshot : ModelSnapshot

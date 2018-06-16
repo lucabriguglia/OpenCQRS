@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Queries
+﻿namespace Weapsy.Cqrs.Queries
 {
     public interface IQuery
     {

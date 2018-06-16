@@ -7,9 +7,9 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Store.CosmosDB.Sql.Configuration;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration;
 
-namespace OpenCqrs.Store.CosmosDB.Sql.Repositories
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories
 {
     internal abstract class BaseDocumentRepository<TDocument> : IDocumentRepository<TDocument> where TDocument : class
     {

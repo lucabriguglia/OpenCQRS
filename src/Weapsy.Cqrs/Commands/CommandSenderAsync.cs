@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Domain;
-using OpenCqrs.Events;
+using Weapsy.Cqrs.Dependencies;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Events;
 
-namespace OpenCqrs.Commands
+namespace Weapsy.Cqrs.Commands
 {
     /// <inheritdoc />
     /// <summary>
     /// CommandSenderAsync
     /// </summary>
-    /// <seealso cref="T:OpenCqrs.Commands.ICommandSenderAsync" />
+    /// <seealso cref="T:Weapsy.Cqrs.Commands.ICommandSenderAsync" />
     public class CommandSenderAsync : ICommandSenderAsync
     {
         private readonly IResolver _resolver;

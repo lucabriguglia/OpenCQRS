@@ -3,13 +3,13 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.CosmosDB.Sql.Configuration;
-using OpenCqrs.Store.CosmosDB.Sql.Documents;
-using OpenCqrs.Store.CosmosDB.Sql.Documents.Factories;
-using OpenCqrs.Store.CosmosDB.Sql.Repositories;
+using Weapsy.Cqrs.Domain;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Configuration;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Documents.Factories;
+using Weapsy.Cqrs.Store.CosmosDB.Sql.Repositories;
 
-namespace OpenCqrs.Store.CosmosDB.Sql.Extensions
+namespace Weapsy.Cqrs.Store.CosmosDB.Sql.Extensions
 {
     public static class ServiceCollectionExtensions
     {

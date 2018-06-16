@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenCqrs.Domain
+namespace Weapsy.Cqrs.Domain
 {
     /// <inheritdoc />
     /// <summary>

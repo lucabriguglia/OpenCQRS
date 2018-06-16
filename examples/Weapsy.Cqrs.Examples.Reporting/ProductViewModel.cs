@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCqrs.Examples.Reporting
+namespace Weapsy.Cqrs.Examples.Reporting
 {
     public class ProductViewModel
     {

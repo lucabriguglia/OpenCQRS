@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Commands;
+﻿using Weapsy.Cqrs.Commands;
 
-namespace OpenCqrs.Tests.Fakes
+namespace Weapsy.Cqrs.Tests.Fakes
 {
     public class CreateSomething : Command
     {

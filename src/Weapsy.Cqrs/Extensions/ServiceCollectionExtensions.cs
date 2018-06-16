@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Domain;
+using Weapsy.Cqrs.Domain;
 
-namespace OpenCqrs.Extensions
+namespace Weapsy.Cqrs.Extensions
 {
     public static class ServiceCollectionExtensions
     {

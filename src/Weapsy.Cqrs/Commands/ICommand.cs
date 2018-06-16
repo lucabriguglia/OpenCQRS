@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Commands
+﻿namespace Weapsy.Cqrs.Commands
 {
     public interface ICommand
     {
