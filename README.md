@@ -8,19 +8,19 @@ CQRS and Event Sourcing library for .NET Core.
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs-3.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-3.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-3.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-3.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-3.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-3.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-3.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-4.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
 
 Via Package Manager
 
