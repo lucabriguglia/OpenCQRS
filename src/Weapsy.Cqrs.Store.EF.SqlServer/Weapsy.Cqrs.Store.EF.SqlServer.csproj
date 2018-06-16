@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Cqrs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Cqrs</RepositoryUrl>
     <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, sql, sqlserver, mssql</PackageTags>
-    <Version>4.0.0</Version>
+    <Version>4.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
