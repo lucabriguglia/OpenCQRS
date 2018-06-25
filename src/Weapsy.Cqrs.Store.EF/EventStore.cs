@@ -33,12 +33,12 @@ namespace Weapsy.Cqrs.Store.EF
                 if (aggregateEntity == null)
                 {
                     var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
-                    dbContext.Aggregates.Add(newAggregateEntity);
+                    await dbContext.Aggregates.AddAsync(newAggregateEntity);
                 }
 
                 var currentSequenceCount = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
                 var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentSequenceCount + 1);
-                dbContext.Events.Add(newEventEntity);
+                await dbContext.Events.AddAsync(newEventEntity);
 
                 await dbContext.SaveChangesAsync();
             }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="WindowsAzure.ServiceBus" Version="4.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Weapsy.Cqrs\Weapsy.Cqrs.csproj" />
   </ItemGroup>
 

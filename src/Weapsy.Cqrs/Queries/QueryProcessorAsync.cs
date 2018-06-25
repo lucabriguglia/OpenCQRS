@@ -19,7 +19,7 @@ namespace Weapsy.Cqrs.Queries
         }
 
         /// <inheritdoc />
-        public async Task<TResult> ProcessAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        public Task<TResult> ProcessAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
@@ -29,7 +29,7 @@ namespace Weapsy.Cqrs.Queries
             if (handler == null)
                 throw new ApplicationException($"No handler of type WeapsyCqrs.Queries.IQueryHandlerAsync<TQuery, TResult>> found for query '{query.GetType().FullName}'");
 
-            return await handler.RetrieveAsync(query);
+            return handler.RetrieveAsync(query);
         }
     }
 }

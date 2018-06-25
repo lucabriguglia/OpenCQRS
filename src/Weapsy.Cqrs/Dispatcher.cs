@@ -38,9 +38,9 @@ namespace Weapsy.Cqrs
         }
 
         /// <inheritdoc />
-        public async Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
+        public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            await _commandSenderAsync.SendAsync(command);
+            return _commandSenderAsync.SendAsync(command);
         }
 
         /// <inheritdoc />
@@ -50,21 +50,25 @@ namespace Weapsy.Cqrs
         }
 
         /// <inheritdoc />
-        public async Task SendAsync<TCommand, TAggregate>(TCommand command) where TCommand : IDomainCommand where TAggregate : IAggregateRoot
+        public Task SendAsync<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand 
+            where TAggregate : IAggregateRoot
         {
-            await _commandSenderAsync.SendAsync<TCommand, TAggregate>(command);
+            return _commandSenderAsync.SendAsync<TCommand, TAggregate>(command);
         }
 
         /// <inheritdoc />
-        public void Send<TCommand, TAggregate>(TCommand command) where TCommand : IDomainCommand where TAggregate : IAggregateRoot
+        public void Send<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand 
+            where TAggregate : IAggregateRoot
         {
             _commandSender.Send<TCommand, TAggregate>(command);
         }
 
         /// <inheritdoc />
-        public async Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
+        public Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            await _commandSenderAsync.SendAndPublishAsync(command);
+            return _commandSenderAsync.SendAndPublishAsync(command);
         }
 
         /// <inheritdoc />
@@ -74,11 +78,11 @@ namespace Weapsy.Cqrs
         }
 
         /// <inheritdoc />
-        public async Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command) 
+        public Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command) 
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            await _commandSenderAsync.SendAndPublishAsync<TCommand, TAggregate>(command);
+            return _commandSenderAsync.SendAndPublishAsync<TCommand, TAggregate>(command);
         }
 
         /// <inheritdoc />
@@ -90,9 +94,9 @@ namespace Weapsy.Cqrs
         }
 
         /// <inheritdoc />
-        public async Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
+        public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
-            await _eventPublisherAsync.PublishAsync(@event);
+            return _eventPublisherAsync.PublishAsync(@event);
         }
 
         /// <inheritdoc />
@@ -102,9 +106,9 @@ namespace Weapsy.Cqrs
         }
 
         /// <inheritdoc />
-        public async Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        public Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
-            return await _queryProcessorAsync.ProcessAsync<TQuery, TResult>(query);
+            return _queryProcessorAsync.ProcessAsync<TQuery, TResult>(query);
         }
 
         /// <inheritdoc />

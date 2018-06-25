@@ -8,19 +8,19 @@ CQRS and Event Sourcing library for .NET Core.
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-4.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs-4.1.1-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.MongoDB-4.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.MongoDB-4.1.1-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.Sql-4.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.CosmosDB.Sql-4.1.1-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.MySql-4.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.MySql-4.1.1-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.PostgreSql-4.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.PostgreSql-4.1.1-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.Sqlite-4.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.Sqlite-4.1.1-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.SqlServer-4.1.0-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Weapsy.Cqrs.Store.EF.SqlServer-4.1.1-blue.svg)](https://www.nuget.org/packages/Weapsy.Cqrs.Store.EF.SqlServer)
 
 Via Package Manager
 

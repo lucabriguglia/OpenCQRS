@@ -13,13 +13,13 @@
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Cqrs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Cqrs</RepositoryUrl>
     <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, cosmosdb, mongodb</PackageTags>
-    <Version>4.1.0</Version>
+    <Version>4.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.6.1" />
   </ItemGroup>
 

@@ -33,8 +33,7 @@ namespace Weapsy.Cqrs.Commands
         }
 
         /// <inheritdoc />
-        public async Task SendAsync<TCommand>(TCommand command) 
-            where TCommand : ICommand
+        public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
@@ -44,7 +43,7 @@ namespace Weapsy.Cqrs.Commands
             if (handler == null)
                 throw new ApplicationException($"No handler of type CommandHandlerAsync<TCommand> found for command '{command.GetType().FullName}'");
 
-            await handler.HandleAsync(command);
+            return handler.HandleAsync(command);
         }
 
         /// <inheritdoc />
@@ -73,8 +72,7 @@ namespace Weapsy.Cqrs.Commands
         }
 
         /// <inheritdoc />
-        public async Task SendAndPublishAsync<TCommand>(TCommand command) 
-            where TCommand : ICommand
+        public async Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));

@@ -13,18 +13,14 @@
     <PackageProjectUrl>https://github.com/Weapsy/Weapsy.Cqrs</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Weapsy/Weapsy.Cqrs</RepositoryUrl>
     <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing</PackageTags>
-    <Version>4.1.0</Version>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>bin\Release\netcoreapp2.1\</OutputPath>
+    <Version>4.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="ReflectionMagic" Version="3.1.0" />
     <PackageReference Include="Scrutor" Version="2.2.2" />

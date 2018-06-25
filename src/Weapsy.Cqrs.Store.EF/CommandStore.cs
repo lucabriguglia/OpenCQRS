@@ -33,11 +33,11 @@ namespace Weapsy.Cqrs.Store.EF
                 if (aggregateEntity == null)
                 {
                     var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
-                    dbContext.Aggregates.Add(newAggregateEntity);
+                    await dbContext.Aggregates.AddAsync(newAggregateEntity);
                 }
 
                 var newCommandEntity = _commandEntityFactory.CreateCommand(command);
-                dbContext.Commands.Add(newCommandEntity);
+                await dbContext.Commands.AddAsync(newCommandEntity);
 
                 await dbContext.SaveChangesAsync();
             }
