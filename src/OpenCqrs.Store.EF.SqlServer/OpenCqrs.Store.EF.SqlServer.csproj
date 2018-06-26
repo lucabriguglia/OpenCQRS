@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageId>OpenCqrs.Store.EF.SqlServer</PackageId>
+    <Authors>Luca Briguglia</Authors>
+    <Product>OpenCQRS</Product>
+    <Description>SQL Server database provider for OpenCQRS domain store.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/lucabriguglia/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright Luca Briguglia</Copyright>
+    <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
+    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, sql, sqlserver, mssql</PackageTags>
+    <Version>4.2.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj" />
+    <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
+  </ItemGroup>
+
+</Project>
