@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/opencqrs)
 
-CQRS and Event Sourcing library for .NET Core.
+.NET Core library for DDD, CQRS and Event Sourcing.
 
 ## Installing OpenCQRS
 
@@ -25,7 +25,7 @@ Nuget Packages
 Via Package Manager
 
     Install-Package OpenCqrs
-    
+   
 Or via .NET CLI
 
     dotnet add package OpenCqrs
@@ -34,10 +34,14 @@ Or via Paket CLI
 
     paket add OpenCqrs
 
-For Event Sourcing, an event store data provider needs to be installed.
-There are few already available but more are coming up.
-Install one between CosmosDB Sql (DocumnentDB), CosmosDB MongoDB, SqlServer, MySql, PostgreSql and Sqlite.
-The following example is for the MongoDB package.
+A domain store database provider needs to be installed in order to use the Event Sourcing functionalities.
+OpenCQRS currently supports the following database providers:
+- CosmosDB SQL (DocumentDB)
+- CosmosDB MongoDB
+- SqlServer
+- MySql
+- PostgreSql
+- Sqlite
 
 Via Package Manager
 
@@ -67,16 +71,8 @@ services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
 CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
-In order to use the event sourcing functionalities, an event store provider needs to be added as well.
-OpenCQRS currently supports the following data providers:
-- CosmosDB SQL (DocumentDB)
-- CosmosDB MongoDB
-- SqlServer
-- MySql
-- PostgreSql
-- Sqlite
-
-Please install the nuget package of your choice and register the event store:
+A domain store database provider needs to be registered as well in order to use the event sourcing functionalities.
+Please install the nuget package of your choice and register the database provider:
 
 ```C#
 services.AddOpenCqrsSqlServerProvider(Configuration);
@@ -122,7 +118,7 @@ public void Configure(IApplicationBuilder app, IOptions<CosmosDBSettings> settin
 }
 ```
 
-For all the others based on Entity Framework Core add just the connection string to appsettings.json:
+For all the others based on Entity Framework Core, add just the connection string to appsettings.json:
 
 ```JSON
 {
@@ -144,7 +140,7 @@ public void Configure(IApplicationBuilder app, DomainDbContext domainDbContext)
 ### Basics
 
 There is a single interface to be used, IDispatcher in OpenCqrs namespace.
-Note that all handlers are available as asynchronous and as well as synchronous, but for these examples I'm using the asynchronous versions only.
+Note that all handlers are available as asynchronous as well as synchronous, but for these examples I'm using the asynchronous versions only.
 
 There are 3 kinds of messages:
 - Command, single handler
@@ -182,7 +178,7 @@ await _dispatcher.SendAsync(command)
 
 #### Command (with events)
 
-Using the SendAndPublishAsync method, the dispatcher will automatically publish the events returned by the handler.
+By using the SendAndPublishAsync method, the dispatcher will automatically publish the events returned by the handler.
 
 First, create a command and an event:
 
@@ -246,7 +242,7 @@ public class SomethingHappenedHandlerAsyncTwo : IEventHandlerAsync<SomethingHapp
 }
 ```
 
-And finally, publish the event using the mediator:
+And finally, publish the event using the dispatcher:
 
 ```C#
 var @event = new SomethingHappened();
@@ -290,7 +286,7 @@ var something = await _dispatcher.GetResultAsync<GetSomething, Something>(query)
 
 ### Event Sourcing
 
-Using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the dispatcher will automatically publish the events of the aggregate returned by the handler and save those events to the event store.
+By using the SendAndPublishAsync<IDomainCommand, IAggregateRoot> method, the dispatcher will automatically publish the events of the aggregate returned by the handler and save those events to the event store.
 A working example can be found at https://github.com/lucabriguglia/OpenCQRS/tree/master/examples
 
 First, create a command and an event:
@@ -358,7 +354,8 @@ public class Product : AggregateRoot
 
 Note that the empty constructor is required in order to create a new object.
 After every command has been executed, an event is added to the pending event list calling the AddEvent method.
-The Apply methods are called automatically when new events are added and are also used to load the object from the history when GetById method of the Repository is called.
+The Apply methods are called automatically when new events are added and are also used to load the object from history when GetById method of the Repository is called.
+
 Create the first handler:
 
 ```C#
@@ -387,7 +384,7 @@ await _dispatcher.SendAndPublishAsync<CreateProduct, Product>(command)
 ```
 
 At this stage, we might want to create our read model.
-It can be achieved by creating an event handler:
+It can be achieved by creating an event handler that will be automatically called after the command is executed:
 
 ```C#
 public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
@@ -407,7 +404,7 @@ public class ProductCreatedHandlerAsync : IEventHandlerAsync<ProductCreated>
 }
 ```
 
-At this point, the aggregate and the first event have been saved to the event store and the product can be retrieved from the event store using the repository.
+At this point, the aggregate and the first event have been saved to the event store and the product can be retrieved using the repository.
 
 New commands, events and handlers can now be added:
 
