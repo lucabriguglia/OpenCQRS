@@ -44,12 +44,6 @@ namespace OpenCqrs
         }
 
         /// <inheritdoc />
-        public void Send<TCommand>(TCommand command) where TCommand : ICommand
-        {
-            _commandSender.Send(command);
-        }
-
-        /// <inheritdoc />
         public Task SendAsync<TCommand, TAggregate>(TCommand command) 
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
@@ -58,23 +52,9 @@ namespace OpenCqrs
         }
 
         /// <inheritdoc />
-        public void Send<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
-            where TAggregate : IAggregateRoot
-        {
-            _commandSender.Send<TCommand, TAggregate>(command);
-        }
-
-        /// <inheritdoc />
         public Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             return _commandSenderAsync.SendAndPublishAsync(command);
-        }
-
-        /// <inheritdoc />
-        public void SendAndPublish<TCommand>(TCommand command) where TCommand : ICommand
-        {
-            _commandSender.SendAndPublish(command);
         }
 
         /// <inheritdoc />
@@ -86,6 +66,38 @@ namespace OpenCqrs
         }
 
         /// <inheritdoc />
+        public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
+        {
+            return _eventPublisherAsync.PublishAsync(@event);
+        }
+
+        /// <inheritdoc />
+        public Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        {
+            return _queryProcessorAsync.ProcessAsync<TQuery, TResult>(query);
+        }
+
+        /// <inheritdoc />
+        public void Send<TCommand>(TCommand command) where TCommand : ICommand
+        {
+            _commandSender.Send(command);
+        }
+
+        /// <inheritdoc />
+        public void Send<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand 
+            where TAggregate : IAggregateRoot
+        {
+            _commandSender.Send<TCommand, TAggregate>(command);
+        }
+
+        /// <inheritdoc />
+        public void SendAndPublish<TCommand>(TCommand command) where TCommand : ICommand
+        {
+            _commandSender.SendAndPublish(command);
+        }
+
+        /// <inheritdoc />
         public void SendAndPublish<TCommand, TAggregate>(TCommand command) 
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
@@ -94,21 +106,9 @@ namespace OpenCqrs
         }
 
         /// <inheritdoc />
-        public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
-        {
-            return _eventPublisherAsync.PublishAsync(@event);
-        }
-
-        /// <inheritdoc />
         public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
         {
             _eventPublisher.Publish(@event);
-        }
-
-        /// <inheritdoc />
-        public Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
-        {
-            return _queryProcessorAsync.ProcessAsync<TQuery, TResult>(query);
         }
 
         /// <inheritdoc />
