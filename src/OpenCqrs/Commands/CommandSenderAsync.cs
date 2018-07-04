@@ -41,7 +41,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type CommandHandlerAsync<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
 
             return handler.HandleAsync(command);
         }
@@ -56,14 +56,14 @@ namespace OpenCqrs.Commands
 
             await _commandStore.SaveCommandAsync<TAggregate>(command);
 
-            var handler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type ICommandHandlerWithAggregateAsync<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithDomainEventsAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
 
-            var aggregateRoot = await handler.HandleAsync(command);
+            var events = await handler.HandleAsync(command);
 
-            foreach (var @event in aggregateRoot.Events)
+            foreach (var @event in events)
             {
                 @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
@@ -80,7 +80,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithEventsAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type ICommandHandlerWithEventsAsync<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithEventsAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
 
             var events = await handler.HandleAsync(command);
 
@@ -101,14 +101,14 @@ namespace OpenCqrs.Commands
 
             await _commandStore.SaveCommandAsync<TAggregate>(command);
 
-            var handler = _resolver.Resolve<ICommandHandlerWithAggregateAsync<TCommand>>();
+            var handler = _resolver.Resolve<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type ICommandHandlerWithAggregateAsync<TCommand> found for command '{command.GetType().FullName}'");
+                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithDomainEventsAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
 
-            var aggregateRoot = await handler.HandleAsync(command);
+            var events = await handler.HandleAsync(command);
 
-            foreach (var @event in aggregateRoot.Events)
+            foreach (var @event in events)
             {
                 @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);

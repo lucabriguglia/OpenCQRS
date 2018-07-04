@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using OpenCqrs.Commands;
 using OpenCqrs.Domain;
 
 namespace OpenCqrs.Examples.Domain.Commands.Handlers
 {
-    public class UpdateProductTitleHandlerAsync : ICommandHandlerWithAggregateAsync<UpdateProductTitle>
+    public class UpdateProductTitleHandlerAsync : ICommandHandlerWithDomainEventsAsync<UpdateProductTitle>
     {
         private readonly IRepository<Product> _repository;
 
@@ -14,7 +15,7 @@ namespace OpenCqrs.Examples.Domain.Commands.Handlers
             _repository = repository;
         }
 
-        public async Task<IAggregateRoot> HandleAsync(UpdateProductTitle command)
+        public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProductTitle command)
         {
             var product = await _repository.GetByIdAsync(command.AggregateRootId);
 
@@ -23,7 +24,7 @@ namespace OpenCqrs.Examples.Domain.Commands.Handlers
 
             product.UpdateTitle(command.Title);
 
-            return product;
+            return product.Events;
         }
     }
 }
