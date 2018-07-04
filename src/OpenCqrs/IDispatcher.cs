@@ -17,6 +17,7 @@ namespace OpenCqrs
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
+        /// <returns></returns>
         Task SendAsync<TCommand>(TCommand command)
             where TCommand : ICommand;
 
@@ -27,6 +28,7 @@ namespace OpenCqrs
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
+        /// <returns></returns>
         Task SendAsync<TCommand, TAggregate>(TCommand command)
             where TCommand : IDomainCommand
             where TAggregate : IAggregateRoot;
@@ -37,6 +39,7 @@ namespace OpenCqrs
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
+        /// <returns></returns>
         Task SendAndPublishAsync<TCommand>(TCommand command)
             where TCommand : ICommand;
 

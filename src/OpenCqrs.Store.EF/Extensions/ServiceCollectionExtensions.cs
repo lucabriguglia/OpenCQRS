@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Extensions;
 using OpenCqrs.Store.EF.Configuration;
 
 // ReSharper disable InconsistentNaming
@@ -8,16 +9,16 @@ namespace OpenCqrs.Store.EF.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsEFProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IOpenCqrsBuilder AddEFProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
         {
-            services.Scan(s => s
+            builder.Services.Scan(s => s
                 .FromAssembliesOf(typeof(DomainDbContext))
                 .AddClasses()
                 .AsImplementedInterfaces());
 
-            services.Configure<DomainDbConfiguration>(configuration.GetSection(Constants.DomainDbConfiguration));
+            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection(Constants.DomainDbConfiguration));
 
-            return services;
+            return builder;
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenCqrs.Domain;
+using OpenCqrs.Extensions;
 using OpenCqrs.Store.CosmosDB.MongoDB.Configuration;
 using OpenCqrs.Store.CosmosDB.MongoDB.Documents.Factories;
 
@@ -8,18 +10,24 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsCosmosDbMongoDbProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IOpenCqrsBuilder AddCosmosDbMongoDbProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
         {
-            services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
+            if (builder == null)
+                throw new ArgumentNullException(nameof(builder));
 
-            services.AddTransient<ICommandStore, CommandStore>();
-            services.AddTransient<IEventStore, EventStore>();
+            if (configuration == null)
+                throw new ArgumentNullException(nameof(configuration));
 
-            services.AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>();
-            services.AddTransient<ICommandDocumentFactory, CommandDocumentFactory>();
-            services.AddTransient<IEventDocumentFactory, EventDocumentFactory>();
+            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
 
-            return services;
+            builder.Services.AddTransient<ICommandStore, CommandStore>();
+            builder.Services.AddTransient<IEventStore, EventStore>();
+
+            builder.Services.AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>();
+            builder.Services.AddTransient<ICommandDocumentFactory, CommandDocumentFactory>();
+            builder.Services.AddTransient<IEventDocumentFactory, EventDocumentFactory>();
+
+            return builder;
         }
     }
 }

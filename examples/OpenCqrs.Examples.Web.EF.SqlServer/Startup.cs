@@ -29,8 +29,9 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
             services.AddOptions();
             services.AddHttpContextAccessor();
 
-            services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
-            services.AddOpenCqrsSqlServerProvider(Configuration);
+            services
+                .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+                .AddSqlServerProvider(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

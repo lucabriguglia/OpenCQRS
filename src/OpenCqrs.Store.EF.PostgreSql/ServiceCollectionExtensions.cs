@@ -1,24 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Extensions;
 using OpenCqrs.Store.EF.Extensions;
 
 namespace OpenCqrs.Store.EF.PostgreSql
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOpenCqrsPostgreSqlProvider(this IServiceCollection services, IConfiguration configuration)
+        public static IOpenCqrsBuilder AddPostgreSqlProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
         {
-            services.AddOpenCqrsEFProvider(configuration);
+            if (builder == null)
+                throw new ArgumentNullException(nameof(builder));
+
+            if (configuration == null)
+                throw new ArgumentNullException(nameof(configuration));
+
+            builder.AddEFProvider(configuration);
 
             var connectionString = configuration.GetSection(Constants.DomainDbConfigurationConnectionString).Value;
 
-            services.AddDbContext<DomainDbContext>(options =>
+            builder.Services.AddDbContext<DomainDbContext>(options =>
                 options.UseNpgsql(connectionString));
 
-            services.AddTransient<IDatabaseProvider, PostgreSqlDatabaseProvider>();
+            builder.Services.AddTransient<IDatabaseProvider, PostgreSqlDatabaseProvider>();
 
-            return services;
+            return builder;
         }
     }
 }

@@ -29,8 +29,9 @@ namespace OpenCqrs.Examples.Web.CosmosDB.Sql
             services.AddOptions();
             services.AddHttpContextAccessor();
 
-            services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
-            services.AddOpenCqrsCosmosDbSqlProvider(Configuration);
+            services
+                .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+                .AddCosmosDbSqlProvider(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

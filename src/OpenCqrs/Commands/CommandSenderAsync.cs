@@ -20,9 +20,9 @@ namespace OpenCqrs.Commands
         private readonly ICommandStore _commandStore;
 
         public CommandSenderAsync(IResolver resolver,
-            IEventPublisherAsync eventPublisherAsync, 
+            IEventPublisherAsync eventPublisherAsync,
             IEventFactory eventFactory,
-            IEventStore eventStore, 
+            IEventStore eventStore,
             ICommandStore commandStore)
         {
             _resolver = resolver;

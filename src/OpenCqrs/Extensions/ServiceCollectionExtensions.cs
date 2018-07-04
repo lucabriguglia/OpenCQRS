@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Configuration;
 using OpenCqrs.Domain;
 
 namespace OpenCqrs.Extensions
@@ -15,9 +16,12 @@ namespace OpenCqrs.Extensions
         /// </summary>
         /// <param name="services">The services.</param>
         /// <param name="types">The types.</param>
-        public static IServiceCollection AddOpenCqrs(this IServiceCollection services, params Type[] types)
+        public static IOpenCqrsBuilder AddOpenCqrs(this IServiceCollection services, params Type[] types)
         {
-            // Convert to list and add IMediator.
+            if (services == null)
+                throw new ArgumentNullException(nameof(services));
+
+            // Convert to list and add IDispatcher.
             var typeList = types.ToList();
             typeList.Add(typeof(IDispatcher));
 
@@ -30,7 +34,21 @@ namespace OpenCqrs.Extensions
             // Register repository
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
-            return services;
+            return new OpenCqrsBuilder(services);
+        }
+
+        public static IOpenCqrsBuilder AddOptions(this IOpenCqrsBuilder builder, Action<Options> setupAction)
+        {
+            if (builder == null)
+                throw new ArgumentNullException(nameof(builder));
+
+            if (setupAction == null)
+                throw new ArgumentNullException(nameof(setupAction));
+
+            // Configure options
+            builder.Services.Configure(setupAction);
+
+            return builder;
         }
     }
 }
