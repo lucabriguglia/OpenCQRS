@@ -23,7 +23,7 @@ namespace OpenCqrs.Tests.Commands
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
         private Mock<ICommandHandlerWithEvents<CreateSomething>> _commandHandlerWithEvents;
-        private Mock<ICommandHandlerWithAggregate<CreateAggregate>> _domainCommandHandler;
+        private Mock<ICommandHandlerWithDomainEvents<CreateAggregate>> _commandHandlerWithDomainEvents;
 
         private CreateSomething _createSomething;
         private SomethingCreated _somethingCreated;
@@ -79,10 +79,10 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.Handle(_createSomething))
                 .Returns(_events);
 
-            _domainCommandHandler = new Mock<ICommandHandlerWithAggregate<CreateAggregate>>();
-            _domainCommandHandler
+            _commandHandlerWithDomainEvents = new Mock<ICommandHandlerWithDomainEvents<CreateAggregate>>();
+            _commandHandlerWithDomainEvents
                 .Setup(x => x.Handle(_createAggregate))
-                .Returns(_aggregate);
+                .Returns(_aggregate.Events);
 
             _resolver = new Mock<IResolver>();
             _resolver
@@ -92,8 +92,8 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.Resolve<ICommandHandlerWithEvents<CreateSomething>>())
                 .Returns(_commandHandlerWithEvents.Object);
             _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithAggregate<CreateAggregate>>())
-                .Returns(_domainCommandHandler.Object);
+                .Setup(x => x.Resolve<ICommandHandlerWithDomainEvents<CreateAggregate>>())
+                .Returns(_commandHandlerWithDomainEvents.Object);
 
             _sut = new CommandSender(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
         }
@@ -132,8 +132,8 @@ namespace OpenCqrs.Tests.Commands
         public void SendhWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
         {
             _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithAggregate<CreateAggregate>>())
-                .Returns((ICommandHandlerWithAggregate<CreateAggregate>)null);
+                .Setup(x => x.Resolve<ICommandHandlerWithDomainEvents<CreateAggregate>>())
+                .Returns((ICommandHandlerWithDomainEvents<CreateAggregate>)null);
             Assert.Throws<ApplicationException>(() => _sut.Send<CreateAggregate, Aggregate>(_createAggregate));
         }
 
@@ -141,7 +141,7 @@ namespace OpenCqrs.Tests.Commands
         public void SendWithAggregateSendsCommand()
         {
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
-            _domainCommandHandler.Verify(x => x.Handle(_createAggregate), Times.Once);
+            _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
         }
 
         [Test]
@@ -199,8 +199,8 @@ namespace OpenCqrs.Tests.Commands
         public void SendAndPublishWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
         {
             _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithAggregate<CreateAggregate>>())
-                .Returns((ICommandHandlerWithAggregate<CreateAggregate>)null);
+                .Setup(x => x.Resolve<ICommandHandlerWithDomainEvents<CreateAggregate>>())
+                .Returns((ICommandHandlerWithDomainEvents<CreateAggregate>)null);
             Assert.Throws<ApplicationException>(() => _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate));
         }
 
@@ -208,7 +208,7 @@ namespace OpenCqrs.Tests.Commands
         public void SendAndPublishWithAggregateSendsCommand()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _domainCommandHandler.Verify(x => x.Handle(_createAggregate), Times.Once);
+            _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
         }
 
         [Test]

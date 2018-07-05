@@ -27,7 +27,7 @@ namespace OpenCqrs.Queries
             var handler = _resolver.Resolve<IQueryHandlerAsync<TQuery, TResult>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Queries.IQueryHandlerAsync<TQuery, TResult>> found for query '{query.GetType().FullName}'");
+                throw new ApplicationException($"No handler of type '{typeof(IQueryHandlerAsync<TQuery, TResult>).FullName}' found for query '{query.GetType().FullName}'");
 
             return handler.RetrieveAsync(query);
         }
