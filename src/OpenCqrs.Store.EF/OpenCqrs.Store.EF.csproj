@@ -11,8 +11,8 @@
     <Copyright>Copyright Luca Briguglia</Copyright>
     <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
     <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
-    <PackageTags>.net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework</PackageTags>
-    <Version>4.2.0</Version>
+    <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework</PackageTags>
+    <Version>4.3.0</Version>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />

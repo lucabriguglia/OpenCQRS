@@ -1,25 +1,25 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Extensions;
 using OpenCqrs.Store.CosmosDB.Sql.Configuration;
 
 namespace OpenCqrs.Store.CosmosDB.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder EnsureCosmosDbSqlDbCreated(this IApplicationBuilder app, IOptions<DomainDbConfiguration> settings)
+        public static IOpenCqrsAppBuilder EnsureCosmosDbSqlDbCreated(this IOpenCqrsAppBuilder builder, IOptions<DomainDbConfiguration> settings)
         {
-            var documentClient = app.ApplicationServices.GetRequiredService<IDocumentClient>();
+            var documentClient = builder.App.ApplicationServices.GetRequiredService<IDocumentClient>();
 
             CreateDatabaseIfNotExistsAsync(documentClient, settings.Value.DatabaseId).Wait();
             CreateCollectionIfNotExistsAsync(documentClient, settings.Value.DatabaseId, settings.Value.AggregateCollectionId).Wait();
             CreateCollectionIfNotExistsAsync(documentClient, settings.Value.DatabaseId, settings.Value.CommandCollectionId).Wait();
             CreateCollectionIfNotExistsAsync(documentClient, settings.Value.DatabaseId, settings.Value.EventCollectionId).Wait();
 
-            return app;
+            return builder;
         }
 
         private static async Task CreateDatabaseIfNotExistsAsync(IDocumentClient documentClient, string databaseId)

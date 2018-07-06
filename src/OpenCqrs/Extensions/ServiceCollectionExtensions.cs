@@ -16,7 +16,7 @@ namespace OpenCqrs.Extensions
         /// </summary>
         /// <param name="services">The services.</param>
         /// <param name="types">The types.</param>
-        public static IOpenCqrsBuilder AddOpenCqrs(this IServiceCollection services, params Type[] types)
+        public static IOpenCqrsServiceBuilder AddOpenCqrs(this IServiceCollection services, params Type[] types)
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
@@ -34,10 +34,10 @@ namespace OpenCqrs.Extensions
             // Register repository
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
-            return new OpenCqrsBuilder(services);
+            return new OpenCqrsServiceBuilder(services);
         }
 
-        public static IOpenCqrsBuilder AddOptions(this IOpenCqrsBuilder builder, Action<Options> setupAction)
+        public static IOpenCqrsServiceBuilder AddOptions(this IOpenCqrsServiceBuilder builder, Action<Options> setupAction)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

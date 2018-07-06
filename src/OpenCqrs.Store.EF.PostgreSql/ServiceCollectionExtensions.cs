@@ -9,7 +9,7 @@ namespace OpenCqrs.Store.EF.PostgreSql
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsBuilder AddPostgreSqlProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddPostgreSqlProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

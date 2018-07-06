@@ -14,7 +14,7 @@ namespace OpenCqrs.Store.CosmosDB.Sql.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsBuilder AddCosmosDbSqlProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddCosmosDbSqlProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

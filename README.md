@@ -8,19 +8,19 @@
 
 Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs-4.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs-4.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-4.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-4.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-4.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-4.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-4.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-4.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-4.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-4.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-4.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-4.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-4.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-4.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
 
 Via Package Manager
 
@@ -75,7 +75,9 @@ A domain store database provider needs to be registered as well in order to use 
 Please install the nuget package of your choice and register the database provider:
 
 ```C#
-services.AddOpenCqrsSqlServerProvider(Configuration);
+services
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+    .AddSqlServerProvider(Configuration);
 ```
 
 In order to use CosmosDB you need to install the free emulator (https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator) and add some settings to the appsettings.json.
@@ -114,7 +116,7 @@ And add the following check in the Configure method (for CosmosDB SQL (DocumentD
 ```C#
 public void Configure(IApplicationBuilder app, IOptions<CosmosDBSettings> settings)
 {
-    app.EnsureDomainDbCreated(settings);
+    app.UseOpenCqrs().EnsureCosmosDbSqlDbCreated(settings);
 }
 ```
 

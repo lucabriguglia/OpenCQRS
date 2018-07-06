@@ -2,7 +2,7 @@
 
 namespace OpenCqrs.Extensions
 {
-    public interface IOpenCqrsBuilder
+    public interface IOpenCqrsServiceBuilder
     {
         IServiceCollection Services { get; }
     }

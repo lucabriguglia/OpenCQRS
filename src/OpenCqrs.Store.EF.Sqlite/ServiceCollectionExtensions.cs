@@ -9,7 +9,7 @@ namespace OpenCqrs.Store.EF.Sqlite
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsBuilder AddSqliteProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddSqliteProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

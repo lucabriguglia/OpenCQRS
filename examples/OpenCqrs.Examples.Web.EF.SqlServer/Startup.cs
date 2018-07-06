@@ -9,6 +9,7 @@ using OpenCqrs.Examples.Reporting.Queries;
 using OpenCqrs.Examples.Shared;
 using OpenCqrs.Extensions;
 using OpenCqrs.Store.EF;
+using OpenCqrs.Store.EF.Extensions;
 using OpenCqrs.Store.EF.SqlServer;
 
 namespace OpenCqrs.Examples.Web.EF.SqlServer
@@ -39,6 +40,7 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
         {
             // Ensure OpenCqrs database is installed.
             domainDbContext.Database.Migrate();
+            //app.UseOpenCqrs().EnsureDomainDbCreated();
 
             if (env.IsDevelopment())
             {

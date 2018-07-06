@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Extensions;
 
 namespace OpenCqrs.Store.EF.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder EnsureDomainDbCreated(this IApplicationBuilder app)
+        public static IOpenCqrsAppBuilder EnsureDomainDbCreated(this IOpenCqrsAppBuilder builder)
         {
-            var dbContext = app.ApplicationServices.GetService<DomainDbContext>();
+            var dbContext = builder.App.ApplicationServices.GetRequiredService<DomainDbContext>();
 
             dbContext.Database.Migrate();
 
-            return app;
+            return builder;
         }
     }
 }

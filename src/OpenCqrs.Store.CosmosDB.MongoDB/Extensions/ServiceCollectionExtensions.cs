@@ -10,7 +10,7 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsBuilder AddCosmosDbMongoDbProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddCosmosDbMongoDbProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

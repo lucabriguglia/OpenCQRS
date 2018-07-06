@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>4.3.0</Version>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Luca Briguglia</Company>
+    <Product>OpenCQRS</Product>
+    <Description>Service Bus provider for OpenCQRS message bus.</Description>
+    <Copyright>Copyright Luca Briguglia</Copyright>
+    <PackageLicenseUrl>https://github.com/lucabriguglia/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
+    <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

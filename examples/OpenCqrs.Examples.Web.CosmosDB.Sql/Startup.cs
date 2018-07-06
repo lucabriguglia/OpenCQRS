@@ -42,7 +42,7 @@ namespace OpenCqrs.Examples.Web.CosmosDB.Sql
                 app.UseDeveloperExceptionPage();
             }
 
-            app.EnsureCosmosDbSqlDbCreated(settings);
+            app.UseOpenCqrs().EnsureCosmosDbSqlDbCreated(settings);
 
             app.Run(async (context) =>
             {

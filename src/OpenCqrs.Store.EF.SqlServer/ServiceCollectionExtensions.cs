@@ -9,7 +9,7 @@ namespace OpenCqrs.Store.EF.SqlServer
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsBuilder AddSqlServerProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddSqlServerProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

@@ -9,7 +9,7 @@ namespace OpenCqrs.Store.EF.MySql
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsBuilder AddMySqlProvider(this IOpenCqrsBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddMySqlProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

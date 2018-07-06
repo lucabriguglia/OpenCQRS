@@ -97,7 +97,9 @@ namespace OpenCqrs.Commands
         }
 
         /// <inheritdoc />
-        public void SendAndPublish<TCommand, TAggregate>(TCommand command) where TCommand : IDomainCommand where TAggregate : IAggregateRoot
+        public void SendAndPublish<TCommand, TAggregate>(TCommand command) 
+            where TCommand : IDomainCommand 
+            where TAggregate : IAggregateRoot
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
