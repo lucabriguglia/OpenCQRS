@@ -361,15 +361,15 @@ The Apply methods are called automatically when new events are added and are als
 Create the first handler:
 
 ```C#
-public class CreateProductHandlerAsync : ICommandHandlerWithAggregateAsync<CreateProduct>
+public class CreateProductHandlerAsync : ICommandHandlerWithDomainEventsAsync<CreateProduct>
 {
-    public async Task<IAggregateRoot> HandleAsync(CreateProduct command)
+    public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
     {
         await Task.CompletedTask;
 
         var product = new Product(command.AggregateId, command.Title);
 
-        return product;
+        return product.Events;
     }
 }
 ```
@@ -421,7 +421,7 @@ public class ProductTitleUpdated : DomainEvent
     public string Title { get; set; }
 }
 
-public class UpdateProductTitleHandlerAsync : ICommandHandlerWithAggregate<UpdateProductTitle>
+public class UpdateProductTitleHandlerAsync : ICommandHandlerWithDomainEventsAsync<UpdateProductTitle>
 {
     private readonly IRepository<Product> _repository;
 
@@ -430,7 +430,7 @@ public class UpdateProductTitleHandlerAsync : ICommandHandlerWithAggregate<Updat
         _repository = repository;
     }
 
-    public async Task<IAggregateRoot> HandleAsync(UpdateProductTitle command)
+    public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProductTitle command)
     {
         var product = await _repository.GetByIdAsync(command.AggregateId);
 
@@ -439,7 +439,7 @@ public class UpdateProductTitleHandlerAsync : ICommandHandlerWithAggregate<Updat
 
         product.UpdateTitle(command.Title);
 
-        return product;
+        return product.Events;
     }
 }
 
