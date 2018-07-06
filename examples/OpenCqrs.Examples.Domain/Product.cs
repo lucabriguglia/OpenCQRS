@@ -17,7 +17,7 @@ namespace OpenCqrs.Examples.Domain
             if (string.IsNullOrEmpty(title))
                 throw new ApplicationException("Product title is required.");
 
-            AddEvent(new ProductCreated
+            AddAndApplyEvent(new ProductCreated
             {
                 AggregateRootId = Id,
                 Title = title
@@ -29,7 +29,7 @@ namespace OpenCqrs.Examples.Domain
             if (string.IsNullOrEmpty(title))
                 throw new ApplicationException("Product title is required.");
 
-            AddEvent(new ProductTitleUpdated
+            AddAndApplyEvent(new ProductTitleUpdated
             {
                 AggregateRootId = Id,
                 Title = title

@@ -133,9 +133,9 @@ For all the others based on Entity Framework Core, add just the connection strin
 And the following line can be added to the Configure method to ensure that the database in installed:
 
 ```C#
-public void Configure(IApplicationBuilder app, DomainDbContext domainDbContext)
+public void Configure(IApplicationBuilder app)
 {
-    domainDbContext.Database.Migrate();
+    app.UseOpenCqrs().EnsureDomainDbCreated();
 }
 ```
 

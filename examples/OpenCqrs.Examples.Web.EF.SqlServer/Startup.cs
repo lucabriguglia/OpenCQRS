@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenCqrs.Examples.Domain.Commands;
@@ -36,11 +35,10 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher, DomainDbContext domainDbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher)
         {
             // Ensure OpenCqrs database is installed.
-            domainDbContext.Database.Migrate();
-            //app.UseOpenCqrs().EnsureDomainDbCreated();
+            app.UseOpenCqrs().EnsureDomainDbCreated();
 
             if (env.IsDevelopment())
             {

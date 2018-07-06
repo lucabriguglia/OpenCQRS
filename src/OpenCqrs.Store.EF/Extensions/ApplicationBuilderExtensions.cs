@@ -8,9 +8,11 @@ namespace OpenCqrs.Store.EF.Extensions
     {
         public static IOpenCqrsAppBuilder EnsureDomainDbCreated(this IOpenCqrsAppBuilder builder)
         {
-            var dbContext = builder.App.ApplicationServices.GetRequiredService<DomainDbContext>();
-
-            dbContext.Database.Migrate();
+            using (var serviceScope = builder.App.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetService<DomainDbContext>();
+                dbContext.Database.Migrate();
+            }
 
             return builder;
         }

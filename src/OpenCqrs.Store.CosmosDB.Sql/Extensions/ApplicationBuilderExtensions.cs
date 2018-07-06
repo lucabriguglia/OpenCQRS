@@ -12,7 +12,7 @@ namespace OpenCqrs.Store.CosmosDB.Sql.Extensions
     {
         public static IOpenCqrsAppBuilder EnsureCosmosDbSqlDbCreated(this IOpenCqrsAppBuilder builder, IOptions<DomainDbConfiguration> settings)
         {
-            var documentClient = builder.App.ApplicationServices.GetRequiredService<IDocumentClient>();
+            var documentClient = builder.App.ApplicationServices.GetService<IDocumentClient>();
 
             CreateDatabaseIfNotExistsAsync(documentClient, settings.Value.DatabaseId).Wait();
             CreateCollectionIfNotExistsAsync(documentClient, settings.Value.DatabaseId, settings.Value.AggregateCollectionId).Wait();

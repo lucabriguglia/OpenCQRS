@@ -13,6 +13,9 @@
     <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing</PackageTags>
     <Version>4.3.0</Version>
+    <PackageReleaseNotes>BREAKING CHANGES!
+Protected method AddEvent in AggregateRoot does NOT automatically call the related Apply method anymore, use AddAndApplyEvent instead.
+Interfaces ICommandHandlerWithAggregateAsync and ICommandHandlerWithAggregate have been removed, use ICommandHandlerWithDomainEventsAsync and ICommandHandlerWithDomainEvents instead.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

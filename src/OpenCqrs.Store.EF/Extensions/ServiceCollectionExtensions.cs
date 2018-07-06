@@ -11,13 +11,12 @@ namespace OpenCqrs.Store.EF.Extensions
     {
         public static IOpenCqrsServiceBuilder AddEFProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
+            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection(Constants.DomainDbConfiguration));
+
             builder.Services.Scan(s => s
                 .FromAssembliesOf(typeof(DomainDbContext))
                 .AddClasses()
                 .AsImplementedInterfaces());
-
-            builder.Services.AddTransient<IDomainDbContext, DomainDbContext>();
-            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection(Constants.DomainDbConfiguration));
 
             return builder;
         }

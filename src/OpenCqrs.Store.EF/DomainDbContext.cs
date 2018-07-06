@@ -3,7 +3,7 @@ using OpenCqrs.Store.EF.Entities;
 
 namespace OpenCqrs.Store.EF
 {
-    public class DomainDbContext : DbContext, IDomainDbContext
+    public class DomainDbContext : DbContext
     {
         public DomainDbContext(DbContextOptions<DomainDbContext> options)
             : base(options)

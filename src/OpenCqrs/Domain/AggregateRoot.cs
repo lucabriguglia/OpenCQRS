@@ -29,10 +29,19 @@ namespace OpenCqrs.Domain
         }
 
         /// <summary>
-        /// Adds the event to the new events collection and calls the related apply method.
+        /// Adds the event to the new events collection.
         /// </summary>
         /// <param name="event">The event.</param>
         protected void AddEvent(IDomainEvent @event)
+        {
+            Events.Add(@event);
+        }
+
+        /// <summary>
+        /// Adds the event to the new events collection and calls the related apply method.
+        /// </summary>
+        /// <param name="event">The event.</param>
+        protected void AddAndApplyEvent(IDomainEvent @event)
         {
             Events.Add(@event);
             this.AsDynamic().Apply(@event);
