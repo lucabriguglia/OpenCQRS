@@ -2,11 +2,11 @@
 
 namespace OpenCqrs.Tests.Fakes
 {
-    public class Aggregate : AggregateRoot
+    public class Aggregate : AggregateRootWithEvents
     {
         public Aggregate()
         {
-            AddEvent(new AggregateCreated());
+            AddAndApplyEvent(new AggregateCreated());
         }
 
         private void Apply(AggregateCreated @event)
