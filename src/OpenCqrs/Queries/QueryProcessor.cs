@@ -1,13 +1,10 @@
 using System;
 using OpenCqrs.Dependencies;
+using OpenCqrs.Exceptions;
 
 namespace OpenCqrs.Queries
 {
     /// <inheritdoc />
-    /// <summary>
-    /// IQueryDispatcher
-    /// </summary>
-    /// <seealso cref="T:OpenCqrs.Queries.IQueryDispatcher" />
     public class QueryProcessor : IQueryProcessor
     {
         private readonly IResolver _resolver;
@@ -26,7 +23,7 @@ namespace OpenCqrs.Queries
             var handler = _resolver.Resolve<IQueryHandler<TQuery, TResult>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type OpenCqrs.Queries.IQueryHandler<TQuery, TResult> found for query '{query.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(IQueryHandler<TQuery, TResult>));
 
             return handler.Retrieve(query);
         }

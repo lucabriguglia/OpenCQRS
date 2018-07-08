@@ -1,14 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using OpenCqrs.Dependencies;
+using OpenCqrs.Exceptions;
 
 namespace OpenCqrs.Queries
 {
     /// <inheritdoc />
-    /// <summary>
-    /// QueryDispatcherAsync
-    /// </summary>
-    /// <seealso cref="T:OpenCqrs.Queries.IQueryDispatcherAsync" />
     public class QueryProcessorAsync : IQueryProcessorAsync
     {
         private readonly IResolver _resolver;
@@ -27,7 +24,7 @@ namespace OpenCqrs.Queries
             var handler = _resolver.Resolve<IQueryHandlerAsync<TQuery, TResult>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler of type '{typeof(IQueryHandlerAsync<TQuery, TResult>).FullName}' found for query '{query.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(IQueryHandlerAsync<TQuery, TResult>));
 
             return handler.RetrieveAsync(query);
         }

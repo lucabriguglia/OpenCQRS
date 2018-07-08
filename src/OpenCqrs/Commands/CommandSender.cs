@@ -2,6 +2,7 @@
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
+using OpenCqrs.Exceptions;
 
 namespace OpenCqrs.Commands
 {
@@ -46,7 +47,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandler<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandler<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandler<TCommand>));
 
             handler.Handle(command);
         }
@@ -64,7 +65,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithDomainEvents<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithDomainEvents<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandlerWithDomainEvents<TCommand>));
 
             var events = handler.Handle(command);
 
@@ -85,7 +86,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithEvents<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithEvents<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandlerWithEvents<TCommand>));
 
             var events = handler.Handle(command);
 
@@ -109,7 +110,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithDomainEvents<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithDomainEvents<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandlerWithDomainEvents<TCommand>));
 
             var events = handler.Handle(command);
 

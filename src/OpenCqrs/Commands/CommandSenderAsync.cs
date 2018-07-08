@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
+using OpenCqrs.Exceptions;
 
 namespace OpenCqrs.Commands
 {
@@ -41,7 +42,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandlerAsync<TCommand>));
 
             return handler.HandleAsync(command);
         }
@@ -59,7 +60,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithDomainEventsAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandlerWithDomainEventsAsync<TCommand>));
 
             var events = await handler.HandleAsync(command);
 
@@ -80,7 +81,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithEventsAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithEventsAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandlerWithEventsAsync<TCommand>));
 
             var events = await handler.HandleAsync(command);
 
@@ -104,7 +105,7 @@ namespace OpenCqrs.Commands
             var handler = _resolver.Resolve<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
             if (handler == null)
-                throw new ApplicationException($"No handler that implements '{typeof(ICommandHandlerWithDomainEventsAsync<TCommand>).FullName}' found for command '{command.GetType().FullName}'");
+                throw new HandlerNotFoundException(typeof(ICommandHandlerWithDomainEventsAsync<TCommand>));
 
             var events = await handler.HandleAsync(command);
 
