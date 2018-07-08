@@ -4,7 +4,7 @@ using OpenCqrs.Examples.Domain.Events;
 
 namespace OpenCqrs.Examples.Domain
 {
-    public class Product : AggregateRootWithEvents
+    public class Product : AggregateRoot
     {
         public string Title { get; private set; }
 

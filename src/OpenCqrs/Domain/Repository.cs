@@ -10,7 +10,7 @@ namespace OpenCqrs.Domain
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="IRepository{T}" />
-    public class Repository<T> : IRepository<T> where T : IAggregateRootWithEvents
+    public class Repository<T> : IRepository<T> where T : IAggregateRoot
     {
         private readonly IEventStore _eventStore;
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace OpenCqrs.Domain
 {
-    public interface IRepository<T> where T : IAggregateRootWithEvents
+    public interface IRepository<T> where T : IAggregateRoot
     {
         /// <summary>
         /// Saves the specified aggregate asynchronous.
