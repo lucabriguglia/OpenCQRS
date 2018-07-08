@@ -1,19 +1,15 @@
-﻿using System;
-using OpenCqrs.Dependencies;
+﻿using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
-using OpenCqrs.Exceptions;
 
 namespace OpenCqrs.Commands
 {
-    /// <inheritdoc />
     /// <summary>
     /// CommandSender
     /// </summary>
     /// <seealso cref="T:OpenCqrs.Commands.ICommandSender" />
-    public class CommandSender : ICommandSender
+    public class CommandSender : BaseCommandSender, ICommandSender
     {
-        private readonly IResolver _resolver;
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventFactory _eventFactory;
         private readonly IEventStore _eventStore;
@@ -24,8 +20,8 @@ namespace OpenCqrs.Commands
             IEventFactory eventFactory,
             IEventStore eventStore, 
             ICommandStore commandStore)
+            : base(resolver)
         {
-            _resolver = resolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
             _eventStore = eventStore;
@@ -41,15 +37,7 @@ namespace OpenCqrs.Commands
         /// <inheritdoc />
         public void Send<TCommand>(TCommand command) where TCommand : ICommand
         {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
-            var handler = _resolver.Resolve<ICommandHandler<TCommand>>();
-
-            if (handler == null)
-                throw new HandlerNotFoundException(typeof(ICommandHandler<TCommand>));
-
-            handler.Handle(command);
+            GetHandler<ICommandHandler<TCommand>>(command).Handle(command);
         }
 
         /// <inheritdoc />
@@ -57,15 +45,9 @@ namespace OpenCqrs.Commands
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
+            var handler = GetHandler<ICommandHandlerWithDomainEvents<TCommand>>(command);
 
             _commandStore.SaveCommand<TAggregate>(command);
-
-            var handler = _resolver.Resolve<ICommandHandlerWithDomainEvents<TCommand>>();
-
-            if (handler == null)
-                throw new HandlerNotFoundException(typeof(ICommandHandlerWithDomainEvents<TCommand>));
 
             var events = handler.Handle(command);
 
@@ -80,13 +62,7 @@ namespace OpenCqrs.Commands
         /// <inheritdoc />
         public void SendAndPublish<TCommand>(TCommand command) where TCommand : ICommand
         {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
-            var handler = _resolver.Resolve<ICommandHandlerWithEvents<TCommand>>();
-
-            if (handler == null)
-                throw new HandlerNotFoundException(typeof(ICommandHandlerWithEvents<TCommand>));
+            var handler = GetHandler<ICommandHandlerWithEvents<TCommand>>(command);
 
             var events = handler.Handle(command);
 
@@ -102,15 +78,9 @@ namespace OpenCqrs.Commands
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
+            var handler = GetHandler<ICommandHandlerWithDomainEvents<TCommand>>(command);
 
             _commandStore.SaveCommand<TAggregate>(command);
-
-            var handler = _resolver.Resolve<ICommandHandlerWithDomainEvents<TCommand>>();
-
-            if (handler == null)
-                throw new HandlerNotFoundException(typeof(ICommandHandlerWithDomainEvents<TCommand>));
 
             var events = handler.Handle(command);
 
