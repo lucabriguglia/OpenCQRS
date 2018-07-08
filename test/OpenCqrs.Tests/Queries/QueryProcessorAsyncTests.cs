@@ -13,8 +13,7 @@ namespace OpenCqrs.Tests.Queries
     {
         private IQueryProcessorAsync _sut;
 
-        private Mock<IResolver> _resolver;
-
+        private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IQueryHandlerAsync<GetSomething, Something>> _queryHendler;
 
         private GetSomething _getSomething;
@@ -31,32 +30,23 @@ namespace OpenCqrs.Tests.Queries
                 .Setup(x => x.RetrieveAsync(_getSomething))
                 .ReturnsAsync(_something);
 
-            _resolver = new Mock<IResolver>();
-            _resolver
-                .Setup(x => x.Resolve<IQueryHandlerAsync<GetSomething, Something>>())
+            _handlerResolver = new Mock<IHandlerResolver>();
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<IQueryHandlerAsync<GetSomething, Something>>())
                 .Returns(_queryHendler.Object);
 
-            _sut = new QueryProcessorAsync(_resolver.Object);
+            _sut = new QueryProcessorAsync(_handlerResolver.Object);
         }
     
         [Test]
-        public void DispatchThrowsExceptionWhenQueryIsNull()
+        public void ProcessAsync_ThrowsException_WhenQueryIsNull()
         {
             _getSomething = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.ProcessAsync<GetSomething, Something>(_getSomething));
         }
 
         [Test]
-        public void DispatchThrowsExceptionWhenQueryHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<IQueryHandlerAsync<GetSomething, Something>>())
-                .Returns((IQueryHandlerAsync<GetSomething, Something>)null);
-            Assert.ThrowsAsync<ApplicationException>(async () => await _sut.ProcessAsync<GetSomething, Something>(_getSomething));
-        }
-
-        [Test]
-        public async Task DispatchReturnResult()
+        public async Task ProcessAsync_ReturneResult()
         {
             var result = await _sut.ProcessAsync<GetSomething, Something>(_getSomething);
             Assert.AreEqual(_something, result);

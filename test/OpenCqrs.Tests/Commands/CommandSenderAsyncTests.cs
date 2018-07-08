@@ -16,7 +16,7 @@ namespace OpenCqrs.Tests.Commands
     {
         private ICommandSenderAsync _sut;
 
-        private Mock<IResolver> _resolver;
+        private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisherAsync> _eventPublisher;
         private Mock<IEventStore> _eventStore;
         private Mock<ICommandStore> _commandStore;
@@ -90,149 +90,113 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.HandleAsync(_createAggregate))
                 .ReturnsAsync(_aggregate.Events);
 
-            _resolver = new Mock<IResolver>();
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerAsync<CreateSomething>>())
+            _handlerResolver = new Mock<IHandlerResolver>();
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<ICommandHandlerAsync<CreateSomething>>())
                 .Returns(_commandHandlerAsync.Object);
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithEventsAsync<CreateSomething>>())
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<ICommandHandlerWithEventsAsync<CreateSomething>>())
                 .Returns(_commandHandlerWithEventsAsync.Object);
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithDomainEventsAsync<CreateAggregate>>())
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<ICommandHandlerWithDomainEventsAsync<CreateAggregate>>())
                 .Returns(_commandHandlerWithDomainEventsAsync.Object);
 
-            _sut = new CommandSenderAsync(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
+            _sut = new CommandSenderAsync(_handlerResolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
         }
 
         [Test]
-        public void SendAsyncThrowsExceptionWhenCommandIsNull()
+        public void SendAsync_ThrowsException_WhenCommandIsNull()
         {
             _createSomething = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync(_createSomething));
         }
 
         [Test]
-        public void SendAsyncThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerAsync<CreateSomething>>())
-                .Returns((ICommandHandlerAsync<CreateSomething>)null);
-            Assert.ThrowsAsync<ApplicationException>(async () => await _sut.SendAsync(_createSomething));
-        }
-
-        [Test]
-        public async Task SendAsyncSendsCommand()
+        public async Task SendAsync_SendsCommand()
         {
             await _sut.SendAsync(_createSomething);
             _commandHandlerAsync.Verify(x => x.HandleAsync(_createSomething), Times.Once);
         }
 
         [Test]
-        public void SendWithAggregateAsyncThrowsExceptionWhenCommandIsNull()
+        public void SendWithDomainEventsAsync_ThrowsException_WhenCommandIsNull()
         {
             _createAggregate = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate));
         }
 
         [Test]
-        public void SendWithAggregateAsyncThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithDomainEventsAsync<CreateAggregate>>())
-                .Returns((ICommandHandlerWithDomainEventsAsync<CreateAggregate>)null);
-            Assert.ThrowsAsync<ApplicationException>(async () => await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate));
-        }
-
-        [Test]
-        public async Task SendWithAggregateAsyncSendsCommand()
-        {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _commandHandlerWithDomainEventsAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
-        }
-
-        [Test]
-        public async Task SendWithAggregateAsyncSaveCommand()
+        public async Task SendWithDomainEventsAsync_SavesCommand()
         {
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
             _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
         }
 
         [Test]
-        public async Task SendWithAggregateAsyncSaveEvents()
+        public async Task SendWithDomainEventsAsync_SendsCommand()
+        {
+            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandHandlerWithDomainEventsAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public async Task SendWithDomainEventsAsync_SavesEvents()
         {
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
             _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishAsyncThrowsExceptionWhenCommandIsNull()
+        public void SendAndPublishAsync_ThrowsException_WhenCommandIsNull()
         {
             _createSomething = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAndPublishAsync(_createSomething));
         }
 
         [Test]
-        public void SendAndPublishAsyncThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithEventsAsync<CreateSomething>>())
-                .Returns((ICommandHandlerWithEventsAsync<CreateSomething>)null);
-            Assert.ThrowsAsync<ApplicationException>(async () => await _sut.SendAndPublishAsync(_createSomething));
-        }
-
-        [Test]
-        public async Task SendAndPublishAsyncSendsCommand()
+        public async Task SendAndPublishAsync_SendsCommand()
         {
             await _sut.SendAndPublishAsync(_createSomething);
             _commandHandlerWithEventsAsync.Verify(x => x.HandleAsync(_createSomething), Times.Once);
         }
 
         [Test]
-        public async Task SendAndPublishAsyncPublishesEvents()
+        public async Task SendAndPublishAsync_PublishesEvents()
         {
             await _sut.SendAndPublishAsync(_createSomething);
             _eventPublisher.Verify(x => x.PublishAsync(_somethingCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishWithAggregateAsyncThrowsExceptionWhenCommandIsNull()
+        public void SendAndPublishWithDomainEventsAsync_ThrowsException_WhenCommandIsNull()
         {
             _createAggregate = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate));
         }
 
         [Test]
-        public void SendAndPublishWithAggregateAsyncThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithDomainEventsAsync<CreateAggregate>>())
-                .Returns((ICommandHandlerWithDomainEventsAsync<CreateAggregate>)null);
-            Assert.ThrowsAsync<ApplicationException>(async () => await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate));
-        }
-
-        [Test]
-        public async Task SendAndPublishWithAggregateAsyncSendsCommand()
+        public async Task SendAndPublishWithDomainEventsAsync_SendsCommand()
         {
             await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
             _commandHandlerWithDomainEventsAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
         }
 
         [Test]
-        public async Task SendAndPublishWithAggregateAsyncSaveCommand()
+        public async Task SendAndPublishWithDomainEventsAsync_SavesCommand()
         {
             await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
             _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
         }
 
         [Test]
-        public async Task SendAndPublishWithAggregateAsyncSaveEvents()
+        public async Task SendAndPublishWithDomainEventsAsync_SavesEvents()
         {
             await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
             _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public async Task SendAndPublishWithAggregateAsyncPublishEvents()
+        public async Task SendAndPublishWithDomainEventsAsync_PublishesEvents()
         {
             await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
             _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Once);

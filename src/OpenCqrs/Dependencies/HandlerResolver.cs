@@ -1,25 +1,21 @@
 ﻿using System;
-using OpenCqrs.Dependencies;
 using OpenCqrs.Exceptions;
 
-namespace OpenCqrs.Commands
+namespace OpenCqrs.Dependencies
 {
-    public abstract class BaseCommandSender
+    public class HandlerResolver : IHandlerResolver
     {
         private readonly IResolver _resolver;
 
-        protected BaseCommandSender(IResolver resolver)
+        public HandlerResolver(IResolver resolver)
         {
             _resolver = resolver;
         }
 
-        protected THandler GetHandler<THandler>(object command)
+        public THandler ResolveHandler<THandler>()
         {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
             var handler = _resolver.Resolve<THandler>();
-                
+
             if (handler == null)
                 throw new HandlerNotFoundException(typeof(THandler));
 

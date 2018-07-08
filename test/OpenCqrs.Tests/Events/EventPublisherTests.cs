@@ -42,21 +42,21 @@ namespace OpenCqrs.Tests.Events
         }
     
         [Test]
-        public void PublishThrowsExceptionWhenEventIsNull()
+        public void Publish_ThrowsException_WhenEventIsNull()
         {
             _somethingCreated = null;
             Assert.Throws<ArgumentNullException>(() => _sut.Publish(_somethingCreated));
         }
 
         [Test]
-        public void PublishFirstEvent()
+        public void Publish_PublishesFirstEvent()
         {
             _sut.Publish(_somethingCreated);
             _eventHandler1.Verify(x => x.Handle(_somethingCreated), Times.Once);
         }
 
         [Test]
-        public void PublishSecondEvent()
+        public void Publish_PublishesSecondEvent()
         {
             _sut.Publish(_somethingCreated);
             _eventHandler2.Verify(x => x.Handle(_somethingCreated), Times.Once);

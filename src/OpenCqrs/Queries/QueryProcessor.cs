@@ -1,17 +1,27 @@
+using System;
 using OpenCqrs.Dependencies;
 
 namespace OpenCqrs.Queries
 {
-    public class QueryProcessor : BaseQueryProcessor, IQueryProcessor
+    /// <inheritdoc />
+    public class QueryProcessor : IQueryProcessor
     {
-        public QueryProcessor(IResolver resolver) : base(resolver)
+        private readonly IHandlerResolver _handlerResolver;
+
+        public QueryProcessor(IHandlerResolver handlerResolver)
         {
+            _handlerResolver = handlerResolver;
         }
 
         /// <inheritdoc />
         public TResult Process<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
-            return GetHandler<IQueryHandler<TQuery, TResult>>(query).Retrieve(query);
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
+
+            var handler = _handlerResolver.ResolveHandler<IQueryHandler<TQuery, TResult>>();
+            
+            return handler.Retrieve(query);
         }
     }
 }

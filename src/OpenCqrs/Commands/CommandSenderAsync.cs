@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
@@ -9,20 +10,21 @@ namespace OpenCqrs.Commands
     /// CommandSenderAsync
     /// </summary>
     /// <seealso cref="T:OpenCqrs.Commands.ICommandSenderAsync" />
-    public class CommandSenderAsync : BaseCommandSender, ICommandSenderAsync
+    public class CommandSenderAsync : ICommandSenderAsync
     {
+        private readonly IHandlerResolver _handlerResolver;
         private readonly IEventPublisherAsync _eventPublisherAsync;
         private readonly IEventFactory _eventFactory;
         private readonly IEventStore _eventStore;
         private readonly ICommandStore _commandStore;
 
-        public CommandSenderAsync(IResolver resolver,
+        public CommandSenderAsync(IHandlerResolver handlerResolver,
             IEventPublisherAsync eventPublisherAsync,
             IEventFactory eventFactory,
             IEventStore eventStore,
             ICommandStore commandStore)
-            : base(resolver)
         {
+            _handlerResolver = handlerResolver;
             _eventPublisherAsync = eventPublisherAsync;
             _eventFactory = eventFactory;
             _eventStore = eventStore;
@@ -32,7 +34,12 @@ namespace OpenCqrs.Commands
         /// <inheritdoc />
         public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            return GetHandler<ICommandHandlerAsync<TCommand>>(command).HandleAsync(command);
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            var handler = _handlerResolver.ResolveHandler<ICommandHandlerAsync<TCommand>>();
+            
+            return handler.HandleAsync(command);
         }
 
         /// <inheritdoc />
@@ -40,7 +47,10 @@ namespace OpenCqrs.Commands
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            var handler = GetHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>(command);
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
             await _commandStore.SaveCommandAsync<TAggregate>(command);
 
@@ -57,7 +67,10 @@ namespace OpenCqrs.Commands
         /// <inheritdoc />
         public async Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            var handler = GetHandler<ICommandHandlerWithEventsAsync<TCommand>>(command);
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEventsAsync<TCommand>>();
 
             var events = await handler.HandleAsync(command);
 
@@ -73,7 +86,10 @@ namespace OpenCqrs.Commands
             where TCommand : IDomainCommand
             where TAggregate : IAggregateRoot
         {
-            var handler = GetHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>(command);
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
             await _commandStore.SaveCommandAsync<TAggregate>(command);
 

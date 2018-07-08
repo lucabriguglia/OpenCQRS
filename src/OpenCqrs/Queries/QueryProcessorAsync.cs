@@ -1,18 +1,28 @@
+using System;
 using System.Threading.Tasks;
 using OpenCqrs.Dependencies;
 
 namespace OpenCqrs.Queries
 {
-    public class QueryProcessorAsync : BaseQueryProcessor, IQueryProcessorAsync
+    /// <inheritdoc />
+    public class QueryProcessorAsync : IQueryProcessorAsync
     {
-        public QueryProcessorAsync(IResolver resolver) : base(resolver)
+        private readonly IHandlerResolver _handlerResolver;
+
+        public QueryProcessorAsync(IHandlerResolver handlerResolver)
         {
+            _handlerResolver = handlerResolver;
         }
 
         /// <inheritdoc />
         public Task<TResult> ProcessAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
-            return GetHandler<IQueryHandlerAsync<TQuery, TResult>>(query).RetrieveAsync(query);
+            if (query == null)
+                throw new ArgumentNullException(nameof(query));
+
+            var handler = _handlerResolver.ResolveHandler<IQueryHandlerAsync<TQuery, TResult>>();
+
+            return handler.RetrieveAsync(query);
         }
     }
 }

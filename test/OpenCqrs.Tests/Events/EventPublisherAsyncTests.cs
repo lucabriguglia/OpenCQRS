@@ -45,21 +45,21 @@ namespace OpenCqrs.Tests.Events
         }
     
         [Test]
-        public void PublishThrowsExceptionWhenEventIsNull()
+        public void PublishAsync_ThrowsException_WhenEventIsNull()
         {
             _somethingCreated = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.PublishAsync(_somethingCreated));
         }
 
         [Test]
-        public async Task PublishFirstEvent()
+        public async Task PublishAsync_PublishesFirstEvent()
         {
             await _sut.PublishAsync(_somethingCreated);
             _eventHandler1.Verify(x => x.HandleAsync(_somethingCreated), Times.Once);
         }
 
         [Test]
-        public async Task PublishSecondEvent()
+        public async Task PublishAsync_PublishesSecondEvent()
         {
             await _sut.PublishAsync(_somethingCreated);
             _eventHandler2.Verify(x => x.HandleAsync(_somethingCreated), Times.Once);

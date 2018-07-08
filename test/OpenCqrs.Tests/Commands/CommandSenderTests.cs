@@ -15,7 +15,7 @@ namespace OpenCqrs.Tests.Commands
     {
         private ICommandSender _sut;
 
-        private Mock<IResolver> _resolver;
+        private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisher> _eventPublisher;
         private Mock<IEventStore> _eventStore;
         private Mock<ICommandStore> _commandStore;
@@ -84,149 +84,113 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.Handle(_createAggregate))
                 .Returns(_aggregate.Events);
 
-            _resolver = new Mock<IResolver>();
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandler<CreateSomething>>())
+            _handlerResolver = new Mock<IHandlerResolver>();
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<ICommandHandler<CreateSomething>>())
                 .Returns(_commandHandler.Object);
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithEvents<CreateSomething>>())
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<ICommandHandlerWithEvents<CreateSomething>>())
                 .Returns(_commandHandlerWithEvents.Object);
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithDomainEvents<CreateAggregate>>())
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<ICommandHandlerWithDomainEvents<CreateAggregate>>())
                 .Returns(_commandHandlerWithDomainEvents.Object);
 
-            _sut = new CommandSender(_resolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
+            _sut = new CommandSender(_handlerResolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
         }
 
         [Test]
-        public void SendThrowsExceptionWhenCommandIsNull()
+        public void Send_ThrowsException_WhenCommandIsNull()
         {
             _createSomething = null;
             Assert.Throws<ArgumentNullException>(() => _sut.Send(_createSomething));
         }
 
         [Test]
-        public void SendThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandler<CreateSomething>>())
-                .Returns((ICommandHandler<CreateSomething>)null);
-            Assert.Throws<ApplicationException>(() => _sut.Send(_createSomething));
-        }
-
-        [Test]
-        public void SendCommand()
+        public void Send_SendsCommand()
         {
             _sut.Send(_createSomething);
             _commandHandler.Verify(x => x.Handle(_createSomething), Times.Once);
         }
 
         [Test]
-        public void SendWithAggregateThrowsExceptionWhenCommandIsNull()
+        public void SendWithDomainEvents_ThrowsException_WhenCommandIsNull()
         {
             _createAggregate = null;
             Assert.Throws<ArgumentNullException>(() => _sut.Send<CreateAggregate, Aggregate>(_createAggregate));
         }
 
         [Test]
-        public void SendhWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithDomainEvents<CreateAggregate>>())
-                .Returns((ICommandHandlerWithDomainEvents<CreateAggregate>)null);
-            Assert.Throws<ApplicationException>(() => _sut.Send<CreateAggregate, Aggregate>(_createAggregate));
-        }
-
-        [Test]
-        public void SendWithAggregateSendsCommand()
-        {
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
-            _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
-        }
-
-        [Test]
-        public void SendWithAggregateAsyncSaveCommand()
+        public void SendWithDomainEvents_SavesCommand()
         {
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
             _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Once);
         }
 
         [Test]
-        public void SendWithAggregateSaveEvents()
+        public void SendWithDomainEvents_SendsCommand()
+        {
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public void SendWithDomainEvents_SavesEvents()
         {
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
             _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishThrowsExceptionWhenCommandIsNull()
+        public void SendAndPublish_ThrowsException_WhenCommandIsNull()
         {
             _createSomething = null;
             Assert.Throws<ArgumentNullException>(() => _sut.SendAndPublish(_createSomething));
         }
 
         [Test]
-        public void SendAndPublishThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithEvents<CreateSomething>>())
-                .Returns((ICommandHandlerWithEvents<CreateSomething>)null);
-            Assert.Throws<ApplicationException>(() => _sut.SendAndPublish(_createSomething));
-        }
-
-        [Test]
-        public void SendAndPublishSendCommand()
+        public void SendAndPublish_SendsCommand()
         {
             _sut.SendAndPublish(_createSomething);
             _commandHandlerWithEvents.Verify(x => x.Handle(_createSomething), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishPublishEvents()
+        public void SendAndPublish_PublishesEvents()
         {
             _sut.SendAndPublish(_createSomething);
             _eventPublisher.Verify(x => x.Publish(_somethingCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishWithAggregateThrowsExceptionWhenCommandIsNull()
+        public void SendAndPublishWithDomainEvents_ThrowsException_WhenCommandIsNull()
         {
             _createAggregate = null;
             Assert.Throws<ArgumentNullException>(() => _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate));
         }
 
         [Test]
-        public void SendAndPublishWithAggregateThrowsExceptionWhenCommandHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<ICommandHandlerWithDomainEvents<CreateAggregate>>())
-                .Returns((ICommandHandlerWithDomainEvents<CreateAggregate>)null);
-            Assert.Throws<ApplicationException>(() => _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate));
-        }
-
-        [Test]
-        public void SendAndPublishWithAggregateSendsCommand()
+        public void SendAndPublishWithDomainEvents_SendsCommand()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
             _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishWithAggregateAsyncSaveCommand()
+        public void SendAndPublishWithDomainEvents_SavesCommand()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
             _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishWithAggregateSaveEvents()
+        public void SendAndPublishWithDomainEvents_SavesEvents()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
             _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public void SendAndPublishWithAggregatePublishEvents()
+        public void SendAndPublishWithDomainEvents_PublishesEvents()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
             _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);

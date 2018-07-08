@@ -12,8 +12,7 @@ namespace OpenCqrs.Tests.Queries
     {
         private IQueryProcessor _sut;
 
-        private Mock<IResolver> _resolver;
-
+        private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IQueryHandler<GetSomething, Something>> _queryHendler;
 
         private GetSomething _getSomething;
@@ -30,32 +29,23 @@ namespace OpenCqrs.Tests.Queries
                 .Setup(x => x.Retrieve(_getSomething))
                 .Returns(_something);
 
-            _resolver = new Mock<IResolver>();
-            _resolver
-                .Setup(x => x.Resolve<IQueryHandler<GetSomething, Something>>())
+            _handlerResolver = new Mock<IHandlerResolver>();
+            _handlerResolver
+                .Setup(x => x.ResolveHandler<IQueryHandler<GetSomething, Something>>())
                 .Returns(_queryHendler.Object);
 
-            _sut = new QueryProcessor(_resolver.Object);
+            _sut = new QueryProcessor(_handlerResolver.Object);
         }
     
         [Test]
-        public void DispatchThrowsExceptionWhenQueryIsNull()
+        public void Process_ThrowsException_WhenQueryIsNull()
         {
             _getSomething = null;
             Assert.Throws<ArgumentNullException>(() => _sut.Process<GetSomething, Something>(_getSomething));
         }
 
         [Test]
-        public void DispatchThrowsExceptionWhenQueryHandlerIsNotFound()
-        {
-            _resolver
-                .Setup(x => x.Resolve<IQueryHandler<GetSomething, Something>>())
-                .Returns((IQueryHandler<GetSomething, Something>)null);
-            Assert.Throws<ApplicationException>(() => _sut.Process<GetSomething, Something>(_getSomething));
-        }
-
-        [Test]
-        public void DispatchReturnResult()
+        public void Process_ReturnsResult()
         {
             var result = _sut.Process<GetSomething, Something>(_getSomething);
             Assert.AreEqual(_something, result);

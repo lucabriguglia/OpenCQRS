@@ -111,7 +111,7 @@ namespace OpenCqrs.Tests
         }
 
         [Test]
-        public async Task SendsCommandAndPublisesEventshWithAggregateAsync()
+        public async Task SendsCommandAndPublisesDomainEventsAsync()
         {
             await _sut.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
             _commandSenderAsync.Verify(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
@@ -139,21 +139,21 @@ namespace OpenCqrs.Tests
         }
 
         [Test]
-        public void SendsCommandAndPublisesEventshWithAggregate()
+        public void SendsCommandAndPublisesDomainEvents()
         {
             _sut.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate);
             _commandSender.Verify(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
         }
 
         [Test]
-        public async Task PublishEventAsync()
+        public async Task PublishesEventAsync()
         {
             await _sut.PublishAsync(_somethingCreated);
             _eventPublisherAsync.Verify(x => x.PublishAsync(_somethingCreated), Times.Once);
         }
 
         [Test]
-        public void PublishEvent()
+        public void PublishesEvent()
         {
             _sut.Publish(_somethingCreated);
             _eventPublisher.Verify(x => x.Publish(_somethingCreated), Times.Once);
