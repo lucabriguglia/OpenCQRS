@@ -15,6 +15,10 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\Release\netcoreapp2.1\</OutputPath>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="WindowsAzure.ServiceBus" Version="4.1.10" />
   </ItemGroup>
