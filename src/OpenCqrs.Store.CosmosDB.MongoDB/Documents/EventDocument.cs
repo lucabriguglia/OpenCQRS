@@ -28,7 +28,7 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB.Documents
         public DateTime TimeStamp { get; set; }
 
         [BsonElement("userId")]
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         [BsonElement("source")]
         public string Source { get; set; }

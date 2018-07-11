@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using OpenCqrs.Domain;
 
 namespace OpenCqrs.Store.EF.Entities.Factories
@@ -15,7 +16,7 @@ namespace OpenCqrs.Store.EF.Entities.Factories
                 Sequence = version,
                 Type = @event.GetType().AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(@event),
-                TimeStamp = @event.TimeStamp,
+                TimeStamp = @event.TimeStamp ?? DateTime.UtcNow,
                 UserId = @event.UserId,
                 Source = @event.Source
             };

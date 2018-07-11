@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using OpenCqrs.Domain;
 
 namespace OpenCqrs.Store.CosmosDB.Sql.Documents.Factories
@@ -13,7 +14,7 @@ namespace OpenCqrs.Store.CosmosDB.Sql.Documents.Factories
                 AggregateId = command.AggregateRootId,
                 Type = command.GetType().AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(command),
-                TimeStamp = command.TimeStamp,
+                TimeStamp = command.TimeStamp ?? DateTime.UtcNow,
                 UserId = command.UserId,
                 Source = command.Source
             };
