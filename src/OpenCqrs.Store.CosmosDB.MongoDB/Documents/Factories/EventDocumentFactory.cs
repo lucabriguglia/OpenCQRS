@@ -16,7 +16,7 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB.Documents.Factories
                 Sequence = version,
                 Type = @event.GetType().AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(@event),
-                TimeStamp = @event.TimeStamp ?? DateTime.UtcNow,
+                TimeStamp = @event.TimeStamp,
                 UserId = @event.UserId,
                 Source = @event.Source
             };

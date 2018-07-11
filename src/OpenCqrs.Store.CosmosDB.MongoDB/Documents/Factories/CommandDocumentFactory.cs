@@ -14,7 +14,7 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB.Documents.Factories
                 AggregateId = command.AggregateRootId.ToString(),
                 Type = command.GetType().AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(command),
-                TimeStamp = command.TimeStamp ?? DateTime.UtcNow,
+                TimeStamp = command.TimeStamp,
                 UserId = command.UserId,
                 Source = command.Source
             };

@@ -11,6 +11,6 @@ namespace OpenCqrs.Domain
         int Version { get; set; }
         Guid? UserId { get; set; }
         string Source { get; set; }
-        DateTime? TimeStamp { get; set; }
+        DateTime TimeStamp { get; set; }
     }
 }

@@ -10,6 +10,6 @@ namespace OpenCqrs.Domain
         public int Version { get; set; }
         public Guid? UserId { get; set; }
         public string Source { get; set; }
-        public DateTime? TimeStamp { get; set; } = DateTime.UtcNow;
+        public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
     }
 }
