@@ -46,6 +46,12 @@ namespace OpenCqrs.Examples.Domain
             Title = @event.Title;
         }
 
+        private void Apply(ProductCreatedBusMessage @event)
+        {
+            Id = @event.AggregateRootId;
+            Title = @event.Title;
+        }
+
         private void Apply(ProductTitleUpdated @event)
         {
             Title = @event.Title;
