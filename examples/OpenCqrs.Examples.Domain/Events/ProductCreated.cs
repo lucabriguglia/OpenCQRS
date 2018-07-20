@@ -1,4 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using System;
+using OpenCqrs.Bus;
+using OpenCqrs.Domain;
 
 namespace OpenCqrs.Examples.Domain.Events
 {

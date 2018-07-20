@@ -8,7 +8,7 @@ namespace OpenCqrs.Domain
 
         protected Entity()
         {
-            Id = Guid.Empty;
+            Id = Guid.NewGuid();
         }
 
         protected Entity(Guid id)

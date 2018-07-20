@@ -11,7 +11,7 @@ namespace OpenCqrs.Store.EF.Extensions
     {
         public static IOpenCqrsServiceBuilder AddEFProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
-            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection(Constants.DomainDbConfiguration));
+            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection(Constants.DomainDbConfigurationSection));
 
             builder.Services.Scan(s => s
                 .FromAssembliesOf(typeof(DomainDbContext))
