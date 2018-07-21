@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using OpenCqrs.Domain;
 
 namespace OpenCqrs.Store.CosmosDB.Sql.Documents.Factories

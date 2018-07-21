@@ -1,13 +1,13 @@
 ﻿namespace OpenCqrs.Queries
 {
     /// <summary>
-    /// IQueryDispatcher
+    /// IQueryProcessor
     /// </summary>
     public interface IQueryProcessor
     {
         /// <summary>
         /// Gets the result.
-        /// The query handler must implement OpenCqrs.Queries.IQueryHandler.
+        /// The query handler must implement OpenCqrs.Queries.IQueryHandler&lt;TQuery, TResult&gt;.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>

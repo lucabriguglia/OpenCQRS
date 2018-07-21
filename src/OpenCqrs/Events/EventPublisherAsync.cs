@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using OpenCqrs.Bus;
 using OpenCqrs.Dependencies;
 
 namespace OpenCqrs.Events
@@ -12,10 +13,12 @@ namespace OpenCqrs.Events
     public class EventPublisherAsync : IEventPublisherAsync
     {
         private readonly IResolver _resolver;
+        private readonly IBusMessageDispatcher _busMessageDispatcher;
 
-        public EventPublisherAsync(IResolver resolver)
+        public EventPublisherAsync(IResolver resolver, IBusMessageDispatcher busMessageDispatcher)
         {
             _resolver = resolver;
+            _busMessageDispatcher = busMessageDispatcher;
         }
 
         /// <inheritdoc />
@@ -28,6 +31,9 @@ namespace OpenCqrs.Events
 
             foreach (var handler in handlers)
                 await handler.HandleAsync(@event);
+
+            if (@event is IBusMessage message)
+                await _busMessageDispatcher.DispatchAsync(message);
         }
     }
 }

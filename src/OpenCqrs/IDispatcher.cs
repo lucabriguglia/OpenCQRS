@@ -13,7 +13,7 @@ namespace OpenCqrs
     {
         /// <summary>
         /// Asynchronously sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerAsync.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -23,7 +23,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithWithDomainEventsAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -45,7 +45,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregateAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithDomainEventsAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -57,7 +57,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Asynchronously publishes the specified event.
-        /// The event handler must implement OpenCqrs.Events.IEventHandlerAsync.
+        /// The event handler must implement OpenCqrs.Events.IEventHandlerAsync&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -66,7 +66,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Asynchronously gets the result.
-        /// The query handler must implement OpenCqrs.Queries.IQueryHandlerAsync.
+        /// The query handler must implement OpenCqrs.Queries.IQueryHandlerAsync&lt;TQuery, TResult&gt;.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>
@@ -77,7 +77,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandler.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -86,7 +86,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -106,7 +106,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the command and the events returned by the handler will be published and saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithAggregate&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -117,7 +117,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Publishes the specified event.
-        /// The event handler must implement OpenCqrs.Events.IEventHandler.
+        /// The event handler must implement OpenCqrs.Events.IEventHandler&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -126,13 +126,13 @@ namespace OpenCqrs
 
         /// <summary>
         /// Gets the result.
-        /// The query handler must implement OpenCqrs.Queries.IQueryHandler.
+        /// The query handler must implement OpenCqrs.Queries.IQueryHandler&lt;TQuery, TResult&gt;.
         /// </summary>
         /// <typeparam name="TQuery">The type of the query.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="query">The query.</param>
         /// <returns>TResult</returns>
-        TResult GetResult<TQuery, TResult>(TQuery query) 
+        TResult GetResult<TQuery, TResult>(TQuery query)
             where TQuery : IQuery;
     }
 }

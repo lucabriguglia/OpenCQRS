@@ -17,6 +17,10 @@ namespace OpenCqrs.Examples.Domain
             if (string.IsNullOrEmpty(title))
                 throw new ApplicationException("Product title is required.");
 
+            // If you want the event to be dispatched to the service bus,
+            // use ProductCreatedBusMessage instead of ProductCreated.
+            // Remember to update the connection string in the ServiceBusConfiguration
+            // section in the appsettings.json file.
             AddAndApplyEvent(new ProductCreated
             {
                 AggregateRootId = Id,
@@ -37,6 +41,12 @@ namespace OpenCqrs.Examples.Domain
         }
 
         private void Apply(ProductCreated @event)
+        {
+            Id = @event.AggregateRootId;
+            Title = @event.Title;
+        }
+
+        private void Apply(ProductCreatedBusMessage @event)
         {
             Id = @event.AggregateRootId;
             Title = @event.Title;

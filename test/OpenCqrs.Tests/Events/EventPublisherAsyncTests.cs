@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Bus;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Events;
 using OpenCqrs.Tests.Fakes;
@@ -15,6 +16,7 @@ namespace OpenCqrs.Tests.Events
         private IEventPublisherAsync _sut;
 
         private Mock<IResolver> _resolver;
+        private Mock<IBusMessageDispatcher> _busMessageDispatcher;
 
         private Mock<IEventHandlerAsync<SomethingCreated>> _eventHandler1;
         private Mock<IEventHandlerAsync<SomethingCreated>> _eventHandler2;
@@ -41,7 +43,12 @@ namespace OpenCqrs.Tests.Events
                 .Setup(x => x.ResolveAll<IEventHandlerAsync<SomethingCreated>>())
                 .Returns(new List<IEventHandlerAsync<SomethingCreated>>{_eventHandler1.Object, _eventHandler2.Object});
 
-            _sut = new EventPublisherAsync(_resolver.Object);
+            _busMessageDispatcher = new Mock<IBusMessageDispatcher>();
+            _busMessageDispatcher
+                .Setup(x => x.DispatchAsync(_somethingCreated))
+                .Returns(Task.CompletedTask);
+
+            _sut = new EventPublisherAsync(_resolver.Object, _busMessageDispatcher.Object);
         }
     
         [Test]
@@ -63,6 +70,13 @@ namespace OpenCqrs.Tests.Events
         {
             await _sut.PublishAsync(_somethingCreated);
             _eventHandler2.Verify(x => x.HandleAsync(_somethingCreated), Times.Once);
-        }       
+        }
+
+        [Test]
+        public async Task PublishAsync_DispatchesEventToServiceBus()
+        {
+            await _sut.PublishAsync(_somethingCreated);
+            _busMessageDispatcher.Verify(x => x.DispatchAsync(It.IsAny<IBusMessage>()), Times.Once);
+        }
     }
 }

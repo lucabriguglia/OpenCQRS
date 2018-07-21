@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Bus;
 using OpenCqrs.Commands;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;

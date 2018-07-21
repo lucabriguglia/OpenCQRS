@@ -11,7 +11,7 @@ namespace OpenCqrs.Store.EF.Entities
         public string Type { get; set; }
         public string Data { get; set; }
         public DateTime TimeStamp { get; set; }
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public string Source { get; set; }
     }
 }
