@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OpenCqrs.Bus;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
