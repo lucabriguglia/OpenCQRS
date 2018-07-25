@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Bus.ServiceBus.Extensions;
 using OpenCqrs.Examples.Domain.Commands;
 using OpenCqrs.Examples.Reporting.Queries;
 using OpenCqrs.Examples.Shared;
@@ -31,7 +32,8 @@ namespace OpenCqrs.Examples.Web.CosmosDB.MongoDB
 
             services
                 .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
-                .AddCosmosDbMongoDbProvider(Configuration);
+                .AddCosmosDbMongoDbProvider(Configuration)
+                .AddServiceBusProvider(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
