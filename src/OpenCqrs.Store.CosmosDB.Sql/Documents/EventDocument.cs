@@ -27,7 +27,7 @@ namespace OpenCqrs.Store.CosmosDB.Sql.Documents
         public DateTime TimeStamp { get; set; }
 
         [JsonProperty(PropertyName = "userId")]
-        public Guid? UserId { get; set; }
+        public string UserId { get; set; }
 
         [JsonProperty(PropertyName = "source")]
         public string Source { get; set; }

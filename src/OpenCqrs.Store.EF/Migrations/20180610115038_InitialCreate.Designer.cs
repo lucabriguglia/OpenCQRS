@@ -47,7 +47,7 @@ namespace OpenCqrs.Store.EF.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -73,7 +73,7 @@ namespace OpenCqrs.Store.EF.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 

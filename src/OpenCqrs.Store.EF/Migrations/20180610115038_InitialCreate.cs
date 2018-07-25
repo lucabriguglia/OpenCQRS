@@ -28,7 +28,7 @@ namespace OpenCqrs.Store.EF.Migrations
                     Type = table.Column<string>(nullable: true),
                     Data = table.Column<string>(nullable: true),
                     TimeStamp = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
                     Source = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -47,7 +47,7 @@ namespace OpenCqrs.Store.EF.Migrations
                     Type = table.Column<string>(nullable: true),
                     Data = table.Column<string>(nullable: true),
                     TimeStamp = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
                     Source = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

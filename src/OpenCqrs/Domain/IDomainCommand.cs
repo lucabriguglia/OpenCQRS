@@ -7,7 +7,7 @@ namespace OpenCqrs.Domain
     {
         Guid Id { get; set; }
         Guid AggregateRootId { get; set; }
-        Guid? UserId { get; set; }
+        string UserId { get; set; }
         string Source { get; set; }
         DateTime TimeStamp { get; set; }
     }
