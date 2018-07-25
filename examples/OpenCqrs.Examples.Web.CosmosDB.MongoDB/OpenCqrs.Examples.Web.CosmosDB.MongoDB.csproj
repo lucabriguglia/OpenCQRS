@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenCqrs.Bus.ServiceBus\OpenCqrs.Bus.ServiceBus.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Store.CosmosDB.MongoDB\OpenCqrs.Store.CosmosDB.MongoDB.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs\OpenCqrs.csproj" />
     <ProjectReference Include="..\OpenCqrs.Examples.Domain\OpenCqrs.Examples.Domain.csproj" />
