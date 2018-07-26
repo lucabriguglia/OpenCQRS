@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
 using OpenCqrs.Bus.ServiceBus.Configuration;
@@ -19,6 +20,9 @@ namespace OpenCqrs.Bus.ServiceBus.Queues
 
         public async Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage
         {
+            if (string.IsNullOrEmpty(message.QueueName))
+                throw new ApplicationException("Queue name is mandatory");
+
             var client = new Microsoft.Azure.ServiceBus.QueueClient(new ServiceBusConnectionStringBuilder(_connectionString)
             {
                 EntityPath = message.QueueName
