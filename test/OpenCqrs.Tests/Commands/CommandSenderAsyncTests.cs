@@ -15,10 +15,10 @@ namespace OpenCqrs.Tests.Commands
     [TestFixture]
     public class CommandSenderAsyncTests
     {
-        private ICommandSenderAsync _sut;
+        private ICommandSender _sut;
 
         private Mock<IHandlerResolver> _handlerResolver;
-        private Mock<IEventPublisherAsync> _eventPublisher;
+        private Mock<IEventPublisher> _eventPublisher;
         private Mock<IEventStore> _eventStore;
         private Mock<ICommandStore> _commandStore;
         private Mock<IEventFactory> _eventFactory;
@@ -50,7 +50,7 @@ namespace OpenCqrs.Tests.Commands
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
 
-            _eventPublisher = new Mock<IEventPublisherAsync>();
+            _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
                 .Setup(x => x.PublishAsync(_somethingCreatedConcrete))
                 .Returns(Task.CompletedTask);
@@ -102,7 +102,7 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.ResolveHandler<ICommandHandlerWithDomainEventsAsync<CreateAggregate>>())
                 .Returns(_commandHandlerWithDomainEventsAsync.Object);
 
-            _sut = new CommandSenderAsync(_handlerResolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
+            _sut = new CommandSender(_handlerResolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
         }
 
         [Test]

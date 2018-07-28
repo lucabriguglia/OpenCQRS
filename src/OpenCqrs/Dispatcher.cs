@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using OpenCqrs.Bus;
 using OpenCqrs.Commands;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
@@ -13,34 +14,26 @@ namespace OpenCqrs
     /// <seealso cref="T:OpenCqrs.IDispatcher" />
     public class Dispatcher : IDispatcher
     {
-        private readonly ICommandSenderAsync _commandSenderAsync;
         private readonly ICommandSender _commandSender;
-
-        private readonly IEventPublisherAsync _eventPublisherAsync;
         private readonly IEventPublisher _eventPublisher;
-
-        private readonly IQueryProcessorAsync _queryProcessorAsync;
         private readonly IQueryProcessor _queryProcessor;
+        private readonly IBusMessageDispatcher _busMessageDispatcher;
 
-        public Dispatcher(ICommandSenderAsync commandSenderAsync,
-            ICommandSender commandSender,
-            IEventPublisherAsync eventPublisherAsync,
-            IEventPublisher eventPublisher,
-            IQueryProcessorAsync queryProcessorAsync, 
-            IQueryProcessor queryProcessor)
+        public Dispatcher(ICommandSender commandSender, 
+            IEventPublisher eventPublisher, 
+            IQueryProcessor queryProcessor, 
+            IBusMessageDispatcher busMessageDispatcher)
         {
-            _commandSenderAsync = commandSenderAsync;
             _commandSender = commandSender;
-            _eventPublisherAsync = eventPublisherAsync;
             _eventPublisher = eventPublisher;
-            _queryProcessorAsync = queryProcessorAsync;
             _queryProcessor = queryProcessor;
+            _busMessageDispatcher = busMessageDispatcher;
         }
 
         /// <inheritdoc />
         public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            return _commandSenderAsync.SendAsync(command);
+            return _commandSender.SendAsync(command);
         }
 
         /// <inheritdoc />
@@ -48,13 +41,13 @@ namespace OpenCqrs
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            return _commandSenderAsync.SendAsync<TCommand, TAggregate>(command);
+            return _commandSender.SendAsync<TCommand, TAggregate>(command);
         }
 
         /// <inheritdoc />
         public Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            return _commandSenderAsync.SendAndPublishAsync(command);
+            return _commandSender.SendAndPublishAsync(command);
         }
 
         /// <inheritdoc />
@@ -62,19 +55,25 @@ namespace OpenCqrs
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            return _commandSenderAsync.SendAndPublishAsync<TCommand, TAggregate>(command);
+            return _commandSender.SendAndPublishAsync<TCommand, TAggregate>(command);
         }
 
         /// <inheritdoc />
         public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
-            return _eventPublisherAsync.PublishAsync(@event);
+            return _eventPublisher.PublishAsync(@event);
         }
 
         /// <inheritdoc />
         public Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
         {
-            return _queryProcessorAsync.ProcessAsync<TQuery, TResult>(query);
+            return _queryProcessor.ProcessAsync<TQuery, TResult>(query);
+        }
+
+        /// <inheritdoc />
+        public Task DispatchBusMessageAsync<TMessage>(TMessage message) where TMessage : IBusMessage
+        {
+            return _busMessageDispatcher.DispatchAsync(message);
         }
 
         /// <inheritdoc />

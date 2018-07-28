@@ -13,7 +13,7 @@ namespace OpenCqrs.Tests.Events
     [TestFixture]
     public class EventPublisherAsyncTests
     {
-        private IEventPublisherAsync _sut;
+        private IEventPublisher _sut;
 
         private Mock<IResolver> _resolver;
         private Mock<IBusMessageDispatcher> _busMessageDispatcher;
@@ -48,7 +48,7 @@ namespace OpenCqrs.Tests.Events
                 .Setup(x => x.DispatchAsync(_somethingCreated))
                 .Returns(Task.CompletedTask);
 
-            _sut = new EventPublisherAsync(_resolver.Object, _busMessageDispatcher.Object);
+            _sut = new EventPublisher(_resolver.Object, _busMessageDispatcher.Object);
         }
     
         [Test]

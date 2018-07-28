@@ -11,7 +11,7 @@ namespace OpenCqrs.Tests.Queries
     [TestFixture]
     public class QueryProcessorAsyncTests
     {
-        private IQueryProcessorAsync _sut;
+        private IQueryProcessor _sut;
 
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IQueryHandlerAsync<GetSomething, Something>> _queryHendler;
@@ -35,7 +35,7 @@ namespace OpenCqrs.Tests.Queries
                 .Setup(x => x.ResolveHandler<IQueryHandlerAsync<GetSomething, Something>>())
                 .Returns(_queryHendler.Object);
 
-            _sut = new QueryProcessorAsync(_handlerResolver.Object);
+            _sut = new QueryProcessor(_handlerResolver.Object);
         }
     
         [Test]

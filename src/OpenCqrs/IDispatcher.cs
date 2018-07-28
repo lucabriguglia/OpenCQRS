@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using OpenCqrs.Bus;
 using OpenCqrs.Commands;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
@@ -74,6 +75,15 @@ namespace OpenCqrs
         /// <returns>TResult</returns>
         Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query)
             where TQuery : IQuery;
+
+        /// <summary>
+        /// Dispatches the bus message asynchronously.
+        /// </summary>
+        /// <typeparam name="TMessage">The type of the message.</typeparam>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        Task DispatchBusMessageAsync<TMessage>(TMessage message) 
+            where TMessage : IBusMessage;
 
         /// <summary>
         /// Sends the specified command.
