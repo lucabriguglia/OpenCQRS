@@ -7,6 +7,7 @@ namespace OpenCqrs.Examples.Domain
     public class Product : AggregateRoot
     {
         public string Title { get; private set; }
+        public ProductStatus Status { get; private set; }
 
         public Product()
         {            
@@ -21,10 +22,11 @@ namespace OpenCqrs.Examples.Domain
             // use ProductCreatedBusMessage instead of ProductCreated.
             // Remember to update the connection string in the ServiceBusConfiguration
             // section in the appsettings.json file.
-            AddAndApplyEvent(new ProductCreated
+            AddEvent(new ProductCreated
             {
                 AggregateRootId = Id,
-                Title = title
+                Title = title,
+                Status = ProductStatus.Draft
             });
         }
 
@@ -33,10 +35,26 @@ namespace OpenCqrs.Examples.Domain
             if (string.IsNullOrEmpty(title))
                 throw new ApplicationException("Product title is required.");
 
-            AddAndApplyEvent(new ProductTitleUpdated
+            AddEvent(new ProductTitleUpdated
             {
                 AggregateRootId = Id,
                 Title = title
+            });
+        }
+
+        public void Publish()
+        {
+            AddEvent(new ProductPublished
+            {
+                AggregateRootId = Id
+            });
+        }
+
+        public void Delete()
+        {
+            AddEvent(new ProductDeleted
+            {
+                AggregateRootId = Id
             });
         }
 
@@ -44,17 +62,29 @@ namespace OpenCqrs.Examples.Domain
         {
             Id = @event.AggregateRootId;
             Title = @event.Title;
+            Status = @event.Status;
         }
 
         private void Apply(ProductCreatedBusMessage @event)
         {
             Id = @event.AggregateRootId;
             Title = @event.Title;
+            Status = @event.Status;
         }
 
         private void Apply(ProductTitleUpdated @event)
         {
             Title = @event.Title;
+        }
+
+        private void Apply(ProductPublished @event)
+        {
+            Status = ProductStatus.Published;
+        }
+
+        private void Apply(ProductDeleted @event)
+        {
+            Status = ProductStatus.Deleted;
         }
     }
 }

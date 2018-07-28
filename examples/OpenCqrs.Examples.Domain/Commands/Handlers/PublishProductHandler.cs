@@ -6,23 +6,23 @@ using OpenCqrs.Domain;
 
 namespace OpenCqrs.Examples.Domain.Commands.Handlers
 {
-    public class UpdateProductTitleHandlerAsync : ICommandHandlerWithDomainEventsAsync<UpdateProductTitle>
+    public class PublishProductHandler : ICommandHandlerWithDomainEventsAsync<PublishProduct>
     {
         private readonly IRepository<Product> _repository;
 
-        public UpdateProductTitleHandlerAsync(IRepository<Product> repository)
+        public PublishProductHandler(IRepository<Product> repository)
         {
             _repository = repository;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProductTitle command)
+        public async Task<IEnumerable<IDomainEvent>> HandleAsync(PublishProduct command)
         {
             var product = await _repository.GetByIdAsync(command.AggregateRootId);
 
             if (product == null)
                 throw new ApplicationException("Product not found.");
 
-            product.UpdateTitle(command.Title);
+            product.Publish();
 
             return product.Events;
         }
