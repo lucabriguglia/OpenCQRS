@@ -1,5 +1,4 @@
-﻿using System;
-using OpenCqrs.Exceptions;
+﻿using OpenCqrs.Exceptions;
 
 namespace OpenCqrs.Dependencies
 {
