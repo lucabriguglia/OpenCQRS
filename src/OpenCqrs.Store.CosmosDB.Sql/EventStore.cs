@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OpenCqrs.Domain;
+using OpenCqrs.Exceptions;
 using OpenCqrs.Store.CosmosDB.Sql.Documents;
 using OpenCqrs.Store.CosmosDB.Sql.Documents.Factories;
 using OpenCqrs.Store.CosmosDB.Sql.Repositories;
@@ -27,7 +28,7 @@ namespace OpenCqrs.Store.CosmosDB.Sql
             _eventDocumentFactory = eventDocumentFactory;
         }
 
-        public async Task SaveEventAsync<TAggregate>(IDomainEvent @event) where TAggregate : IAggregateRoot
+        public async Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             var aggregateDocument = await _aggregateRepository.GetDocumentAsync(@event.AggregateRootId.ToString());
             if (aggregateDocument == null)
@@ -37,11 +38,16 @@ namespace OpenCqrs.Store.CosmosDB.Sql
             }
 
             var currentVersion = await _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId);
+
+            if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
+                throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+
             var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
+
             await _eventRepository.CreateDocumentAsync(eventDocument);
         }
 
-        public void SaveEvent<TAggregate>(IDomainEvent @event) where TAggregate : IAggregateRoot
+        public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             var aggregateDocument = _aggregateRepository.GetDocumentAsync(@event.AggregateRootId.ToString()).GetAwaiter().GetResult();
             if (aggregateDocument == null)
@@ -51,7 +57,12 @@ namespace OpenCqrs.Store.CosmosDB.Sql
             }
 
             var currentVersion = _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId).GetAwaiter().GetResult();
+
+            if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
+                throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+
             var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
+
             _eventRepository.CreateDocumentAsync(eventDocument).GetAwaiter().GetResult();
         }
 

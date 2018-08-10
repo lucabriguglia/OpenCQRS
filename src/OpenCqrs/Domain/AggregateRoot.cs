@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using ReflectionMagic;
 
 namespace OpenCqrs.Domain
@@ -8,6 +9,7 @@ namespace OpenCqrs.Domain
     public abstract class AggregateRoot : IAggregateRoot
     {
         public Guid Id { get; protected set; }
+        public int Version { get; private set; }
 
         private readonly List<IDomainEvent> _events = new List<IDomainEvent>();
         public ReadOnlyCollection<IDomainEvent> Events => _events.AsReadOnly();
@@ -25,10 +27,12 @@ namespace OpenCqrs.Domain
             Id = id;
         }
 
-        public void ApplyEvents(IEnumerable<IDomainEvent> events)
+        public void LoadsFromHistory(IEnumerable<IDomainEvent> events)
         {
             foreach (var @event in events)
                 this.AsDynamic().Apply(@event);
+
+            Version = events.Count();
         }
 
         /// <summary>

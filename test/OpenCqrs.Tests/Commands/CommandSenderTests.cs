@@ -56,7 +56,7 @@ namespace OpenCqrs.Tests.Commands
 
             _eventStore = new Mock<IEventStore>();
             _eventStore
-                .Setup(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete));
+                .Setup(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete, null));
 
             _commandStore = new Mock<ICommandStore>();
             _commandStore
@@ -137,7 +137,7 @@ namespace OpenCqrs.Tests.Commands
         public void SendWithDomainEvents_SavesEvents()
         {
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
-            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
+            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
         }
 
         [Test]
@@ -186,7 +186,7 @@ namespace OpenCqrs.Tests.Commands
         public void SendAndPublishWithDomainEvents_SavesEvents()
         {
             _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete), Times.Once);
+            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
         }
 
         [Test]

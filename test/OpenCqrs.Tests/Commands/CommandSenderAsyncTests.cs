@@ -60,7 +60,7 @@ namespace OpenCqrs.Tests.Commands
 
             _eventStore = new Mock<IEventStore>();
             _eventStore
-                .Setup(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete))
+                .Setup(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null))
                 .Returns(Task.CompletedTask);
 
             _commandStore = new Mock<ICommandStore>();
@@ -144,7 +144,7 @@ namespace OpenCqrs.Tests.Commands
         public async Task SendWithDomainEventsAsync_SavesEvents()
         {
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete), Times.Once);
+            _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
         }
 
         [Test]
@@ -193,7 +193,7 @@ namespace OpenCqrs.Tests.Commands
         public async Task SendAndPublishWithDomainEventsAsync_SavesEvents()
         {
             await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete), Times.Once);
+            _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
         }
 
         [Test]

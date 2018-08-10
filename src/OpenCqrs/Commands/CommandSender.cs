@@ -60,7 +60,7 @@ namespace OpenCqrs.Commands
             {
                 @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
+                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
             }
         }
 
@@ -99,7 +99,7 @@ namespace OpenCqrs.Commands
             {
                 @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent);
+                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
                 await _eventPublisher.PublishAsync(concreteEvent);
             }
         }
@@ -139,7 +139,7 @@ namespace OpenCqrs.Commands
             {
                 @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent);
+                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
             }
         }
 
@@ -178,7 +178,7 @@ namespace OpenCqrs.Commands
             {
                 @event.CommandId = command.Id;
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent);
+                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
                 _eventPublisher.Publish(concreteEvent);
             }
         }

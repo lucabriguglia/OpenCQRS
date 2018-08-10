@@ -9,5 +9,6 @@ namespace OpenCqrs.Domain
         public string UserId { get; set; }
         public string Source { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
+        public int? ExpectedVersion { get; set; }
     }
 }

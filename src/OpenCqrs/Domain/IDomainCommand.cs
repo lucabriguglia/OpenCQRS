@@ -10,5 +10,6 @@ namespace OpenCqrs.Domain
         string UserId { get; set; }
         string Source { get; set; }
         DateTime TimeStamp { get; set; }
+        int? ExpectedVersion { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OpenCqrs.Domain;
+using OpenCqrs.Exceptions;
 using OpenCqrs.Store.EF.Entities.Factories;
 
 namespace OpenCqrs.Store.EF
@@ -25,7 +26,7 @@ namespace OpenCqrs.Store.EF
         }
 
         /// <inheritdoc />
-        public async Task SaveEventAsync<TAggregate>(IDomainEvent @event) where TAggregate : IAggregateRoot
+        public async Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
@@ -36,8 +37,12 @@ namespace OpenCqrs.Store.EF
                     await dbContext.Aggregates.AddAsync(newAggregateEntity);
                 }
 
-                var currentSequenceCount = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
-                var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentSequenceCount + 1);
+                var currentVersion = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
+
+                if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
+                    throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+
+                var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentVersion + 1);
                 await dbContext.Events.AddAsync(newEventEntity);
 
                 await dbContext.SaveChangesAsync();
@@ -45,7 +50,7 @@ namespace OpenCqrs.Store.EF
         }
 
         /// <inheritdoc />
-        public void SaveEvent<TAggregate>(IDomainEvent @event) where TAggregate : IAggregateRoot
+        public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
@@ -56,8 +61,12 @@ namespace OpenCqrs.Store.EF
                     dbContext.Aggregates.Add(newAggregateEntity);
                 }
 
-                var currentSequenceCount = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
-                var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentSequenceCount + 1);
+                var currentVersion = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
+
+                if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
+                    throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+
+                var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentVersion + 1);
                 dbContext.Events.Add(newEventEntity);
 
                 dbContext.SaveChanges();

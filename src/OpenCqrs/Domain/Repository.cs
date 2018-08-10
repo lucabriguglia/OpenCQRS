@@ -23,14 +23,14 @@ namespace OpenCqrs.Domain
         public async Task SaveAsync(T aggregate)
         {
             foreach (var @event in aggregate.Events)
-                await _eventStore.SaveEventAsync<T>(@event);
+                await _eventStore.SaveEventAsync<T>(@event, null);
         }
 
         /// <inheritdoc />
         public void Save(T aggregate)
         {
             foreach (var @event in aggregate.Events)
-                _eventStore.SaveEvent<T>(@event);       
+                _eventStore.SaveEvent<T>(@event, null);       
         }
 
         /// <inheritdoc />
@@ -42,7 +42,7 @@ namespace OpenCqrs.Domain
                 return default(T);
 
             var aggregate = Activator.CreateInstance<T>();        
-            aggregate.ApplyEvents(domainEvents);
+            aggregate.LoadsFromHistory(domainEvents);
             return aggregate;
         }
 
@@ -55,7 +55,7 @@ namespace OpenCqrs.Domain
                 return default(T);
 
             var aggregate = Activator.CreateInstance<T>();          
-            aggregate.ApplyEvents(domainEvents);
+            aggregate.LoadsFromHistory(domainEvents);
             return aggregate;
         }
     }

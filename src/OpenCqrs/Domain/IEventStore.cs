@@ -12,7 +12,7 @@ namespace OpenCqrs.Domain
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="event">The event.</param>
         /// <returns></returns>
-        Task SaveEventAsync<TAggregate>(IDomainEvent @event) 
+        Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) 
             where TAggregate : IAggregateRoot;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace OpenCqrs.Domain
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="event">The event.</param>
-        void SaveEvent<TAggregate>(IDomainEvent @event) 
+        void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion) 
             where TAggregate : IAggregateRoot;
 
         /// <summary>

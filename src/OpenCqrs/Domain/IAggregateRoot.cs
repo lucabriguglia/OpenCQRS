@@ -7,7 +7,8 @@ namespace OpenCqrs.Domain
     public interface IAggregateRoot
     {
         Guid Id { get; }
+        int Version { get; }
         ReadOnlyCollection<IDomainEvent> Events { get; }
-        void ApplyEvents(IEnumerable<IDomainEvent> events);
+        void LoadsFromHistory(IEnumerable<IDomainEvent> events);
     }
 }
