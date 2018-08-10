@@ -6,21 +6,21 @@ OpenCQRS is a .NET Core library that can be used for Domain Driven Design (DDD),
 
 ## Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.ServiceBus-5.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.ServiceBus)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.ServiceBus-5.2.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.ServiceBus)
 
 ## Wiki
 

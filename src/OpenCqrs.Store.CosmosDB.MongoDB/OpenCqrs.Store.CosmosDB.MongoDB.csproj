@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
     <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, cosmosdb, mongodb</PackageTags>
-    <Version>5.1.0</Version>
+    <Version>5.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
