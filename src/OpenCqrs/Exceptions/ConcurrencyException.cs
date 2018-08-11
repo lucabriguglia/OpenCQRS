@@ -4,14 +4,17 @@ namespace OpenCqrs.Exceptions
 {
     public class ConcurrencyException : ApplicationException
     {
-        public ConcurrencyException(int expectedVersion, int actualVersion)
-            : base(BuildErrorMesage(expectedVersion, actualVersion))
+        public ConcurrencyException(Guid aggregateRootId, int expectedVersion, int actualVersion)
+            : base(BuildErrorMesage(aggregateRootId, expectedVersion, actualVersion))
         {
         }
 
-        private static string BuildErrorMesage(int expectedVersion, int actualVersion)
+        private static string BuildErrorMesage(Guid aggregateRootId, int expectedVersion, int actualVersion)
         {
-            return $"Expected version: '{expectedVersion}' | Actual version: '{actualVersion}'";
+            return "Concurrency Exception" +
+                   $" | AggregateRootId: {aggregateRootId.ToString()}" +
+                   $" | Expected version: {expectedVersion}" +
+                   $" | Actual version: {actualVersion}";
         }
     }
 }

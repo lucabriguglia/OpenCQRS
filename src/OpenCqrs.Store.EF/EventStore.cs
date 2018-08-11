@@ -40,7 +40,7 @@ namespace OpenCqrs.Store.EF
                 var currentVersion = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
 
                 if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                    throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+                    throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, currentVersion);
 
                 var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentVersion + 1);
                 await dbContext.Events.AddAsync(newEventEntity);
@@ -64,7 +64,7 @@ namespace OpenCqrs.Store.EF
                 var currentVersion = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
 
                 if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                    throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+                    throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, currentVersion);
 
                 var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentVersion + 1);
                 dbContext.Events.Add(newEventEntity);

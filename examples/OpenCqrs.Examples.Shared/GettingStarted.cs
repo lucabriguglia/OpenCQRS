@@ -26,7 +26,8 @@ namespace OpenCqrs.Examples.Shared
             await dispatcher.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
             {
                 AggregateRootId = productId,
-                Title = "Updated product title"
+                Title = "Updated product title",
+                ExpectedVersion = 1
             });
 
             // Update title again (third domain event created).
@@ -34,7 +35,8 @@ namespace OpenCqrs.Examples.Shared
             await dispatcher.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
             {
                 AggregateRootId = productId,
-                Title = "Yeah! Third title!"
+                Title = "Yeah! Third title!",
+                ExpectedVersion = 2
             });
 
             // Get the view model that should return the title used in the last update.

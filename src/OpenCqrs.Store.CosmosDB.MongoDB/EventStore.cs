@@ -41,7 +41,7 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB
             var currentVersion = await _dbContext.Events.Find(eventFilter).CountDocumentsAsync();
 
             if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                throw new ConcurrencyException(expectedVersion.Value, (int)currentVersion);
+                throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, (int)currentVersion);
 
             var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
 
@@ -62,7 +62,7 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB
             var currentVersion = _dbContext.Events.Find(eventFilter).CountDocuments();
 
             if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                throw new ConcurrencyException(expectedVersion.Value, (int)currentVersion);
+                throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, (int)currentVersion);
 
             var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
 

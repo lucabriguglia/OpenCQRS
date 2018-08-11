@@ -40,7 +40,7 @@ namespace OpenCqrs.Store.CosmosDB.Sql
             var currentVersion = await _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId);
 
             if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+                throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, currentVersion);
 
             var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
 
@@ -59,7 +59,7 @@ namespace OpenCqrs.Store.CosmosDB.Sql
             var currentVersion = _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId).GetAwaiter().GetResult();
 
             if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                throw new ConcurrencyException(expectedVersion.Value, currentVersion);
+                throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, currentVersion);
 
             var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
 
