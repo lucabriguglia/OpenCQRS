@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/opencqrs)
 
-OpenCQRS is a .NET Core library that can be used for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing.
+OpenCQRS is a .NET Core framework for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing with Azure Service Bus integration.
 
 ## Nuget Packages
 
