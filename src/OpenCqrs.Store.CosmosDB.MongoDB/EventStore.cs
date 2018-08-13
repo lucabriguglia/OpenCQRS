@@ -17,14 +17,17 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB
         private readonly DomainDbContext _dbContext;
         private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly IEventDocumentFactory _eventDocumentFactory;
+        private readonly IVersionService _versionService;
 
         public EventStore(IOptions<DomainDbConfiguration> settings, 
             IAggregateDocumentFactory aggregateDocumentFactory, 
-            IEventDocumentFactory eventDocumentFactory)
+            IEventDocumentFactory eventDocumentFactory, 
+            IVersionService versionService)
         {
             _dbContext = new DomainDbContext(settings);
             _aggregateDocumentFactory = aggregateDocumentFactory;
             _eventDocumentFactory = eventDocumentFactory;
+            _versionService = versionService;
         }
 
         public async Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
@@ -39,11 +42,9 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB
 
             var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
             var currentVersion = await _dbContext.Events.Find(eventFilter).CountDocumentsAsync();
+            var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, expectedVersion);
 
-            if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, (int)currentVersion);
-
-            var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
+            var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 
             await _dbContext.Events.InsertOneAsync(eventDocument);
         }
@@ -60,11 +61,9 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB
 
             var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
             var currentVersion = _dbContext.Events.Find(eventFilter).CountDocuments();
+            var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, expectedVersion);
 
-            if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, (int)currentVersion);
-
-            var eventDocument = _eventDocumentFactory.CreateEvent(@event, currentVersion + 1);
+            var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 
             _dbContext.Events.InsertOne(eventDocument);
         }

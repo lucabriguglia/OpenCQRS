@@ -15,14 +15,17 @@ namespace OpenCqrs.Store.EF
         private readonly IDomainDbContextFactory _dbContextFactory;
         private readonly IAggregateEntityFactory _aggregateEntityFactory;
         private readonly IEventEntityFactory _eventEntityFactory;
+        private readonly IVersionService _versionService;
 
         public EventStore(IDomainDbContextFactory dbContextFactory,
             IAggregateEntityFactory aggregateEntityFactory,
-            IEventEntityFactory eventEntityFactory)
+            IEventEntityFactory eventEntityFactory, 
+            IVersionService versionService)
         {
             _dbContextFactory = dbContextFactory;
             _aggregateEntityFactory = aggregateEntityFactory;
-            _eventEntityFactory = eventEntityFactory;            
+            _eventEntityFactory = eventEntityFactory;
+            _versionService = versionService;
         }
 
         /// <inheritdoc />
@@ -38,11 +41,9 @@ namespace OpenCqrs.Store.EF
                 }
 
                 var currentVersion = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
+                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, expectedVersion);
+                var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
 
-                if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                    throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, currentVersion);
-
-                var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentVersion + 1);
                 await dbContext.Events.AddAsync(newEventEntity);
 
                 await dbContext.SaveChangesAsync();
@@ -62,11 +63,9 @@ namespace OpenCqrs.Store.EF
                 }
 
                 var currentVersion = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
+                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, expectedVersion);
+                var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
 
-                if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)
-                    throw new ConcurrencyException(@event.AggregateRootId, expectedVersion.Value, currentVersion);
-
-                var newEventEntity = _eventEntityFactory.CreateEvent(@event, currentVersion + 1);
                 dbContext.Events.Add(newEventEntity);
 
                 dbContext.SaveChanges();
