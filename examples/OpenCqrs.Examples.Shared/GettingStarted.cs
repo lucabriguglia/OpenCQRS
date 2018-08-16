@@ -12,13 +12,17 @@ namespace OpenCqrs.Examples.Shared
         public static async Task<ProductViewModel> CreateProduct(IDispatcher dispatcher)
         {
             var productId = Guid.NewGuid();
+            var userId = Guid.NewGuid().ToString();
+            const string source = "0";
 
             // Create a new product (first domain event created).
             // ProductCreatedHandlerAsync should created the view model.
             await dispatcher.SendAndPublishAsync<CreateProduct, Product>(new CreateProduct
             {
                 AggregateRootId = productId,
-                Title = "My brand new product"
+                Title = "My brand new product",
+                UserId = userId,
+                Source = source
             });
 
             // Update title (second domain event created).
@@ -27,6 +31,8 @@ namespace OpenCqrs.Examples.Shared
             {
                 AggregateRootId = productId,
                 Title = "Updated product title",
+                UserId = userId,
+                Source = source,
                 ExpectedVersion = 1
             });
 
@@ -36,6 +42,8 @@ namespace OpenCqrs.Examples.Shared
             {
                 AggregateRootId = productId,
                 Title = "Yeah! Third title!",
+                UserId = userId,
+                Source = source,
                 ExpectedVersion = 2
             });
 
