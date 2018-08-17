@@ -29,10 +29,12 @@ namespace OpenCqrs.Domain
 
         public void LoadsFromHistory(IEnumerable<IDomainEvent> events)
         {
-            foreach (var @event in events)
+            var domainEvents = events as IDomainEvent[] ?? events.ToArray();
+
+            foreach (var @event in domainEvents)
                 this.AsDynamic().Apply(@event);
 
-            Version = events.Count();
+            Version = domainEvents.Length;
         }
 
         /// <summary>
