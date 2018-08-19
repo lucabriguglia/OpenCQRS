@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PackageId>OpenCqrs.Store.EF.MySql</PackageId>
+    <PackageId>OpenCqrs.Store.EF.InMemory</PackageId>
     <Authors>Luca Briguglia</Authors>
     <Product>OpenCQRS</Product>
-    <Description>MySQL database provider for OpenCQRS domain store.</Description>
+    <Description>In memory database provider for OpenCQRS domain store.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://github.com/lucabriguglia/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>Copyright Luca Briguglia</Copyright>
@@ -18,11 +18,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\..\Release\netcoreapp2.1\</OutputPath>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.12" />
-  </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.1" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj" />
     <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
