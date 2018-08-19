@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Examples.Web.Cosmo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Bus.ServiceBus", "src\OpenCqrs.Bus.ServiceBus\OpenCqrs.Bus.ServiceBus.csproj", "{C3467348-3A8B-4558-B954-6A124E187FC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF.InMemory", "src\OpenCQRS.Store.EF.InMemory\OpenCqrs.Store.EF.InMemory.csproj", "{15940312-6446-4FD6-B886-49BAC6589D73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF.InMemory", "src\OpenCqrs.Store.EF.InMemory\OpenCqrs.Store.EF.InMemory.csproj", "{15940312-6446-4FD6-B886-49BAC6589D73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
