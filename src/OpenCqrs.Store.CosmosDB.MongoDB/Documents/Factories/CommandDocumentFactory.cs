@@ -10,7 +10,7 @@ namespace OpenCqrs.Store.CosmosDB.MongoDB.Documents.Factories
         {
             return new CommandDocument
             {
-                Id = command.Id,
+                Id = command.Id.ToString(),
                 AggregateId = command.AggregateRootId.ToString(),
                 Type = command.GetType().AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(command),
