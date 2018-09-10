@@ -44,11 +44,11 @@ namespace OpenCqrs.Examples.Web.CosmosDB.MongoDB
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                // Create a sample product loading data from domain events.
-                var product = await GettingStarted.CreateProduct(dispatcher);
+            // Create a sample product loading data from domain events.
+            var product = GettingStarted.CreateProduct(dispatcher).GetAwaiter().GetResult();
 
+            app.Run(async context =>
+            {
                 // Display product title.
                 await context.Response.WriteAsync($"Product title: {product.Title}");
             });

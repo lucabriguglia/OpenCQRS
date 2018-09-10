@@ -1,26 +1,26 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace OpenCqrs.Dependencies
 {
     public class Resolver : IResolver
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IServiceProvider _serviceProvider;
 
-        public Resolver(IHttpContextAccessor httpContextAccessor)
+        public Resolver(IServiceProvider serviceProvider)
         {
-            _httpContextAccessor = httpContextAccessor;
+            _serviceProvider = serviceProvider;
         }
 
         public T Resolve<T>()
         {
-            return _httpContextAccessor.HttpContext.RequestServices.GetService<T>();
+            return _serviceProvider.GetService<T>();
         }
 
         public IEnumerable<T> ResolveAll<T>()
         {
-            return _httpContextAccessor.HttpContext.RequestServices.GetServices<T>();
+            return _serviceProvider.GetServices<T>();
         }
     }
 }
