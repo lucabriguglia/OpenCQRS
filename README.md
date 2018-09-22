@@ -8,9 +8,9 @@ OpenCQRS is a .NET Core framework for Domain Driven Design (DDD), Command Query 
 
 [![Nuget Package](https://img.shields.io/badge/OpenCqrs-5.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.MongoDB-5.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.MongoDB)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Mongo-5.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Mongo)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.CosmosDB.Sql-5.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.CosmosDB.Sql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Sql-5.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Sql)
 
 [![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-5.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
 
