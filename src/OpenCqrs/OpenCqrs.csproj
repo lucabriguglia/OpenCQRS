@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <PackageId>OpenCqrs</PackageId>
     <Description>.NET Core library for DDD, CQRS and Event Sourcing.</Description>
-    <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing</PackageTags>
+    
   </PropertyGroup>
 
   <ItemGroup>

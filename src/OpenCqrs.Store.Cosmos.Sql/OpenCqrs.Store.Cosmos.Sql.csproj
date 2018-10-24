@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Description>CosmosDB (DocumentDB) database provider for OpenCQRS domain store.</Description>
-    <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, cosmosdb, sql, documentdb</PackageTags>
+    <PackageTags>$(PackageTags), cosmosdb, sql, documentdb</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

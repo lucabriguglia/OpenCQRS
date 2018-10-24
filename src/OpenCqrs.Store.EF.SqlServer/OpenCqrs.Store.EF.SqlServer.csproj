@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Description>SQL Server database provider for OpenCQRS domain store.</Description>
-    <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, sql, sqlserver, mssql</PackageTags>
+    <PackageTags>$(PackageTags), ef, entity framework, sql, sqlserver, mssql</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
