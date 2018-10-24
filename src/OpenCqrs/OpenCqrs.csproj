@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <PackageId>OpenCqrs</PackageId>
     <Description>.NET Core library for DDD, CQRS and Event Sourcing.</Description>
   </PropertyGroup>

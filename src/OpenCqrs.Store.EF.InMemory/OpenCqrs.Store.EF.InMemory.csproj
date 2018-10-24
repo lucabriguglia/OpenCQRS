@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <Description>In memory database provider for OpenCQRS domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, mysql</PackageTags>
   </PropertyGroup>
