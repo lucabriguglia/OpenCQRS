@@ -1,26 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PackageId>OpenCqrs.Store.Cosmos.Mongo</PackageId>
     <Authors>Luca Briguglia</Authors>
-    <Product>OpenCQRS</Product>
     <Description>CosmosDB (MongoDB) database provider for OpenCQRS domain store.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/lucabriguglia/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Copyright Luca Briguglia</Copyright>
-    <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, cosmosdb, mongodb</PackageTags>
-    <Version>5.3.0</Version>
-    <AssemblyName>OpenCqrs.Store.Cosmos.Mongo</AssemblyName>
-    <RootNamespace>OpenCqrs.Store.Cosmos.Mongo</RootNamespace>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\Release\netcoreapp2.1\</OutputPath>
-  </PropertyGroup>
-  
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />

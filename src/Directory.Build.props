@@ -1,0 +1,19 @@
+<Project>
+	<Import Project="..\Directory.Build.props" Condition="Exists('..\Directory.Build.props')" />
+
+  <PropertyGroup Label="ProjectSettings">
+    <Version>5.3.0</Version>
+    <Authors>Luca Briguglia</Authors>
+    <Company>Luca Briguglia</Company>
+    <Copyright>Copyright Luca Briguglia</Copyright>
+    <Product>OpenCQRS</Product>
+    <PackageLicenseUrl>https://github.com/lucabriguglia/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Label="ReleaseSettings" Condition="$(Configuration) == 'Release'">
+    <OutputPath>..\..\..\Release\netcoreapp2.1\</OutputPath>
+  </PropertyGroup>
+  
+</Project>

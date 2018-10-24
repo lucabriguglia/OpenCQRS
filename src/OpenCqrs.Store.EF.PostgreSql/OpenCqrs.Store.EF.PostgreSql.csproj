@@ -1,24 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PackageId>OpenCqrs.Store.EF.PostgreSql</PackageId>
-    <Authors>Luca Briguglia</Authors>
-    <Product>OpenCQRS</Product>
     <Description>PostgreSQL database provider for OpenCQRS domain store.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/lucabriguglia/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Copyright Luca Briguglia</Copyright>
-    <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, postgresql</PackageTags>
-    <Version>5.3.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\..\..\Release\netcoreapp2.1\</OutputPath>
-  </PropertyGroup>
-  
   <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1.1" />
   </ItemGroup>
