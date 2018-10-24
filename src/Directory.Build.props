@@ -6,10 +6,11 @@
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing</PackageTags>
+    <SourcesPackage>true</SourcesPackage> <!-- This should be removed in a future release of the sources lib -->
   </PropertyGroup>
 
   <PropertyGroup Label="ReleaseSettings" Condition="$(Configuration) == 'Release'">
-    <OutputPath>..\..\..\Release\netcoreapp2.1\</OutputPath>
+    <OutputPath>..\..\..\Release\</OutputPath>
     <Optimize>true</Optimize>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
