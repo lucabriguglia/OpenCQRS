@@ -12,7 +12,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj" />
-    <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
   </ItemGroup>
 
 </Project>
