@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Description>Entity Framework Core database provider for OpenCQRS domain store.</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework</PackageTags>
   </PropertyGroup>
 

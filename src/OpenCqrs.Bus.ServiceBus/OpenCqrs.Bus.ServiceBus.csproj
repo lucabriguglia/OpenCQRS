@@ -4,7 +4,6 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Description>Service Bus provider for OpenCQRS message bus.</Description>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, ef, entity framework, azure, servicebus, messagebus, bus</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup>

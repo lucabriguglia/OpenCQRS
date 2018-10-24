@@ -4,7 +4,6 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Authors>Luca Briguglia</Authors>
     <Description>CosmosDB (MongoDB) database provider for OpenCQRS domain store.</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing, cosmosdb, mongodb</PackageTags>
   </PropertyGroup>
 
