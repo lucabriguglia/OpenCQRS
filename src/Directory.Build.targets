@@ -1,0 +1,15 @@
+<Project>
+	<Import Project="..\Directory.Build.targets" Condition="Exists('..\Directory.Build.targets')" />
+
+  <ItemGroup Label="DefaultReferences">
+    <PackageReference Include="SignalOne.Automation.SourceLink.Github" Version="0.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SignalOne.Automation.SourcesPackage" Version="0.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+</Project>
