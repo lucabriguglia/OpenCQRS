@@ -4,6 +4,11 @@
 
 OpenCQRS is a .NET Core framework for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing with Azure Service Bus integration.
 
+## New
+
+- OpenCqrs.Bus.Rabbitmq supported
+- OpenCqrs.Abstractions: This assembly allows having few depencies in Domain
+
 ## Nuget Packages
 
 [![Nuget Package](https://img.shields.io/badge/OpenCqrs-5.3.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
