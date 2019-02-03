@@ -1,5 +1,5 @@
 ﻿using System;
-using OpenCqrs.Domain;
+using OpenCqrs.Abstractions.Domain;
 using OpenCqrs.Examples.Domain.Events;
 
 namespace OpenCqrs.Examples.Domain

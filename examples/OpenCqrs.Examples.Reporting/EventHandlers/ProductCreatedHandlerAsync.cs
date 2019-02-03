@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Events;
+using OpenCqrs.Abstractions.Events;
 using OpenCqrs.Examples.Domain.Events;
 
 namespace OpenCqrs.Examples.Reporting.EventHandlers

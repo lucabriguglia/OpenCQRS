@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
+using OpenCqrs.Abstractions.Bus;
 
 namespace OpenCqrs.Bus.ServiceBus.Factories
 {

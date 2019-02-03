@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.ServiceBus;
+using OpenCqrs.Abstractions.Bus;
 
 namespace OpenCqrs.Bus.ServiceBus.Factories
 {

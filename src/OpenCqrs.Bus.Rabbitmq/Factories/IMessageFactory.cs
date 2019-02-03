@@ -1,4 +1,6 @@
-﻿namespace OpenCqrs.Bus.Rabbitmq.Factories
+﻿using OpenCqrs.Abstractions.Bus;
+
+namespace OpenCqrs.Bus.Rabbitmq.Factories
 {
     public interface IMessageFactory
     {

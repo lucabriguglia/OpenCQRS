@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using OpenCqrs.Abstractions.Queries;
 
 namespace OpenCqrs.Queries
 {

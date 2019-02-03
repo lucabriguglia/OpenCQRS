@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using OpenCqrs.Abstractions;
 using OpenCqrs.Examples.Domain;
 using OpenCqrs.Examples.Domain.Commands;
 using OpenCqrs.Examples.Reporting;

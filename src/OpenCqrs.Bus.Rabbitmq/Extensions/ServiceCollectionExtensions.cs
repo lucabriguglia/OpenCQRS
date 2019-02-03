@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Bus.Rabbitmq.Configuration;
+using OpenCqrs.Bus.Configuration;
+using OpenCqrs.Bus.Queues;
 using OpenCqrs.Bus.Rabbitmq.Factories;
 using OpenCqrs.Bus.Rabbitmq.Queues;
 using OpenCqrs.Bus.Rabbitmq.Topics;
+using OpenCqrs.Bus.Topics;
 using OpenCqrs.Extensions;
 
 namespace OpenCqrs.Bus.Rabbitmq.Extensions

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using OpenCqrs.Abstractions.Domain;
 using OpenCqrs.Domain;
 using OpenCqrs.Store.Cosmos.Sql.Documents;
 using OpenCqrs.Store.Cosmos.Sql.Documents.Factories;

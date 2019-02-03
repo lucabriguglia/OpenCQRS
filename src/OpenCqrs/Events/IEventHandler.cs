@@ -1,4 +1,6 @@
-﻿namespace OpenCqrs.Events
+﻿using OpenCqrs.Abstractions.Events;
+
+namespace OpenCqrs.Events
 {
     public interface IEventHandler<in TEvent> where TEvent : IEvent
     {

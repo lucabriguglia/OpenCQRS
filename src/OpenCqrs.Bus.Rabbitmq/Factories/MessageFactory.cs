@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
+using OpenCqrs.Abstractions.Bus;
 
 namespace OpenCqrs.Bus.Rabbitmq.Factories
 {

@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.ServiceBus.Configuration;
+using OpenCqrs.Abstractions.Bus;
+using OpenCqrs.Bus.Configuration;
 using OpenCqrs.Bus.ServiceBus.Factories;
+using ITopicClient = OpenCqrs.Bus.Topics.ITopicClient;
 
 namespace OpenCqrs.Bus.ServiceBus.Topics
 {

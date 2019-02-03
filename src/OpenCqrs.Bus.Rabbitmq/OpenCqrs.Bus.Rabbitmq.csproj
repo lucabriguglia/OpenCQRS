@@ -9,6 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OpenCqrs.Abstractions\OpenCqrs.Abstractions.csproj" />
+    <ProjectReference Include="..\OpenCqrs.Bus\OpenCqrs.Bus.csproj" />
     <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
   </ItemGroup>
 

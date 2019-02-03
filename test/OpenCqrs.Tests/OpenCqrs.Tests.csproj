@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenCqrs.Abstractions\OpenCqrs.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs\OpenCqrs.csproj" />
   </ItemGroup>
 

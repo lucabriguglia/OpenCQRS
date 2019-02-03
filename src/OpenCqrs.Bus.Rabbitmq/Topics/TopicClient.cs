@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.Rabbitmq.Configuration;
+using OpenCqrs.Abstractions.Bus;
+using OpenCqrs.Bus.Configuration;
 using OpenCqrs.Bus.Rabbitmq.Factories;
+using OpenCqrs.Bus.Topics;
 using RabbitMQ.Client;
 
 namespace OpenCqrs.Bus.Rabbitmq.Topics

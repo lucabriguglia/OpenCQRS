@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Abstractions.Bus;
+using OpenCqrs.Abstractions.Events;
 using OpenCqrs.Bus;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Events;

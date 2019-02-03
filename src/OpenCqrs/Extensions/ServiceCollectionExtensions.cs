@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Abstractions;
+using OpenCqrs.Abstractions.Domain;
 using OpenCqrs.Configuration;
 using OpenCqrs.Domain;
 
@@ -23,13 +25,16 @@ namespace OpenCqrs.Extensions
 
             // Convert to list and add IDispatcher.
             var typeList = types.ToList();
-            typeList.Add(typeof(IDispatcher));
+            typeList.Add(typeof(Dispatcher));
 
             // Use Scrutor to register services
             services.Scan(s => s
                 .FromAssembliesOf(typeList)
                 .AddClasses()
                 .AsImplementedInterfaces());
+
+            // Register dispatcher
+            services.AddScoped<IDispatcher, Dispatcher>();
 
             // Register repository
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));

@@ -1,4 +1,4 @@
-﻿using OpenCqrs.Queries;
+﻿using OpenCqrs.Abstractions.Queries;
 
 namespace OpenCqrs.Tests.Fakes
 {

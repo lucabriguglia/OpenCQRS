@@ -1,6 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
-using OpenCqrs.Domain;
+﻿using Newtonsoft.Json;
+using OpenCqrs.Abstractions.Domain;
 
 namespace OpenCqrs.Store.EF.Entities.Factories
 {
