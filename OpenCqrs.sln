@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Bus.ServiceBus", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Store.EF.InMemory", "src\OpenCqrs.Store.EF.InMemory\OpenCqrs.Store.EF.InMemory.csproj", "{15940312-6446-4FD6-B886-49BAC6589D73}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCqrs.Bus.Rabbitmq", "src\OpenCqrs.Bus.Rabbitmq\OpenCqrs.Bus.Rabbitmq.csproj", "{CA189D79-723B-402B-BD6D-874286CAF5BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{15940312-6446-4FD6-B886-49BAC6589D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15940312-6446-4FD6-B886-49BAC6589D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15940312-6446-4FD6-B886-49BAC6589D73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA189D79-723B-402B-BD6D-874286CAF5BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA189D79-723B-402B-BD6D-874286CAF5BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA189D79-723B-402B-BD6D-874286CAF5BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA189D79-723B-402B-BD6D-874286CAF5BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,6 +161,7 @@ Global
 		{E85D6149-3F36-470B-B472-D7AAF7A8DAF1} = {F791EE52-C0E1-4B23-9D14-4275A7630449}
 		{C3467348-3A8B-4558-B954-6A124E187FC3} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{15940312-6446-4FD6-B886-49BAC6589D73} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
+		{CA189D79-723B-402B-BD6D-874286CAF5BE} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}
