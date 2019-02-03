@@ -1,6 +1,7 @@
 ﻿using System;
+using OpenCqrs.Abstractions.Bus;
+using OpenCqrs.Abstractions.Domain;
 using OpenCqrs.Bus;
-using OpenCqrs.Domain;
 
 namespace OpenCqrs.Tests.Fakes
 {

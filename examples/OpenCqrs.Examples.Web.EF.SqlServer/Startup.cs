@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Abstractions;
 using OpenCqrs.Bus.ServiceBus.Extensions;
 using OpenCqrs.Examples.Domain.Commands;
 using OpenCqrs.Examples.Reporting.Queries;

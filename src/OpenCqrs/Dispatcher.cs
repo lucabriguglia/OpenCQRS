@@ -1,4 +1,10 @@
 ﻿using System.Threading.Tasks;
+using OpenCqrs.Abstractions;
+using OpenCqrs.Abstractions.Bus;
+using OpenCqrs.Abstractions.Commands;
+using OpenCqrs.Abstractions.Domain;
+using OpenCqrs.Abstractions.Events;
+using OpenCqrs.Abstractions.Queries;
 using OpenCqrs.Bus;
 using OpenCqrs.Commands;
 using OpenCqrs.Domain;

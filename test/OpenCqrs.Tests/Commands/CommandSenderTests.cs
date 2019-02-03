@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Abstractions.Commands;
+using OpenCqrs.Abstractions.Events;
 using OpenCqrs.Commands;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;

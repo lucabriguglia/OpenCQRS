@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenCqrs.Abstractions.Bus;
 using OpenCqrs.Bus;
 using OpenCqrs.Events;
 

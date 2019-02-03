@@ -1,5 +1,5 @@
 ﻿using System;
-using OpenCqrs.Domain;
+using OpenCqrs.Abstractions.Domain;
 
 namespace OpenCqrs.Store.Cosmos.Mongo.Documents.Factories
 {

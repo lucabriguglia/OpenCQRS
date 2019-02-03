@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenCqrs.Abstractions\OpenCqrs.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Bus.ServiceBus\OpenCqrs.Bus.ServiceBus.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Store.Cosmos.Mongo\OpenCqrs.Store.Cosmos.Mongo.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs\OpenCqrs.csproj" />

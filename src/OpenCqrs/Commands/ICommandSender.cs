@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using OpenCqrs.Abstractions.Commands;
+using OpenCqrs.Abstractions.Domain;
 using OpenCqrs.Domain;
 
 namespace OpenCqrs.Commands

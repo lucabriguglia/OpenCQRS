@@ -1,6 +1,7 @@
 ﻿using System;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Abstractions.Queries;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Queries;
 using OpenCqrs.Tests.Fakes;

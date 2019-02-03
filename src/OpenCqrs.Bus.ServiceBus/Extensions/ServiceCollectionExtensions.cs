@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Bus.ServiceBus.Configuration;
+using OpenCqrs.Bus.Configuration;
+using OpenCqrs.Bus.Queues;
 using OpenCqrs.Bus.ServiceBus.Factories;
 using OpenCqrs.Bus.ServiceBus.Queues;
 using OpenCqrs.Bus.ServiceBus.Topics;
+using OpenCqrs.Bus.Topics;
 using OpenCqrs.Extensions;
-
-// ReSharper disable InconsistentNaming
 
 namespace OpenCqrs.Bus.ServiceBus.Extensions
 {

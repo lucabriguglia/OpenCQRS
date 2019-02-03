@@ -1,5 +1,5 @@
 ﻿using System;
-using OpenCqrs.Queries;
+using OpenCqrs.Abstractions.Queries;
 
 namespace OpenCqrs.Examples.Reporting.Queries
 {

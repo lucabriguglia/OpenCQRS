@@ -1,5 +1,4 @@
-﻿using OpenCqrs.Domain;
-using System;
+﻿using OpenCqrs.Abstractions.Domain;
 
 namespace OpenCqrs.Store.EF.Entities.Factories
 {

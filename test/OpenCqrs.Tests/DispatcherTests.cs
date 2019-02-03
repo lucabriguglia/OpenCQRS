@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Abstractions;
+using OpenCqrs.Abstractions.Domain;
+using OpenCqrs.Abstractions.Queries;
 using OpenCqrs.Bus;
 using OpenCqrs.Commands;
 using OpenCqrs.Domain;

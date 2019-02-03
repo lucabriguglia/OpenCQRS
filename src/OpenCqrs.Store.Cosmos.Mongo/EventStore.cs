@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json;
+using OpenCqrs.Abstractions.Domain;
 using OpenCqrs.Domain;
 using OpenCqrs.Store.Cosmos.Mongo.Configuration;
 using OpenCqrs.Store.Cosmos.Mongo.Documents;
