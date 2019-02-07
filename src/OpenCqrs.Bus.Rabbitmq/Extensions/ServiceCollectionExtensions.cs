@@ -12,7 +12,7 @@ namespace OpenCqrs.Bus.Rabbitmq.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsServiceBuilder AddServiceBusProvider(this IOpenCqrsServiceBuilder builder,
+        public static IOpenCqrsServiceBuilder AddRabbitmqProvider(this IOpenCqrsServiceBuilder builder,
             IConfiguration configuration)
         {
             builder.Services

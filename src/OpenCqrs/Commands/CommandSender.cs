@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using OpenCqrs.Abstractions.Commands;
 using OpenCqrs.Abstractions.Domain;
+using OpenCqrs.Configuration;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
+using static OpenCqrs.Helpers.TransactionHelper;
 
 namespace OpenCqrs.Commands
 {
@@ -19,18 +22,21 @@ namespace OpenCqrs.Commands
         private readonly IEventFactory _eventFactory;
         private readonly IEventStore _eventStore;
         private readonly ICommandStore _commandStore;
-        
+        private readonly bool _supportTransactions;
+
         public CommandSender(IHandlerResolver handlerResolver,
-            IEventPublisher eventPublisher,  
+            IEventPublisher eventPublisher,
             IEventFactory eventFactory,
-            IEventStore eventStore, 
-            ICommandStore commandStore)
+            IEventStore eventStore,
+            ICommandStore commandStore,
+            IOptions<EventOptions> options = null)
         {
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
             _eventStore = eventStore;
             _commandStore = commandStore;
             _handlerResolver = handlerResolver;
+            _supportTransactions = options?.Value.SupportTransactions ?? false;
         }
 
         /// <inheritdoc />
@@ -72,15 +78,18 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEventsAsync<TCommand>>();
-
-            var events = await handler.HandleAsync(command);
-
-            foreach (var @event in events)
+            await ExecuteInTransactionIf(_supportTransactions, async () =>
             {
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventPublisher.PublishAsync(concreteEvent);
-            }
+                var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEventsAsync<TCommand>>();
+
+                var events = await handler.HandleAsync(command);
+
+                foreach (var @event in events)
+                {
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                    await _eventPublisher.PublishAsync(concreteEvent);
+                }
+            });
         }
 
         /// <inheritdoc />
@@ -91,19 +100,22 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
-
-            await _commandStore.SaveCommandAsync<TAggregate>(command);
-
-            var events = await handler.HandleAsync(command);
-
-            foreach (var @event in events)
+            await ExecuteInTransactionIf(_supportTransactions, async () =>
             {
-                @event.Update(command);
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
-                await _eventPublisher.PublishAsync(concreteEvent);
-            }
+                var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
+
+                await _commandStore.SaveCommandAsync<TAggregate>(command);
+
+                var events = await handler.HandleAsync(command);
+
+                foreach (var @event in events)
+                {
+                    @event.Update(command);
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                    await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
+                    await _eventPublisher.PublishAsync(concreteEvent);
+                }
+            });
         }
 
         /// <summary>
@@ -119,13 +131,13 @@ namespace OpenCqrs.Commands
                 throw new ArgumentNullException(nameof(command));
 
             var handler = _handlerResolver.ResolveHandler<ICommandHandler<TCommand>>();
-            
+
             handler.Handle(command);
         }
 
         /// <inheritdoc />
-        public void Send<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
+        public void Send<TCommand, TAggregate>(TCommand command)
+            where TCommand : IDomainCommand
             where TAggregate : IAggregateRoot
         {
             if (command == null)
@@ -151,38 +163,44 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEvents<TCommand>>();
-
-            var events = handler.Handle(command);
-
-            foreach (var @event in events)
+            ExecuteInTransactionIf(_supportTransactions, () =>
             {
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                _eventPublisher.Publish(concreteEvent);
-            }
+                var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEvents<TCommand>>();
+
+                var events = handler.Handle(command);
+
+                foreach (var @event in events)
+                {
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                    _eventPublisher.Publish(concreteEvent);
+                }
+            });
         }
 
         /// <inheritdoc />
-        public void SendAndPublish<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
+        public void SendAndPublish<TCommand, TAggregate>(TCommand command)
+            where TCommand : IDomainCommand
             where TAggregate : IAggregateRoot
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEvents<TCommand>>();
-
-            _commandStore.SaveCommand<TAggregate>(command);
-
-            var events = handler.Handle(command);
-
-            foreach (var @event in events)
+            ExecuteInTransactionIf(_supportTransactions, () =>
             {
-                @event.Update(command);
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
-                _eventPublisher.Publish(concreteEvent);
-            }
+                var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEvents<TCommand>>();
+
+                _commandStore.SaveCommand<TAggregate>(command);
+
+                var events = handler.Handle(command);
+
+                foreach (var @event in events)
+                {
+                    @event.Update(command);
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                    _eventStore.SaveEvent<TAggregate>((IDomainEvent) concreteEvent, command.ExpectedVersion);
+                    _eventPublisher.Publish(concreteEvent);
+                }
+            });
         }
     }
 }

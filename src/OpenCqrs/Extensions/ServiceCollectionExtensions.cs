@@ -42,7 +42,7 @@ namespace OpenCqrs.Extensions
             return new OpenCqrsServiceBuilder(services);
         }
 
-        public static IOpenCqrsServiceBuilder AddOptions(this IOpenCqrsServiceBuilder builder, Action<Options> setupAction)
+        public static IOpenCqrsServiceBuilder AddOptions(this IOpenCqrsServiceBuilder builder, Action<EventOptions> setupAction)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
