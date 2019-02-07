@@ -8,6 +8,8 @@ OpenCQRS is a .NET Core framework for Domain Driven Design (DDD), Command Query 
 
 - OpenCqrs.Bus.Rabbitmq supported
 - OpenCqrs.Abstractions: This assembly allows having few depencies in Domain
+- Rabbitmq enlistment transactions supported. This allows atomic commits in Database & Message Bus
+- Azure Service Bus doesn't support DTC or 2PC (Two-phase Commit). I recommend using Rabbitmq to avoid possible inconsistencies.
 
 ## Nuget Packages
 
