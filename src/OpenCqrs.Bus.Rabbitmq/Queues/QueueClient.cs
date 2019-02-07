@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.Extensions.Options;
 using OpenCqrs.Abstractions.Bus;
 using OpenCqrs.Bus.Configuration;
 using OpenCqrs.Bus.Queues;
 using OpenCqrs.Bus.Rabbitmq.Factories;
+using OpenCqrs.Bus.Rabbitmq.Shared;
 using RabbitMQ.Client;
 
 namespace OpenCqrs.Bus.Rabbitmq.Queues
@@ -25,18 +27,20 @@ namespace OpenCqrs.Bus.Rabbitmq.Queues
             if (string.IsNullOrEmpty(message.QueueName))
                 throw new ApplicationException("Queue name is mandatory");
 
-            var factory = new ConnectionFactory { Uri  = new Uri(_connectionString) };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                var body = _messageFactory.CreateMessage(message);
+            var channel = new ConnectionFactory { Uri = new Uri(_connectionString) }
+                .CreateConnection()
+                .CreateModel();
 
-                channel.BasicPublish(
-                    exchange: string.Empty,
-                    routingKey: message.QueueName,
-                    basicProperties: null,
-                    body: body);
-            }
+            RabbitmqResourceManager
+                .EnlistToTransaction(channel, Transaction.Current);
+
+            var body = _messageFactory.CreateMessage(message);
+
+            channel.BasicPublish(
+                exchange: string.Empty,
+                routingKey: message.QueueName,
+                basicProperties: null,
+                body: body);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace OpenCqrs.Configuration
 {
-    public class Options
+    public class EventOptions
     {
-        public bool Something { get; set; }
+        public bool SupportTransactions { get; set; } = false;
     }
 }

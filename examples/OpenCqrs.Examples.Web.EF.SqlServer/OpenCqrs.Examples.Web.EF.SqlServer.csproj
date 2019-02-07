@@ -20,7 +20,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\OpenCqrs.Abstractions\OpenCqrs.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\OpenCqrs.Bus.Rabbitmq\OpenCqrs.Bus.Rabbitmq.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Bus.ServiceBus\OpenCqrs.Bus.ServiceBus.csproj" />
+    <ProjectReference Include="..\..\src\OpenCqrs.Bus\OpenCqrs.Bus.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Store.EF.SqlServer\OpenCqrs.Store.EF.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs\OpenCqrs.csproj" />

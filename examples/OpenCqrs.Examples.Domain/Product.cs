@@ -22,7 +22,7 @@ namespace OpenCqrs.Examples.Domain
             // use ProductCreatedBusMessage instead of ProductCreated.
             // Remember to update the connection string in the ServiceBusConfiguration
             // section in the appsettings.json file.
-            AddEvent(new ProductCreated
+            AddEvent(new ProductCreatedBusMessage
             {
                 AggregateRootId = Id,
                 Title = title,
