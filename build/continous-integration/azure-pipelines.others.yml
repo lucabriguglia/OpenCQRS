@@ -4,13 +4,15 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- develop
+- features/*
+- hotfixes/*
 
 pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
@@ -25,15 +27,3 @@ steps:
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
-
-- task: NuGetCommand@2
-  displayName: 'publish nuget packages'
-  inputs:
-    command: 'push'
-    feedsToUse: 'select'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: 'my-packages'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/../**/*.nupkg;!$(Build.ArtifactStagingDirectory)/../**/*.Sources.*.nupkg'
-    allowPackageConflicts: true
-    verbosityPush: 'Detailed'
-
