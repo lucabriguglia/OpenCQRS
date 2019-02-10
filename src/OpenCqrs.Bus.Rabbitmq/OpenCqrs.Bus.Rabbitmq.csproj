@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>José Manuel Serrano Mármol</Authors>
+    <Company>José Manuel Serrano Mármol</Company>
+    <Copyright>Copyright José Manuel Serrano Mármol</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

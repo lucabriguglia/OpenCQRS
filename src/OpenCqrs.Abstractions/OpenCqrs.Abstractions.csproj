@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RepositoryUrl>https://github.com/jmserrano-dev/OpenCQRS</RepositoryUrl>
+    <Company>José Manuel Serrano Mármol</Company>
+    <Authors>José Manuel Serrano Mármol</Authors>
   </PropertyGroup>
 
   <ItemGroup>
