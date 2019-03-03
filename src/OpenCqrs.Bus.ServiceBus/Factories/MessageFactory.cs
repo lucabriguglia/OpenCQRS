@@ -6,6 +6,7 @@ namespace OpenCqrs.Bus.ServiceBus.Factories
 {
     public class MessageFactory : IMessageFactory
     {
+        /// <inheritdoc />
         public Message CreateMessage<TMessage>(TMessage message) where TMessage : IBusMessage
         {
             var json = JsonConvert.SerializeObject(message);

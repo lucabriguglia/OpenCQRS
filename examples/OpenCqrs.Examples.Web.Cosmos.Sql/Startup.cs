@@ -12,7 +12,7 @@ using OpenCqrs.Extensions;
 using OpenCqrs.Store.Cosmos.Sql.Configuration;
 using OpenCqrs.Store.Cosmos.Sql.Extensions;
 
-namespace OpenCqrs.Examples.Web.CosmosDB.Sql
+namespace OpenCqrs.Examples.Web.Cosmos.Sql
 {
     public class Startup
     {

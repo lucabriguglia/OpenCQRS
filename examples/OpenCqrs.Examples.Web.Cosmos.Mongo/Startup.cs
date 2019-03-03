@@ -12,7 +12,7 @@ using OpenCqrs.Extensions;
 using OpenCqrs.Store.Cosmos.Mongo.Configuration;
 using OpenCqrs.Store.Cosmos.Mongo.Extensions;
 
-namespace OpenCqrs.Examples.Web.CosmosDB.MongoDB
+namespace OpenCqrs.Examples.Web.Cosmos.Mongo
 {
     public class Startup
     {

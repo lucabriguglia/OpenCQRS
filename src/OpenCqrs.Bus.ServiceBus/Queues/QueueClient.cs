@@ -18,6 +18,7 @@ namespace OpenCqrs.Bus.ServiceBus.Queues
             _connectionString = serviceBusConfiguration.Value.ConnectionString;
         }
 
+        /// <inheritdoc />
         public async Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage
         {
             if (string.IsNullOrEmpty(message.QueueName))

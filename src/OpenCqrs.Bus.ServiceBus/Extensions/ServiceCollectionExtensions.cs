@@ -12,6 +12,12 @@ namespace OpenCqrs.Bus.ServiceBus.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Adds the service bus provider.
+        /// </summary>
+        /// <param name="builder">The builder.</param>
+        /// <param name="configuration">The configuration.</param>
+        /// <returns></returns>
         public static IOpenCqrsServiceBuilder AddServiceBusProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             builder.Services.Configure<ServiceBusConfiguration>(configuration.GetSection(Constants.ServiceBusConfigurationSection));
