@@ -6,10 +6,6 @@ using OpenCqrs.Dependencies;
 namespace OpenCqrs.Events
 {
     /// <inheritdoc />
-    /// <summary>
-    /// EventPublisher
-    /// </summary>
-    /// <seealso cref="T:OpenCqrs.Events.IEventPublisher" />
     public class EventPublisher : IEventPublisher
     {
         private readonly IResolver _resolver;

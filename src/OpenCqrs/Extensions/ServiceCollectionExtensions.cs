@@ -21,17 +21,14 @@ namespace OpenCqrs.Extensions
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
 
-            // Convert to list and add IDispatcher.
             var typeList = types.ToList();
             typeList.Add(typeof(IDispatcher));
 
-            // Use Scrutor to register services
             services.Scan(s => s
                 .FromAssembliesOf(typeList)
                 .AddClasses()
                 .AsImplementedInterfaces());
 
-            // Register repository
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
             return new OpenCqrsServiceBuilder(services);
@@ -45,7 +42,6 @@ namespace OpenCqrs.Extensions
             if (setupAction == null)
                 throw new ArgumentNullException(nameof(setupAction));
 
-            // Configure options
             builder.Services.Configure(setupAction);
 
             return builder;

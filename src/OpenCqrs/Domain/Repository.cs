@@ -5,11 +5,6 @@ using System.Threading.Tasks;
 namespace OpenCqrs.Domain
 {
     /// <inheritdoc />
-    /// <summary>
-    /// Repository
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <seealso cref="IRepository{T}" />
     public class Repository<T> : IRepository<T> where T : IAggregateRoot
     {
         private readonly IEventStore _eventStore;

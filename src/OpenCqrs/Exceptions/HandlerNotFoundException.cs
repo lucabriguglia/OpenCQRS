@@ -5,11 +5,11 @@ namespace OpenCqrs.Exceptions
     public class HandlerNotFoundException : ApplicationException
     {
         public HandlerNotFoundException(Type handlerType)
-            : base(BuildErrorMesage(handlerType))
+            : base(BuildErrorMessage(handlerType))
         {
         }
 
-        private static string BuildErrorMesage(Type handlerType)
+        private static string BuildErrorMessage(Type handlerType)
         {
             return $"No handler found that implements '{handlerType.FullName}'";
         }
