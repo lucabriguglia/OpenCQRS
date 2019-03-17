@@ -7,22 +7,19 @@ using Newtonsoft.Json;
 using OpenCqrs.Domain;
 using OpenCqrs.Store.EF.Entities.Factories;
 
-namespace OpenCqrs.Store.EF
+namespace OpenCqrs.Store.EF.Stores
 {
     public class EventStore : IEventStore
     {
         private readonly IDomainDbContextFactory _dbContextFactory;
-        private readonly IAggregateEntityFactory _aggregateEntityFactory;
         private readonly IEventEntityFactory _eventEntityFactory;
         private readonly IVersionService _versionService;
 
         public EventStore(IDomainDbContextFactory dbContextFactory,
-            IAggregateEntityFactory aggregateEntityFactory,
             IEventEntityFactory eventEntityFactory, 
             IVersionService versionService)
         {
             _dbContextFactory = dbContextFactory;
-            _aggregateEntityFactory = aggregateEntityFactory;
             _eventEntityFactory = eventEntityFactory;
             _versionService = versionService;
         }
@@ -32,13 +29,6 @@ namespace OpenCqrs.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == @event.AggregateRootId);               
-                if (aggregateEntity == null)
-                {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
-                    await dbContext.Aggregates.AddAsync(newAggregateEntity);
-                }
-
                 var currentVersion = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
                 var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, expectedVersion);
                 var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
@@ -54,13 +44,6 @@ namespace OpenCqrs.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == @event.AggregateRootId);
-                if (aggregateEntity == null)
-                {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
-                    dbContext.Aggregates.Add(newAggregateEntity);
-                }
-
                 var currentVersion = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
                 var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, expectedVersion);
                 var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);

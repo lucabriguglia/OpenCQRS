@@ -11,34 +11,21 @@ namespace OpenCqrs.Store.Cosmos.Sql
 {
     internal class EventStore : IEventStore
     {
-        private readonly IDocumentRepository<AggregateDocument> _aggregateRepository;
         private readonly IDocumentRepository<EventDocument> _eventRepository;
-        private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly IEventDocumentFactory _eventDocumentFactory;
         private readonly IVersionService _versionService;
 
-        public EventStore(IDocumentRepository<AggregateDocument> aggregateRepository, 
-            IDocumentRepository<EventDocument> eventRepository,
-            IAggregateDocumentFactory aggregateDocumentFactory,
+        public EventStore(IDocumentRepository<EventDocument> eventRepository,
             IEventDocumentFactory eventDocumentFactory, 
             IVersionService versionService)
         {
-            _aggregateRepository = aggregateRepository;
             _eventRepository = eventRepository;
-            _aggregateDocumentFactory = aggregateDocumentFactory;
             _eventDocumentFactory = eventDocumentFactory;
             _versionService = versionService;
         }
 
         public async Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
-            var aggregateDocument = await _aggregateRepository.GetDocumentAsync(@event.AggregateRootId.ToString());
-            if (aggregateDocument == null)
-            {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
-                await _aggregateRepository.CreateDocumentAsync(newAggregateDocument);
-            }
-
             var currentVersion = await _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId);
             var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, expectedVersion);
 
@@ -49,13 +36,6 @@ namespace OpenCqrs.Store.Cosmos.Sql
 
         public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
-            var aggregateDocument = _aggregateRepository.GetDocumentAsync(@event.AggregateRootId.ToString()).GetAwaiter().GetResult();
-            if (aggregateDocument == null)
-            {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
-                _aggregateRepository.CreateDocumentAsync(newAggregateDocument).GetAwaiter().GetResult();
-            }
-
             var currentVersion = _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId).GetAwaiter().GetResult();
             var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, expectedVersion);
 

@@ -28,6 +28,7 @@ namespace OpenCqrs.Store.Cosmos.Sql.Extensions
             var key = configuration.GetSection("DomainDbConfiguration:AuthKey").Value;
             builder.Services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
+            builder.Services.AddTransient<IAggregateStore, AggregateStore>();
             builder.Services.AddTransient<ICommandStore, CommandStore>();
             builder.Services.AddTransient<IEventStore, EventStore>();
 

@@ -22,6 +22,7 @@ namespace OpenCqrs.Tests.Commands
         private Mock<IEventPublisher> _eventPublisher;
         private Mock<IEventStore> _eventStore;
         private Mock<ICommandStore> _commandStore;
+        private Mock<IAggregateStore> _aggregateStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
@@ -69,6 +70,11 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.SaveCommandAsync<Aggregate>(_createAggregate))
                 .Returns(Task.CompletedTask);
 
+            _aggregateStore = new Mock<IAggregateStore>();
+            _aggregateStore
+                .Setup(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId))
+                .Returns(Task.CompletedTask);
+
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
                 .Setup(x => x.CreateConcreteEvent(_somethingCreated))
@@ -103,8 +109,9 @@ namespace OpenCqrs.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _eventStore.Object,
+                _aggregateStore.Object,
                 _commandStore.Object,
+                _eventStore.Object,
                 _optionsMock.Object);
         }
 
@@ -144,6 +151,13 @@ namespace OpenCqrs.Tests.Commands
         }
 
         [Test]
+        public async Task SendDomainAsync_SavesAggregate()
+        {
+            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _aggregateStore.Verify(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
+        }
+
+        [Test]
         public async Task SendDomainAsync_SavesCommand()
         {
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
@@ -160,8 +174,9 @@ namespace OpenCqrs.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _eventStore.Object,
+                _aggregateStore.Object,
                 _commandStore.Object,
+                _eventStore.Object,
                 _optionsMock.Object);
 
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
@@ -200,8 +215,9 @@ namespace OpenCqrs.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _eventStore.Object,
+                _aggregateStore.Object,
                 _commandStore.Object,
+                _eventStore.Object,
                 _optionsMock.Object);
 
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);

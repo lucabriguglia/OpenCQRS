@@ -14,8 +14,9 @@ namespace OpenCqrs.Commands
         private readonly IHandlerResolver _handlerResolver;
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventFactory _eventFactory;
-        private readonly IEventStore _eventStore;
+        private readonly IAggregateStore _aggregateStore;
         private readonly ICommandStore _commandStore;
+        private readonly IEventStore _eventStore;
         private readonly Options _options;
 
         private bool PublishEvent(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
@@ -24,15 +25,17 @@ namespace OpenCqrs.Commands
         public CommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
             IEventFactory eventFactory,
-            IEventStore eventStore, 
+            IAggregateStore aggregateStore,
             ICommandStore commandStore,
+            IEventStore eventStore, 
             IOptions<Options> options)
         {
+            _handlerResolver = handlerResolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
-            _eventStore = eventStore;
+            _aggregateStore = aggregateStore;
             _commandStore = commandStore;
-            _handlerResolver = handlerResolver;
+            _eventStore = eventStore;            
             _options = options.Value;
         }
 
@@ -66,6 +69,8 @@ namespace OpenCqrs.Commands
                 throw new ArgumentNullException(nameof(command));
 
             var handler = _handlerResolver.ResolveHandler<IDomainCommandHandlerAsync<TCommand>>();
+
+            await _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
 
             if (SaveCommand(command))
                 await _commandStore.SaveCommandAsync<TAggregate>(command);
@@ -116,6 +121,8 @@ namespace OpenCqrs.Commands
                 throw new ArgumentNullException(nameof(command));
 
             var handler = _handlerResolver.ResolveHandler<IDomainCommandHandler<TCommand>>();
+
+            _aggregateStore.SaveAggregate<TAggregate>(command.AggregateRootId);
 
             if (SaveCommand(command))
                 _commandStore.SaveCommand<TAggregate>(command);

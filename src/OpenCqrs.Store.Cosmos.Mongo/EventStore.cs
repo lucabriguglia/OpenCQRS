@@ -14,31 +14,20 @@ namespace OpenCqrs.Store.Cosmos.Mongo
     public class EventStore : IEventStore
     {
         private readonly DomainDbContext _dbContext;
-        private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly IEventDocumentFactory _eventDocumentFactory;
         private readonly IVersionService _versionService;
 
         public EventStore(IOptions<DomainDbConfiguration> settings, 
-            IAggregateDocumentFactory aggregateDocumentFactory, 
             IEventDocumentFactory eventDocumentFactory, 
             IVersionService versionService)
         {
             _dbContext = new DomainDbContext(settings);
-            _aggregateDocumentFactory = aggregateDocumentFactory;
             _eventDocumentFactory = eventDocumentFactory;
             _versionService = versionService;
         }
 
         public async Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
-            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", @event.AggregateRootId.ToString());
-            var aggregate = await _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefaultAsync();
-            if (aggregate == null)
-            {
-                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
-                await _dbContext.Aggregates.InsertOneAsync(aggregateDocument);
-            }
-
             var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
             var currentVersion = await _dbContext.Events.Find(eventFilter).CountDocumentsAsync();
             var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, expectedVersion);
@@ -50,14 +39,6 @@ namespace OpenCqrs.Store.Cosmos.Mongo
 
         public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
-            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", @event.AggregateRootId.ToString());
-            var aggregate = _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefault();
-            if (aggregate == null)
-            {
-                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(@event.AggregateRootId);
-                _dbContext.Aggregates.InsertOne(aggregateDocument);
-            }
-
             var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
             var currentVersion = _dbContext.Events.Find(eventFilter).CountDocuments();
             var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, expectedVersion);

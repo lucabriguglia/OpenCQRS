@@ -20,6 +20,7 @@ namespace OpenCqrs.Store.Cosmos.Mongo.Extensions
 
             builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
 
+            builder.Services.AddTransient<IAggregateStore, AggregateStore>();
             builder.Services.AddTransient<ICommandStore, CommandStore>();
             builder.Services.AddTransient<IEventStore, EventStore>();
 

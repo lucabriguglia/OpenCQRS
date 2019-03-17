@@ -7,20 +7,16 @@ using Newtonsoft.Json;
 using OpenCqrs.Domain;
 using OpenCqrs.Store.EF.Entities.Factories;
 
-namespace OpenCqrs.Store.EF
+namespace OpenCqrs.Store.EF.Stores
 {
     public class CommandStore : ICommandStore
     {
         private readonly IDomainDbContextFactory _dbContextFactory;
-        private readonly IAggregateEntityFactory _aggregateEntityFactory;
         private readonly ICommandEntityFactory _commandEntityFactory;
 
-        public CommandStore(IDomainDbContextFactory dbContextFactory,
-            IAggregateEntityFactory aggregateEntityFactory,
-            ICommandEntityFactory commandEntityFactory)
+        public CommandStore(IDomainDbContextFactory dbContextFactory, ICommandEntityFactory commandEntityFactory)
         {
             _dbContextFactory = dbContextFactory;
-            _aggregateEntityFactory = aggregateEntityFactory;
             _commandEntityFactory = commandEntityFactory;            
         }
 
@@ -29,16 +25,8 @@ namespace OpenCqrs.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);               
-                if (aggregateEntity == null)
-                {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
-                    await dbContext.Aggregates.AddAsync(newAggregateEntity);
-                }
-
                 var newCommandEntity = _commandEntityFactory.CreateCommand(command);
                 await dbContext.Commands.AddAsync(newCommandEntity);
-
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -48,16 +36,8 @@ namespace OpenCqrs.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == command.AggregateRootId);
-                if (aggregateEntity == null)
-                {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
-                    dbContext.Aggregates.Add(newAggregateEntity);
-                }
-
                 var newCommandEntity = _commandEntityFactory.CreateCommand(command);
                 dbContext.Commands.Add(newCommandEntity);
-
                 dbContext.SaveChanges();
             }
         }

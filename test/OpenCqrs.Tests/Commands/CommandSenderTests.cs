@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
@@ -21,6 +22,7 @@ namespace OpenCqrs.Tests.Commands
         private Mock<IEventPublisher> _eventPublisher;
         private Mock<IEventStore> _eventStore;
         private Mock<ICommandStore> _commandStore;
+        private Mock<IAggregateStore> _aggregateStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
@@ -64,6 +66,10 @@ namespace OpenCqrs.Tests.Commands
             _commandStore
                 .Setup(x => x.SaveCommand<Aggregate>(_createAggregate));
 
+            _aggregateStore = new Mock<IAggregateStore>();
+            _aggregateStore
+                .Setup(x => x.SaveAggregate<Aggregate>(_createAggregate.AggregateRootId));
+
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
                 .Setup(x => x.CreateConcreteEvent(_somethingCreated))
@@ -95,11 +101,12 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.Value)
                 .Returns(new Options());
 
-            _sut = new CommandSender(_handlerResolver.Object, 
-                _eventPublisher.Object, 
-                _eventFactory.Object, 
-                _eventStore.Object, 
-                _commandStore.Object, 
+            _sut = new CommandSender(_handlerResolver.Object,
+                _eventPublisher.Object,
+                _eventFactory.Object,
+                _aggregateStore.Object,
+                _commandStore.Object,
+                _eventStore.Object,
                 _optionsMock.Object);
         }
 
@@ -139,6 +146,13 @@ namespace OpenCqrs.Tests.Commands
         }
 
         [Test]
+        public void SendDomainAsync_SavesAggregate()
+        {
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _aggregateStore.Verify(x => x.SaveAggregate<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
+        }
+
+        [Test]
         public void SendDomain_SavesCommand()
         {
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
@@ -155,8 +169,9 @@ namespace OpenCqrs.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _eventStore.Object,
+                _aggregateStore.Object,
                 _commandStore.Object,
+                _eventStore.Object,
                 _optionsMock.Object);
 
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
@@ -195,8 +210,9 @@ namespace OpenCqrs.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _eventStore.Object,
+                _aggregateStore.Object,
                 _commandStore.Object,
+                _eventStore.Object,
                 _optionsMock.Object);
 
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);

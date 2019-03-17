@@ -14,42 +14,22 @@ namespace OpenCqrs.Store.Cosmos.Mongo
     public class CommandStore : ICommandStore
     {
         private readonly DomainDbContext _dbContext;
-        private readonly IAggregateDocumentFactory _aggregateDocumentFactory;
         private readonly ICommandDocumentFactory _commandDocumentFactory;
 
-        public CommandStore(IOptions<DomainDbConfiguration> settings, 
-            IAggregateDocumentFactory aggregateDocumentFactory, 
-            ICommandDocumentFactory commandDocumentFactory)
+        public CommandStore(IOptions<DomainDbConfiguration> settings, ICommandDocumentFactory commandDocumentFactory)
         {
             _dbContext = new DomainDbContext(settings);
-            _aggregateDocumentFactory = aggregateDocumentFactory;
             _commandDocumentFactory = commandDocumentFactory;
         }
 
-        public async Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
         {
-            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", command.AggregateRootId.ToString());
-            var aggregate = await _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefaultAsync();
-            if (aggregate == null)
-            {
-                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
-                await _dbContext.Aggregates.InsertOneAsync(aggregateDocument);
-            }
-
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
-            await _dbContext.Commands.InsertOneAsync(commandDocument);
+            return _dbContext.Commands.InsertOneAsync(commandDocument);
         }
 
         public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
         {
-            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", command.AggregateRootId.ToString());
-            var aggregate = _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefault();
-            if (aggregate == null)
-            {
-                var aggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
-                _dbContext.Aggregates.InsertOne(aggregateDocument);
-            }
-
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             _dbContext.Commands.InsertOne(commandDocument);
         }
