@@ -9,6 +9,7 @@ using OpenCqrs.Store.Cosmos.Sql.Repositories;
 
 namespace OpenCqrs.Store.Cosmos.Sql
 {
+    /// <inheritdoc />
     internal class EventStore : IEventStore
     {
         private readonly IDocumentRepository<EventDocument> _eventRepository;
@@ -24,6 +25,7 @@ namespace OpenCqrs.Store.Cosmos.Sql
             _versionService = versionService;
         }
 
+        /// <inheritdoc />
         public async Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             var currentVersion = await _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId);
@@ -34,6 +36,7 @@ namespace OpenCqrs.Store.Cosmos.Sql
             await _eventRepository.CreateDocumentAsync(eventDocument);
         }
 
+        /// <inheritdoc />
         public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             var currentVersion = _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId).GetAwaiter().GetResult();
@@ -44,6 +47,7 @@ namespace OpenCqrs.Store.Cosmos.Sql
             _eventRepository.CreateDocumentAsync(eventDocument).GetAwaiter().GetResult();
         }
 
+        /// <inheritdoc />
         public async Task<IEnumerable<DomainEvent>> GetEventsAsync(Guid aggregateId)
         {
             var result = new List<DomainEvent>();
@@ -59,6 +63,7 @@ namespace OpenCqrs.Store.Cosmos.Sql
             return result;
         }
 
+        /// <inheritdoc />
         public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
         {
             var result = new List<DomainEvent>();

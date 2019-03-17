@@ -9,6 +9,7 @@ using OpenCqrs.Store.EF.Entities.Factories;
 
 namespace OpenCqrs.Store.EF.Stores
 {
+    /// <inheritdoc />
     public class CommandStore : ICommandStore
     {
         private readonly IDomainDbContextFactory _dbContextFactory;

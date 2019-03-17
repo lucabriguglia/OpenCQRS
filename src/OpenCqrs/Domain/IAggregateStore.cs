@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OpenCqrs.Domain
@@ -21,5 +22,17 @@ namespace OpenCqrs.Domain
         /// <param name="id">The identifier.</param>
         void SaveAggregate<TAggregate>(Guid id)
             where TAggregate : IAggregateRoot;
+
+        /// <summary>
+        /// Gets the aggregates asynchronously.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<AggregateStoreModel>> GetAggregatesAsync();
+
+        /// <summary>
+        /// Gets the aggregates.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<AggregateStoreModel> GetAggregates();
     }
 }

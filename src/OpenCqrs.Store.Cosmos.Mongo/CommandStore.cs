@@ -11,6 +11,7 @@ using OpenCqrs.Store.Cosmos.Mongo.Documents.Factories;
 
 namespace OpenCqrs.Store.Cosmos.Mongo
 {
+    /// <inheritdoc />
     public class CommandStore : ICommandStore
     {
         private readonly DomainDbContext _dbContext;
@@ -22,18 +23,21 @@ namespace OpenCqrs.Store.Cosmos.Mongo
             _commandDocumentFactory = commandDocumentFactory;
         }
 
+        /// <inheritdoc />
         public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             return _dbContext.Commands.InsertOneAsync(commandDocument);
         }
 
+        /// <inheritdoc />
         public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             _dbContext.Commands.InsertOne(commandDocument);
         }
 
+        /// <inheritdoc />
         public async Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId)
         {
             var result = new List<DomainCommand>();
@@ -50,6 +54,7 @@ namespace OpenCqrs.Store.Cosmos.Mongo
             return result;
         }
 
+        /// <inheritdoc />
         public IEnumerable<DomainCommand> GetCommands(Guid aggregateId)
         {
             var result = new List<DomainCommand>();

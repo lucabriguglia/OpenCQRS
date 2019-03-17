@@ -11,6 +11,7 @@ using OpenCqrs.Store.Cosmos.Mongo.Documents.Factories;
 
 namespace OpenCqrs.Store.Cosmos.Mongo
 {
+    /// <inheritdoc />
     public class EventStore : IEventStore
     {
         private readonly DomainDbContext _dbContext;
@@ -26,6 +27,7 @@ namespace OpenCqrs.Store.Cosmos.Mongo
             _versionService = versionService;
         }
 
+        /// <inheritdoc />
         public async Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
@@ -37,6 +39,7 @@ namespace OpenCqrs.Store.Cosmos.Mongo
             await _dbContext.Events.InsertOneAsync(eventDocument);
         }
 
+        /// <inheritdoc />
         public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion) where TAggregate : IAggregateRoot
         {
             var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
@@ -48,6 +51,7 @@ namespace OpenCqrs.Store.Cosmos.Mongo
             _dbContext.Events.InsertOne(eventDocument);
         }
 
+        /// <inheritdoc />
         public async Task<IEnumerable<DomainEvent>> GetEventsAsync(Guid aggregateId)
         {
             var result = new List<DomainEvent>();
@@ -64,6 +68,7 @@ namespace OpenCqrs.Store.Cosmos.Mongo
             return result;
         }
 
+        /// <inheritdoc />
         public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
         {
             var result = new List<DomainEvent>();

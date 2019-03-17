@@ -9,6 +9,7 @@ using OpenCqrs.Store.EF.Entities.Factories;
 
 namespace OpenCqrs.Store.EF.Stores
 {
+    /// <inheritdoc />
     public class EventStore : IEventStore
     {
         private readonly IDomainDbContextFactory _dbContextFactory;

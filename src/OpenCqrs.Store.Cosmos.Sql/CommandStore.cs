@@ -9,6 +9,7 @@ using OpenCqrs.Store.Cosmos.Sql.Repositories;
 
 namespace OpenCqrs.Store.Cosmos.Sql
 {
+    /// <inheritdoc />
     internal class CommandStore : ICommandStore
     {
         private readonly IDocumentRepository<CommandDocument> _commandRepository;
@@ -20,18 +21,21 @@ namespace OpenCqrs.Store.Cosmos.Sql
             _commandDocumentFactory = commandDocumentFactory;
         }
 
+        /// <inheritdoc />
         public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             return _commandRepository.CreateDocumentAsync(commandDocument);
         }
 
+        /// <inheritdoc />
         public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             _commandRepository.CreateDocumentAsync(commandDocument).GetAwaiter().GetResult();
         }
 
+        /// <inheritdoc />
         public async Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId)
         {
             var result = new List<DomainCommand>();
@@ -47,6 +51,7 @@ namespace OpenCqrs.Store.Cosmos.Sql
             return result;
         }
 
+        /// <inheritdoc />
         public IEnumerable<DomainCommand> GetCommands(Guid aggregateId)
         {
             var result = new List<DomainCommand>();
