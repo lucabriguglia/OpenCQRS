@@ -10,5 +10,6 @@ namespace OpenCqrs.Domain
         public string Source { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
         public int? ExpectedVersion { get; set; }
+        public bool? SaveCommand { get; set; } = null;
     }
 }

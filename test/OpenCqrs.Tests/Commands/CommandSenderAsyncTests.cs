@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using OpenCqrs.Bus;
 using OpenCqrs.Commands;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
 using OpenCqrs.Tests.Fakes;
+using Options = OpenCqrs.Configuration.Options;
 
 namespace OpenCqrs.Tests.Commands
 {
@@ -26,6 +27,7 @@ namespace OpenCqrs.Tests.Commands
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
         private Mock<ICommandHandlerWithEventsAsync<CreateSomething>> _commandHandlerWithEventsAsync;
         private Mock<ICommandHandlerWithDomainEventsAsync<CreateAggregate>> _commandHandlerWithDomainEventsAsync;
+        private Mock<IOptions<Options>> _optionsMock;
 
         private CreateSomething _createSomething;
         private SomethingCreated _somethingCreated;
@@ -45,7 +47,7 @@ namespace OpenCqrs.Tests.Commands
             _somethingCreatedConcrete = new SomethingCreated();
             _events = new List<IEvent> { _somethingCreated };
 
-            _createAggregate = new CreateAggregate();           
+            _createAggregate = new CreateAggregate();
             _aggregateCreatedConcrete = new AggregateCreated();
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
@@ -102,7 +104,17 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.ResolveHandler<ICommandHandlerWithDomainEventsAsync<CreateAggregate>>())
                 .Returns(_commandHandlerWithDomainEventsAsync.Object);
 
-            _sut = new CommandSender(_handlerResolver.Object, _eventPublisher.Object, _eventFactory.Object, _eventStore.Object, _commandStore.Object);
+            _optionsMock = new Mock<IOptions<Options>>();
+            _optionsMock
+                .Setup(x => x.Value)
+                .Returns(new Options());
+
+            _sut = new CommandSender(_handlerResolver.Object,
+                _eventPublisher.Object,
+                _eventFactory.Object,
+                _eventStore.Object,
+                _commandStore.Object,
+                _optionsMock.Object);
         }
 
         [Test]
@@ -131,6 +143,32 @@ namespace OpenCqrs.Tests.Commands
         {
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
             _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public async Task SendWithDomainEventsAsync_NotSavesCommand_WhenSetInOptions()
+        {
+            _optionsMock
+                .Setup(x => x.Value)
+                .Returns(new Options { SaveCommands = false });
+
+            _sut = new CommandSender(_handlerResolver.Object,
+                _eventPublisher.Object,
+                _eventFactory.Object,
+                _eventStore.Object,
+                _commandStore.Object,
+                _optionsMock.Object);
+
+            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
+        }
+
+        [Test]
+        public async Task SendWithDomainEventsAsync_NotSavesCommand_WhenSetInCommand()
+        {
+            _createAggregate.SaveCommand = false;
+            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
         }
 
         [Test]
@@ -187,6 +225,32 @@ namespace OpenCqrs.Tests.Commands
         {
             await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
             _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public async Task SendAndPublishWithDomainEventsAsync_NotSavesCommand_WhenSetInOptions()
+        {
+            _optionsMock
+                .Setup(x => x.Value)
+                .Returns(new Options { SaveCommands = false });
+
+            _sut = new CommandSender(_handlerResolver.Object,
+                _eventPublisher.Object,
+                _eventFactory.Object,
+                _eventStore.Object,
+                _commandStore.Object,
+                _optionsMock.Object);
+
+            await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
+        }
+
+        [Test]
+        public async Task SendAndPublishWithDomainEventsAsync_NotSavesCommand_WhenSetInCommand()
+        {
+            _createAggregate.SaveCommand = false;
+            await _sut.SendAndPublishAsync<CreateAggregate, Aggregate>(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
         }
 
         [Test]

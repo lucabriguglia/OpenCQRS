@@ -33,7 +33,8 @@ namespace OpenCqrs.Examples.Shared
                 Title = "Updated product title",
                 UserId = userId,
                 Source = source,
-                ExpectedVersion = 1
+                ExpectedVersion = 1,
+                SaveCommand = true
             });
 
             // Update title again (third domain event created).

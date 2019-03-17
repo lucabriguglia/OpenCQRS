@@ -54,7 +54,7 @@ namespace OpenCqrs.Commands
 
             var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
-            if (_options.SaveCommands)
+            if (SaveCommand(command))
                 await _commandStore.SaveCommandAsync<TAggregate>(command);
 
             var events = await handler.HandleAsync(command);
@@ -94,7 +94,7 @@ namespace OpenCqrs.Commands
 
             var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
-            if (_options.SaveCommands)
+            if (SaveCommand(command))
                 await _commandStore.SaveCommandAsync<TAggregate>(command);
 
             var events = await handler.HandleAsync(command);
@@ -129,7 +129,8 @@ namespace OpenCqrs.Commands
 
             var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEvents<TCommand>>();
 
-            _commandStore.SaveCommand<TAggregate>(command);
+            if (SaveCommand(command))
+                _commandStore.SaveCommand<TAggregate>(command);
 
             var events = handler.Handle(command);
 
@@ -168,7 +169,8 @@ namespace OpenCqrs.Commands
 
             var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEvents<TCommand>>();
 
-            _commandStore.SaveCommand<TAggregate>(command);
+            if (SaveCommand(command))
+                _commandStore.SaveCommand<TAggregate>(command);
 
             var events = handler.Handle(command);
 
@@ -180,5 +182,7 @@ namespace OpenCqrs.Commands
                 _eventPublisher.Publish(concreteEvent);
             }
         }
+
+        private bool SaveCommand(IDomainCommand command) => command.SaveCommand ?? _options.SaveCommands;
     }
 }
