@@ -31,6 +31,7 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
 
             services
                 .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+                .AddOptions(x => { x.SaveCommands = false; })
                 .AddSqlServerProvider(Configuration)
                 .AddServiceBusProvider(Configuration);
         }

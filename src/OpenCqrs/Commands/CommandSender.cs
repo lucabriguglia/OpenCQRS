@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using OpenCqrs.Dependencies;
 using OpenCqrs.Domain;
 using OpenCqrs.Events;
+using Options = OpenCqrs.Configuration.Options;
 
 namespace OpenCqrs.Commands
 {
-    /// <summary>
-    /// CommandSender
-    /// </summary>
-    /// <seealso cref="T:OpenCqrs.Commands.ICommandSender" />
+    /// <inheritdoc />
     public class CommandSender : ICommandSender
     {
         private readonly IHandlerResolver _handlerResolver;
@@ -17,18 +16,21 @@ namespace OpenCqrs.Commands
         private readonly IEventFactory _eventFactory;
         private readonly IEventStore _eventStore;
         private readonly ICommandStore _commandStore;
+        private readonly Options _options;
         
         public CommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
             IEventFactory eventFactory,
             IEventStore eventStore, 
-            ICommandStore commandStore)
+            ICommandStore commandStore,
+            IOptions<Options> options)
         {
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
             _eventStore = eventStore;
             _commandStore = commandStore;
             _handlerResolver = handlerResolver;
+            _options = options.Value;
         }
 
         /// <inheritdoc />
@@ -52,7 +54,8 @@ namespace OpenCqrs.Commands
 
             var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
-            await _commandStore.SaveCommandAsync<TAggregate>(command);
+            if (_options.SaveCommands)
+                await _commandStore.SaveCommandAsync<TAggregate>(command);
 
             var events = await handler.HandleAsync(command);
 
@@ -91,7 +94,8 @@ namespace OpenCqrs.Commands
 
             var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
 
-            await _commandStore.SaveCommandAsync<TAggregate>(command);
+            if (_options.SaveCommands)
+                await _commandStore.SaveCommandAsync<TAggregate>(command);
 
             var events = await handler.HandleAsync(command);
 
@@ -104,12 +108,6 @@ namespace OpenCqrs.Commands
             }
         }
 
-        /// <summary>
-        /// Sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandler.
-        /// </summary>
-        /// <typeparam name="TCommand">The type of the command.</typeparam>
-        /// <param name="command">The command.</param>
         /// <inheritdoc />
         public void Send<TCommand>(TCommand command) where TCommand : ICommand
         {
