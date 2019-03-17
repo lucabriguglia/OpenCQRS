@@ -20,9 +20,6 @@ namespace OpenCqrs.Tests.Commands
 
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisher> _eventPublisher;
-        private Mock<IEventStore> _eventStore;
-        private Mock<ICommandStore> _commandStore;
-        private Mock<IAggregateStore> _aggregateStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
@@ -60,21 +57,6 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.PublishAsync(_aggregateCreatedConcrete))
                 .Returns(Task.CompletedTask);
 
-            _eventStore = new Mock<IEventStore>();
-            _eventStore
-                .Setup(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null))
-                .Returns(Task.CompletedTask);
-
-            _commandStore = new Mock<ICommandStore>();
-            _commandStore
-                .Setup(x => x.SaveCommandAsync<Aggregate>(_createAggregate))
-                .Returns(Task.CompletedTask);
-
-            _aggregateStore = new Mock<IAggregateStore>();
-            _aggregateStore
-                .Setup(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId))
-                .Returns(Task.CompletedTask);
-
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
                 .Setup(x => x.CreateConcreteEvent(_somethingCreated))
@@ -109,9 +91,6 @@ namespace OpenCqrs.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
                 _optionsMock.Object);
         }
 
@@ -134,102 +113,6 @@ namespace OpenCqrs.Tests.Commands
         {
             await _sut.SendAsync(_createSomething);
             _eventPublisher.Verify(x => x.PublishAsync(_somethingCreatedConcrete), Times.Once);
-        }
-
-        [Test]
-        public void SendDomainAsync_ThrowsException_WhenCommandIsNull()
-        {
-            _createAggregate = null;
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate));
-        }
-
-        [Test]
-        public async Task SendDomainAsync_SendsCommand()
-        {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _domainCommandHandlerAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_SavesAggregate()
-        {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _aggregateStore.Verify(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_SavesCommand()
-        {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_NotSavesCommand_WhenSetInOptions()
-        {
-            _optionsMock
-                .Setup(x => x.Value)
-                .Returns(new Options { SaveCommands = false });
-
-            _sut = new CommandSender(_handlerResolver.Object,
-                _eventPublisher.Object,
-                _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
-                _optionsMock.Object);
-
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_NotSavesCommand_WhenSetInCommand()
-        {
-            _createAggregate.SaveCommand = false;
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_SavesEvents()
-        {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_PublishesEvents()
-        {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Once);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_NotPublishesEvents_WhenSetInOptions()
-        {
-            _optionsMock
-                .Setup(x => x.Value)
-                .Returns(new Options { PublishEvents = false });
-
-            _sut = new CommandSender(_handlerResolver.Object,
-                _eventPublisher.Object,
-                _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
-                _optionsMock.Object);
-
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Never);
-        }
-
-        [Test]
-        public async Task SendDomainAsync_NotPublishesEvents_WhenSetInCommand()
-        {
-            _createAggregate.PublishEvents = false;
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Never);
         }
     }
 }

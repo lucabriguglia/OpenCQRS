@@ -15,19 +15,22 @@ namespace OpenCqrs
     public class Dispatcher : IDispatcher
     {
         private readonly ICommandSender _commandSender;
+        private readonly IDomainCommandSender _domainCommandSender;
         private readonly IEventPublisher _eventPublisher;
         private readonly IQueryProcessor _queryProcessor;
         private readonly IBusMessageDispatcher _busMessageDispatcher;
 
-        public Dispatcher(ICommandSender commandSender, 
+        public Dispatcher(ICommandSender commandSender,
+            IDomainCommandSender domainCommandSender,
             IEventPublisher eventPublisher, 
             IQueryProcessor queryProcessor, 
             IBusMessageDispatcher busMessageDispatcher)
         {
             _commandSender = commandSender;
+            _domainCommandSender = domainCommandSender;
             _eventPublisher = eventPublisher;
             _queryProcessor = queryProcessor;
-            _busMessageDispatcher = busMessageDispatcher;
+            _busMessageDispatcher = busMessageDispatcher;            
         }
 
         /// <inheritdoc />
@@ -41,7 +44,7 @@ namespace OpenCqrs
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            return _commandSender.SendAsync<TCommand, TAggregate>(command);
+            return _domainCommandSender.SendAsync<TCommand, TAggregate>(command);
         }
 
         /// <inheritdoc />
@@ -73,7 +76,7 @@ namespace OpenCqrs
             where TCommand : IDomainCommand 
             where TAggregate : IAggregateRoot
         {
-            _commandSender.Send<TCommand, TAggregate>(command);
+            _domainCommandSender.Send<TCommand, TAggregate>(command);
         }
 
         /// <inheritdoc />

@@ -16,6 +16,7 @@ namespace OpenCqrs.Tests
         private IDispatcher _sut;
 
         private Mock<ICommandSender> _commandSender;
+        private Mock<IDomainCommandSender> _domainCommandSender;
         private Mock<IEventPublisher> _eventPublisher;
         private Mock<IQueryProcessor> _queryDispatcher;
         private Mock<IBusMessageDispatcher> _busMessageDispatcher;
@@ -42,11 +43,13 @@ namespace OpenCqrs.Tests
                 .Setup(x => x.SendAsync(_createSomething))
                 .Returns(Task.CompletedTask);
             _commandSender
+                .Setup(x => x.Send(_createSomething));
+
+            _domainCommandSender = new Mock<IDomainCommandSender>();
+            _domainCommandSender
                 .Setup(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
                 .Returns(Task.CompletedTask);
-            _commandSender
-                .Setup(x => x.Send(_createSomething));
-            _commandSender
+            _domainCommandSender
                 .Setup(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate));
 
             _eventPublisher = new Mock<IEventPublisher>();
@@ -70,6 +73,7 @@ namespace OpenCqrs.Tests
                 .Returns(Task.CompletedTask);
 
             _sut = new Dispatcher(_commandSender.Object, 
+                _domainCommandSender.Object,
                 _eventPublisher.Object,
                 _queryDispatcher.Object,
                 _busMessageDispatcher.Object);
@@ -86,7 +90,7 @@ namespace OpenCqrs.Tests
         public async Task SendsCommandWithAggregateAsync()
         {
             await _sut.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
-            _commandSender.Verify(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+            _domainCommandSender.Verify(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
         }
 
         [Test]
@@ -100,7 +104,7 @@ namespace OpenCqrs.Tests
         public void SendsCommandWithAggregate()
         {
             _sut.Send<IDomainCommand, IAggregateRoot>(_createAggregate);
-            _commandSender.Verify(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+            _domainCommandSender.Verify(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
         }
 
         [Test]
