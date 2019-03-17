@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Domain;
 
 namespace OpenCqrs.Commands
 {

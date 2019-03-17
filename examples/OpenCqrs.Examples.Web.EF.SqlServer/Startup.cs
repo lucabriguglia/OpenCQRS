@@ -33,7 +33,7 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
                 .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
                 .AddOptions(opt =>
                 {
-                    opt.PublishEvents = false;
+                    opt.PublishEvents = true;
                     opt.SaveCommands = false;
                 })
                 .AddSqlServerProvider(Configuration)

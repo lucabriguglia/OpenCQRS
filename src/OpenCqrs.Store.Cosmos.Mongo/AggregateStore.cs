@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using Newtonsoft.Json;
 using OpenCqrs.Domain;
 using OpenCqrs.Store.Cosmos.Mongo.Configuration;
 using OpenCqrs.Store.Cosmos.Mongo.Documents;

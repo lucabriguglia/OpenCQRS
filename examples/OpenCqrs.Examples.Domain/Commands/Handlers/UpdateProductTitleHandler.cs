@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenCqrs.Commands;
 using OpenCqrs.Domain;
 
 namespace OpenCqrs.Examples.Domain.Commands.Handlers
