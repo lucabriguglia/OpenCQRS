@@ -1,8 +1,9 @@
 ﻿using System;
+using OpenCqrs.Commands;
 
 namespace OpenCqrs.Domain
 {
-    public abstract class DomainCommand : IDomainCommand
+    public abstract class DomainCommand : Command, IDomainCommand
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid AggregateRootId { get; set; }
@@ -10,6 +11,6 @@ namespace OpenCqrs.Domain
         public string Source { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
         public int? ExpectedVersion { get; set; }
-        public bool? SaveCommand { get; set; } = null;
+        public bool? SaveCommand { get; set; }
     }
 }

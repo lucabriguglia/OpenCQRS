@@ -44,20 +44,20 @@ namespace OpenCqrs.Tests
             _commandSender
                 .Setup(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
                 .Returns(Task.CompletedTask);
-            _commandSender
-                .Setup(x => x.SendAndPublishAsync(_createSomething))
-                .Returns(Task.CompletedTask);
-            _commandSender
-                .Setup(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
-                .Returns(Task.CompletedTask);
+            //_commandSender
+            //    .Setup(x => x.SendAndPublishAsync(_createSomething))
+            //    .Returns(Task.CompletedTask);
+            //_commandSender
+            //    .Setup(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
+            //    .Returns(Task.CompletedTask);
             _commandSender
                 .Setup(x => x.Send(_createSomething));
             _commandSender
                 .Setup(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate));
-            _commandSender
-                .Setup(x => x.SendAndPublish(_createSomething));
-            _commandSender
-                .Setup(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate));
+            //_commandSender
+            //    .Setup(x => x.SendAndPublish(_createSomething));
+            //_commandSender
+            //    .Setup(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate));
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
@@ -99,19 +99,19 @@ namespace OpenCqrs.Tests
             _commandSender.Verify(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
         }
 
-        [Test]
-        public async Task SendsCommandAndPublishesEventsAsync()
-        {
-            await _sut.SendAndPublishAsync(_createSomething);
-            _commandSender.Verify(x => x.SendAndPublishAsync(_createSomething), Times.Once);
-        }
+        //[Test]
+        //public async Task SendsCommandAndPublishesEventsAsync()
+        //{
+        //    await _sut.SendAndPublishAsync(_createSomething);
+        //    _commandSender.Verify(x => x.SendAndPublishAsync(_createSomething), Times.Once);
+        //}
 
-        [Test]
-        public async Task SendsCommandAndPublisesDomainEventsAsync()
-        {
-            await _sut.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
-            _commandSender.Verify(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
-        }
+        //[Test]
+        //public async Task SendsCommandAndPublisesDomainEventsAsync()
+        //{
+        //    await _sut.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
+        //    _commandSender.Verify(x => x.SendAndPublishAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+        //}
 
         [Test]
         public void SendsCommand()
@@ -127,19 +127,19 @@ namespace OpenCqrs.Tests
             _commandSender.Verify(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
         }
 
-        [Test]
-        public void SendsCommandAndPublishesEvents()
-        {
-            _sut.SendAndPublish(_createSomething);
-            _commandSender.Verify(x => x.SendAndPublish(_createSomething), Times.Once);
-        }
+        //[Test]
+        //public void SendsCommandAndPublishesEvents()
+        //{
+        //    _sut.SendAndPublish(_createSomething);
+        //    _commandSender.Verify(x => x.SendAndPublish(_createSomething), Times.Once);
+        //}
 
-        [Test]
-        public void SendsCommandAndPublisesDomainEvents()
-        {
-            _sut.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate);
-            _commandSender.Verify(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
-        }
+        //[Test]
+        //public void SendsCommandAndPublisesDomainEvents()
+        //{
+        //    _sut.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate);
+        //    _commandSender.Verify(x => x.SendAndPublish<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+        //}
 
         [Test]
         public async Task PublishesEventAsync()

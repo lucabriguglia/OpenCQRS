@@ -17,7 +17,10 @@ namespace OpenCqrs.Commands
         private readonly IEventStore _eventStore;
         private readonly ICommandStore _commandStore;
         private readonly Options _options;
-        
+
+        private bool PublishEvent(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
+        private bool SaveCommand(IDomainCommand command) => command.SaveCommand ?? _options.SaveCommands;
+
         public CommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
             IEventFactory eventFactory,
@@ -34,14 +37,24 @@ namespace OpenCqrs.Commands
         }
 
         /// <inheritdoc />
-        public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
+        public async Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerAsync<TCommand>>();
+            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEventsAsync<TCommand>>();
 
-            return handler.HandleAsync(command);
+            var events = await handler.HandleAsync(command);
+
+            var publishEvents = PublishEvent(command);
+
+            foreach (var @event in events)
+            {
+                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+
+                if (publishEvents)
+                    await _eventPublisher.PublishAsync(concreteEvent);
+            }
         }
 
         /// <inheritdoc />
@@ -59,52 +72,17 @@ namespace OpenCqrs.Commands
 
             var events = await handler.HandleAsync(command);
 
-            foreach (var @event in events)
-            {
-                @event.Update(command);
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
-            }
-        }
-
-        /// <inheritdoc />
-        public async Task SendAndPublishAsync<TCommand>(TCommand command) where TCommand : ICommand
-        {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEventsAsync<TCommand>>();
-
-            var events = await handler.HandleAsync(command);
-
-            foreach (var @event in events)
-            {
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                await _eventPublisher.PublishAsync(concreteEvent);
-            }
-        }
-
-        /// <inheritdoc />
-        public async Task SendAndPublishAsync<TCommand, TAggregate>(TCommand command)
-            where TCommand : IDomainCommand
-            where TAggregate : IAggregateRoot
-        {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
-
-            if (SaveCommand(command))
-                await _commandStore.SaveCommandAsync<TAggregate>(command);
-
-            var events = await handler.HandleAsync(command);
+            var publishEvents = PublishEvent(command);
 
             foreach (var @event in events)
             {
                 @event.Update(command);
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+
                 await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
-                await _eventPublisher.PublishAsync(concreteEvent);
+
+                if (publishEvents)
+                    await _eventPublisher.PublishAsync(concreteEvent);
             }
         }
 
@@ -114,9 +92,19 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandler<TCommand>>();
-            
-            handler.Handle(command);
+            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEvents<TCommand>>();
+
+            var events = handler.Handle(command);
+
+            var publishEvents = PublishEvent(command);
+
+            foreach (var @event in events)
+            {
+                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+
+                if (publishEvents)
+                    _eventPublisher.Publish(concreteEvent);
+            }
         }
 
         /// <inheritdoc />
@@ -134,55 +122,18 @@ namespace OpenCqrs.Commands
 
             var events = handler.Handle(command);
 
-            foreach (var @event in events)
-            {
-                @event.Update(command);
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
-            }
-        }
-
-        /// <inheritdoc />
-        public void SendAndPublish<TCommand>(TCommand command) where TCommand : ICommand
-        {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEvents<TCommand>>();
-
-            var events = handler.Handle(command);
-
-            foreach (var @event in events)
-            {
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                _eventPublisher.Publish(concreteEvent);
-            }
-        }
-
-        /// <inheritdoc />
-        public void SendAndPublish<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
-            where TAggregate : IAggregateRoot
-        {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEvents<TCommand>>();
-
-            if (SaveCommand(command))
-                _commandStore.SaveCommand<TAggregate>(command);
-
-            var events = handler.Handle(command);
+            var publishEvents = PublishEvent(command);
 
             foreach (var @event in events)
             {
                 @event.Update(command);
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+
                 _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
-                _eventPublisher.Publish(concreteEvent);
+
+                if (publishEvents)
+                    _eventPublisher.Publish(concreteEvent);
             }
         }
-
-        private bool SaveCommand(IDomainCommand command) => command.SaveCommand ?? _options.SaveCommands;
     }
 }

@@ -23,7 +23,6 @@ namespace OpenCqrs.Tests.Commands
         private Mock<ICommandStore> _commandStore;
         private Mock<IEventFactory> _eventFactory;
 
-        private Mock<ICommandHandler<CreateSomething>> _commandHandler;
         private Mock<ICommandHandlerWithEvents<CreateSomething>> _commandHandlerWithEvents;
         private Mock<ICommandHandlerWithDomainEvents<CreateAggregate>> _commandHandlerWithDomainEvents;
         private Mock<IOptions<Options>> _optionsMock;
@@ -73,10 +72,6 @@ namespace OpenCqrs.Tests.Commands
                 .Setup(x => x.CreateConcreteEvent(_aggregateCreated))
                 .Returns(_aggregateCreatedConcrete);
 
-            _commandHandler = new Mock<ICommandHandler<CreateSomething>>();
-            _commandHandler
-                .Setup(x => x.Handle(_createSomething));
-
             _commandHandlerWithEvents = new Mock<ICommandHandlerWithEvents<CreateSomething>>();
             _commandHandlerWithEvents
                 .Setup(x => x.Handle(_createSomething))
@@ -88,9 +83,6 @@ namespace OpenCqrs.Tests.Commands
                 .Returns(_aggregate.Events);
 
             _handlerResolver = new Mock<IHandlerResolver>();
-            _handlerResolver
-                .Setup(x => x.ResolveHandler<ICommandHandler<CreateSomething>>())
-                .Returns(_commandHandler.Object);
             _handlerResolver
                 .Setup(x => x.ResolveHandler<ICommandHandlerWithEvents<CreateSomething>>())
                 .Returns(_commandHandlerWithEvents.Object);
@@ -122,7 +114,14 @@ namespace OpenCqrs.Tests.Commands
         public void Send_SendsCommand()
         {
             _sut.Send(_createSomething);
-            _commandHandler.Verify(x => x.Handle(_createSomething), Times.Once);
+            _commandHandlerWithEvents.Verify(x => x.Handle(_createSomething), Times.Once);
+        }
+
+        [Test]
+        public void Send_PublishesEvents()
+        {
+            _sut.Send(_createSomething);
+            _eventPublisher.Verify(x => x.Publish(_somethingCreatedConcrete), Times.Once);
         }
 
         [Test]
@@ -133,6 +132,13 @@ namespace OpenCqrs.Tests.Commands
         }
 
         [Test]
+        public void SendWithDomainEvents_SendsCommand()
+        {
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
+        }
+
+        [Test]
         public void SendWithDomainEvents_SavesCommand()
         {
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
@@ -140,7 +146,7 @@ namespace OpenCqrs.Tests.Commands
         }
 
         [Test]
-        public void SendWithDomainEvents_NotSavesCommand_WhenSetInOptions()
+        public void SendWithDomainEventsAsync_NotSavesCommand_WhenSetInOptions()
         {
             _optionsMock
                 .Setup(x => x.Value)
@@ -158,18 +164,11 @@ namespace OpenCqrs.Tests.Commands
         }
 
         [Test]
-        public void SendWithDomainEvents_NotSavesCommand_WhenSetInCommand()
+        public void SendWithDomainEventsAsync_NotSavesCommand_WhenSetInCommand()
         {
             _createAggregate.SaveCommand = false;
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
             _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
-        public void SendWithDomainEvents_SendsCommand()
-        {
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
-            _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
         }
 
         [Test]
@@ -180,53 +179,18 @@ namespace OpenCqrs.Tests.Commands
         }
 
         [Test]
-        public void SendAndPublish_ThrowsException_WhenCommandIsNull()
+        public void SendWithDomainEvents_PublishesEvents()
         {
-            _createSomething = null;
-            Assert.Throws<ArgumentNullException>(() => _sut.SendAndPublish(_createSomething));
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public void SendAndPublish_SendsCommand()
-        {
-            _sut.SendAndPublish(_createSomething);
-            _commandHandlerWithEvents.Verify(x => x.Handle(_createSomething), Times.Once);
-        }
-
-        [Test]
-        public void SendAndPublish_PublishesEvents()
-        {
-            _sut.SendAndPublish(_createSomething);
-            _eventPublisher.Verify(x => x.Publish(_somethingCreatedConcrete), Times.Once);
-        }
-
-        [Test]
-        public void SendAndPublishWithDomainEvents_ThrowsException_WhenCommandIsNull()
-        {
-            _createAggregate = null;
-            Assert.Throws<ArgumentNullException>(() => _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate));
-        }
-
-        [Test]
-        public void SendAndPublishWithDomainEvents_SendsCommand()
-        {
-            _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _commandHandlerWithDomainEvents.Verify(x => x.Handle(_createAggregate), Times.Once);
-        }
-
-        [Test]
-        public void SendAndPublishWithDomainEvents_SavesCommand()
-        {
-            _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Once);
-        }
-
-        [Test]
-        public void SendAndPublishWithDomainEventsAsync_NotSavesCommand_WhenSetInOptions()
+        public void SendWithDomainEventsAsync_NotPublishesEvents_WhenSetInOptions()
         {
             _optionsMock
                 .Setup(x => x.Value)
-                .Returns(new Options { SaveCommands = false });
+                .Returns(new Options { PublishEvents = false });
 
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
@@ -235,30 +199,16 @@ namespace OpenCqrs.Tests.Commands
                 _commandStore.Object,
                 _optionsMock.Object);
 
-            _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Never);
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Never);
         }
 
         [Test]
-        public void SendAndPublishWithDomainEventsAsync_NotSavesCommand_WhenSetInCommand()
+        public void SendWithDomainEventsAsync_NotPublishesEvents_WhenSetInCommand()
         {
-            _createAggregate.SaveCommand = false;
-            _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
-        public void SendAndPublishWithDomainEvents_SavesEvents()
-        {
-            _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
-        }
-
-        [Test]
-        public void SendAndPublishWithDomainEvents_PublishesEvents()
-        {
-            _sut.SendAndPublish<CreateAggregate, Aggregate>(_createAggregate);
-            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);
+            _createAggregate.PublishEvents = false;
+            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Never);
         }
     }
 }

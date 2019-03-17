@@ -2,5 +2,6 @@
 {
     public class Command : ICommand
     {
+        public bool? PublishEvents { get; set; }
     }
 }

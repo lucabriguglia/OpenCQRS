@@ -17,7 +17,7 @@ namespace OpenCqrs.Examples.Shared
 
             // Create a new product (first domain event created).
             // ProductCreatedHandlerAsync should created the view model.
-            await dispatcher.SendAndPublishAsync<CreateProduct, Product>(new CreateProduct
+            await dispatcher.SendAsync<CreateProduct, Product>(new CreateProduct
             {
                 AggregateRootId = productId,
                 Title = "My brand new product",
@@ -27,7 +27,7 @@ namespace OpenCqrs.Examples.Shared
 
             // Update title (second domain event created).
             // ProductTitleUpdatedHandlerAsync should update the view model with the new title.
-            await dispatcher.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
+            await dispatcher.SendAsync<UpdateProductTitle, Product>(new UpdateProductTitle
             {
                 AggregateRootId = productId,
                 Title = "Updated product title",
@@ -39,7 +39,7 @@ namespace OpenCqrs.Examples.Shared
 
             // Update title again (third domain event created).
             // ProductTitleUpdatedHandlerAsync should update the view model again with the new title.
-            await dispatcher.SendAndPublishAsync<UpdateProductTitle, Product>(new UpdateProductTitle
+            await dispatcher.SendAsync<UpdateProductTitle, Product>(new UpdateProductTitle
             {
                 AggregateRootId = productId,
                 Title = "Yeah! Third title!",

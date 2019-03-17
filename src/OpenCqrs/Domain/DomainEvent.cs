@@ -1,8 +1,9 @@
 ﻿using System;
+using OpenCqrs.Events;
 
 namespace OpenCqrs.Domain
 {
-    public abstract class DomainEvent : IDomainEvent
+    public abstract class DomainEvent : Event, IDomainEvent
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid AggregateRootId { get; set; }
