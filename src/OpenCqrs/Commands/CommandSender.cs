@@ -42,7 +42,7 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEventsAsync<TCommand>>();
+            var handler = _handlerResolver.ResolveHandler<ICommandHandlerAsync<TCommand>>();
 
             var events = await handler.HandleAsync(command);
 
@@ -65,7 +65,7 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEventsAsync<TCommand>>();
+            var handler = _handlerResolver.ResolveHandler<IDomainCommandHandlerAsync<TCommand>>();
 
             if (SaveCommand(command))
                 await _commandStore.SaveCommandAsync<TAggregate>(command);
@@ -92,7 +92,7 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithEvents<TCommand>>();
+            var handler = _handlerResolver.ResolveHandler<ICommandHandler<TCommand>>();
 
             var events = handler.Handle(command);
 
@@ -115,7 +115,7 @@ namespace OpenCqrs.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<ICommandHandlerWithDomainEvents<TCommand>>();
+            var handler = _handlerResolver.ResolveHandler<IDomainCommandHandler<TCommand>>();
 
             if (SaveCommand(command))
                 _commandStore.SaveCommand<TAggregate>(command);

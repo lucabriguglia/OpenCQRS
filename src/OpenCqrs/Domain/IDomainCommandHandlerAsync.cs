@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenCqrs.Domain;
 
-namespace OpenCqrs.Commands
+namespace OpenCqrs.Domain
 {
-    public interface ICommandHandlerWithDomainEventsAsync<in TCommand> where TCommand : IDomainCommand
+    public interface IDomainCommandHandlerAsync<in TCommand> where TCommand : IDomainCommand
     {
         Task<IEnumerable<IDomainEvent>> HandleAsync(TCommand command);
     }

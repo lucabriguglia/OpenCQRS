@@ -6,7 +6,7 @@ using OpenCqrs.Domain;
 
 namespace OpenCqrs.Examples.Domain.Commands.Handlers
 {
-    public class UpdateProductTitleHandler : ICommandHandlerWithDomainEventsAsync<UpdateProductTitle>
+    public class UpdateProductTitleHandler : IDomainCommandHandlerAsync<UpdateProductTitle>
     {
         private readonly IRepository<Product> _repository;
 

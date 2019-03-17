@@ -5,7 +5,7 @@ using OpenCqrs.Domain;
 
 namespace OpenCqrs.Examples.Domain.Commands.Handlers
 {
-    public class CreateProductHandler : ICommandHandlerWithDomainEventsAsync<CreateProduct>
+    public class CreateProductHandler : IDomainCommandHandlerAsync<CreateProduct>
     {
         public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
         {
