@@ -19,7 +19,7 @@ namespace OpenCqrs.Domain
         private readonly IEventStore _eventStore;
         private readonly Options _options;
 
-        private bool PublishEvent(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
+        private bool PublishEvents(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
         private bool SaveCommand(IDomainCommand command) => command.SaveCommand ?? _options.SaveCommands;
 
         public DomainCommandSender(IHandlerResolver handlerResolver,
@@ -56,7 +56,7 @@ namespace OpenCqrs.Domain
 
             var events = await handler.HandleAsync(command);
 
-            var publishEvents = PublishEvent(command);
+            var publishEvents = PublishEvents(command);
 
             foreach (var @event in events)
             {
@@ -87,7 +87,7 @@ namespace OpenCqrs.Domain
 
             var events = handler.Handle(command);
 
-            var publishEvents = PublishEvent(command);
+            var publishEvents = PublishEvents(command);
 
             foreach (var @event in events)
             {

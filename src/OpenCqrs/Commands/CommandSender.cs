@@ -15,7 +15,7 @@ namespace OpenCqrs.Commands
         private readonly IEventFactory _eventFactory;
         private readonly Options _options;
 
-        private bool PublishEvent(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
+        private bool PublishEvents(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
 
         public CommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
@@ -38,7 +38,7 @@ namespace OpenCqrs.Commands
 
             var events = await handler.HandleAsync(command);
 
-            var publishEvents = PublishEvent(command);
+            var publishEvents = PublishEvents(command);
 
             foreach (var @event in events)
             {
@@ -59,7 +59,7 @@ namespace OpenCqrs.Commands
 
             var events = handler.Handle(command);
 
-            var publishEvents = PublishEvent(command);
+            var publishEvents = PublishEvents(command);
 
             foreach (var @event in events)
             {
