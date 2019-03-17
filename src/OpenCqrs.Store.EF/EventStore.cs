@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OpenCqrs.Domain;
-using OpenCqrs.Exceptions;
 using OpenCqrs.Store.EF.Entities.Factories;
 
 namespace OpenCqrs.Store.EF

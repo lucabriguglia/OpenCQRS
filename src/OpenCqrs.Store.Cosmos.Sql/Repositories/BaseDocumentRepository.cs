@@ -64,9 +64,9 @@ namespace OpenCqrs.Store.Cosmos.Sql.Repositories
             return results;
         }
 
-        public async Task<int> GetCountAsync(Expression<Func<TDocument, bool>> predicate)
+        public Task<int> GetCountAsync(Expression<Func<TDocument, bool>> predicate)
         {
-            return await _documentClient
+            return _documentClient
                 .CreateDocumentQuery<TDocument>(GetUri())
                 .Where(predicate)
                 .CountAsync();
