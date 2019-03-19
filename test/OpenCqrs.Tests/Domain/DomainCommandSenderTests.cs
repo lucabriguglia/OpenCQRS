@@ -138,33 +138,6 @@ namespace OpenCqrs.Tests.Domain
         }
 
         [Test]
-        public void Send_NotSavesCommand_WhenSetInOptions()
-        {
-            _optionsMock
-                .Setup(x => x.Value)
-                .Returns(new Options { SaveCommands = false });
-
-            _sut = new DomainCommandSender(_handlerResolver.Object,
-                _eventPublisher.Object,
-                _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
-                _optionsMock.Object);
-
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
-        public void Send_NotSavesCommand_WhenSetInCommand()
-        {
-            _createAggregate.SaveCommand = false;
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
         public void Send_SavesEvents()
         {
             _sut.Send<CreateAggregate, Aggregate>(_createAggregate);

@@ -34,7 +34,7 @@ namespace OpenCqrs.Examples.Shared
                 UserId = userId,
                 Source = source,
                 ExpectedVersion = 1,
-                SaveCommand = true
+                SaveCommandData = true
             });
 
             // Update title again (third domain event created).

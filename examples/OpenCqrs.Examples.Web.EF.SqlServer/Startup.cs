@@ -34,7 +34,7 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
                 .AddOptions(opt =>
                 {
                     opt.PublishEvents = true;
-                    opt.SaveCommands = false;
+                    opt.SaveCommandData = false;
                 })
                 .AddSqlServerProvider(Configuration)
                 .AddServiceBusProvider(Configuration);

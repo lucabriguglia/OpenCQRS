@@ -144,33 +144,6 @@ namespace OpenCqrs.Tests.Domain
         }
 
         [Test]
-        public async Task SendAsync__NotSavesCommand_WhenSetInOptions()
-        {
-            _optionsMock
-                .Setup(x => x.Value)
-                .Returns(new Options { SaveCommands = false });
-
-            _sut = new DomainCommandSender(_handlerResolver.Object,
-                _eventPublisher.Object,
-                _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
-                _optionsMock.Object);
-
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
-        public async Task SendAsync__NotSavesCommand_WhenSetInCommand()
-        {
-            _createAggregate.SaveCommand = false;
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Never);
-        }
-
-        [Test]
         public async Task SendAsync__SavesEvents()
         {
             await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);

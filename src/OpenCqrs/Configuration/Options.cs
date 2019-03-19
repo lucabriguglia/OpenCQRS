@@ -10,6 +10,6 @@
         /// <summary>
         /// The value indicating whether commands are saved alongside events. Default value is true.
         /// </summary>
-        public bool SaveCommands { get; set; } = true;
+        public bool SaveCommandData { get; set; } = true;
     }
 }

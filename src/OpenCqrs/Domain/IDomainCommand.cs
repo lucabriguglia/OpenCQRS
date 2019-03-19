@@ -11,6 +11,6 @@ namespace OpenCqrs.Domain
         string Source { get; set; }
         DateTime TimeStamp { get; set; }
         int? ExpectedVersion { get; set; }
-        bool? SaveCommand { get; set; }
+        bool? SaveCommandData { get; set; }
     }
 }

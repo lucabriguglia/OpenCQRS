@@ -20,7 +20,6 @@ namespace OpenCqrs.Domain
         private readonly Options _options;
 
         private bool PublishEvents(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
-        private bool SaveCommand(IDomainCommand command) => command.SaveCommand ?? _options.SaveCommands;
 
         public DomainCommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
@@ -49,14 +48,14 @@ namespace OpenCqrs.Domain
 
             var handler = _handlerResolver.ResolveHandler<IDomainCommandHandlerAsync<TCommand>>();
 
-            await _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
+            var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
+            var commandTask = _commandStore.SaveCommandAsync<TAggregate>(command);
+            var eventsTask = handler.HandleAsync(command);
 
-            if (SaveCommand(command))
-                await _commandStore.SaveCommandAsync<TAggregate>(command);
-
-            var events = await handler.HandleAsync(command);
+            await Task.WhenAll(aggregateTask, commandTask, eventsTask);
 
             var publishEvents = PublishEvents(command);
+            var events = await eventsTask;
 
             foreach (var @event in events)
             {
@@ -81,9 +80,7 @@ namespace OpenCqrs.Domain
             var handler = _handlerResolver.ResolveHandler<IDomainCommandHandler<TCommand>>();
 
             _aggregateStore.SaveAggregate<TAggregate>(command.AggregateRootId);
-
-            if (SaveCommand(command))
-                _commandStore.SaveCommand<TAggregate>(command);
+            _commandStore.SaveCommand<TAggregate>(command);
 
             var events = handler.Handle(command);
 
