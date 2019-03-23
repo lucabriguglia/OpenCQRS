@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
-using OpenCqrs.Configuration;
+﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using OpenCqrs.Domain;
+using Options = OpenCqrs.Configuration.Options;
 
 namespace OpenCqrs.Store.EF.Entities.Factories
 {
@@ -10,9 +11,9 @@ namespace OpenCqrs.Store.EF.Entities.Factories
 
         private bool SaveCommandData(IDomainCommand command) => command.SaveCommandData ?? _options.SaveCommandData;
 
-        public CommandEntityFactory(Options options)
+        public CommandEntityFactory(IOptions<Options> options)
         {
-            _options = options;
+            _options = options.Value;
         }
 
         public CommandEntity CreateCommand(IDomainCommand command)
