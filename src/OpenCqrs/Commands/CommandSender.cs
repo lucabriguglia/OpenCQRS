@@ -38,15 +38,15 @@ namespace OpenCqrs.Commands
 
             var events = await handler.HandleAsync(command);
 
-            var publishEvents = PublishEvents(command);
-
-            foreach (var @event in events)
+            if (PublishEvents(command))
             {
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-
-                if (publishEvents)
+                foreach (var @event in events)
+                {
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                     await _eventPublisher.PublishAsync(concreteEvent);
+                }
             }
+
         }
 
         /// <inheritdoc />
@@ -59,14 +59,13 @@ namespace OpenCqrs.Commands
 
             var events = handler.Handle(command);
 
-            var publishEvents = PublishEvents(command);
-
-            foreach (var @event in events)
+            if (PublishEvents(command))
             {
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-
-                if (publishEvents)
+                foreach (var @event in events)
+                {
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                     _eventPublisher.Publish(concreteEvent);
+                }
             }
         }
     }
