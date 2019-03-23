@@ -46,7 +46,6 @@ namespace OpenCqrs.Commands
                     await _eventPublisher.PublishAsync(concreteEvent);
                 }
             }
-
         }
 
         /// <inheritdoc />
