@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
+using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using OpenCqrs.Configuration;
 using OpenCqrs.Domain;
@@ -30,6 +32,8 @@ namespace OpenCqrs.Extensions
                 .AsImplementedInterfaces());
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddAutoMapper(typeList);
 
             return new OpenCqrsServiceBuilder(services);
         }
