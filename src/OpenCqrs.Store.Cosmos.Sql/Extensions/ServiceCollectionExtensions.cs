@@ -28,17 +28,20 @@ namespace OpenCqrs.Store.Cosmos.Sql.Extensions
             var key = configuration.GetSection("DomainDbConfiguration:AuthKey").Value;
             builder.Services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
-            builder.Services.AddTransient<IAggregateStore, AggregateStore>();
-            builder.Services.AddTransient<ICommandStore, CommandStore>();
-            builder.Services.AddTransient<IEventStore, EventStore>();
+            builder.Services
+                .AddTransient<IAggregateStore, AggregateStore>()
+                .AddTransient<ICommandStore, CommandStore>()
+                .AddTransient<IEventStore, EventStore>();
 
-            builder.Services.AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>();
-            builder.Services.AddTransient<ICommandDocumentFactory, CommandDocumentFactory>();
-            builder.Services.AddTransient<IEventDocumentFactory, EventDocumentFactory>();
+            builder.Services
+                .AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>()
+                .AddTransient<ICommandDocumentFactory, CommandDocumentFactory>()
+                .AddTransient<IEventDocumentFactory, EventDocumentFactory>();
 
-            builder.Services.AddTransient<IDocumentRepository<AggregateDocument>, AggregateRepository>();
-            builder.Services.AddTransient<IDocumentRepository<CommandDocument>, CommandRepository>();
-            builder.Services.AddTransient<IDocumentRepository<EventDocument>, EventRepository>();
+            builder.Services
+                .AddTransient<IDocumentRepository<AggregateDocument>, AggregateRepository>()
+                .AddTransient<IDocumentRepository<CommandDocument>, CommandRepository>()
+                .AddTransient<IDocumentRepository<EventDocument>, EventRepository>();
 
             return builder;
         }
