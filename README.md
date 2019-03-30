@@ -6,21 +6,29 @@ OpenCQRS is a .NET Core framework for Domain Driven Design (DDD), Command Query 
 
 ## Nuget Packages
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
+### Main
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Mongo-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Mongo)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Sql-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Sql)
+### Storage
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Mongo-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Mongo)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Sql-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.ServiceBus-6.0.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.ServiceBus)
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
+
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
+
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.InMemory-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.InMemory)
+
+### Bus
+
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.ServiceBus-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.ServiceBus)
 
 ## Wiki
 
