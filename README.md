@@ -30,6 +30,8 @@ OpenCQRS is a .NET Core framework for Domain Driven Design (DDD), Command Query 
 
 [![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.ServiceBus-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.ServiceBus)
 
+[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.RabbitMQ-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.RabbitMQ)
+
 ## Wiki
 
 https://github.com/OpenCQRS/OpenCQRS/wiki
