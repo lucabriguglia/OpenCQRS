@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace OpenCqrs.Bus
 {
-    internal class BusMessageDispatcher : IBusMessageDispatcher
+    public class BusMessageDispatcher : IBusMessageDispatcher
     {
         private readonly IQueueClient _queueClient;
         private readonly ITopicClient _topicClient;

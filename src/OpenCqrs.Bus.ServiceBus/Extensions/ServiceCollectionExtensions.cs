@@ -18,9 +18,10 @@ namespace OpenCqrs.Bus.ServiceBus.Extensions
         public static IOpenCqrsServiceBuilder AddServiceBusProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             builder.Services
-                .Configure<ServiceBusConfiguration>(configuration.GetSection(Constants.ServiceBusConfigurationSection));
+                .Configure<ServiceBusConfiguration>(configuration.GetSection("ServiceBusConfiguration"));
 
             builder.Services
+                .AddTransient<IBusMessageDispatcher, BusMessageDispatcher>()
                 .AddTransient<IQueueClient, QueueClient>()
                 .AddTransient<ITopicClient, TopicClient>()
                 .AddTransient<IMessageFactory, MessageFactory>();

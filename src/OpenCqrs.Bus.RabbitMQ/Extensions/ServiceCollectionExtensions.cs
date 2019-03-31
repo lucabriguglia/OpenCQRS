@@ -20,9 +20,10 @@ namespace OpenCqrs.Bus.RabbitMQ.Extensions
         public static IOpenCqrsServiceBuilder AddRabbitMQProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             builder.Services
-                .Configure<ServiceBusConfiguration>(configuration.GetSection(Constants.ServiceBusConfigurationSection));
+                .Configure<ServiceBusConfiguration>(configuration.GetSection("RabbitMQConfiguration"));
 
             builder.Services
+                .AddTransient<IBusMessageDispatcher, BusMessageDispatcher>()
                 .AddTransient<IQueueClient, QueueClient>()
                 .AddTransient<ITopicClient, TopicClient>()
                 .AddTransient<IMessageFactory, MessageFactory>();
