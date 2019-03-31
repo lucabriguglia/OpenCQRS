@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.ServiceBus.Configuration;
 using OpenCqrs.Bus.ServiceBus.Factories;
 
 namespace OpenCqrs.Bus.ServiceBus.Topics

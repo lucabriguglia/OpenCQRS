@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Bus.ServiceBus
+﻿namespace OpenCqrs.Bus
 {
     public static class Constants
     {
