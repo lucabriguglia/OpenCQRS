@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>RabbitMQ provider for OpenCQRS message bus.</Description>
+    <PackageTags>$(PackageTags), rabbitmq, messagebus, bus</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCqrs\OpenCqrs.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,11 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Bus.ServiceBus.Factories;
-using OpenCqrs.Bus.ServiceBus.Queues;
-using OpenCqrs.Bus.ServiceBus.Topics;
+using OpenCqrs.Bus.RabbitMQ.Factories;
+using OpenCqrs.Bus.RabbitMQ.Queues;
+using OpenCqrs.Bus.RabbitMQ.Topics;
 using OpenCqrs.Extensions;
 
-namespace OpenCqrs.Bus.ServiceBus.Extensions
+// ReSharper disable InconsistentNaming
+
+namespace OpenCqrs.Bus.RabbitMQ.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -15,10 +17,10 @@ namespace OpenCqrs.Bus.ServiceBus.Extensions
         /// <param name="builder">The builder.</param>
         /// <param name="configuration">The configuration.</param>
         /// <returns></returns>
-        public static IOpenCqrsServiceBuilder AddServiceBusProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddRabbitMQProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             builder.Services
-                .Configure<ServiceBusConfiguration>(configuration.GetSection("ServiceBusConfiguration"));
+                .Configure<ServiceBusConfiguration>(configuration.GetSection("RabbitMQConfiguration"));
 
             builder.Services
                 .AddTransient<IBusMessageDispatcher, BusMessageDispatcher>()

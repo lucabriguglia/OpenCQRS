@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-namespace OpenCqrs.Bus.ServiceBus.Topics
+namespace OpenCqrs.Bus
 {
     /// <summary>
-    /// ITopicClient
+    /// IQueueClient
     /// </summary>
-    public interface ITopicClient
+    public interface IQueueClient
     {
         /// <summary>
         /// Sends the message asynchronously.
@@ -13,6 +13,6 @@ namespace OpenCqrs.Bus.ServiceBus.Topics
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        Task SendAsync<TMessage>(TMessage message) where TMessage : IBusTopicMessage;
+        Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage;
     }
 }

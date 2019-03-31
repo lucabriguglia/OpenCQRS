@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OpenCqrs.Bus.ServiceBus.Queues;
-using OpenCqrs.Bus.ServiceBus.Topics;
 
-namespace OpenCqrs.Bus.ServiceBus
+namespace OpenCqrs.Bus
 {
-    internal class BusMessageDispatcher : IBusMessageDispatcher
+    public class BusMessageDispatcher : IBusMessageDispatcher
     {
         private readonly IQueueClient _queueClient;
         private readonly ITopicClient _topicClient;
