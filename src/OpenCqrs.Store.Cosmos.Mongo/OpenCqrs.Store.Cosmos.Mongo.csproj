@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>CosmosDB (MongoDB) database provider for OpenCQRS domain store.</Description>
     <PackageTags>$(PackageTags), cosmosdb, mongodb</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

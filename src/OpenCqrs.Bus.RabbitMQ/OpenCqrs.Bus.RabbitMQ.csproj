@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>RabbitMQ provider for OpenCQRS message bus.</Description>
     <PackageTags>$(PackageTags), rabbitmq, messagebus, bus</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

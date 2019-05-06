@@ -6,6 +6,7 @@
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageTags>opencqrs, .net, core, mediator, ddd, cqrs, event sourcing</PackageTags>
+    <PackageLicense>Apache-2.0</PackageLicense>
     <SourcesPackage>true</SourcesPackage> <!-- This should be removed in a future release of the sources lib -->
   </PropertyGroup>
 
