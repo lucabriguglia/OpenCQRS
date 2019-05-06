@@ -6,7 +6,6 @@
     <Company>Weapsy Limited</Company>
     <Copyright>Copyright Luca Briguglia</Copyright>
     <Product>OpenCQRS</Product>
-    <PackageLicenseUrl>https://github.com/OpenCQRS/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/OpenCQRS/OpenCQRS</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/OpenCQRS/OpenCQRS</RepositoryUrl>
