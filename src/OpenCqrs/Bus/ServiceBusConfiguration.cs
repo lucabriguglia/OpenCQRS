@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Bus.ServiceBus.Configuration
+﻿namespace OpenCqrs.Bus
 {
     public class ServiceBusConfiguration
     {

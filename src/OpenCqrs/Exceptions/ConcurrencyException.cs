@@ -2,7 +2,7 @@
 
 namespace OpenCqrs.Exceptions
 {
-    public class ConcurrencyException : ApplicationException
+    public class ConcurrencyException : Exception
     {
         public ConcurrencyException(Guid aggregateRootId, int expectedVersion, int actualVersion)
             : base(BuildErrorMessage(aggregateRootId, expectedVersion, actualVersion))

@@ -3,13 +3,12 @@
 
   <PropertyGroup Label="ProjectSettings">
     <Authors>Luca Briguglia</Authors>
-    <Company>Luca Briguglia</Company>
+    <Company>Weapsy Limited</Company>
     <Copyright>Copyright Luca Briguglia</Copyright>
     <Product>OpenCQRS</Product>
-    <PackageLicenseUrl>https://github.com/lucabriguglia/OpenCQRS/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/OpenCQRS/OpenCQRS</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
+    <RepositoryUrl>https://github.com/OpenCQRS/OpenCQRS</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

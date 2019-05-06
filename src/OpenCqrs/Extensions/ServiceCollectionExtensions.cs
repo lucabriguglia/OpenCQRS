@@ -31,6 +31,8 @@ namespace OpenCqrs.Extensions
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
+            services.AddAutoMapper(typeList);
+
             return new OpenCqrsServiceBuilder(services);
         }
 

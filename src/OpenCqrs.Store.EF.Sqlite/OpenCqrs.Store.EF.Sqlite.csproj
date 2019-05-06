@@ -4,10 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>SQLite database provider for OpenCQRS domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, sqlite</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
   </ItemGroup>
 
   <ItemGroup>

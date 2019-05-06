@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>PostgreSQL database provider for OpenCQRS domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, postgresql</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

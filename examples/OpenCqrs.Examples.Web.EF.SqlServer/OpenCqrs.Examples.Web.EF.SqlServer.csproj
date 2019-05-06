@@ -15,10 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenCqrs.Bus.RabbitMQ\OpenCqrs.Bus.RabbitMQ.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Bus.ServiceBus\OpenCqrs.Bus.ServiceBus.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Store.EF.SqlServer\OpenCqrs.Store.EF.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\OpenCqrs.Store.EF\OpenCqrs.Store.EF.csproj" />

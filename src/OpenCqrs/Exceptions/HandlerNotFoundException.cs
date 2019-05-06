@@ -2,7 +2,7 @@
 
 namespace OpenCqrs.Exceptions
 {
-    public class HandlerNotFoundException : ApplicationException
+    public class HandlerNotFoundException : Exception
     {
         public HandlerNotFoundException(Type handlerType)
             : base(BuildErrorMessage(handlerType))
