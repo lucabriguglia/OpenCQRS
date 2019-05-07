@@ -19,12 +19,26 @@ namespace OpenCqrs.Bus.ServiceBus.Factories
 
             if (message.ScheduledEnqueueTimeUtc.HasValue)
                 serviceBusMessage.ScheduledEnqueueTimeUtc = message.ScheduledEnqueueTimeUtc.Value;
-            if (string.IsNullOrWhiteSpace(message.Label))
-                serviceBusMessage.Label = message.Label;
-            if (!string.IsNullOrWhiteSpace(message.SessionId))
-                serviceBusMessage.SessionId = message.SessionId;
-            if (!string.IsNullOrWhiteSpace(message.CorrelationId))
-                serviceBusMessage.CorrelationId = message.CorrelationId;
+
+            if (message.Properties != null)
+            {
+                foreach (var prop in message.Properties)
+                {
+                    // We could use reflexion here, but i believe we should bet on performace and simplicity.
+                    // If not, then we can consider adding more of this properties
+                    // Last note, we should do the same for rabbit.
+                    if (prop.Key == "Label")
+                        serviceBusMessage.Label = message.Properties[prop.Key] as string;
+                    else if (prop.Key == "SessionId")
+                        serviceBusMessage.SessionId = message.Properties[prop.Key] as string;
+                    else if (prop.Key == "CorrelationId")
+                        serviceBusMessage.CorrelationId = message.Properties[prop.Key] as string;
+                    else if (prop.Key == "ScheduledEnqueueTimeUtc" && message.Properties[prop.Key] is System.DateTime ScheduledEnqueueTimeUtc)
+                        serviceBusMessage.ScheduledEnqueueTimeUtc = ScheduledEnqueueTimeUtc;
+                    else
+                        serviceBusMessage.UserProperties.Add(prop.Key, prop.Value);
+                }
+            }
 
             serviceBusMessage.UserProperties.Add(new KeyValuePair<string, object>(AssemblyQualifiedNamePropertyName, message.GetType().AssemblyQualifiedName));
 
