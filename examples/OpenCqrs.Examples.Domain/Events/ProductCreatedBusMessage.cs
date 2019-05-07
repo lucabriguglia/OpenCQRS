@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OpenCqrs.Bus;
 using OpenCqrs.Domain;
 
@@ -11,5 +12,9 @@ namespace OpenCqrs.Examples.Domain.Events
 
         public DateTime? ScheduledEnqueueTimeUtc { get; set; }
         public string TopicName { get; set; } = "product-created";
+        public string SessionId { get; set; }
+        public string CorrelationId { get; set; }
+        public IDictionary<string, object> UserProperties { get; set; }
+        public string Label { get; set; }
     }
 }
