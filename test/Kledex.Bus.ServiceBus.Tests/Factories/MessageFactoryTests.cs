@@ -1,0 +1,41 @@
+using Moq;
+using Newtonsoft.Json;
+using NUnit.Framework;
+using Kledex.Bus;
+using Kledex.Bus.ServiceBus.Factories;
+using Kledex.Bus.ServiceBus.Tests.Fakes;
+
+namespace Kledex.Bus.ServiceBus.Tests.Factories
+{
+    public class MessageFactoryTests
+    {
+        private MessageFactory _sut;
+
+        [SetUp]
+        public void Setup()
+        {
+            _sut = new MessageFactory();
+        }
+
+        [Test]
+        public void CreateMessage_SerializesCorrectly()
+        {
+            var _someMessage = new SomeBusMessage();
+            var message = _sut.CreateMessage(_someMessage);
+            Assert.NotNull(message);
+            Assert.NotNull(message.Body);
+            Assert.Greater(message.Body.Length, 0);
+            Assert.True(message.UserProperties.ContainsKey(MessageFactory.AssemblyQualifiedNamePropertyName));
+        }
+
+        [Test]
+        public void CreateMessage_DeerializesCorrectType()
+        {
+            var _someMessage = new SomeBusMessage();
+            var busMessage = _sut.CreateMessage(_someMessage);
+            var messageType = System.Type.GetType(busMessage.UserProperties[MessageFactory.AssemblyQualifiedNamePropertyName] as string);
+            var deserializedMessage = JsonConvert.DeserializeObject(System.Text.Encoding.UTF8.GetString(busMessage.Body), messageType);
+            Assert.AreEqual(_someMessage.GetType(), deserializedMessage.GetType());
+        }
+    }
+}
