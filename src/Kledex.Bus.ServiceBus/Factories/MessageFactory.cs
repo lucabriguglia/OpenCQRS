@@ -24,13 +24,13 @@ namespace Kledex.Bus.ServiceBus.Factories
                     // We could use reflexion here, but i believe we should bet on performace and simplicity.
                     // If not, then we can consider adding more of this properties
                     // Last note, we should do the same for rabbit.
-                    if (prop.Key == "Label")
+                    if (prop.Key == nameof(serviceBusMessage.Label))
                         serviceBusMessage.Label = message.Properties[prop.Key] as string;
-                    else if (prop.Key == "SessionId")
+                    else if (prop.Key == nameof(serviceBusMessage.SessionId))
                         serviceBusMessage.SessionId = message.Properties[prop.Key] as string;
-                    else if (prop.Key == "CorrelationId")
+                    else if (prop.Key == nameof(serviceBusMessage.CorrelationId))
                         serviceBusMessage.CorrelationId = message.Properties[prop.Key] as string;
-                    else if (prop.Key == "ScheduledEnqueueTimeUtc" && message.Properties[prop.Key] is System.DateTime ScheduledEnqueueTimeUtc)
+                    else if (prop.Key == nameof(serviceBusMessage.ScheduledEnqueueTimeUtc) && message.Properties[prop.Key] is System.DateTime ScheduledEnqueueTimeUtc)
                         serviceBusMessage.ScheduledEnqueueTimeUtc = ScheduledEnqueueTimeUtc;
                     else
                         serviceBusMessage.UserProperties.Add(prop.Key, prop.Value);
