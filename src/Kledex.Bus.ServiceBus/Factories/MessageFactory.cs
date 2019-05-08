@@ -17,9 +17,6 @@ namespace Kledex.Bus.ServiceBus.Factories
                 ContentType = "application/json"
             };
 
-            if (message.ScheduledEnqueueTimeUtc.HasValue)
-                serviceBusMessage.ScheduledEnqueueTimeUtc = message.ScheduledEnqueueTimeUtc.Value;
-
             if (message.Properties != null)
             {
                 foreach (var prop in message.Properties)
@@ -39,6 +36,9 @@ namespace Kledex.Bus.ServiceBus.Factories
                         serviceBusMessage.UserProperties.Add(prop.Key, prop.Value);
                 }
             }
+
+            if (message.ScheduledEnqueueTimeUtc.HasValue && !message.Properties.ContainsKey(nameof(message.ScheduledEnqueueTimeUtc)))
+                serviceBusMessage.ScheduledEnqueueTimeUtc = message.ScheduledEnqueueTimeUtc.Value;
 
             serviceBusMessage.UserProperties.Add(new KeyValuePair<string, object>(AssemblyQualifiedNamePropertyName, message.GetType().AssemblyQualifiedName));
 
