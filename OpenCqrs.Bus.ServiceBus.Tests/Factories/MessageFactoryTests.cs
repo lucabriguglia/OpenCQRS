@@ -20,8 +20,8 @@ namespace OpenCqrs.Bus.ServiceBus.Tests.Factories
         [Test]
         public void CreateMessage_SerializesCorrectly()
         {
-            var _someMessage = new SomeBusMessage();
-            var message = _sut.CreateMessage(_someMessage);
+            var someMessage = new SomeBusMessage();
+            var message = _sut.CreateMessage(someMessage);
             Assert.NotNull(message);
             Assert.NotNull(message.Body);
             Assert.Greater(message.Body.Length, 0);
@@ -29,13 +29,13 @@ namespace OpenCqrs.Bus.ServiceBus.Tests.Factories
         }
 
         [Test]
-        public void CreateMessage_DeerializesCorrectType()
+        public void CreateMessage_DeserializesCorrectType()
         {
-            var _someMessage = new SomeBusMessage();
-            var busMessage = _sut.CreateMessage(_someMessage);
+            var someMessage = new SomeBusMessage();
+            var busMessage = _sut.CreateMessage(someMessage);
             var messageType = System.Type.GetType(busMessage.UserProperties[MessageFactory.AssemblyQualifiedNamePropertyName] as string);
             var deserializedMessage = JsonConvert.DeserializeObject(System.Text.Encoding.UTF8.GetString(busMessage.Body), messageType);
-            Assert.AreEqual(_someMessage.GetType(), deserializedMessage.GetType());
+            Assert.AreEqual(someMessage.GetType(), deserializedMessage.GetType());
         }
     }
 }

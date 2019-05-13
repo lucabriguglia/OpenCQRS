@@ -37,7 +37,10 @@ namespace OpenCqrs.Bus.ServiceBus.Factories
                 }
             }
 
-            if (message.ScheduledEnqueueTimeUtc.HasValue && !message.Properties.ContainsKey(nameof(message.ScheduledEnqueueTimeUtc)))
+            //NOTE: we keep prop mapping this for legacy users, it's been marked as obsolete and should be removed in a future release
+            if (message.ScheduledEnqueueTimeUtc.HasValue
+                && message.Properties != null
+                && !message.Properties.ContainsKey(nameof(message.ScheduledEnqueueTimeUtc)) )
                 serviceBusMessage.ScheduledEnqueueTimeUtc = message.ScheduledEnqueueTimeUtc.Value;
 
             serviceBusMessage.UserProperties.Add(new KeyValuePair<string, object>(AssemblyQualifiedNamePropertyName, message.GetType().AssemblyQualifiedName));
