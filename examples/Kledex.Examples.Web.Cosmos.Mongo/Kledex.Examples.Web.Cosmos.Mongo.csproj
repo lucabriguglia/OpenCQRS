@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Kledex.Examples.Web.Cosmos.Mongo</AssemblyName>
+    <RootNamespace>Kledex.Examples.Web.Cosmos.Mongo</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Kledex.Bus.ServiceBus\Kledex.Bus.ServiceBus.csproj" />
+    <ProjectReference Include="..\..\src\Kledex.Store.Cosmos.Mongo\Kledex.Store.Cosmos.Mongo.csproj" />
+    <ProjectReference Include="..\..\src\Kledex\Kledex.csproj" />
+    <ProjectReference Include="..\Kledex.Examples.Domain\Kledex.Examples.Domain.csproj" />
+    <ProjectReference Include="..\Kledex.Examples.Reporting\Kledex.Examples.Reporting.csproj" />
+    <ProjectReference Include="..\Kledex.Examples.Shared\Kledex.Examples.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

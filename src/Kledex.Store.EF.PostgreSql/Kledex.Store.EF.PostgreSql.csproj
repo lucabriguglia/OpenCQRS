@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>PostgreSQL database provider for Kledex domain store.</Description>
+    <PackageTags>$(PackageTags), ef, entity framework, postgresql</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kledex.Store.EF\Kledex.Store.EF.csproj" />
+  </ItemGroup>
+
+</Project>

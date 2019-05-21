@@ -3,12 +3,11 @@
 
   <PropertyGroup Label="ProjectSettings">
     <Authors>Luca Briguglia</Authors>
-    <Company>Weapsy Limited</Company>
     <Copyright>Copyright Luca Briguglia</Copyright>
-    <Product>OpenCQRS</Product>
-    <PackageProjectUrl>https://github.com/OpenCQRS/OpenCQRS</PackageProjectUrl>
+    <Product>Kledex</Product>
+    <PackageProjectUrl>https://github.com/lucabriguglia/Kledex</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/OpenCQRS/OpenCQRS</RepositoryUrl>
+    <RepositoryUrl>https://github.com/lucabriguglia/Kledex</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

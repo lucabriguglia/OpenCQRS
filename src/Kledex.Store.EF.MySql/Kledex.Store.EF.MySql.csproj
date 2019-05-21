@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>MySQL database provider for Kledex domain store.</Description>
+    <PackageTags>$(PackageTags), ef, entity framework, mysql</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kledex.Store.EF\Kledex.Store.EF.csproj" />
+  </ItemGroup>
+
+</Project>

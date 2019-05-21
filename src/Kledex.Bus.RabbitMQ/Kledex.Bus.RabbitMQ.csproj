@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>RabbitMQ provider for Kledex message bus.</Description>
+    <PackageTags>$(PackageTags), rabbitmq, messagebus, bus</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kledex\Kledex.csproj" />
+  </ItemGroup>
+
+</Project>
