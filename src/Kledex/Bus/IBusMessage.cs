@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCqrs.Bus
+namespace Kledex.Bus
 {
     public interface IBusMessage
     {

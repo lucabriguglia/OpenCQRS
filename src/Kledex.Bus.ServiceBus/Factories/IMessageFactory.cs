@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.ServiceBus;
 
-namespace OpenCqrs.Bus.ServiceBus.Factories
+namespace Kledex.Bus.ServiceBus.Factories
 {
     /// <summary>
     /// IMessageFactory

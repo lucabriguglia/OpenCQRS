@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Linq;
+using Kledex.Configuration;
+using Kledex.Domain;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Configuration;
-using OpenCqrs.Domain;
 
-namespace OpenCqrs.Extensions
+namespace Kledex.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds OpenCqrs. 
+        /// Adds Kledex. 
         /// Pass any of the types that are contained in the assemblies where your messages and handlers are.
         /// One for each assembly.
         /// e.g. typeOf(CreatePost) where CreatePost is one of your commands.
         /// </summary>
         /// <param name="services">The services.</param>
         /// <param name="types">The types.</param>
-        public static IOpenCqrsServiceBuilder AddOpenCqrs(this IServiceCollection services, params Type[] types)
+        public static IKledexServiceBuilder AddKledex(this IServiceCollection services, params Type[] types)
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
@@ -33,10 +33,10 @@ namespace OpenCqrs.Extensions
 
             services.AddAutoMapper(typeList);
 
-            return new OpenCqrsServiceBuilder(services);
+            return new KledexServiceBuilder(services);
         }
 
-        public static IOpenCqrsServiceBuilder AddOptions(this IOpenCqrsServiceBuilder builder, Action<Options> setupAction)
+        public static IKledexServiceBuilder AddOptions(this IKledexServiceBuilder builder, Action<Options> setupAction)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenCqrs.Domain;
+using Kledex.Domain;
 
-namespace OpenCqrs.Store.Cosmos.Mongo.Documents.Factories
+namespace Kledex.Store.Cosmos.Mongo.Documents.Factories
 {
     public interface IAggregateDocumentFactory
     {

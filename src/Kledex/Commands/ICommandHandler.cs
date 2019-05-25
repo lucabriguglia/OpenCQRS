@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using OpenCqrs.Events;
+using Kledex.Events;
 
-namespace OpenCqrs.Commands
+namespace Kledex.Commands
 {
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {

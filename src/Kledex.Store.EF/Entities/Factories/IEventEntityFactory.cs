@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Kledex.Domain;
 
-namespace OpenCqrs.Store.EF.Entities.Factories
+namespace Kledex.Store.EF.Entities.Factories
 {
     public interface IEventEntityFactory
     {

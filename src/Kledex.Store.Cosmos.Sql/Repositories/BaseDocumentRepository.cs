@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Kledex.Store.Cosmos.Sql.Configuration;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Store.Cosmos.Sql.Configuration;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Repositories
+namespace Kledex.Store.Cosmos.Sql.Repositories
 {
     internal abstract class BaseDocumentRepository<TDocument> : IDocumentRepository<TDocument> where TDocument : class
     {

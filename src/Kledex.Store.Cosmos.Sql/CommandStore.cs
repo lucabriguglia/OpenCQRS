@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kledex.Domain;
+using Kledex.Store.Cosmos.Sql.Documents;
+using Kledex.Store.Cosmos.Sql.Documents.Factories;
+using Kledex.Store.Cosmos.Sql.Repositories;
 using Newtonsoft.Json;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.Cosmos.Sql.Documents;
-using OpenCqrs.Store.Cosmos.Sql.Documents.Factories;
-using OpenCqrs.Store.Cosmos.Sql.Repositories;
 
-namespace OpenCqrs.Store.Cosmos.Sql
+namespace Kledex.Store.Cosmos.Sql
 {
     /// <inheritdoc />
     internal class CommandStore : ICommandStore

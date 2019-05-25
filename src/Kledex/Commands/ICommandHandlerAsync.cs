@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenCqrs.Events;
+using Kledex.Events;
 
-namespace OpenCqrs.Commands
+namespace Kledex.Commands
 {
     public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommand
     {

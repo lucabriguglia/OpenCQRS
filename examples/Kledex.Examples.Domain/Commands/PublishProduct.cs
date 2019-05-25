@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenCqrs.Domain;
+using Kledex.Domain;
 
-namespace OpenCqrs.Examples.Domain.Commands
+namespace Kledex.Examples.Domain.Commands
 {
     public class PublishProduct : DomainCommand
     {

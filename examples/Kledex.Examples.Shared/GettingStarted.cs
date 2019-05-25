@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OpenCqrs.Examples.Domain;
-using OpenCqrs.Examples.Domain.Commands;
-using OpenCqrs.Examples.Reporting;
-using OpenCqrs.Examples.Reporting.Queries;
+using Kledex.Examples.Domain;
+using Kledex.Examples.Domain.Commands;
+using Kledex.Examples.Reporting;
+using Kledex.Examples.Reporting.Queries;
 
-namespace OpenCqrs.Examples.Shared
+namespace Kledex.Examples.Shared
 {
     public static class GettingStarted
     {

@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Commands;
+﻿using Kledex.Commands;
 
-namespace OpenCqrs.Tests.Fakes
+namespace Kledex.Tests.Fakes
 {
     public class CreateSomething : Command
     {

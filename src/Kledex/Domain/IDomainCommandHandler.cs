@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     public interface IDomainCommandHandler<in TCommand> where TCommand : IDomainCommand
     {

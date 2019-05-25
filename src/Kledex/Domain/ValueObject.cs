@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     public abstract class ValueObject
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace OpenCqrs.Store.EF.Sqlite
+namespace Kledex.Store.EF.Sqlite
 {
     public class SqliteDatabaseProvider : IDatabaseProvider
     {

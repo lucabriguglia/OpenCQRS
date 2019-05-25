@@ -1,20 +1,20 @@
 ﻿using System;
+using Kledex.Domain;
+using Kledex.Extensions;
+using Kledex.Store.Cosmos.Sql.Configuration;
+using Kledex.Store.Cosmos.Sql.Documents;
+using Kledex.Store.Cosmos.Sql.Documents.Factories;
+using Kledex.Store.Cosmos.Sql.Repositories;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Domain;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.Cosmos.Sql.Configuration;
-using OpenCqrs.Store.Cosmos.Sql.Documents;
-using OpenCqrs.Store.Cosmos.Sql.Documents.Factories;
-using OpenCqrs.Store.Cosmos.Sql.Repositories;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Extensions
+namespace Kledex.Store.Cosmos.Sql.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsServiceBuilder AddCosmosDbSqlProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddCosmosDbSqlProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

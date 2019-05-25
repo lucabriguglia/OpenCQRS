@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Events
+﻿namespace Kledex.Events
 {
     /// <summary>
     /// IEventFactory

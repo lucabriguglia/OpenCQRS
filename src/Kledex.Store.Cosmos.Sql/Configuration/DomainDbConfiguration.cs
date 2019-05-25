@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.Cosmos.Sql.Configuration
+﻿namespace Kledex.Store.Cosmos.Sql.Configuration
 {
     public class DomainDbConfiguration
     {

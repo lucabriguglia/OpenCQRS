@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kledex.Domain;
+using Kledex.Store.Cosmos.Mongo.Configuration;
+using Kledex.Store.Cosmos.Mongo.Documents;
+using Kledex.Store.Cosmos.Mongo.Documents.Factories;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.Cosmos.Mongo.Configuration;
-using OpenCqrs.Store.Cosmos.Mongo.Documents;
-using OpenCqrs.Store.Cosmos.Mongo.Documents.Factories;
 
-namespace OpenCqrs.Store.Cosmos.Mongo
+namespace Kledex.Store.Cosmos.Mongo
 {
     /// <inheritdoc />
     public class AggregateStore : IAggregateStore

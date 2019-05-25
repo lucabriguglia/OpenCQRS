@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Bus
+﻿namespace Kledex.Bus
 {
     public interface IBusTopicMessage : IBusMessage
     {

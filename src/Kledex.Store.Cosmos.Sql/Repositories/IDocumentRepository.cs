@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Repositories
+namespace Kledex.Store.Cosmos.Sql.Repositories
 {
     internal interface IDocumentRepository<TDocument> where TDocument : class
     {

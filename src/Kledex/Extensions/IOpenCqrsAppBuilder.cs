@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace OpenCqrs.Extensions
+namespace Kledex.Extensions
 {
-    public interface IOpenCqrsAppBuilder
+    public interface IKledexAppBuilder
     {
         IApplicationBuilder App { get; }
     }

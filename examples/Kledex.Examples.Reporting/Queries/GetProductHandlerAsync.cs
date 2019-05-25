@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Queries;
+using Kledex.Queries;
 
-namespace OpenCqrs.Examples.Reporting.Queries
+namespace Kledex.Examples.Reporting.Queries
 {
     public class GetProductHandlerAsync : IQueryHandlerAsync<GetProduct, ProductViewModel>
     {

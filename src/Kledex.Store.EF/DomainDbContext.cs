@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OpenCqrs.Store.EF.Entities;
+﻿using Kledex.Store.EF.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace OpenCqrs.Store.EF
+namespace Kledex.Store.EF
 {
     public class DomainDbContext : DbContext
     {

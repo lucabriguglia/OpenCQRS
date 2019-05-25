@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
+using Kledex.Domain;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Domain;
 
-namespace OpenCqrs.Extensions
+namespace Kledex.Extensions
 {
     public static class AutoMapperExtensions
     {

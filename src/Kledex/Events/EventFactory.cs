@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace OpenCqrs.Events
+namespace Kledex.Events
 {
     public class EventFactory : IEventFactory
     {

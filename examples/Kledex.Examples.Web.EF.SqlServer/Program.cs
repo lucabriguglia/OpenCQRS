@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace OpenCqrs.Examples.Web.EF.SqlServer
+namespace Kledex.Examples.Web.EF.SqlServer
 {
     public class Program
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace OpenCqrs.Extensions
+namespace Kledex.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IOpenCqrsAppBuilder UseOpenCqrs(this IApplicationBuilder app)
+        public static IKledexAppBuilder UseKledex(this IApplicationBuilder app)
         {
-            return new OpenCqrsAppBuilder(app);
+            return new KledexAppBuilder(app);
         }
     }
 }

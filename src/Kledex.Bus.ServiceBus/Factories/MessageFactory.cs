@@ -2,7 +2,7 @@
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
 
-namespace OpenCqrs.Bus.ServiceBus.Factories
+namespace Kledex.Bus.ServiceBus.Factories
 {
     public class MessageFactory : IMessageFactory
     {

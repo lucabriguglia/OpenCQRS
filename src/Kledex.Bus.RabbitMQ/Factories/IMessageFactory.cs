@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Bus.RabbitMQ.Factories
+﻿namespace Kledex.Bus.RabbitMQ.Factories
 {
     /// <summary>
     /// IMessageFactory

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCqrs.Store.EF.Entities
+namespace Kledex.Store.EF.Entities
 {
     public class CommandEntity
     {

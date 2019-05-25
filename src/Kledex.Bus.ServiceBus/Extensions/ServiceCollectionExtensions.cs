@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Kledex.Bus.ServiceBus.Factories;
+using Kledex.Bus.ServiceBus.Queues;
+using Kledex.Bus.ServiceBus.Topics;
+using Kledex.Extensions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Bus.ServiceBus.Factories;
-using OpenCqrs.Bus.ServiceBus.Queues;
-using OpenCqrs.Bus.ServiceBus.Topics;
-using OpenCqrs.Extensions;
 
-namespace OpenCqrs.Bus.ServiceBus.Extensions
+namespace Kledex.Bus.ServiceBus.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -15,7 +15,7 @@ namespace OpenCqrs.Bus.ServiceBus.Extensions
         /// <param name="builder">The builder.</param>
         /// <param name="configuration">The configuration.</param>
         /// <returns></returns>
-        public static IOpenCqrsServiceBuilder AddServiceBusProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddServiceBusProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             builder.Services
                 .Configure<ServiceBusConfiguration>(configuration.GetSection("ServiceBusConfiguration"));

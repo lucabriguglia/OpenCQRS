@@ -1,9 +1,9 @@
-﻿using Microsoft.Azure.Documents;
+﻿using Kledex.Store.Cosmos.Sql.Configuration;
+using Kledex.Store.Cosmos.Sql.Documents;
+using Microsoft.Azure.Documents;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Store.Cosmos.Sql.Configuration;
-using OpenCqrs.Store.Cosmos.Sql.Documents;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Repositories
+namespace Kledex.Store.Cosmos.Sql.Repositories
 {
     internal class EventRepository : BaseDocumentRepository<EventDocument>
     {

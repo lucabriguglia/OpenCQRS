@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Kledex.Domain;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Documents.Factories
+namespace Kledex.Store.Cosmos.Sql.Documents.Factories
 {
     public interface ICommandDocumentFactory
     {

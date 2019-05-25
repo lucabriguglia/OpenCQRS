@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.EF.Configuration
+﻿namespace Kledex.Store.EF.Configuration
 {
     public class DomainDbConfiguration
     {

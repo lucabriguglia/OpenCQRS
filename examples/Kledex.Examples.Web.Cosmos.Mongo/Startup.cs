@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Kledex.Bus.ServiceBus.Extensions;
+using Kledex.Examples.Domain.Commands;
+using Kledex.Examples.Reporting.Queries;
+using Kledex.Examples.Shared;
+using Kledex.Extensions;
+using Kledex.Store.Cosmos.Mongo.Configuration;
+using Kledex.Store.Cosmos.Mongo.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.ServiceBus.Extensions;
-using OpenCqrs.Examples.Domain.Commands;
-using OpenCqrs.Examples.Reporting.Queries;
-using OpenCqrs.Examples.Shared;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.Cosmos.Mongo.Configuration;
-using OpenCqrs.Store.Cosmos.Mongo.Extensions;
 
-namespace OpenCqrs.Examples.Web.Cosmos.Mongo
+namespace Kledex.Examples.Web.Cosmos.Mongo
 {
     public class Startup
     {
@@ -31,7 +31,7 @@ namespace OpenCqrs.Examples.Web.Cosmos.Mongo
             services.AddHttpContextAccessor();
 
             services
-                .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+                .AddKledex(typeof(CreateProduct), typeof(GetProduct))
                 .AddCosmosDbMongoDbProvider(Configuration)
                 .AddServiceBusProvider(Configuration);
         }

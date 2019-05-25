@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OpenCqrs.Dependencies
+namespace Kledex.Dependencies
 {
     public interface IResolver
     {

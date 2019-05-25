@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OpenCqrs.Examples.Reporting
+namespace Kledex.Examples.Reporting
 {
     public static class FakeReadDatabase
     {

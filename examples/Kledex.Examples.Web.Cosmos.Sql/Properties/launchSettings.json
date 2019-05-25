@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "OpenCqrs.Examples.Web.CosmosDB.Sql": {
+    "Kledex.Examples.Web.CosmosDB.Sql": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

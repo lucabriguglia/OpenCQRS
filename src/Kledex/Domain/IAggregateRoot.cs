@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     public interface IAggregateRoot
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     public interface IDomainCommandHandlerAsync<in TCommand> where TCommand : IDomainCommand
     {

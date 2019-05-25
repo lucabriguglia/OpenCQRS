@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.EF
+﻿namespace Kledex.Store.EF
 {
     public static class Constants
     {

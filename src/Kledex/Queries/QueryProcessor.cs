@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using OpenCqrs.Dependencies;
+using Kledex.Dependencies;
 
-namespace OpenCqrs.Queries
+namespace Kledex.Queries
 {
     /// <inheritdoc />
     public class QueryProcessor : IQueryProcessor

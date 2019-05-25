@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Configuration
+﻿namespace Kledex.Configuration
 {
     public class Options
     {

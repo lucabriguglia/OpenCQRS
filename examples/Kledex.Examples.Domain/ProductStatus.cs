@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Examples.Domain
+﻿namespace Kledex.Examples.Domain
 {
     public enum ProductStatus
     {

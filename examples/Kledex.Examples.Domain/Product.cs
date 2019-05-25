@@ -1,8 +1,8 @@
 ﻿using System;
-using OpenCqrs.Domain;
-using OpenCqrs.Examples.Domain.Events;
+using Kledex.Domain;
+using Kledex.Examples.Domain.Events;
 
-namespace OpenCqrs.Examples.Domain
+namespace Kledex.Examples.Domain
 {
     public class Product : AggregateRoot
     {

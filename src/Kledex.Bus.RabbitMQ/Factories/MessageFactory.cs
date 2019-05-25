@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 
-namespace OpenCqrs.Bus.RabbitMQ.Factories
+namespace Kledex.Bus.RabbitMQ.Factories
 {
     public class MessageFactory : IMessageFactory
     {

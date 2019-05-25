@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Exceptions;
+﻿using Kledex.Exceptions;
 
-namespace OpenCqrs.Dependencies
+namespace Kledex.Dependencies
 {
     public class HandlerResolver : IHandlerResolver
     {

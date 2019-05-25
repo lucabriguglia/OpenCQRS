@@ -1,8 +1,8 @@
 ﻿using System;
-using OpenCqrs.Bus;
-using OpenCqrs.Domain;
+using Kledex.Bus;
+using Kledex.Domain;
 
-namespace OpenCqrs.Examples.Domain.Events
+namespace Kledex.Examples.Domain.Events
 {
     public class ProductCreatedBusMessage : DomainEvent, IBusTopicMessage
     {

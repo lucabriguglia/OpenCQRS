@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kledex.Commands;
+using Kledex.Dependencies;
+using Kledex.Domain;
+using Kledex.Events;
+using Kledex.Tests.Fakes;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using OpenCqrs.Commands;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Domain;
-using OpenCqrs.Events;
-using OpenCqrs.Tests.Fakes;
-using Options = OpenCqrs.Configuration.Options;
+using Options = Kledex.Configuration.Options;
 
-namespace OpenCqrs.Tests.Domain
+namespace Kledex.Tests.Domain
 {
     [TestFixture]
     public class DomainCommandSenderAsyncTests

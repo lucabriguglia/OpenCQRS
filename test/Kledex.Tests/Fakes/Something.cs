@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Tests.Fakes
+﻿namespace Kledex.Tests.Fakes
 {
     public class Something
     {       

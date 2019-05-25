@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCqrs.Examples.Reporting
+namespace Kledex.Examples.Reporting
 {
     public class ProductViewModel
     {

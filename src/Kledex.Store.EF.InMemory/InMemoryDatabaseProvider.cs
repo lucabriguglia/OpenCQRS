@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace OpenCqrs.Store.EF.InMemory
+namespace Kledex.Store.EF.InMemory
 {
     public class InMemoryDatabaseProvider : IDatabaseProvider
     {

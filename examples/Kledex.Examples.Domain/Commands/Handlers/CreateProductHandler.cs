@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenCqrs.Domain;
+using Kledex.Domain;
 
-namespace OpenCqrs.Examples.Domain.Commands.Handlers
+namespace Kledex.Examples.Domain.Commands.Handlers
 {
     public class CreateProductHandler : IDomainCommandHandlerAsync<CreateProduct>
     {

@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "OpenCqrs.Examples.Web.EF.SqlServer": {
+    "Kledex.Examples.Web.EF.SqlServer": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Kledex.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Extensions;
 
-namespace OpenCqrs.Store.EF.Extensions
+namespace Kledex.Store.EF.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IOpenCqrsAppBuilder EnsureDomainDbCreated(this IOpenCqrsAppBuilder builder)
+        public static IKledexAppBuilder EnsureDomainDbCreated(this IKledexAppBuilder builder)
         {
             using (var serviceScope = builder.App.ApplicationServices.CreateScope())
             {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace OpenCqrs.Examples.Web.Cosmos.Sql
+namespace Kledex.Examples.Web.Cosmos.Sql
 {
     public class Program
     {

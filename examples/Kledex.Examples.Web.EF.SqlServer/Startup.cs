@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Kledex.Bus.RabbitMQ.Extensions;
+using Kledex.Examples.Domain.Commands;
+using Kledex.Examples.Reporting.Queries;
+using Kledex.Examples.Shared;
+using Kledex.Extensions;
+using Kledex.Store.EF.Extensions;
+using Kledex.Store.EF.SqlServer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Bus.RabbitMQ.Extensions;
-using OpenCqrs.Bus.ServiceBus.Extensions;
-using OpenCqrs.Examples.Domain.Commands;
-using OpenCqrs.Examples.Reporting.Queries;
-using OpenCqrs.Examples.Shared;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.EF.Extensions;
-using OpenCqrs.Store.EF.SqlServer;
 
-namespace OpenCqrs.Examples.Web.EF.SqlServer
+namespace Kledex.Examples.Web.EF.SqlServer
 {
     public class Startup
     {
@@ -31,7 +30,7 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
             services.AddHttpContextAccessor();
 
             services
-                .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+                .AddKledex(typeof(CreateProduct), typeof(GetProduct))
                 .AddOptions(opt =>
                 {
                     opt.PublishEvents = true;
@@ -44,8 +43,8 @@ namespace OpenCqrs.Examples.Web.EF.SqlServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDispatcher dispatcher)
         {
-            // Ensure OpenCqrs database is installed.
-            app.UseOpenCqrs().EnsureDomainDbCreated();
+            // Ensure Kledex database is installed.
+            app.UseKledex().EnsureDomainDbCreated();
 
             if (env.IsDevelopment())
             {

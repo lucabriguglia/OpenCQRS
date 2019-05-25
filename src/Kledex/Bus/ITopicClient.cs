@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OpenCqrs.Bus
+namespace Kledex.Bus
 {
     /// <summary>
     /// ITopicClient

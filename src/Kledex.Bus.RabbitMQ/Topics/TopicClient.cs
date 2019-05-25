@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Bus.RabbitMQ.Factories;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.RabbitMQ.Factories;
 using RabbitMQ.Client;
 
 // ReSharper disable StringLiteralTypo
 
-namespace OpenCqrs.Bus.RabbitMQ.Topics
+namespace Kledex.Bus.RabbitMQ.Topics
 {
     public class TopicClient : ITopicClient
     {

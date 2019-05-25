@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Documents
+namespace Kledex.Store.Cosmos.Sql.Documents
 {
     public class EventDocument
     {

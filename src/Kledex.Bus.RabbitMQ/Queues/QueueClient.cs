@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Bus.RabbitMQ.Factories;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.RabbitMQ.Factories;
 using RabbitMQ.Client;
 
-namespace OpenCqrs.Bus.RabbitMQ.Queues
+namespace Kledex.Bus.RabbitMQ.Queues
 {
     public class QueueClient : IQueueClient
     {

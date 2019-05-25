@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.Cosmos.Sql.Documents;
-using OpenCqrs.Store.Cosmos.Sql.Documents.Factories;
-using OpenCqrs.Store.Cosmos.Sql.Repositories;
+using Kledex.Domain;
+using Kledex.Store.Cosmos.Sql.Documents;
+using Kledex.Store.Cosmos.Sql.Documents.Factories;
+using Kledex.Store.Cosmos.Sql.Repositories;
 
-namespace OpenCqrs.Store.Cosmos.Sql
+namespace Kledex.Store.Cosmos.Sql
 {
     /// <inheritdoc />
     internal class AggregateStore : IAggregateStore

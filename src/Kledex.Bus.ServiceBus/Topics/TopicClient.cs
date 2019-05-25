@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Bus.ServiceBus.Factories;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.ServiceBus.Factories;
 
-namespace OpenCqrs.Bus.ServiceBus.Topics
+namespace Kledex.Bus.ServiceBus.Topics
 {
     public class TopicClient : ITopicClient
     {

@@ -1,16 +1,16 @@
 ﻿using System.Threading.Tasks;
+using Kledex.Extensions;
+using Kledex.Store.Cosmos.Sql.Configuration;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.Cosmos.Sql.Configuration;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Extensions
+namespace Kledex.Store.Cosmos.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IOpenCqrsAppBuilder EnsureCosmosDbSqlDbCreated(this IOpenCqrsAppBuilder builder, IOptions<DomainDbConfiguration> settings)
+        public static IKledexAppBuilder EnsureCosmosDbSqlDbCreated(this IKledexAppBuilder builder, IOptions<DomainDbConfiguration> settings)
         {
             var documentClient = builder.App.ApplicationServices.GetService<IDocumentClient>();
 

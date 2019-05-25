@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Store.EF
+﻿namespace Kledex.Store.EF
 {
     public interface IDomainDbContextFactory
     {

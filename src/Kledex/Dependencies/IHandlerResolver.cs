@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Dependencies
+﻿namespace Kledex.Dependencies
 {
     public interface IHandlerResolver
     {

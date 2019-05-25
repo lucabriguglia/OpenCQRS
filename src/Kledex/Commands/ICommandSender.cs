@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OpenCqrs.Commands
+namespace Kledex.Commands
 {
     /// <summary>
     /// ICommandSender
@@ -9,7 +9,7 @@ namespace OpenCqrs.Commands
     {
         /// <summary>
         /// Asynchronously sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
+        /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
@@ -19,7 +19,7 @@ namespace OpenCqrs.Commands
 
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandler&lt;TCommand&gt;.
+        /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>

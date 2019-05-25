@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenCqrs.Commands;
+using Kledex.Commands;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     public abstract class DomainCommand : Command, IDomainCommand
     {

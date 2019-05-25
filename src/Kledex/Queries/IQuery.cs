@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Queries
+﻿namespace Kledex.Queries
 {
     public interface IQuery
     {

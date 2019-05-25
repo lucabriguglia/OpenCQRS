@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using OpenCqrs.Domain;
+﻿using Kledex.Domain;
+using Newtonsoft.Json;
 
-namespace OpenCqrs.Store.EF.Entities.Factories
+namespace Kledex.Store.EF.Entities.Factories
 {
     public class EventEntityFactory : IEventEntityFactory
     {

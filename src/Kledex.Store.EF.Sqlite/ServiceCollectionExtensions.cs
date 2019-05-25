@@ -1,15 +1,15 @@
 ﻿using System;
+using Kledex.Extensions;
+using Kledex.Store.EF.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.EF.Extensions;
 
-namespace OpenCqrs.Store.EF.Sqlite
+namespace Kledex.Store.EF.Sqlite
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsServiceBuilder AddSqliteProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddSqliteProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

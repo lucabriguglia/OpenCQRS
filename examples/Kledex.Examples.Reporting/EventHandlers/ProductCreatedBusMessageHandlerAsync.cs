@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using OpenCqrs.Events;
-using OpenCqrs.Examples.Domain.Events;
+using Kledex.Events;
+using Kledex.Examples.Domain.Events;
 
-namespace OpenCqrs.Examples.Reporting.EventHandlers
+namespace Kledex.Examples.Reporting.EventHandlers
 {
     public class ProductCreatedBusMessageHandlerAsync : IEventHandlerAsync<ProductCreatedBusMessage>
     {

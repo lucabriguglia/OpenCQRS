@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Kledex.Store.Cosmos.Mongo.Configuration;
+using Kledex.Store.Cosmos.Mongo.Documents;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using OpenCqrs.Store.Cosmos.Mongo.Configuration;
-using OpenCqrs.Store.Cosmos.Mongo.Documents;
 
-namespace OpenCqrs.Store.Cosmos.Mongo
+namespace Kledex.Store.Cosmos.Mongo
 {
     public class DomainDbContext
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     public interface IEntity
     {

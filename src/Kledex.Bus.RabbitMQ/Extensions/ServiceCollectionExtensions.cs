@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Kledex.Bus.RabbitMQ.Factories;
+using Kledex.Bus.RabbitMQ.Queues;
+using Kledex.Bus.RabbitMQ.Topics;
+using Kledex.Extensions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Bus.RabbitMQ.Factories;
-using OpenCqrs.Bus.RabbitMQ.Queues;
-using OpenCqrs.Bus.RabbitMQ.Topics;
-using OpenCqrs.Extensions;
 
 // ReSharper disable InconsistentNaming
 
-namespace OpenCqrs.Bus.RabbitMQ.Extensions
+namespace Kledex.Bus.RabbitMQ.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -17,7 +17,7 @@ namespace OpenCqrs.Bus.RabbitMQ.Extensions
         /// <param name="builder">The builder.</param>
         /// <param name="configuration">The configuration.</param>
         /// <returns></returns>
-        public static IOpenCqrsServiceBuilder AddRabbitMQProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddRabbitMQProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             builder.Services
                 .Configure<ServiceBusConfiguration>(configuration.GetSection("RabbitMQConfiguration"));

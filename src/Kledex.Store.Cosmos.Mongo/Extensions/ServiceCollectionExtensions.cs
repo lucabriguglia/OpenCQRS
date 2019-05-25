@@ -1,16 +1,16 @@
 ﻿using System;
+using Kledex.Domain;
+using Kledex.Extensions;
+using Kledex.Store.Cosmos.Mongo.Configuration;
+using Kledex.Store.Cosmos.Mongo.Documents.Factories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCqrs.Domain;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.Cosmos.Mongo.Configuration;
-using OpenCqrs.Store.Cosmos.Mongo.Documents.Factories;
 
-namespace OpenCqrs.Store.Cosmos.Mongo.Extensions
+namespace Kledex.Store.Cosmos.Mongo.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IOpenCqrsServiceBuilder AddCosmosDbMongoDbProvider(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddCosmosDbMongoDbProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

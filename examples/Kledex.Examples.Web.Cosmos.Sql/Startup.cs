@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Kledex.Bus.ServiceBus.Extensions;
+using Kledex.Examples.Domain.Commands;
+using Kledex.Examples.Reporting.Queries;
+using Kledex.Examples.Shared;
+using Kledex.Extensions;
+using Kledex.Store.Cosmos.Sql.Configuration;
+using Kledex.Store.Cosmos.Sql.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Bus.ServiceBus.Extensions;
-using OpenCqrs.Examples.Domain.Commands;
-using OpenCqrs.Examples.Reporting.Queries;
-using OpenCqrs.Examples.Shared;
-using OpenCqrs.Extensions;
-using OpenCqrs.Store.Cosmos.Sql.Configuration;
-using OpenCqrs.Store.Cosmos.Sql.Extensions;
 
-namespace OpenCqrs.Examples.Web.Cosmos.Sql
+namespace Kledex.Examples.Web.Cosmos.Sql
 {
     public class Startup
     {
@@ -31,7 +31,7 @@ namespace OpenCqrs.Examples.Web.Cosmos.Sql
             services.AddHttpContextAccessor();
 
             services
-                .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+                .AddKledex(typeof(CreateProduct), typeof(GetProduct))
                 .AddCosmosDbSqlProvider(Configuration)
                 .AddServiceBusProvider(Configuration);
         }
@@ -44,7 +44,7 @@ namespace OpenCqrs.Examples.Web.Cosmos.Sql
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseOpenCqrs().EnsureCosmosDbSqlDbCreated(settings);
+            app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
 
             // Create a sample product loading data from domain events.
             var product = GettingStarted.CreateProduct(dispatcher).GetAwaiter().GetResult();

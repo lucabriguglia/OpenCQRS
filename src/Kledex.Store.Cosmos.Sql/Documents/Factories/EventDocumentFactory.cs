@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using OpenCqrs.Domain;
+﻿using Kledex.Domain;
+using Newtonsoft.Json;
 
-namespace OpenCqrs.Store.Cosmos.Sql.Documents.Factories
+namespace Kledex.Store.Cosmos.Sql.Documents.Factories
 {
     public class EventDocumentFactory : IEventDocumentFactory
     {

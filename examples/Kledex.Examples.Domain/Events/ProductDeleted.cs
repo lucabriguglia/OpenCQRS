@@ -1,6 +1,6 @@
-﻿using OpenCqrs.Domain;
+﻿using Kledex.Domain;
 
-namespace OpenCqrs.Examples.Domain.Events
+namespace Kledex.Examples.Domain.Events
 {
     public class ProductDeleted : DomainEvent
     {

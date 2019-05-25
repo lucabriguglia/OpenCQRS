@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     /// <summary>
     /// ICommandSender
@@ -9,7 +9,7 @@ namespace OpenCqrs.Domain
     {
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithWithDomainEventsAsync&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement Kledex.Commands.ICommandHandlerWithWithDomainEventsAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
@@ -21,7 +21,7 @@ namespace OpenCqrs.Domain
 
         /// <summary>
         /// Sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.
+        /// The command handler must implement Kledex.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>

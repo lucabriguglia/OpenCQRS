@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace OpenCqrs.Store.EF.SqlServer
+namespace Kledex.Store.EF.SqlServer
 {
     public class SqlServerDatabaseProvider : IDatabaseProvider
     {

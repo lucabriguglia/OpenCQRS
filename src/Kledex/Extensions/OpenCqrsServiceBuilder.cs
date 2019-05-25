@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OpenCqrs.Extensions
+namespace Kledex.Extensions
 {
-    public class OpenCqrsServiceBuilder : IOpenCqrsServiceBuilder
+    public class KledexServiceBuilder : IKledexServiceBuilder
     {
         public IServiceCollection Services { get; }
 
-        public OpenCqrsServiceBuilder(IServiceCollection services)
+        public KledexServiceBuilder(IServiceCollection services)
         {
             Services = services ?? throw new ArgumentNullException(nameof(services));
         }

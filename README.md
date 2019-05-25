@@ -1,4 +1,4 @@
-# Kledex
+# Kledex (formerly OpenCQRS)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/Kledex)
 

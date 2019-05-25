@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Dependencies;
+using Kledex.Events;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Events;
-using Options = OpenCqrs.Configuration.Options;
+using Options = Kledex.Configuration.Options;
 
-namespace OpenCqrs.Commands
+namespace Kledex.Commands
 {
     /// <inheritdoc />
     public class CommandSender : ICommandSender

@@ -1,9 +1,9 @@
 ﻿using System;
+using Kledex.Dependencies;
+using Kledex.Store.EF.Configuration;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Store.EF.Configuration;
 
-namespace OpenCqrs.Store.EF
+namespace Kledex.Store.EF
 {
     public class DomainDbContextFactory : IDomainDbContextFactory
     {

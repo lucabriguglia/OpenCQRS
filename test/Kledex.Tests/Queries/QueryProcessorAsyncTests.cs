@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Dependencies;
+using Kledex.Queries;
+using Kledex.Tests.Fakes;
 using Moq;
 using NUnit.Framework;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Queries;
-using OpenCqrs.Tests.Fakes;
 
-namespace OpenCqrs.Tests.Queries
+namespace Kledex.Tests.Queries
 {
     [TestFixture]
     public class QueryProcessorAsyncTests

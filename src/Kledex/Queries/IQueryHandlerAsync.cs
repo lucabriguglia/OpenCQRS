@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OpenCqrs.Queries
+namespace Kledex.Queries
 {
     public interface IQueryHandlerAsync<in TQuery, TResult> where TQuery : IQuery
     {

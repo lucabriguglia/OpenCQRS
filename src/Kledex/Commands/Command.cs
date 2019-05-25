@@ -1,4 +1,4 @@
-﻿namespace OpenCqrs.Commands
+﻿namespace Kledex.Commands
 {
     public class Command : ICommand
     {

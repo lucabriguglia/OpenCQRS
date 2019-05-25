@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 
-namespace OpenCqrs.Extensions
+namespace Kledex.Extensions
 {
-    public class OpenCqrsAppBuilder : IOpenCqrsAppBuilder
+    public class KledexAppBuilder : IKledexAppBuilder
     {
         public IApplicationBuilder App { get; }
 
-        public OpenCqrsAppBuilder(IApplicationBuilder app)
+        public KledexAppBuilder(IApplicationBuilder app)
         {
             App = app ?? throw new ArgumentNullException(nameof(app));
         }

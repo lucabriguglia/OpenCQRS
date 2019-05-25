@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Commands;
+using Kledex.Dependencies;
+using Kledex.Events;
 using Microsoft.Extensions.Options;
-using OpenCqrs.Commands;
-using OpenCqrs.Dependencies;
-using OpenCqrs.Events;
-using Options = OpenCqrs.Configuration.Options;
+using Options = Kledex.Configuration.Options;
 
-namespace OpenCqrs.Domain
+namespace Kledex.Domain
 {
     /// <inheritdoc />
     public class DomainCommandSender : IDomainCommandSender

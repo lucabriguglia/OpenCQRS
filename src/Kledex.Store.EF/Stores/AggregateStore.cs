@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Kledex.Domain;
+using Kledex.Store.EF.Entities.Factories;
 using Microsoft.EntityFrameworkCore;
-using OpenCqrs.Domain;
-using OpenCqrs.Store.EF.Entities.Factories;
 
-namespace OpenCqrs.Store.EF.Stores
+namespace Kledex.Store.EF.Stores
 {
     /// <inheritdoc />
     public class AggregateStore : IAggregateStore

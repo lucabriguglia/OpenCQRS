@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace OpenCqrs.Extensions
+namespace Kledex.Extensions
 {
-    public interface IOpenCqrsServiceBuilder
+    public interface IKledexServiceBuilder
     {
         IServiceCollection Services { get; }
     }
