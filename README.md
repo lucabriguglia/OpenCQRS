@@ -1,38 +1,40 @@
-# OpenCQRS
+# Kledex (formerly OpenCQRS)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/opencqrs)
+[![Build status](https://ci.appveyor.com/api/projects/status/p5p80y0fa6e9wbaa?svg=true)](https://ci.appveyor.com/project/lucabriguglia/Kledex)
 
-OpenCQRS is a .NET Core framework for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing with Azure Service Bus and RabbitMQ integration.
+Kledex is a .NET Core framework that can be used to create a simple and clean design by enforcing single responsibility and separation of concerns.
+Its advanced features are ideal for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing.
+Kledex also has Azure Service Bus and RabbitMQ integrations.
 
 ## Nuget Packages
 
 ### Main
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs)
+[![Nuget Package](https://img.shields.io/badge/Kledex-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex)
 
 ### Storage
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Mongo-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Mongo)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.Cosmos.Mongo-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Mongo)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.Cosmos.Sql-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.Cosmos.Sql)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.Cosmos.Sql-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.MySql-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.MySql-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.PostgreSql-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.PostgreSql-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.Sqlite-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.Sqlite-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.SqlServer-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.SqlServer-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.SqlServer)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Store.EF.InMemory-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Store.EF.InMemory)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.InMemory-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.InMemory)
 
 ### Bus
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.ServiceBus-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.ServiceBus)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.ServiceBus-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.ServiceBus)
 
-[![Nuget Package](https://img.shields.io/badge/OpenCqrs.Bus.RabbitMQ-6.1.0-blue.svg)](https://www.nuget.org/packages/OpenCqrs.Bus.RabbitMQ)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.RabbitMQ-1.0.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ)
 
 ## Resources
 
-- [Wiki](https://github.com/OpenCQRS/OpenCQRS/wiki)
-- [Roadmap](https://github.com/OpenCQRS/OpenCQRS/wiki/Roadmap)
+- [Wiki](https://github.com/Kledex/Kledex/wiki)
+- [Roadmap](https://github.com/Kledex/Kledex/wiki/Roadmap)

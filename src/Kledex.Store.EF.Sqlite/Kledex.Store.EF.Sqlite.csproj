@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>SQLite database provider for Kledex domain store.</Description>
+    <PackageTags>$(PackageTags), ef, entity framework, sqlite</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kledex.Store.EF\Kledex.Store.EF.csproj" />
+  </ItemGroup>
+
+</Project>
