@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Store.EF.InMemory", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Bus.RabbitMQ", "src\Kledex.Bus.RabbitMQ\Kledex.Bus.RabbitMQ.csproj", "{BFF4E920-0653-41ED-AB20-4DB9EECD63A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Bus.ServiceBus.Tests", "Kledex.Bus.ServiceBus.Tests\Kledex.Bus.ServiceBus.Tests.csproj", "{781016AA-A751-440D-8F02-A73AA128281A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Bus.ServiceBus.Tests", "test\Kledex.Bus.ServiceBus.Tests\Kledex.Bus.ServiceBus.Tests.csproj", "{781016AA-A751-440D-8F02-A73AA128281A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
