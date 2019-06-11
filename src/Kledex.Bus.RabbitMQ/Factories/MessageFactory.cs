@@ -34,7 +34,7 @@ namespace Kledex.Bus.RabbitMQ.Factories
                 }
             }
 
-            properties.Headers.Add(AssemblyQualifiedNamePropertyName, message.GetType().AssemblyQualifiedName));
+            properties.Headers.Add(AssemblyQualifiedNamePropertyName, message.GetType().AssemblyQualifiedName);
         }
     }
 }
