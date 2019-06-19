@@ -8,6 +8,7 @@ namespace Kledex.Bus.RabbitMQ.Factories
     public class MessageFactory : IMessageFactory
     {
         public static readonly string AssemblyQualifiedNamePropertyName = "AssemblyQualifiedName";
+
         /// <inheritdoc />
         public byte[] CreateMessage<TMessage>(TMessage message) where TMessage : IBusMessage
         {
@@ -16,7 +17,7 @@ namespace Kledex.Bus.RabbitMQ.Factories
             return result;
         }
 
-        public void CreateProperties<TMessage>(TMessage message, IBasicProperties properties) where TMessage : IBusTopicMessage
+        public void PopulateProperties<TMessage>(TMessage message, IBasicProperties properties) where TMessage : IBusTopicMessage
         {
             if (message == null)
                 throw new ArgumentNullException(nameof(message));

@@ -1,7 +1,5 @@
-using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Kledex.Bus;
 using Kledex.Bus.ServiceBus.Factories;
 using Kledex.Bus.ServiceBus.Tests.Fakes;
 

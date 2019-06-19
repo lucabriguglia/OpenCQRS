@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kledex.Bus.ServiceBus.Tests.Fakes
 {

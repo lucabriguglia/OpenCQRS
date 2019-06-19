@@ -14,6 +14,6 @@ namespace Kledex.Bus.RabbitMQ.Factories
         /// <param name="message">The message.</param>
         /// <returns></returns>
         byte[] CreateMessage<TMessage>(TMessage message) where TMessage : IBusMessage;
-        void CreateProperties<TMessage>(TMessage message, IBasicProperties properties) where TMessage : IBusTopicMessage;
+        void PopulateProperties<TMessage>(TMessage message, IBasicProperties properties) where TMessage : IBusTopicMessage;
     }
 }

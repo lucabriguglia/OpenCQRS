@@ -23,7 +23,6 @@ namespace Kledex.Bus.ServiceBus.Factories
                 {
                     // We could use reflexion here, but i believe we should bet on performace and simplicity.
                     // If not, then we can consider adding more of this properties
-                    // Last note, we should do the same for rabbit.
                     if (prop.Key == nameof(serviceBusMessage.Label))
                         serviceBusMessage.Label = message.Properties[prop.Key] as string;
                     else if (prop.Key == nameof(serviceBusMessage.SessionId))
