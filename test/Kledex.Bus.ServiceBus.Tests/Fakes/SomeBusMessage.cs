@@ -1,14 +1,12 @@
 ﻿using System;
-using Kledex.Bus;
-using Kledex.Domain;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Kledex.Tests.Fakes
+namespace Kledex.Bus.ServiceBus.Tests.Fakes
 {
-    public class AggregateCreated : DomainEvent, IBusQueueMessage
+    internal class SomeBusMessage : IBusMessage
     {
         public DateTime? ScheduledEnqueueTimeUtc { get; set; }
-        public string QueueName { get; set; } = "queue-name";
         public IDictionary<string, object> Properties { get; set; }
     }
 }

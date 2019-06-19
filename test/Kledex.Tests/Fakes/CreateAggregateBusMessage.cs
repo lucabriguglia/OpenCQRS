@@ -1,6 +1,7 @@
 ﻿using System;
 using Kledex.Bus;
 using Kledex.Domain;
+using System.Collections.Generic;
 
 namespace Kledex.Tests.Fakes
 {
@@ -8,5 +9,6 @@ namespace Kledex.Tests.Fakes
     {
         public DateTime? ScheduledEnqueueTimeUtc { get; set; }
         public string QueueName { get; set; } = "create-something";
+        public IDictionary<string, object> Properties { get; set; }
     }
 }
