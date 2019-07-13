@@ -36,8 +36,9 @@ namespace Kledex.Bus.RabbitMQ.Topics
                 channel.ExchangeDeclare(exchange: message.TopicName, type: "fanout");
 
                 var body = _messageFactory.CreateMessage(message);
-
-                channel.BasicPublish(exchange: message.TopicName, routingKey: string.Empty, basicProperties: null, body: body);
+                var properties = channel.CreateBasicProperties();
+                _messageFactory.PopulateProperties(message, properties);
+                channel.BasicPublish(exchange: message.TopicName, routingKey: string.Empty, basicProperties: properties, body: body);
             }
 
             return Task.CompletedTask;

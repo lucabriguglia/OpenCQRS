@@ -32,9 +32,9 @@ namespace Kledex.Domain
             var domainEvents = events as IDomainEvent[] ?? events.ToArray();
 
             foreach (var @event in domainEvents)
-                this.AsDynamic().Apply(@event);
-
-            Version = domainEvents.Length;
+            {
+                ApplyEvent(@event);
+            }
         }
 
         /// <summary>
@@ -53,7 +53,13 @@ namespace Kledex.Domain
         protected void AddAndApplyEvent(IDomainEvent @event)
         {
             _events.Add(@event);
+            ApplyEvent(@event);
+        }
+
+        private void ApplyEvent(IDomainEvent @event)
+        {
             this.AsDynamic().Apply(@event);
+            Version++;
         }
     }
 }

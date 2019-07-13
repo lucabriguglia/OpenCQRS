@@ -15,3 +15,10 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'nuget'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'

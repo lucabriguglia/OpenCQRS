@@ -1,6 +1,7 @@
 ﻿using System;
 using Kledex.Bus;
 using Kledex.Domain;
+using System.Collections.Generic;
 
 namespace Kledex.Examples.Domain.Events
 {
@@ -11,5 +12,6 @@ namespace Kledex.Examples.Domain.Events
 
         public DateTime? ScheduledEnqueueTimeUtc { get; set; }
         public string TopicName { get; set; } = "product-created";
+        public IDictionary<string, object> Properties { get; set; }
     }
 }
