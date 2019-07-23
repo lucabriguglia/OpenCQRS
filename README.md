@@ -36,5 +36,5 @@ Kledex also has Azure Service Bus and RabbitMQ integrations.
 
 ## Resources
 
-- [Wiki](https://github.com/Kledex/Kledex/wiki)
-- [Roadmap](https://github.com/Kledex/Kledex/wiki/Roadmap)
+- [Wiki](https://github.com/lucabriguglia/Kledex/wiki)
+- [Roadmap](https://github.com/lucabriguglia/Kledex/wiki/Roadmap)
