@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Kledex.Store.Cosmos.Sql.Repositories
 {
-    internal class CommandRepository : BaseDocumentRepository<CommandDocument>
+    public class CommandRepository : BaseDocumentRepository<CommandDocument>
     {
         public CommandRepository(IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings) 
             : base(settings.Value.CommandCollectionId, documentClient, settings)

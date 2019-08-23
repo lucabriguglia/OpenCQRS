@@ -6,7 +6,7 @@ using Microsoft.Azure.Documents;
 
 namespace Kledex.Store.Cosmos.Sql.Repositories
 {
-    internal interface IDocumentRepository<TDocument> where TDocument : class
+    public interface IDocumentRepository<TDocument> where TDocument : class
     {
         Task<Document> CreateDocumentAsync(TDocument document);
         Task<TDocument> GetDocumentAsync(string documentId);
