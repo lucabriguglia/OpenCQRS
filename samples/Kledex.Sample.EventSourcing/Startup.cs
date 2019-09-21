@@ -1,20 +1,16 @@
-using Kledex.Bus.ServiceBus.Extensions;
-using Kledex.Extensions;
-using Kledex.Sample.NoEventSourcing.Data;
-using Kledex.Sample.NoEventSourcing.Domain;
-using Kledex.Store.Cosmos.Sql.Configuration;
-using Kledex.Store.Cosmos.Sql.Extensions;
-using Kledex.UI.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
-namespace Kledex.Sample.NoEventSourcing
+namespace Kledex.Sample.EventSourcing
 {
     public class Startup
     {
@@ -35,24 +31,13 @@ namespace Kledex.Sample.NoEventSourcing
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<SampleDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SampleDb")));
-
-            services
-                .AddKledex(typeof(Product))
-                .AddCosmosDbSqlProvider(Configuration)
-                .AddServiceBusProvider(Configuration)
-                .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SampleDbContext dbContext, IOptions<DomainDbConfiguration> settings)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            dbContext.Database.EnsureCreated();
-            app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

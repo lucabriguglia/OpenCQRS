@@ -45,6 +45,15 @@ namespace Kledex.Sample.NoEventSourcing.Reporting.Products.Models
             });
         }
 
+        private void Add(ProductWithdrew @event)
+        {
+            Events.Add(new EventModel
+            {
+                Type = "Withdrew",
+                TimeStamp = @event.TimeStamp
+            });
+        }
+
         private void Add(ProductDeleted @event)
         {
             Events.Add(new EventModel

@@ -32,15 +32,22 @@
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@product.Id" class="btn btn-secondary" role="button">Edit</a>
-                    <button type="submit" asp-page-handler="delete"
+                    <button type="submit" asp-page-handler="Delete"
                             asp-route-id="@product.Id" class="btn btn-danger">
                         Delete
                     </button>
                     @if (product.Status == ProductStatus.Draft)
                     {
-                        <button type="submit" asp-page-handler="post"
+                        <button type="submit" asp-page-handler="Publish"
                                 asp-route-id="@product.Id" class="btn btn-primary">
                             Publish
+                        </button>
+                    }
+                    else if (product.Status == ProductStatus.Published)
+                    {
+                        <button type="submit" asp-page-handler="Withdraw"
+                                asp-route-id="@product.Id" class="btn btn-primary">
+                            Withdraw
                         </button>
                     }
                 </td>

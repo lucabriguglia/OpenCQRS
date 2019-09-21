@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Kledex.Sample.NoEventSourcing.Domain.Commands;
 using Kledex.Sample.NoEventSourcing.Reporting.Products;
-using Kledex.Sample.NoEventSourcing.Reporting.Products.Models;
+using Kledex.UI.Models;
+using Kledex.UI.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -21,7 +22,7 @@ namespace Kledex.Sample.NoEventSourcing.Pages
         [BindProperty]
         public Product Product { get; set; }
 
-        public ProductAggregateModel ProductAggregateModel { get; set; }
+        public AggregateModel AggregateModel { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
@@ -30,9 +31,9 @@ namespace Kledex.Sample.NoEventSourcing.Pages
                 ProductId = id
             });
 
-            ProductAggregateModel = await _dispatcher.GetResultAsync<GetEvents, ProductAggregateModel>(new GetEvents
+            AggregateModel = await _dispatcher.GetResultAsync<GetAggregateModel, AggregateModel>(new GetAggregateModel
             {
-                ProductId = id
+                AggregateRootId = id
             });
 
             return Page();

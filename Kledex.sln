@@ -66,7 +66,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Bus.ServiceBus.Tests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{FF129AB8-1B8D-4BAA-AB1F-39D2FA497397}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Sample.NoEventSourcing", "samples\Kledex.Sample.NoEventSourcing\Kledex.Sample.NoEventSourcing.csproj", "{7FC48BED-63CC-4BD0-8A90-27DD4AF7CDCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Sample.NoEventSourcing", "samples\Kledex.Sample.NoEventSourcing\Kledex.Sample.NoEventSourcing.csproj", "{7FC48BED-63CC-4BD0-8A90-27DD4AF7CDCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Sample.EventSourcing", "samples\Kledex.Sample.EventSourcing\Kledex.Sample.EventSourcing.csproj", "{99E0EA26-E961-40A1-A580-BCB255B37838}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.UI", "src\Kledex.UI\Kledex.UI.csproj", "{698A5F31-4E71-46EF-A93F-8B80AAA62F77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -154,6 +158,14 @@ Global
 		{7FC48BED-63CC-4BD0-8A90-27DD4AF7CDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FC48BED-63CC-4BD0-8A90-27DD4AF7CDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC48BED-63CC-4BD0-8A90-27DD4AF7CDCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E0EA26-E961-40A1-A580-BCB255B37838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E0EA26-E961-40A1-A580-BCB255B37838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E0EA26-E961-40A1-A580-BCB255B37838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E0EA26-E961-40A1-A580-BCB255B37838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{698A5F31-4E71-46EF-A93F-8B80AAA62F77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{698A5F31-4E71-46EF-A93F-8B80AAA62F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{698A5F31-4E71-46EF-A93F-8B80AAA62F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{698A5F31-4E71-46EF-A93F-8B80AAA62F77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,6 +191,8 @@ Global
 		{BFF4E920-0653-41ED-AB20-4DB9EECD63A0} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{781016AA-A751-440D-8F02-A73AA128281A} = {54E87113-D720-41C2-A0DE-C4D61FB15AE5}
 		{7FC48BED-63CC-4BD0-8A90-27DD4AF7CDCB} = {FF129AB8-1B8D-4BAA-AB1F-39D2FA497397}
+		{99E0EA26-E961-40A1-A580-BCB255B37838} = {FF129AB8-1B8D-4BAA-AB1F-39D2FA497397}
+		{698A5F31-4E71-46EF-A93F-8B80AAA62F77} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}

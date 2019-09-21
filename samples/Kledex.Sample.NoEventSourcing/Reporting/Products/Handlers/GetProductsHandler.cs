@@ -8,16 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Sample.NoEventSourcing.Reporting.Products.Handlers
 {
-    public class GetAllProductsHandler : IQueryHandlerAsync<GetAllProducts, IList<Product>>
+    public class GetProductsHandler : IQueryHandlerAsync<GetProducts, IList<Product>>
     {
         private readonly SampleDbContext _dbContext;
 
-        public GetAllProductsHandler(SampleDbContext dbContext)
+        public GetProductsHandler(SampleDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<IList<Product>> RetrieveAsync(GetAllProducts query)
+        public async Task<IList<Product>> RetrieveAsync(GetProducts query)
         {
             return await _dbContext.Products.Where(x => x.Status != ProductStatus.Deleted).ToListAsync();
         }

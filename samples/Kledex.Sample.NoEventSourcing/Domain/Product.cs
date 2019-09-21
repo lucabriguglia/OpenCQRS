@@ -33,6 +33,11 @@ namespace Kledex.Sample.NoEventSourcing.Domain
             Status = ProductStatus.Published;
         }
 
+        public void Withdraw()
+        {
+            Status = ProductStatus.Draft;
+        }
+
         public void Delete()
         {
             Status = ProductStatus.Deleted;

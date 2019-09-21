@@ -22,8 +22,8 @@ namespace Kledex.Sample.NoEventSourcing.Pages
 
         public async Task OnGetAsync()
         {
-            var query = new GetAllProducts();
-            Products = await _dispatcher.GetResultAsync<GetAllProducts, IList<Product>>(query);
+            var query = new GetProducts();
+            Products = await _dispatcher.GetResultAsync<GetProducts, IList<Product>>(query);
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(Guid id)
@@ -38,7 +38,7 @@ namespace Kledex.Sample.NoEventSourcing.Pages
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid id)
+        public async Task<IActionResult> OnPostPublishAsync(Guid id)
         {
             var command = new PublishProduct
             {
@@ -46,6 +46,18 @@ namespace Kledex.Sample.NoEventSourcing.Pages
             };
 
             await _dispatcher.SendAsync<PublishProduct, Product>(command);
+
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostWithdrawAsync(Guid id)
+        {
+            var command = new WithdrawProduct
+            {
+                AggregateRootId = id
+            };
+
+            await _dispatcher.SendAsync<WithdrawProduct, Product>(command);
 
             return RedirectToPage();
         }

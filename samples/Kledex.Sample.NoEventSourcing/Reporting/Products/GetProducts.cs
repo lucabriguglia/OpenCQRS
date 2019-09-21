@@ -2,7 +2,7 @@
 
 namespace Kledex.Sample.NoEventSourcing.Reporting.Products
 {
-    public class GetPublishedProducts : IQuery
+    public class GetProducts : IQuery
     {
     }
 }
