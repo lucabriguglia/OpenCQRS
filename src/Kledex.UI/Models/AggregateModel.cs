@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Kledex.Domain;
-using Kledex.UI.Configuration;
 
 namespace Kledex.UI.Models
 {
