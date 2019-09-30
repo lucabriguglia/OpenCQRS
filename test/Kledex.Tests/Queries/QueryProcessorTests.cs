@@ -34,7 +34,7 @@ namespace Kledex.Tests.Queries
                 .Setup(x => x.ResolveHandler<IQueryHandler<GetSomething, Something>>())
                 .Returns(_queryHendler.Object);
 
-            _sut = new QueryProcessor(_handlerResolver.Object);
+            _sut = new QueryProcessor(new Mock<IQueryHandlerResolver>().Object, _handlerResolver.Object);
         }
     
         [Test]

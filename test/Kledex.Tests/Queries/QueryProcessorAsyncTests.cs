@@ -35,7 +35,7 @@ namespace Kledex.Tests.Queries
                 .Setup(x => x.ResolveHandler<IQueryHandlerAsync<GetSomething, Something>>())
                 .Returns(_queryHendler.Object);
 
-            _sut = new QueryProcessor(_handlerResolver.Object);
+            _sut = new QueryProcessor(new Mock<IQueryHandlerResolver>().Object, _handlerResolver.Object);
         }
     
         [Test]
@@ -46,7 +46,7 @@ namespace Kledex.Tests.Queries
         }
 
         [Test]
-        public async Task ProcessAsync_ReturneResult()
+        public async Task ProcessAsync_ReturnResult()
         {
             var result = await _sut.ProcessAsync<GetSomething, Something>(_getSomething);
             Assert.AreEqual(_something, result);

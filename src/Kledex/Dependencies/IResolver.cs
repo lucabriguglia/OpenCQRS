@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Kledex.Dependencies
 {
@@ -6,5 +7,6 @@ namespace Kledex.Dependencies
     {
         T Resolve<T>();
         IEnumerable<T> ResolveAll<T>();
+        object Resolve(Type type);
     }
 }

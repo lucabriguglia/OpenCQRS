@@ -22,5 +22,10 @@ namespace Kledex.Dependencies
         {
             return _serviceProvider.GetServices<T>();
         }
+
+        public object Resolve(Type type)
+        {
+            return _serviceProvider.GetService(type);
+        }
     }
 }

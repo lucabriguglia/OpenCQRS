@@ -60,6 +60,12 @@ namespace Kledex
         }
 
         /// <inheritdoc />
+        public Task<TResult> GetResultAsync<TResult>(IQuery<TResult> query)
+        {
+            return _queryProcessor.ProcessAsync(query);
+        }
+
+        /// <inheritdoc />
         public Task DispatchBusMessageAsync<TMessage>(TMessage message) where TMessage : IBusMessage
         {
             return _busMessageDispatcher.DispatchAsync(message);

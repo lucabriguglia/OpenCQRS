@@ -1,4 +1,5 @@
-﻿using Kledex.Exceptions;
+﻿using System;
+using Kledex.Exceptions;
 
 namespace Kledex.Dependencies
 {
@@ -17,6 +18,16 @@ namespace Kledex.Dependencies
 
             if (handler == null)
                 throw new HandlerNotFoundException(typeof(THandler));
+
+            return handler;
+        }
+
+        public object ResolveHandler(Type handlerType)
+        {
+            var handler = _resolver.Resolve(handlerType);
+
+            if (handler == null)
+                throw new HandlerNotFoundException(handlerType);
 
             return handler;
         }
