@@ -5,7 +5,7 @@ namespace Kledex.Examples.Reporting.Queries
 {
     public class GetProductHandlerAsync : IQueryHandlerAsync<GetProduct, ProductViewModel>
     {
-        public async Task<ProductViewModel> RetrieveAsync(GetProduct query)
+        public async Task<ProductViewModel> HandleAsync(GetProduct query)
         {
             await Task.CompletedTask;
 

@@ -23,7 +23,7 @@ namespace Kledex.Sample.NoEventSourcing.Pages
         public async Task OnGetAsync()
         {
             var query = new GetProducts();
-            Products = await _dispatcher.GetResultAsync<GetProducts, IList<Product>>(query);
+            Products = await _dispatcher.GetResultAsync(query);
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(Guid id)

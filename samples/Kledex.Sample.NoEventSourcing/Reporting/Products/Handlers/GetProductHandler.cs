@@ -16,7 +16,7 @@ namespace Kledex.Sample.NoEventSourcing.Reporting.Products.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<Product> RetrieveAsync(GetProduct query)
+        public async Task<Product> HandleAsync(GetProduct query)
         {
             var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == query.ProductId);
 

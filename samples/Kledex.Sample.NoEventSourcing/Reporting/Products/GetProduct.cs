@@ -1,9 +1,10 @@
 ﻿using System;
 using Kledex.Queries;
+using Kledex.Sample.NoEventSourcing.Domain;
 
 namespace Kledex.Sample.NoEventSourcing.Reporting.Products
 {
-    public class GetProduct : IQuery
+    public class GetProduct : IQuery<Product>
     {
         public Guid ProductId { get; set; }
     }

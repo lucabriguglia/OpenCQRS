@@ -49,7 +49,7 @@ namespace Kledex.Examples.Shared
             });
 
             // Get the view model that should return the title used in the last update.
-            var product = await dispatcher.GetResultAsync<GetProduct, ProductViewModel>(new GetProduct
+            var product = await dispatcher.GetResultAsync<ProductViewModel>(new GetProduct
             {
                 Id = productId
             });

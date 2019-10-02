@@ -14,7 +14,7 @@ namespace Kledex.Tests.Queries
         private IQueryProcessor _sut;
 
         private Mock<IHandlerResolver> _handlerResolver;
-        private Mock<IQueryHandlerAsync<GetSomething, Something>> _queryHendler;
+        private Mock<IQueryHandlerAsync<GetSomething, Something>> _queryHandler;
 
         private GetSomething _getSomething;
         private Something _something;
@@ -25,30 +25,30 @@ namespace Kledex.Tests.Queries
             _getSomething = new GetSomething();
             _something = new Something();
 
-            _queryHendler = new Mock<IQueryHandlerAsync<GetSomething, Something>>();
-            _queryHendler
-                .Setup(x => x.RetrieveAsync(_getSomething))
+            _queryHandler = new Mock<IQueryHandlerAsync<GetSomething, Something>>();
+            _queryHandler
+                .Setup(x => x.HandleAsync(_getSomething))
                 .ReturnsAsync(_something);
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
                 .Setup(x => x.ResolveHandler<IQueryHandlerAsync<GetSomething, Something>>())
-                .Returns(_queryHendler.Object);
+                .Returns(_queryHandler.Object);
 
-            _sut = new QueryProcessor(new Mock<IQueryHandlerResolver>().Object, _handlerResolver.Object);
+            _sut = new QueryProcessor(new Mock<IQueryHandlerResolver>().Object);
         }
     
         [Test]
         public void ProcessAsync_ThrowsException_WhenQueryIsNull()
         {
             _getSomething = null;
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.ProcessAsync<GetSomething, Something>(_getSomething));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.ProcessAsync<Something>(_getSomething));
         }
 
         [Test]
         public async Task ProcessAsync_ReturnResult()
         {
-            var result = await _sut.ProcessAsync<GetSomething, Something>(_getSomething);
+            var result = await _sut.ProcessAsync<Something>(_getSomething);
             Assert.AreEqual(_something, result);
         }      
     }

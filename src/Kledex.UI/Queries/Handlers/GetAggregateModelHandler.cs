@@ -14,7 +14,7 @@ namespace Kledex.UI.Queries.Handlers
             _eventStore = eventStore;
         }
 
-        public async Task<AggregateModel> RetrieveAsync(GetAggregateModel query)
+        public async Task<AggregateModel> HandleAsync(GetAggregateModel query)
         {
             var events = await _eventStore.GetEventsAsync(query.AggregateRootId);
             var aggregate = new AggregateModel(events);

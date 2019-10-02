@@ -17,7 +17,7 @@ namespace Kledex.Sample.NoEventSourcing.Reporting.Products.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IList<Product>> RetrieveAsync(GetAllProducts query)
+        public async Task<IList<Product>> HandleAsync(GetAllProducts query)
         {
             return await _dbContext.Products.Where(x => x.Status != ProductStatus.Deleted).ToListAsync();
         }

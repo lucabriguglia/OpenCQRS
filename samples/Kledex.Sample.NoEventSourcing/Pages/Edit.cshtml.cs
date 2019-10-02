@@ -26,12 +26,12 @@ namespace Kledex.Sample.NoEventSourcing.Pages
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            Product = await _dispatcher.GetResultAsync<GetProduct, Product>(new GetProduct
+            Product = await _dispatcher.GetResultAsync(new GetProduct
             {
                 ProductId = id
             });
 
-            AggregateModel = await _dispatcher.GetResultAsync<GetAggregateModel, AggregateModel>(new GetAggregateModel
+            AggregateModel = await _dispatcher.GetResultAsync(new GetAggregateModel
             {
                 AggregateRootId = id
             });
