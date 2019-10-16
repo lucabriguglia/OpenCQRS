@@ -13,7 +13,7 @@ namespace Kledex.Tests.Queries
     {
         private IQueryProcessor _sut;
 
-        private Mock<IHandlerResolver> _handlerResolver;
+        private Mock<IQueryHandlerResolver> _queryHandlerResolver;
         private Mock<IQueryHandlerAsync<GetSomething, Something>> _queryHandler;
 
         private GetSomething _getSomething;
@@ -30,12 +30,12 @@ namespace Kledex.Tests.Queries
                 .Setup(x => x.HandleAsync(_getSomething))
                 .ReturnsAsync(_something);
 
-            _handlerResolver = new Mock<IHandlerResolver>();
-            _handlerResolver
-                .Setup(x => x.ResolveHandler<IQueryHandlerAsync<GetSomething, Something>>())
+            _queryHandlerResolver = new Mock<IQueryHandlerResolver>();
+            _queryHandlerResolver
+                .Setup(x => x.ResolveHandler(_getSomething, typeof(IQueryHandlerAsync<,>)))
                 .Returns(_queryHandler.Object);
 
-            _sut = new QueryProcessor(new Mock<IQueryHandlerResolver>().Object);
+            _sut = new QueryProcessor(_queryHandlerResolver.Object);
         }
     
         [Test]
