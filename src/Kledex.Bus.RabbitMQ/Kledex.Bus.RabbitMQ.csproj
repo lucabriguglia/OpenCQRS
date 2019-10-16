@@ -5,6 +5,7 @@
     <Description>RabbitMQ provider for Kledex message bus.</Description>
     <PackageTags>$(PackageTags), rabbitmq, messagebus, bus</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

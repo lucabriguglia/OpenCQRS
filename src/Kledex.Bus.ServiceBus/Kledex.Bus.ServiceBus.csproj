@@ -5,6 +5,7 @@
     <Description>Service Bus provider for Kledex message bus.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, azure, servicebus, messagebus, bus</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup>

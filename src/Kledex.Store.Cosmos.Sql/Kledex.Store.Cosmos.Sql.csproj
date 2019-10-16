@@ -5,6 +5,7 @@
     <Description>CosmosDB (DocumentDB) database provider for Kledex domain store.</Description>
     <PackageTags>$(PackageTags), cosmosdb, sql, documentdb</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

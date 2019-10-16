@@ -5,6 +5,7 @@
     <Description>MySQL database provider for Kledex domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, mysql</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

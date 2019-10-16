@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Description>.NET Core library for DDD, CQRS and Event Sourcing.</Description>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

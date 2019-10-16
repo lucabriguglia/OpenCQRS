@@ -5,6 +5,7 @@
     <Description>SQLite database provider for Kledex domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, sqlite</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

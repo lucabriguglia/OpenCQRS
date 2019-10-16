@@ -5,6 +5,7 @@
     <Description>Entity Framework Core database provider for Kledex domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
