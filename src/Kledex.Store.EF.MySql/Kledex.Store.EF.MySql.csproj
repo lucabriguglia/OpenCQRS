@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Description>MySQL database provider for Kledex domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, mysql</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>

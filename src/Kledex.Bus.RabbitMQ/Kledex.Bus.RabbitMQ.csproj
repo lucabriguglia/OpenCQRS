@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Description>RabbitMQ provider for Kledex message bus.</Description>
     <PackageTags>$(PackageTags), rabbitmq, messagebus, bus</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
