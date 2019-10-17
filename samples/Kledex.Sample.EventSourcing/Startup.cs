@@ -1,9 +1,15 @@
+using Kledex.Bus.ServiceBus.Extensions;
+using Kledex.Extensions;
+using Kledex.Samples.EventSourcing.Domain;
+using Kledex.Store.Cosmos.Sql.Extensions;
+using Kledex.UI.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Kledex.Sample.EventSourcing
 {
@@ -28,12 +34,20 @@ namespace Kledex.Sample.EventSourcing
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //services.AddDbContext<SampleDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("SampleDb")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddKledex(typeof(Product))
+                .AddCosmosDbSqlProvider(Configuration)
+                .AddServiceBusProvider(Configuration)
+                .AddUI();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
