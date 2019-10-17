@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Kledex.Sample.NoEventSourcing.Domain.Commands;
-using Kledex.Sample.NoEventSourcing.Reporting.Products;
+using Kledex.Sample.NoEventSourcing.Reporting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

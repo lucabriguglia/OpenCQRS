@@ -6,18 +6,18 @@ using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kledex.Sample.NoEventSourcing.Reporting.Products.Handlers
+namespace Kledex.Sample.NoEventSourcing.Reporting.Handlers
 {
-    public class GetProductsHandler : IQueryHandlerAsync<GetProducts, IList<Product>>
+    public class GetAllProductsHandler : IQueryHandlerAsync<GetAllProducts, IList<Product>>
     {
         private readonly SampleDbContext _dbContext;
 
-        public GetProductsHandler(SampleDbContext dbContext)
+        public GetAllProductsHandler(SampleDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<IList<Product>> HandleAsync(GetProducts query)
+        public async Task<IList<Product>> HandleAsync(GetAllProducts query)
         {
             return await _dbContext.Products.Where(x => x.Status != ProductStatus.Deleted).ToListAsync();
         }

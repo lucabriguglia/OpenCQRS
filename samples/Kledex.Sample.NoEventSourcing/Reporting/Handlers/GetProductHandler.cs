@@ -5,7 +5,7 @@ using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kledex.Sample.NoEventSourcing.Reporting.Products.Handlers
+namespace Kledex.Sample.NoEventSourcing.Reporting.Handlers
 {
     public class GetProductHandler : IQueryHandlerAsync<GetProduct, Product>
     {

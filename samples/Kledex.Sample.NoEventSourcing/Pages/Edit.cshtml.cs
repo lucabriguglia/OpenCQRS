@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Kledex.Sample.NoEventSourcing.Domain.Commands;
-using Kledex.Sample.NoEventSourcing.Reporting.Products;
+using Kledex.Sample.NoEventSourcing.Reporting;
 using Kledex.UI.Models;
 using Kledex.UI.Queries;
 using Microsoft.AspNetCore.Mvc;

@@ -2,9 +2,9 @@
 using Kledex.Queries;
 using Kledex.Sample.NoEventSourcing.Domain;
 
-namespace Kledex.Sample.NoEventSourcing.Reporting.Products
+namespace Kledex.Sample.NoEventSourcing.Reporting
 {
-    public class GetAllProducts : IQuery<IList<Product>>
+    public class GetProducts : IQuery<IList<Product>>
     {
     }
 }
