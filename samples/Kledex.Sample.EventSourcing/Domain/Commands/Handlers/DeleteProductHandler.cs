@@ -5,16 +5,16 @@ using Kledex.Domain;
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 {
-    public class PublishProductHandler : IDomainCommandHandlerAsync<PublishProduct>
+    public class DeleteProductHandler : IDomainCommandHandlerAsync<DeleteProduct>
     {
         private readonly IRepository<Product> _repository;
 
-        public PublishProductHandler(IRepository<Product> repository)
+        public DeleteProductHandler(IRepository<Product> repository)
         {
             _repository = repository;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(PublishProduct command)
+        public async Task<IEnumerable<IDomainEvent>> HandleAsync(DeleteProduct command)
         {
             var product = await _repository.GetByIdAsync(command.AggregateRootId);
 
@@ -23,7 +23,7 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
                 throw new ApplicationException($"Product not found. Id: {command.AggregateRootId}");
             }
 
-            product.Publish();
+            product.Delete();
 
             return product.Events;
         }

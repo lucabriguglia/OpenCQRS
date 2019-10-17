@@ -2,7 +2,7 @@
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands
 {
-    public class CreateProduct : DomainCommand
+    public class UpdateProduct : DomainCommand
     {
         public string Name { get; set; }
         public string Description { get; set; }

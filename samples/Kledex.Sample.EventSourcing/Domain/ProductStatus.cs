@@ -1,4 +1,4 @@
-﻿namespace Kledex.Samples.EventSourcing.Domain
+﻿namespace Kledex.Sample.EventSourcing.Domain
 {
     public enum ProductStatus
     {

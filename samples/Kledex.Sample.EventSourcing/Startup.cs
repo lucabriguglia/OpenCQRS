@@ -1,6 +1,6 @@
 using Kledex.Bus.ServiceBus.Extensions;
 using Kledex.Extensions;
-using Kledex.Samples.EventSourcing.Domain;
+using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Store.Cosmos.Sql.Extensions;
 using Kledex.UI.Extensions;
 using Microsoft.AspNetCore.Builder;

@@ -1,8 +1,8 @@
 ﻿using Kledex.Domain;
 
-namespace Kledex.Sample.EventSourcing.Domain.Commands
+namespace Kledex.Sample.EventSourcing.Domain.Events
 {
-    public class CreateProduct : DomainCommand
+    public class ProductUpdated : DomainEvent
     {
         public string Name { get; set; }
         public string Description { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Kledex.Sample.EventSourcing.Domain.Events
 {
-    public class ProductPublished : DomainEvent
+    public class ProductWithdrew : DomainEvent
     {
     }
 }

@@ -1,50 +1,52 @@
-﻿using System;
-using Kledex.Domain;
-using Kledex.Samples.EventSourcing.Domain.Events;
+﻿using Kledex.Domain;
+using Kledex.Sample.EventSourcing.Domain.Events;
 
-namespace Kledex.Samples.EventSourcing.Domain
+namespace Kledex.Sample.EventSourcing.Domain
 {
     public class Product : AggregateRoot
     {
-        public string Title { get; private set; }
-        public ProductStatus Status { get; private set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public ProductStatus Status { get; set; }
 
         public Product()
-        {            
+        {
         }
 
-        public Product(Guid id, string title) : base(id)
+        public Product(string name, string description, decimal price)
         {
-            if (string.IsNullOrEmpty(title))
-                throw new ApplicationException("Product title is required.");
-
-            // If you want the event to be dispatched to the service bus,
-            // use ProductCreatedBusMessage instead of ProductCreated.
-            // Remember to update the connection string in the ServiceBusConfiguration
-            // section in the appsettings.json file.
             AddAndApplyEvent(new ProductCreated
             {
                 AggregateRootId = Id,
-                Title = title,
+                Name = name,
+                Description = description,
+                Price = price,
                 Status = ProductStatus.Draft
             });
         }
 
-        public void UpdateTitle(string title)
+        public void Update(string name, string description, decimal price)
         {
-            if (string.IsNullOrEmpty(title))
-                throw new ApplicationException("Product title is required.");
-
-            AddAndApplyEvent(new ProductTitleUpdated
+            AddAndApplyEvent(new ProductUpdated
             {
-                AggregateRootId = Id,
-                Title = title
+                Name = name,
+                Description = description,
+                Price = price
             });
         }
 
         public void Publish()
         {
             AddAndApplyEvent(new ProductPublished
+            {
+                AggregateRootId = Id
+            });
+        }
+
+        public void Withdraw()
+        {
+            AddAndApplyEvent(new ProductWithdrew
             {
                 AggregateRootId = Id
             });
@@ -61,20 +63,15 @@ namespace Kledex.Samples.EventSourcing.Domain
         private void Apply(ProductCreated @event)
         {
             Id = @event.AggregateRootId;
-            Title = @event.Title;
+            Name = @event.Name;
+            Description = @event.Description;
+            Price = @event.Price;
             Status = @event.Status;
         }
 
-        private void Apply(ProductCreatedBusMessage @event)
+        private void Apply(ProductDeleted @event)
         {
-            Id = @event.AggregateRootId;
-            Title = @event.Title;
-            Status = @event.Status;
-        }
-
-        private void Apply(ProductTitleUpdated @event)
-        {
-            Title = @event.Title;
+            Status = ProductStatus.Deleted;
         }
 
         private void Apply(ProductPublished @event)
@@ -82,9 +79,16 @@ namespace Kledex.Samples.EventSourcing.Domain
             Status = ProductStatus.Published;
         }
 
-        private void Apply(ProductDeleted @event)
+        private void Apply(ProductUpdated @event)
         {
-            Status = ProductStatus.Deleted;
+            Name = @event.Name;
+            Description = @event.Description;
+            Price = @event.Price;
+        }
+
+        private void Apply(ProductWithdrew @event)
+        {
+            Status = ProductStatus.Draft;
         }
     }
 }

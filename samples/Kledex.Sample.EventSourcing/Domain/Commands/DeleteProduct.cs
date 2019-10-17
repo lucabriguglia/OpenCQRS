@@ -1,10 +1,8 @@
-﻿using System;
-using Kledex.Domain;
+﻿using Kledex.Domain;
 
-namespace Kledex.Samples.EventSourcing.Domain.Commands
+namespace Kledex.Sample.EventSourcing.Domain.Commands
 {
     public class DeleteProduct : DomainCommand
     {
-        public Guid ProductId { get; set; }
     }
 }
