@@ -2,7 +2,7 @@
 using Kledex.Queries;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 
-namespace Kledex.Sample.NoEventSourcing.Reporting.Queries
+namespace Kledex.Sample.EventSourcing.Reporting.Queries
 {
     public class GetPublishedProducts : IQuery<IEnumerable<ProductEntity>>
     {

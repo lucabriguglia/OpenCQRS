@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Kledex.Queries;
 using Kledex.Sample.EventSourcing.Reporting.Data;
-using Kledex.Sample.NoEventSourcing.Reporting.Queries;
+using Kledex.Sample.EventSourcing.Reporting.Queries;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kledex.Sample.NoEventSourcing.Reporting.QueryHandlers
+namespace Kledex.Sample.EventSourcing.Reporting.QueryHandlers
 {
     public class GetProductHandler : IQueryHandlerAsync<GetProduct, ProductEntity>
     {
