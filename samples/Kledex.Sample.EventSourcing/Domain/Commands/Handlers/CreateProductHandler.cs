@@ -15,11 +15,9 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 
         public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
         {
-            var product = new Product(command.Name, command.Description, command.Price);
+            var product = new Product(command.AggregateRootId, command.Name, command.Description, command.Price);
 
-            await _repository.SaveAsync(product);
-
-            return product.Events;
+            return await Task.FromResult(product.Events);
         }
     }
 }

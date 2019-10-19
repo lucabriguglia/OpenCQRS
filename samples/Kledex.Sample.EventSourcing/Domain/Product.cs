@@ -1,5 +1,6 @@
 ﻿using Kledex.Domain;
 using Kledex.Sample.EventSourcing.Domain.Events;
+using System;
 
 namespace Kledex.Sample.EventSourcing.Domain
 {
@@ -14,11 +15,11 @@ namespace Kledex.Sample.EventSourcing.Domain
         {
         }
 
-        public Product(string name, string description, decimal price)
+        public Product(Guid id, string name, string description, decimal price)
         {
             AddAndApplyEvent(new ProductCreated
             {
-                AggregateRootId = Id,
+                AggregateRootId = id,
                 Name = name,
                 Description = description,
                 Price = price,
@@ -30,6 +31,7 @@ namespace Kledex.Sample.EventSourcing.Domain
         {
             AddAndApplyEvent(new ProductUpdated
             {
+                AggregateRootId = Id,
                 Name = name,
                 Description = description,
                 Price = price
