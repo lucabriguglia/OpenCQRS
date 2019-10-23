@@ -18,6 +18,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
+    contents: '**/*.nupkg'
     targetFolder: '$(Build.ArtifactStagingDirectory)' 
 
 - task: PublishBuildArtifacts@1
@@ -30,4 +31,4 @@ steps:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'nuget'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/Release/**/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
