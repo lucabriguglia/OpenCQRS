@@ -1,39 +1,42 @@
 using System;
 using System.Threading.Tasks;
-using Kledex.Dependencies;
 
 namespace Kledex.Queries
 {
     /// <inheritdoc />
     public class QueryProcessor : IQueryProcessor
     {
-        private readonly IHandlerResolver _handlerResolver;
+        private readonly IQueryHandlerResolver _queryHandlerResolver;
 
-        public QueryProcessor(IHandlerResolver handlerResolver)
+        public QueryProcessor(IQueryHandlerResolver queryHandlerResolver)
         {
-            _handlerResolver = handlerResolver;
+            _queryHandlerResolver = queryHandlerResolver;
         }
 
         /// <inheritdoc />
-        public Task<TResult> ProcessAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        public Task<TResult> ProcessAsync<TResult>(IQuery<TResult> query)
         {
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var handler = _handlerResolver.ResolveHandler<IQueryHandlerAsync<TQuery, TResult>>();
+            var handler = _queryHandlerResolver.ResolveHandler(query, typeof(IQueryHandlerAsync<,>));
 
-            return handler.RetrieveAsync(query);
+            var handleMethod = handler.GetType().GetMethod("HandleAsync");
+
+            return (Task<TResult>)handleMethod.Invoke(handler, new object[] { query });
         }
 
         /// <inheritdoc />
-        public TResult Process<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        public TResult Process<TResult>(IQuery<TResult> query)
         {
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var handler = _handlerResolver.ResolveHandler<IQueryHandler<TQuery, TResult>>();
-            
-            return handler.Retrieve(query);
+            var handler = _queryHandlerResolver.ResolveHandler(query, typeof(IQueryHandler<,>));
+
+            var handleMethod = handler.GetType().GetMethod("Handle");
+
+            return (TResult)handleMethod.Invoke(handler, new object[] { query });
         }
     }
 }

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace Kledex.Store.Cosmos.Sql
 {
     /// <inheritdoc />
-    internal class EventStore : IEventStore
+    public class EventStore : IEventStore
     {
         private readonly IDocumentRepository<EventDocument> _eventRepository;
         private readonly IEventDocumentFactory _eventDocumentFactory;

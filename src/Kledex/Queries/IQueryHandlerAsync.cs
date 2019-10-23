@@ -2,8 +2,8 @@
 
 namespace Kledex.Queries
 {
-    public interface IQueryHandlerAsync<in TQuery, TResult> where TQuery : IQuery
+    public interface IQueryHandlerAsync<in TQuery, TResult> where TQuery : IQuery<TResult>
     {
-        Task<TResult> RetrieveAsync(TQuery query);
+        Task<TResult> HandleAsync(TQuery query);
     }
 }

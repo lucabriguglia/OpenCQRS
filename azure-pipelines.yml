@@ -13,17 +13,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- task: CopyFiles@2
-  inputs:
-    targetFolder: '$(Build.ArtifactStagingDirectory)' 
-
 - task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: drop
 
 - task: NuGetCommand@2
   inputs:

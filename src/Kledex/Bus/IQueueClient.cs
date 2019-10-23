@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Kledex.Bus
 {
@@ -14,5 +15,13 @@ namespace Kledex.Bus
         /// <param name="message">The message.</param>
         /// <returns></returns>
         Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage;
+    }
+
+    public class DefaultQueueClient : IQueueClient
+    {
+        public Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage
+        {
+            throw new NotImplementedException(Consts.BusRequiredMessage);
+        }
     }
 }

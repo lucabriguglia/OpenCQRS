@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace Kledex.Store.Cosmos.Sql
 {
     /// <inheritdoc />
-    internal class CommandStore : ICommandStore
+    public class CommandStore : ICommandStore
     {
         private readonly IDocumentRepository<CommandDocument> _commandRepository;
         private readonly ICommandDocumentFactory _commandDocumentFactory;

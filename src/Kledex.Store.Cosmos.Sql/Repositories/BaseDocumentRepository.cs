@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace Kledex.Store.Cosmos.Sql.Repositories
 {
-    internal abstract class BaseDocumentRepository<TDocument> : IDocumentRepository<TDocument> where TDocument : class
+    public abstract class BaseDocumentRepository<TDocument> : IDocumentRepository<TDocument> where TDocument : class
     {
         private readonly IDocumentClient _documentClient;
         private readonly string _databaseId;

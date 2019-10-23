@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Kledex.Store.Cosmos.Sql.Repositories
 {
-    internal class AggregateRepository : BaseDocumentRepository<AggregateDocument>
+    public class AggregateRepository : BaseDocumentRepository<AggregateDocument>
     {
         public AggregateRepository(IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings) 
             : base(settings.Value.AggregateCollectionId, documentClient, settings)

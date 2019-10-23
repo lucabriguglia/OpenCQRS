@@ -54,9 +54,9 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task<TResult> GetResultAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        public Task<TResult> GetResultAsync<TResult>(IQuery<TResult> query)
         {
-            return _queryProcessor.ProcessAsync<TQuery, TResult>(query);
+            return _queryProcessor.ProcessAsync(query);
         }
 
         /// <inheritdoc />
@@ -86,9 +86,9 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public TResult GetResult<TQuery, TResult>(TQuery query) where TQuery : IQuery
+        public TResult GetResult<TResult>(IQuery<TResult> query)
         {
-            return _queryProcessor.Process<TQuery, TResult>(query);
+            return _queryProcessor.Process(query);
         }
     }
 }

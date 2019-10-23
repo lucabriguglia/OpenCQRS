@@ -2,7 +2,7 @@
 
 namespace Kledex.Tests.Fakes
 {
-    public class GetSomething : IQuery
+    public class GetSomething : IQuery<Something>
     {
     }
 }
