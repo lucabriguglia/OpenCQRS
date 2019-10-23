@@ -39,4 +39,27 @@ namespace Kledex.Domain
         /// <returns></returns>
         IEnumerable<DomainEvent> GetEvents(Guid aggregateId);
     }
+
+    public class DefaultEventStore : IEventStore
+    {
+        public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
+        public Task<IEnumerable<DomainEvent>> GetEventsAsync(Guid aggregateId)
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
+        public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion = null) where TAggregate : IAggregateRoot
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
+        public Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion = null) where TAggregate : IAggregateRoot
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+    }
 }

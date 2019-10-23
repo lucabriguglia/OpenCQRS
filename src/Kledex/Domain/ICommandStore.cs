@@ -37,4 +37,27 @@ namespace Kledex.Domain
         /// <returns></returns>
         IEnumerable<DomainCommand> GetCommands(Guid aggregateId);      
     }
+
+    public class DefaultCommandStore : ICommandStore
+    {
+        public IEnumerable<DomainCommand> GetCommands(Guid aggregateId)
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
+        public Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId)
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
+        public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
+        public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+    }
 }
