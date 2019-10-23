@@ -23,4 +23,4 @@ steps:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'nuget'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.Sources.*.nupkg'
