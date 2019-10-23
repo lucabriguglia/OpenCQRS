@@ -18,13 +18,18 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: '**/*.nupkg'
     targetFolder: '$(Build.ArtifactStagingDirectory)' 
 
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: drop
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    packDestination: '$(Build.ArtifactStagingDirectory)'
 
 - task: NuGetCommand@2
   inputs:
