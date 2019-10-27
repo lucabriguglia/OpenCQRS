@@ -22,7 +22,7 @@ namespace Kledex.Store.EF.Stores
         }
 
         /// <inheritdoc />
-        public async Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public async Task SaveCommandAsync(IDomainCommand command)
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
@@ -33,7 +33,7 @@ namespace Kledex.Store.EF.Stores
         }
 
         /// <inheritdoc />
-        public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public void SaveCommand(IDomainCommand command)
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
@@ -44,9 +44,9 @@ namespace Kledex.Store.EF.Stores
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId)
+        public async Task<IEnumerable<IDomainCommand>> GetCommandsAsync(Guid aggregateId)
         {
-            var result = new List<DomainCommand>();
+            var result = new List<IDomainCommand>();
 
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
@@ -54,7 +54,7 @@ namespace Kledex.Store.EF.Stores
                 foreach (var command in commands)
                 {
                     var domainCommand = JsonConvert.DeserializeObject(command.Data, Type.GetType(command.Type));
-                    result.Add((DomainCommand)domainCommand);
+                    result.Add((IDomainCommand)domainCommand);
                 }
             }
 
@@ -62,9 +62,9 @@ namespace Kledex.Store.EF.Stores
         }
 
         /// <inheritdoc />
-        public IEnumerable<DomainCommand> GetCommands(Guid aggregateId)
+        public IEnumerable<IDomainCommand> GetCommands(Guid aggregateId)
         {
-            var result = new List<DomainCommand>();
+            var result = new List<IDomainCommand>();
 
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
@@ -72,7 +72,7 @@ namespace Kledex.Store.EF.Stores
                 foreach (var command in commands)
                 {
                     var domainCommand = JsonConvert.DeserializeObject(command.Data, Type.GetType(command.Type));
-                    result.Add((DomainCommand)domainCommand);
+                    result.Add((IDomainCommand)domainCommand);
                 }
             }
 

@@ -34,7 +34,7 @@ namespace Kledex.Sample.EventSourcing.Pages
                 AggregateRootId = id
             };
 
-            await _dispatcher.SendAsync<DeleteProduct, Product>(command);
+            await _dispatcher.SendAsync(command);
 
             return RedirectToPage();
         }
@@ -46,7 +46,7 @@ namespace Kledex.Sample.EventSourcing.Pages
                 AggregateRootId = id
             };
 
-            await _dispatcher.SendAsync<PublishProduct, Product>(command);
+            await _dispatcher.SendAsync(command);
 
             return RedirectToPage();
         }
@@ -58,7 +58,7 @@ namespace Kledex.Sample.EventSourcing.Pages
                 AggregateRootId = id
             };
 
-            await _dispatcher.SendAsync<WithdrawProduct, Product>(command);
+            await _dispatcher.SendAsync(command);
 
             return RedirectToPage();
         }

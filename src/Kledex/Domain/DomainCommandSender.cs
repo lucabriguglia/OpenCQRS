@@ -46,7 +46,7 @@ namespace Kledex.Domain
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandlerAsync<,>));
+            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandlerAsync<>));
             var handleMethod = handler.GetType().GetMethod("HandleAsync");
 
             var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);

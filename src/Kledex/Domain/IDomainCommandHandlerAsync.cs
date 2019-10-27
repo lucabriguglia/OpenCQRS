@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace Kledex.Domain
 {
-    public interface IDomainCommandHandlerAsync<in TCommand, TAggregate> where TCommand : IDomainCommand<TAggregate>
-        where TAggregate : IAggregateRoot
+    public interface IDomainCommandHandlerAsync<in TCommand> 
+        where TCommand : IDomainCommand<IAggregateRoot>
     {
         Task<IEnumerable<IDomainEvent>> HandleAsync(TCommand command);
     }

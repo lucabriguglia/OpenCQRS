@@ -27,7 +27,7 @@ namespace Kledex.Sample.NoEventSourcing.Pages
                 Price = Product.Price
             };
 
-            await _dispatcher.SendAsync<CreateProduct, Product>(command);
+            await _dispatcher.SendAsync(command);
 
             return RedirectToPage("/List");
         }

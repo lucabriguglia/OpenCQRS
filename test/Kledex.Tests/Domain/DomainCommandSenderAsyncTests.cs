@@ -67,7 +67,7 @@ namespace Kledex.Tests.Domain
 
             _commandStore = new Mock<ICommandStore>();
             _commandStore
-                .Setup(x => x.SaveCommandAsync<Aggregate>(_createAggregate))
+                .Setup(x => x.SaveCommandAsync(_createAggregate))
                 .Returns(Task.CompletedTask);
 
             _aggregateStore = new Mock<IAggregateStore>();
@@ -119,41 +119,41 @@ namespace Kledex.Tests.Domain
         public void SendAsync__ThrowsException_WhenCommandIsNull()
         {
             _createAggregate = null;
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync(_createAggregate));
         }
 
         [Test]
         public async Task SendAsync__SendsCommand()
         {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            await _sut.SendAsync(_createAggregate);
             _domainCommandHandlerAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
         }
 
         [Test]
         public async Task SendAsync__SavesAggregate()
         {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            await _sut.SendAsync(_createAggregate);
             _aggregateStore.Verify(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
         }
 
         [Test]
         public async Task SendAsync__SavesCommand()
         {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommandAsync<Aggregate>(_createAggregate), Times.Once);
+            await _sut.SendAsync(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommandAsync(_createAggregate), Times.Once);
         }
 
         [Test]
         public async Task SendAsync__SavesEvents()
         {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            await _sut.SendAsync(_createAggregate);
             _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
         }
 
         [Test]
         public async Task SendAsync__PublishesEvents()
         {
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            await _sut.SendAsync(_createAggregate);
             _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Once);
         }
 
@@ -172,7 +172,7 @@ namespace Kledex.Tests.Domain
                 _eventStore.Object,
                 _optionsMock.Object);
 
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            await _sut.SendAsync(_createAggregate);
             _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Never);
         }
 
@@ -180,7 +180,7 @@ namespace Kledex.Tests.Domain
         public async Task SendAsync__NotPublishesEvents_WhenSetInCommand()
         {
             _createAggregate.PublishEvents = false;
-            await _sut.SendAsync<CreateAggregate, Aggregate>(_createAggregate);
+            await _sut.SendAsync(_createAggregate);
             _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Never);
         }
     }

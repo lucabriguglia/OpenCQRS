@@ -2,7 +2,7 @@
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands
 {
-    public class WithdrawProduct : DomainCommand
+    public class WithdrawProduct : DomainCommand<Product>
     {
     }
 }

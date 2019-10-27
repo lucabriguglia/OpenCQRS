@@ -22,46 +22,46 @@ namespace Kledex.Store.Cosmos.Sql
         }
 
         /// <inheritdoc />
-        public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public Task SaveCommandAsync(IDomainCommand command)
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             return _commandRepository.CreateDocumentAsync(commandDocument);
         }
 
         /// <inheritdoc />
-        public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public void SaveCommand(IDomainCommand command)
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             _commandRepository.CreateDocumentAsync(commandDocument).GetAwaiter().GetResult();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId)
+        public async Task<IEnumerable<IDomainCommand>> GetCommandsAsync(Guid aggregateId)
         {
-            var result = new List<DomainCommand>();
+            var result = new List<IDomainCommand>();
 
             var commands = await _commandRepository.GetDocumentsAsync(d => d.AggregateId == aggregateId);
 
             foreach (var command in commands)
             {
                 var domainCommand = JsonConvert.DeserializeObject(command.Data, Type.GetType(command.Type));
-                result.Add((DomainCommand)domainCommand);
+                result.Add((IDomainCommand)domainCommand);
             }
  
             return result;
         }
 
         /// <inheritdoc />
-        public IEnumerable<DomainCommand> GetCommands(Guid aggregateId)
+        public IEnumerable<IDomainCommand> GetCommands(Guid aggregateId)
         {
-            var result = new List<DomainCommand>();
+            var result = new List<IDomainCommand>();
 
             var commands = _commandRepository.GetDocumentsAsync(d => d.AggregateId == aggregateId).GetAwaiter().GetResult();
 
             foreach (var command in commands)
             {
                 var domainCommand = JsonConvert.DeserializeObject(command.Data, Type.GetType(command.Type));
-                result.Add((DomainCommand)domainCommand);
+                result.Add((IDomainCommand)domainCommand);
             }
 
             return result;

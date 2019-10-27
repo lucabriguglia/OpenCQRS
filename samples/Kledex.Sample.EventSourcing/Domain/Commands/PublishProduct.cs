@@ -2,7 +2,7 @@
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands
 {
-    public class PublishProduct : DomainCommand
+    public class PublishProduct : DomainCommand<Product>
     {
     }
 }

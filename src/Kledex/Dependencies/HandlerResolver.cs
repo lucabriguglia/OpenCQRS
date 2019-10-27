@@ -36,9 +36,9 @@ namespace Kledex.Dependencies
         public object ResolveHandler(object request, Type type)
         {
             var requestType = request.GetType();
-            var queryInterface = requestType.GetInterfaces()[0];
-            var secondArgumentType = queryInterface.GetGenericArguments().FirstOrDefault();
-            var handlerType = type.MakeGenericType(requestType, secondArgumentType);
+            //var queryInterface = requestType.GetInterfaces()[0];
+            //var secondArgumentType = queryInterface.GetGenericArguments().FirstOrDefault();
+            var handlerType = type.MakeGenericType(requestType/*, secondArgumentType*/);
 
             var handler = _resolver.Resolve(handlerType);
 

@@ -50,7 +50,7 @@ namespace Kledex.Sample.EventSourcing.Pages
                 Price = Product.Price
             };
 
-            await _dispatcher.SendAsync<UpdateProduct, Product>(command);
+            await _dispatcher.SendAsync(command);
 
             return RedirectToPage("./Edit", new { id });
         }

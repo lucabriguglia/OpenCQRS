@@ -63,7 +63,7 @@ namespace Kledex.Tests.Domain
 
             _commandStore = new Mock<ICommandStore>();
             _commandStore
-                .Setup(x => x.SaveCommand<Aggregate>(_createAggregate));
+                .Setup(x => x.SaveCommand(_createAggregate));
 
             _aggregateStore = new Mock<IAggregateStore>();
             _aggregateStore
@@ -113,41 +113,41 @@ namespace Kledex.Tests.Domain
         public void Send_ThrowsException_WhenCommandIsNull()
         {
             _createAggregate = null;
-            Assert.Throws<ArgumentNullException>(() => _sut.Send<CreateAggregate, Aggregate>(_createAggregate));
+            Assert.Throws<ArgumentNullException>(() => _sut.Send(_createAggregate));
         }
 
         [Test]
         public void Send_SendsCommand()
         {
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _sut.Send(_createAggregate);
             _domainCommandHandler.Verify(x => x.Handle(_createAggregate), Times.Once);
         }
 
         [Test]
         public void Send_SavesAggregate()
         {
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _sut.Send(_createAggregate);
             _aggregateStore.Verify(x => x.SaveAggregate<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
         }
 
         [Test]
         public void Send_SavesCommand()
         {
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommand<Aggregate>(_createAggregate), Times.Once);
+            _sut.Send(_createAggregate);
+            _commandStore.Verify(x => x.SaveCommand(_createAggregate), Times.Once);
         }
 
         [Test]
         public void Send_SavesEvents()
         {
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _sut.Send(_createAggregate);
             _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
         }
 
         [Test]
         public void Send_PublishesEvents()
         {
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _sut.Send(_createAggregate);
             _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);
         }
 
@@ -166,7 +166,7 @@ namespace Kledex.Tests.Domain
                 _eventStore.Object,
                 _optionsMock.Object);
 
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _sut.Send(_createAggregate);
             _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Never);
         }
 
@@ -174,7 +174,7 @@ namespace Kledex.Tests.Domain
         public void Send_NotPublishesEvents_WhenSetInCommand()
         {
             _createAggregate.PublishEvents = false;
-            _sut.Send<CreateAggregate, Aggregate>(_createAggregate);
+            _sut.Send(_createAggregate);
             _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Never);
         }
     }

@@ -52,12 +52,14 @@ namespace Kledex.Domain
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion = null) where TAggregate : IAggregateRoot
+        public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion = null) 
+            where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion = null) where TAggregate : IAggregateRoot
+        public Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion = null) 
+            where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
