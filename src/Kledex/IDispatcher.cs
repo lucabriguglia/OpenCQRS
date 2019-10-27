@@ -19,19 +19,17 @@ namespace Kledex
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        Task SendAsync<TCommand>(TCommand command)
+        Task SendAsync<TCommand>(TCommand command) 
             where TCommand : ICommand;
 
         /// <summary>
         /// Asynchronously sends the command and the events returned by the handler will be saved to the event store.
         /// The command handler must implement Kledex.Commands.ICommandHandlerWithWithDomainEventsAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        Task SendAsync<TCommand, TAggregate>(TCommand command)
-            where TCommand : IDomainCommand
+        Task SendAsync<TAggregate>(IDomainCommand<TAggregate> command) 
             where TAggregate : IAggregateRoot;
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace Kledex
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
-        Task PublishAsync<TEvent>(TEvent @event)
+        Task PublishAsync<TEvent>(TEvent @event) 
             where TEvent : IEvent;
 
         /// <summary>
@@ -67,18 +65,16 @@ namespace Kledex
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
-        void Send<TCommand>(TCommand command)
+        void Send<TCommand>(TCommand command) 
             where TCommand : ICommand;
 
         /// <summary>
         /// Sends the command and the events returned by the handler will be saved to the event store.
         /// The command handler must implement Kledex.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
-        void Send<TCommand, TAggregate>(TCommand command)
-            where TCommand : IDomainCommand
+        void Send<TAggregate>(IDomainCommand<TAggregate> command) 
             where TAggregate : IAggregateRoot;
 
         /// <summary>
@@ -87,7 +83,7 @@ namespace Kledex
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
-        void Publish<TEvent>(TEvent @event)
+        void Publish<TEvent>(TEvent @event) 
             where TEvent : IEvent;
 
         /// <summary>

@@ -11,6 +11,7 @@ namespace Kledex.Domain
         string UserId { get; set; }
         string Source { get; set; }
         DateTime TimeStamp { get; set; }
-        void Update(IDomainCommand command);
+        void Update<TAggregate>(IDomainCommand<TAggregate> command)
+            where TAggregate : IAggregateRoot;
     }
 }

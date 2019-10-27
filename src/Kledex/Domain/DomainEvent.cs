@@ -11,8 +11,8 @@ namespace Kledex.Domain
         public string UserId { get; set; }
         public string Source { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
-
-        public void Update(IDomainCommand command)
+        public void Update<TAggregate>(IDomainCommand<TAggregate> command)
+            where TAggregate : IAggregateRoot
         {
             CommandId = command.Id;
             UserId = command.UserId;

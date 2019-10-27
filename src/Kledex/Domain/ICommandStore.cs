@@ -12,7 +12,7 @@ namespace Kledex.Domain
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        Task SaveCommandAsync<TAggregate>(IDomainCommand command)
+        Task SaveCommandAsync<TAggregate>(IDomainCommand<TAggregate> command)
             where TAggregate : IAggregateRoot;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Kledex.Domain
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
-        void SaveCommand<TAggregate>(IDomainCommand command) 
+        void SaveCommand<TAggregate>(IDomainCommand<TAggregate> command) 
             where TAggregate : IAggregateRoot;
 
         /// <summary>
@@ -50,12 +50,14 @@ namespace Kledex.Domain
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public void SaveCommand<TAggregate>(IDomainCommand<TAggregate> command) 
+            where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public Task SaveCommandAsync<TAggregate>(IDomainCommand<TAggregate> command) 
+            where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }

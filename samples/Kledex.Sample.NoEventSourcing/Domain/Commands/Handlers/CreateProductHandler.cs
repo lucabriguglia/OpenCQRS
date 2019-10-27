@@ -6,7 +6,7 @@ using Kledex.Sample.NoEventSourcing.Data;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
-    public class CreateProductHandler : IDomainCommandHandlerAsync<CreateProduct>
+    public class CreateProductHandler : IDomainCommandHandlerAsync<CreateProduct, Product>
     {
         private readonly SampleDbContext _dbContext;
 
