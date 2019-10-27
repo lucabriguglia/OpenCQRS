@@ -51,7 +51,6 @@ namespace Kledex.Domain
 
             var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
             var commandTask = _commandStore.SaveCommandAsync(command);
-            //var eventsTask = handler.HandleAsync(command);
             var eventsTask = (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
 
             await Task.WhenAll(aggregateTask, commandTask, eventsTask);
@@ -75,30 +74,28 @@ namespace Kledex.Domain
         public void Send<TAggregate>(IDomainCommand<TAggregate> command)
             where TAggregate : IAggregateRoot
         {
-            throw new NotImplementedException();
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
 
-            //if (command == null)
-            //    throw new ArgumentNullException(nameof(command));
+            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandler<>));
+            var handleMethod = handler.GetType().GetMethod("Handle");
 
-            //var handler = _handlerResolver.ResolveHandler<IDomainCommandHandler<TCommand>>();
+            _aggregateStore.SaveAggregate<TAggregate>(command.AggregateRootId);
+            _commandStore.SaveCommand(command);
+            var events = (IEnumerable<IDomainEvent>)handleMethod.Invoke(handler, new object[] { command });
 
-            //_aggregateStore.SaveAggregate<TAggregate>(command.AggregateRootId);
-            //_commandStore.SaveCommand<TAggregate>(command);
+            var publishEvents = PublishEvents(command);
 
-            //var events = handler.Handle(command);
+            foreach (var @event in events)
+            {
+                @event.Update(command);
+                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
 
-            //var publishEvents = PublishEvents(command);
+                _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
 
-            //foreach (var @event in events)
-            //{
-            //    @event.Update(command);
-            //    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-
-            //    _eventStore.SaveEvent<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
-
-            //    if (publishEvents)
-            //        _eventPublisher.Publish(concreteEvent);
-            //}
+                if (publishEvents)
+                    _eventPublisher.Publish(concreteEvent);
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Kledex.Bus;
 using Kledex.Commands;
-using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Queries;
 
@@ -21,16 +20,6 @@ namespace Kledex
         /// <returns></returns>
         Task SendAsync<TCommand>(TCommand command) 
             where TCommand : ICommand;
-
-        /// <summary>
-        /// Asynchronously sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement Kledex.Commands.ICommandHandlerWithWithDomainEventsAsync&lt;TCommand, TAggregate&gt;.
-        /// </summary>
-        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
-        /// <param name="command">The command.</param>
-        /// <returns></returns>
-        Task SendAsync<TAggregate>(IDomainCommand<TAggregate> command) 
-            where TAggregate : IAggregateRoot;
 
         /// <summary>
         /// Asynchronously publishes the specified event.
@@ -67,15 +56,6 @@ namespace Kledex
         /// <param name="command">The command.</param>
         void Send<TCommand>(TCommand command) 
             where TCommand : ICommand;
-
-        /// <summary>
-        /// Sends the command and the events returned by the handler will be saved to the event store.
-        /// The command handler must implement Kledex.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.
-        /// </summary>
-        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
-        /// <param name="command">The command.</param>
-        void Send<TAggregate>(IDomainCommand<TAggregate> command) 
-            where TAggregate : IAggregateRoot;
 
         /// <summary>
         /// Publishes the specified event.
