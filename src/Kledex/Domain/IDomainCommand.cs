@@ -14,7 +14,7 @@ namespace Kledex.Domain
         bool? SaveCommandData { get; set; }
     }
 
-    public interface IDomainCommand<out TAggregateRoot> : IDomainCommand, ICommand 
+    public interface IDomainCommand<out TAggregateRoot> : IDomainCommand 
         where TAggregateRoot : IAggregateRoot
     {
     }
