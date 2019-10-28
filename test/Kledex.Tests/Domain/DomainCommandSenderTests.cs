@@ -94,6 +94,9 @@ namespace Kledex.Tests.Domain
             _handlerResolver
                 .Setup(x => x.ResolveHandler<IDomainCommandHandler<CreateAggregate>>())
                 .Returns(_domainCommandHandler.Object);
+            _handlerResolver
+                .Setup(x => x.ResolveHandler(_createAggregate, typeof(IDomainCommandHandler<>)))
+                .Returns(_domainCommandHandler.Object);
 
             _optionsMock = new Mock<IOptions<Options>>();
             _optionsMock

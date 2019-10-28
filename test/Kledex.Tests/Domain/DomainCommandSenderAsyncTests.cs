@@ -100,6 +100,9 @@ namespace Kledex.Tests.Domain
             _handlerResolver
                 .Setup(x => x.ResolveHandler<IDomainCommandHandlerAsync<CreateAggregate>>())
                 .Returns(_domainCommandHandlerAsync.Object);
+            _handlerResolver
+                .Setup(x => x.ResolveHandler(_createAggregate, typeof(IDomainCommandHandlerAsync<>)))
+                .Returns(_domainCommandHandlerAsync.Object);
 
             _optionsMock = new Mock<IOptions<Options>>();
             _optionsMock
