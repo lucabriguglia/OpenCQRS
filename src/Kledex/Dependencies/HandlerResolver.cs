@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Kledex.Exceptions;
 
 namespace Kledex.Dependencies
@@ -36,9 +35,7 @@ namespace Kledex.Dependencies
         public object ResolveHandler(object request, Type type)
         {
             var requestType = request.GetType();
-            //var queryInterface = requestType.GetInterfaces()[0];
-            //var secondArgumentType = queryInterface.GetGenericArguments().FirstOrDefault();
-            var handlerType = type.MakeGenericType(requestType/*, secondArgumentType*/);
+            var handlerType = type.MakeGenericType(requestType);
 
             var handler = _resolver.Resolve(handlerType);
 
