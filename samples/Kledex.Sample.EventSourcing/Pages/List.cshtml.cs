@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Domain.Commands;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 using Kledex.Sample.EventSourcing.Reporting.Queries;

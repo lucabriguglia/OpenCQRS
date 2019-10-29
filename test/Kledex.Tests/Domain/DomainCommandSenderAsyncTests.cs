@@ -119,49 +119,49 @@ namespace Kledex.Tests.Domain
         }
 
         [Test]
-        public void SendAsync__ThrowsException_WhenCommandIsNull()
+        public void SendAsync_ThrowsException_WhenCommandIsNull()
         {
             _createAggregate = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync(_createAggregate));
         }
 
         [Test]
-        public async Task SendAsync__SendsCommand()
+        public async Task SendAsync_SendsCommand()
         {
             await _sut.SendAsync(_createAggregate);
             _domainCommandHandlerAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
         }
 
         [Test]
-        public async Task SendAsync__SavesAggregate()
+        public async Task SendAsync_SavesAggregate()
         {
             await _sut.SendAsync(_createAggregate);
             _aggregateStore.Verify(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
         }
 
         [Test]
-        public async Task SendAsync__SavesCommand()
+        public async Task SendAsync_SavesCommand()
         {
             await _sut.SendAsync(_createAggregate);
             _commandStore.Verify(x => x.SaveCommandAsync(_createAggregate), Times.Once);
         }
 
         [Test]
-        public async Task SendAsync__SavesEvents()
+        public async Task SendAsync_SavesEvents()
         {
             await _sut.SendAsync(_createAggregate);
             _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
         }
 
         [Test]
-        public async Task SendAsync__PublishesEvents()
+        public async Task SendAsync_PublishesEvents()
         {
             await _sut.SendAsync(_createAggregate);
             _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]
-        public async Task SendAsync__NotPublishesEvents_WhenSetInOptions()
+        public async Task SendAsync_NotPublishesEvents_WhenSetInOptions()
         {
             _optionsMock
                 .Setup(x => x.Value)
@@ -180,7 +180,7 @@ namespace Kledex.Tests.Domain
         }
 
         [Test]
-        public async Task SendAsync__NotPublishesEvents_WhenSetInCommand()
+        public async Task SendAsync_NotPublishesEvents_WhenSetInCommand()
         {
             _createAggregate.PublishEvents = false;
             await _sut.SendAsync(_createAggregate);

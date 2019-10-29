@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Dependencies;
 using Kledex.Queries;
 using Kledex.Tests.Fakes;
 using Moq;
@@ -42,13 +41,13 @@ namespace Kledex.Tests.Queries
         public void ProcessAsync_ThrowsException_WhenQueryIsNull()
         {
             _getSomething = null;
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.ProcessAsync<Something>(_getSomething));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.ProcessAsync(_getSomething));
         }
 
         [Test]
         public async Task ProcessAsync_ReturnResult()
         {
-            var result = await _sut.ProcessAsync<Something>(_getSomething);
+            var result = await _sut.ProcessAsync(_getSomething);
             Assert.AreEqual(_something, result);
         }      
     }
