@@ -34,21 +34,17 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
+        public Task SendAsync<TCommand>(TCommand command) 
+            where TCommand : ICommand
         {
-            return _commandSender.SendAsync(command);
+            return command is IDomainCommand 
+                ? _domainCommandSender.SendAsync((IDomainCommand<IAggregateRoot>)command) 
+                : _commandSender.SendAsync(command);
         }
 
         /// <inheritdoc />
-        public Task SendAsync<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
-            where TAggregate : IAggregateRoot
-        {
-            return _domainCommandSender.SendAsync<TCommand, TAggregate>(command);
-        }
-
-        /// <inheritdoc />
-        public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
+        public Task PublishAsync<TEvent>(TEvent @event) 
+            where TEvent : IEvent
         {
             return _eventPublisher.PublishAsync(@event);
         }
@@ -60,27 +56,25 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task DispatchBusMessageAsync<TMessage>(TMessage message) where TMessage : IBusMessage
+        public Task DispatchBusMessageAsync<TMessage>(TMessage message) 
+            where TMessage : IBusMessage
         {
             return _busMessageDispatcher.DispatchAsync(message);
         }
 
         /// <inheritdoc />
-        public void Send<TCommand>(TCommand command) where TCommand : ICommand
+        public void Send<TCommand>(TCommand command) 
+            where TCommand : ICommand
         {
-            _commandSender.Send(command);
+            if (command is IDomainCommand)
+                _domainCommandSender.Send((IDomainCommand<IAggregateRoot>)command);
+            else
+                _commandSender.Send(command);
         }
 
         /// <inheritdoc />
-        public void Send<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
-            where TAggregate : IAggregateRoot
-        {
-            _domainCommandSender.Send<TCommand, TAggregate>(command);
-        }
-
-        /// <inheritdoc />
-        public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        public void Publish<TEvent>(TEvent @event) 
+            where TEvent : IEvent
         {
             _eventPublisher.Publish(@event);
         }

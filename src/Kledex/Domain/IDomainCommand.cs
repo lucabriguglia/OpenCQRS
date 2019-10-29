@@ -13,4 +13,9 @@ namespace Kledex.Domain
         int? ExpectedVersion { get; set; }
         bool? SaveCommandData { get; set; }
     }
+
+    public interface IDomainCommand<out TAggregateRoot> : IDomainCommand 
+        where TAggregateRoot : IAggregateRoot
+    {
+    }
 }

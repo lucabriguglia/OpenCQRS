@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kledex.Commands;
 using Kledex.Dependencies;
@@ -39,18 +40,18 @@ namespace Kledex.Domain
         }
 
         /// <inheritdoc />
-        public async Task SendAsync<TCommand, TAggregate>(TCommand command)
-            where TCommand : IDomainCommand
+        public async Task SendAsync<TAggregate>(IDomainCommand<TAggregate> command) 
             where TAggregate : IAggregateRoot
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<IDomainCommandHandlerAsync<TCommand>>();
+            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandlerAsync<>));
+            var handleMethod = handler.GetType().GetMethod("HandleAsync");
 
             var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
-            var commandTask = _commandStore.SaveCommandAsync<TAggregate>(command);
-            var eventsTask = handler.HandleAsync(command);
+            var commandTask = _commandStore.SaveCommandAsync(command);
+            var eventsTask = (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
 
             await Task.WhenAll(aggregateTask, commandTask, eventsTask);
 
@@ -70,19 +71,18 @@ namespace Kledex.Domain
         }
 
         /// <inheritdoc />
-        public void Send<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
+        public void Send<TAggregate>(IDomainCommand<TAggregate> command)
             where TAggregate : IAggregateRoot
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler<IDomainCommandHandler<TCommand>>();
+            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandler<>));
+            var handleMethod = handler.GetType().GetMethod("Handle");
 
             _aggregateStore.SaveAggregate<TAggregate>(command.AggregateRootId);
-            _commandStore.SaveCommand<TAggregate>(command);
-
-            var events = handler.Handle(command);
+            _commandStore.SaveCommand(command);
+            var events = (IEnumerable<IDomainEvent>)handleMethod.Invoke(handler, new object[] { command });
 
             var publishEvents = PublishEvents(command);
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Kledex.Dependencies;
 using Kledex.Queries;
 using Kledex.Tests.Fakes;
 using Moq;
@@ -41,13 +40,13 @@ namespace Kledex.Tests.Queries
         public void Process_ThrowsException_WhenQueryIsNull()
         {
             _getSomething = null;
-            Assert.Throws<ArgumentNullException>(() => _sut.Process<Something>(_getSomething));
+            Assert.Throws<ArgumentNullException>(() => _sut.Process(_getSomething));
         }
 
         [Test]
         public void Process_ReturnsResult()
         {
-            var result = _sut.Process<Something>(_getSomething);
+            var result = _sut.Process(_getSomething);
             Assert.AreEqual(_something, result);
         }      
     }

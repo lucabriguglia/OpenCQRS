@@ -24,23 +24,23 @@ namespace Kledex.Store.Cosmos.Mongo
         }
 
         /// <inheritdoc />
-        public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public Task SaveCommandAsync(IDomainCommand command)
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             return _dbContext.Commands.InsertOneAsync(commandDocument);
         }
 
         /// <inheritdoc />
-        public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public void SaveCommand(IDomainCommand command)
         {
             var commandDocument = _commandDocumentFactory.CreateCommand(command);
             _dbContext.Commands.InsertOne(commandDocument);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId)
+        public async Task<IEnumerable<IDomainCommand>> GetCommandsAsync(Guid aggregateId)
         {
-            var result = new List<DomainCommand>();
+            var result = new List<IDomainCommand>();
 
             var filter = Builders<CommandDocument>.Filter.Eq("aggregateId", aggregateId.ToString());
             var commands = await _dbContext.Commands.Find(filter).ToListAsync();
@@ -48,16 +48,16 @@ namespace Kledex.Store.Cosmos.Mongo
             foreach (var command in commands)
             {
                 var domainCommand = JsonConvert.DeserializeObject(command.Data, Type.GetType(command.Type));
-                result.Add((DomainCommand)domainCommand);
+                result.Add((IDomainCommand)domainCommand);
             }
 
             return result;
         }
 
         /// <inheritdoc />
-        public IEnumerable<DomainCommand> GetCommands(Guid aggregateId)
+        public IEnumerable<IDomainCommand> GetCommands(Guid aggregateId)
         {
-            var result = new List<DomainCommand>();
+            var result = new List<IDomainCommand>();
 
             var filter = Builders<CommandDocument>.Filter.Eq("aggregateId", aggregateId.ToString());
             var commands = _dbContext.Commands.Find(filter).ToList();
@@ -65,7 +65,7 @@ namespace Kledex.Store.Cosmos.Mongo
             foreach (var command in commands)
             {
                 var domainCommand = JsonConvert.DeserializeObject(command.Data, Type.GetType(command.Type));
-                result.Add((DomainCommand)domainCommand);
+                result.Add((IDomainCommand)domainCommand);
             }
 
             return result;

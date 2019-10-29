@@ -9,53 +9,49 @@ namespace Kledex.Domain
         /// <summary>
         /// Saves the command asynchronously.
         /// </summary>
-        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        Task SaveCommandAsync<TAggregate>(IDomainCommand command)
-            where TAggregate : IAggregateRoot;
+        Task SaveCommandAsync(IDomainCommand command);
 
         /// <summary>
         /// Gets the commands asynchronously.
         /// </summary>
         /// <param name="aggregateId">The aggregate identifier.</param>
         /// <returns></returns>
-        Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId);
+        Task<IEnumerable<IDomainCommand>> GetCommandsAsync(Guid aggregateId);
 
         /// <summary>
         /// Saves the command.
         /// </summary>
-        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
-        void SaveCommand<TAggregate>(IDomainCommand command) 
-            where TAggregate : IAggregateRoot;
+        void SaveCommand(IDomainCommand command);
 
         /// <summary>
         /// Gets the commands.
         /// </summary>
         /// <param name="aggregateId">The aggregate identifier.</param>
         /// <returns></returns>
-        IEnumerable<DomainCommand> GetCommands(Guid aggregateId);      
+        IEnumerable<IDomainCommand> GetCommands(Guid aggregateId);      
     }
 
     public class DefaultCommandStore : ICommandStore
     {
-        public IEnumerable<DomainCommand> GetCommands(Guid aggregateId)
+        public IEnumerable<IDomainCommand> GetCommands(Guid aggregateId)
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public Task<IEnumerable<DomainCommand>> GetCommandsAsync(Guid aggregateId)
+        public Task<IEnumerable<IDomainCommand>> GetCommandsAsync(Guid aggregateId)
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public void SaveCommand<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public void SaveCommand(IDomainCommand command)
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public Task SaveCommandAsync<TAggregate>(IDomainCommand command) where TAggregate : IAggregateRoot
+        public Task SaveCommandAsync(IDomainCommand command)
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }

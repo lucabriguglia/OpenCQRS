@@ -2,7 +2,7 @@
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands
 {
-    public class DeleteProduct : DomainCommand
+    public class DeleteProduct : DomainCommand<Product>
     {
     }
 }

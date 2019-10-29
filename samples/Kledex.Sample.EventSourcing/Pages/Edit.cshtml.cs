@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Domain.Commands;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 using Kledex.Sample.EventSourcing.Reporting.Queries;
@@ -50,7 +49,7 @@ namespace Kledex.Sample.EventSourcing.Pages
                 Price = Product.Price
             };
 
-            await _dispatcher.SendAsync<UpdateProduct, Product>(command);
+            await _dispatcher.SendAsync(command);
 
             return RedirectToPage("./Edit", new { id });
         }

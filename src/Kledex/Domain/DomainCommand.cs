@@ -3,7 +3,8 @@ using Kledex.Commands;
 
 namespace Kledex.Domain
 {
-    public abstract class DomainCommand : Command, IDomainCommand
+    public abstract class DomainCommand<TAggregateRoot> : Command, IDomainCommand<TAggregateRoot> 
+        where TAggregateRoot : IAggregateRoot
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid AggregateRootId { get; set; } = Guid.NewGuid();

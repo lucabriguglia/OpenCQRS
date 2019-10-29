@@ -47,10 +47,10 @@ namespace Kledex.Tests
 
             _domainCommandSender = new Mock<IDomainCommandSender>();
             _domainCommandSender
-                .Setup(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate))
+                .Setup(x => x.SendAsync((IDomainCommand<IAggregateRoot>)_createAggregate))
                 .Returns(Task.CompletedTask);
             _domainCommandSender
-                .Setup(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate));
+                .Setup(x => x.Send((IDomainCommand<IAggregateRoot>)_createAggregate));
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
@@ -89,8 +89,8 @@ namespace Kledex.Tests
         [Test]
         public async Task SendsCommandWithAggregateAsync()
         {
-            await _sut.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate);
-            _domainCommandSender.Verify(x => x.SendAsync<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+            await _sut.SendAsync(_createAggregate);
+            _domainCommandSender.Verify(x => x.SendAsync((IDomainCommand<IAggregateRoot>)_createAggregate), Times.Once);
         }
 
         [Test]
@@ -103,8 +103,8 @@ namespace Kledex.Tests
         [Test]
         public void SendsCommandWithAggregate()
         {
-            _sut.Send<IDomainCommand, IAggregateRoot>(_createAggregate);
-            _domainCommandSender.Verify(x => x.Send<IDomainCommand, IAggregateRoot>(_createAggregate), Times.Once);
+            _sut.Send(_createAggregate);
+            _domainCommandSender.Verify(x => x.Send((IDomainCommand<IAggregateRoot>)_createAggregate), Times.Once);
         }
 
         [Test]

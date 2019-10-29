@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Domain.Commands;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +27,7 @@ namespace Kledex.Sample.EventSourcing.Pages
                 Price = Product.Price
             };
 
-            await _dispatcher.SendAsync<CreateProduct, Product>(command);
+            await _dispatcher.SendAsync(command);
 
             return RedirectToPage("/List");
         }
