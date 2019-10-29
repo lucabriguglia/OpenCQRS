@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kledex.Bus;
 using Kledex.Dependencies;
@@ -30,6 +31,14 @@ namespace Kledex.Events
 
             if (@event is IBusMessage message)
                 await _busMessageDispatcher.DispatchAsync(message);
+        }
+
+        public async Task PublishAsync<TEvent>(IEnumerable<TEvent> events) where TEvent : IEvent
+        {
+            foreach (var @event in events)
+            {
+                await PublishAsync(@event);
+            }
         }
 
         /// <inheritdoc />

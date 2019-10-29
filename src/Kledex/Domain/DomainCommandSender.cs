@@ -18,6 +18,7 @@ namespace Kledex.Domain
         private readonly IAggregateStore _aggregateStore;
         private readonly ICommandStore _commandStore;
         private readonly IEventStore _eventStore;
+        private readonly IDomainStore _domainStore;
         private readonly Options _options;
 
         private bool PublishEvents(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
@@ -27,7 +28,8 @@ namespace Kledex.Domain
             IEventFactory eventFactory,
             IAggregateStore aggregateStore,
             ICommandStore commandStore,
-            IEventStore eventStore, 
+            IEventStore eventStore,
+            IDomainStore domainStore,
             IOptions<Options> options)
         {
             _handlerResolver = handlerResolver;
@@ -35,7 +37,8 @@ namespace Kledex.Domain
             _eventFactory = eventFactory;
             _aggregateStore = aggregateStore;
             _commandStore = commandStore;
-            _eventStore = eventStore;            
+            _eventStore = eventStore;
+            _domainStore = domainStore;
             _options = options.Value;
         }
 
@@ -46,27 +49,44 @@ namespace Kledex.Domain
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandlerAsync<>));
+            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandlerAsync2<>));
             var handleMethod = handler.GetType().GetMethod("HandleAsync");
 
-            var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
-            var commandTask = _commandStore.SaveCommandAsync(command);
-            var eventsTask = (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
+            //var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
+            //var commandTask = _commandStore.SaveCommandAsync(command);
+            //var eventsTask = (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
+            var response = await (Task<HandlerResponse>)handleMethod.Invoke(handler, new object[] { command });
 
-            await Task.WhenAll(aggregateTask, commandTask, eventsTask);
+            //await Task.WhenAll(aggregateTask, commandTask, eventsTask);
 
-            var publishEvents = PublishEvents(command);
-            var events = await eventsTask;
+            //var publishEvents = PublishEvents(command);
+            //var events = await eventsTask;
 
-            foreach (var @event in events)
+            var concreteEvents = new List<IDomainEvent>();
+
+            foreach (var @event in response.Events)
             {
                 @event.Update(command);
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
 
-                await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
+                //await _eventStore.SaveEventAsync<TAggregate>((IDomainEvent)concreteEvent, command.ExpectedVersion);
 
-                if (publishEvents)
-                    await _eventPublisher.PublishAsync(concreteEvent);
+                concreteEvents.Add(concreteEvent);
+
+                //if (publishEvents)
+                //    await _eventPublisher.PublishAsync(concreteEvent);
+            }
+
+            await _domainStore.SaveAsync<TAggregate>(new SaveStoreData
+            {
+                Command = command,
+                Events = concreteEvents,
+                Properties = response.Properties
+            });
+
+            if (PublishEvents(command))
+            {
+                await _eventPublisher.PublishAsync(concreteEvents);
             }
         }
 

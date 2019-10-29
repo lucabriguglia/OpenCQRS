@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Kledex.Events
 {
@@ -14,6 +15,9 @@ namespace Kledex.Events
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
         Task PublishAsync<TEvent>(TEvent @event)
+            where TEvent : IEvent;
+
+        Task PublishAsync<TEvent>(IEnumerable<TEvent> events)
             where TEvent : IEvent;
 
         /// <summary>
