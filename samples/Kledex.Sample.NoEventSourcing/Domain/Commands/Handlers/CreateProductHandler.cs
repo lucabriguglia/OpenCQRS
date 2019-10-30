@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Kledex.Domain;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Kledex.Sample.NoEventSourcing.Data;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
@@ -18,6 +20,12 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
         public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
         {
             var product = new Product(command.Name, command.Description, command.Price);
+
+            if (command.Properties.ContainsKey(Consts.DbContextTransactionKey))
+            {
+                var dbContextTransaction = command.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
+                _dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
+            }
 
             _dbContext.Products.Add(product);
 

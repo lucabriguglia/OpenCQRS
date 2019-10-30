@@ -76,7 +76,8 @@ namespace Kledex.Tests
                 _domainCommandSender.Object,
                 _eventPublisher.Object,
                 _queryDispatcher.Object,
-                _busMessageDispatcher.Object);
+                _busMessageDispatcher.Object,
+                new Mock<ITransactionService>().Object);
         }
 
         [Test]

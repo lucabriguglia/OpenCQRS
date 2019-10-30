@@ -132,7 +132,7 @@ namespace Kledex.Store.EF
                     var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
                     await dbContext.Events.AddAsync(newEventEntity);
                 }
-
+                throw new Exception();
                 await dbContext.SaveChangesAsync();
             }
         }

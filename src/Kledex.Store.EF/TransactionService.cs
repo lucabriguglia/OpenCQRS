@@ -1,5 +1,4 @@
-﻿using Kledex.Dependencies;
-using Kledex.Domain;
+﻿using Kledex.Domain;
 using System;
 using System.Threading.Tasks;
 
@@ -8,12 +7,12 @@ namespace Kledex.Store.EF
     public class TransactionService : ITransactionService
     {
         private readonly IDomainDbContextFactory _dbContextFactory;
-        private readonly IResolver _resolver;
+        private readonly IDomainCommandSender _domainCommandSender;
 
-        public TransactionService(IDomainDbContextFactory dbContextFactory, IResolver resolver)
+        public TransactionService(IDomainDbContextFactory dbContextFactory, IDomainCommandSender domainCommandSender)
         {
             _dbContextFactory = dbContextFactory;
-            _resolver = resolver;
+            _domainCommandSender = domainCommandSender;
         }
 
         public void Process<TAggregate>(IDomainCommand<TAggregate> command) where TAggregate : IAggregateRoot
@@ -28,10 +27,7 @@ namespace Kledex.Store.EF
                 using (var transaction = await dbContext.Database.BeginTransactionAsync())
                 {
                     command.Properties.Add(Consts.DbContextTransactionKey, transaction);
-                    var serviceType = typeof(IDomainCommandSender).MakeGenericType();
-                    var service = _resolver.Resolve(serviceType);
-                    var sendMethod = service.GetType().GetMethod("SendAsync");
-                    await (Task)sendMethod.Invoke(service, new object[] { command });
+                    await _domainCommandSender.SendAsync(command);
                 }
             }
         }
