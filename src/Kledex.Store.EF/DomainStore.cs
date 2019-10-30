@@ -39,17 +39,18 @@ namespace Kledex.Store.EF
             throw new NotImplementedException();
         }
 
-        public void Save<TAggregate>(SaveStoreData request) where TAggregate : IAggregateRoot
+        public void Save<TAggregate>(SaveDomainData request) where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException();
         }
 
-        public async Task SaveAsync<TAggregate>(SaveStoreData request) where TAggregate : IAggregateRoot
+        public async Task SaveAsync<TAggregate>(SaveDomainData request) where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                if (request.Properties.Count > 0 && request.Properties[0] is IDbContextTransaction dbContextTransaction)
+                if (request.Properties.ContainsKey(Consts.DbContextTransactionKey))
                 {
+                    var dbContextTransaction = request.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
                     dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
                 }
 

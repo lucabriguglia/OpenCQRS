@@ -5,7 +5,7 @@ namespace Kledex.Sample.NoEventSourcing.Data
 {
     public class SampleDbContext : DbContext
     {
-        public SampleDbContext(DbContextOptions options)
+        public SampleDbContext(DbContextOptions<SampleDbContext> options)
             : base(options)
         {
         }

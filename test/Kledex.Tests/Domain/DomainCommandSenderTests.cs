@@ -109,6 +109,7 @@ namespace Kledex.Tests.Domain
                 _aggregateStore.Object,
                 _commandStore.Object,
                 _eventStore.Object,
+                new Mock<IDomainStore>().Object,
                 _optionsMock.Object);
         }
 
@@ -167,6 +168,7 @@ namespace Kledex.Tests.Domain
                 _aggregateStore.Object,
                 _commandStore.Object,
                 _eventStore.Object,
+                new Mock<IDomainStore>().Object,
                 _optionsMock.Object);
 
             _sut.Send(_createAggregate);

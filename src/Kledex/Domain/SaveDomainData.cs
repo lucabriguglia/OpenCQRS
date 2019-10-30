@@ -2,10 +2,10 @@
 
 namespace Kledex.Domain
 {
-    public class SaveStoreData
+    public class SaveDomainData
     {
         public IDomainCommand Command { get; set; }
         public IList<IDomainEvent> Events { get; set; } = new List<IDomainEvent>();
-        public IList<object> Properties { get; set; } = new List<object>();
+        public IDictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
     }
 }

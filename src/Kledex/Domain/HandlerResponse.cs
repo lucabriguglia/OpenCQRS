@@ -5,6 +5,6 @@ namespace Kledex.Domain
     public class HandlerResponse
     {
         public IList<IDomainEvent> Events { get; set; } = new List<IDomainEvent>();
-        public IList<object> Properties { get; set; } = new List<object>();
+        public IDictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
     }
 }

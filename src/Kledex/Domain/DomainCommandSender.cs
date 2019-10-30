@@ -49,13 +49,13 @@ namespace Kledex.Domain
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandlerAsync2<>));
+            var handler = _handlerResolver.ResolveHandler(command, typeof(IDomainCommandHandlerAsync<>));
             var handleMethod = handler.GetType().GetMethod("HandleAsync");
 
             //var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
             //var commandTask = _commandStore.SaveCommandAsync(command);
             //var eventsTask = (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
-            var response = await (Task<HandlerResponse>)handleMethod.Invoke(handler, new object[] { command });
+            var response = await (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
 
             //await Task.WhenAll(aggregateTask, commandTask, eventsTask);
 
@@ -64,7 +64,7 @@ namespace Kledex.Domain
 
             var concreteEvents = new List<IDomainEvent>();
 
-            foreach (var @event in response.Events)
+            foreach (var @event in response)
             {
                 @event.Update(command);
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
@@ -77,11 +77,11 @@ namespace Kledex.Domain
                 //    await _eventPublisher.PublishAsync(concreteEvent);
             }
 
-            await _domainStore.SaveAsync<TAggregate>(new SaveStoreData
+            await _domainStore.SaveAsync<TAggregate>(new SaveDomainData
             {
                 Command = command,
                 Events = concreteEvents,
-                Properties = response.Properties
+                //Properties = response.Properties
             });
 
             if (PublishEvents(command))
