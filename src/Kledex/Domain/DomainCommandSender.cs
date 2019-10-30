@@ -55,7 +55,7 @@ namespace Kledex.Domain
             //var aggregateTask = _aggregateStore.SaveAggregateAsync<TAggregate>(command.AggregateRootId);
             //var commandTask = _commandStore.SaveCommandAsync(command);
             //var eventsTask = (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
-            var response = await (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
+            var events = await (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
 
             //await Task.WhenAll(aggregateTask, commandTask, eventsTask);
 
@@ -64,7 +64,7 @@ namespace Kledex.Domain
 
             var concreteEvents = new List<IDomainEvent>();
 
-            foreach (var @event in response)
+            foreach (var @event in events)
             {
                 @event.Update(command);
                 var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
