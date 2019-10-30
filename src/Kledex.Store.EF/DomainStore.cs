@@ -2,8 +2,10 @@
 using Kledex.Store.EF.Entities.Factories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kledex.Store.EF
@@ -31,17 +33,76 @@ namespace Kledex.Store.EF
 
         public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
         {
-            throw new NotImplementedException();
+            var result = new List<DomainEvent>();
+
+            using (var dbContext = _dbContextFactory.CreateDbContext())
+            {
+                var events = dbContext.Events
+                    .Where(x => x.AggregateId == aggregateId)
+                    .OrderBy(x => x.Sequence)
+                    .ToList();
+
+                foreach (var @event in events)
+                {
+                    var domainEvent = JsonConvert.DeserializeObject(@event.Data, Type.GetType(@event.Type));
+                    result.Add((DomainEvent)domainEvent);
+                }
+            }
+
+            return result;
         }
 
-        public Task<IEnumerable<DomainEvent>> GetEventsAsync(Guid aggregateId)
+        public async Task<IEnumerable<DomainEvent>> GetEventsAsync(Guid aggregateId)
         {
-            throw new NotImplementedException();
+            var result = new List<DomainEvent>();
+
+            using (var dbContext = _dbContextFactory.CreateDbContext())
+            {
+                var events = await dbContext.Events
+                    .Where(x => x.AggregateId == aggregateId)
+                    .OrderBy(x => x.Sequence)
+                    .ToListAsync();
+
+                foreach (var @event in events)
+                {
+                    var domainEvent = JsonConvert.DeserializeObject(@event.Data, Type.GetType(@event.Type));
+                    result.Add((DomainEvent)domainEvent);
+                }
+            }
+
+            return result;
         }
 
         public void Save<TAggregate>(SaveDomainData request) where TAggregate : IAggregateRoot
         {
-            throw new NotImplementedException();
+            using (var dbContext = _dbContextFactory.CreateDbContext())
+            {
+                if (request.Properties.ContainsKey(Consts.DbContextTransactionKey))
+                {
+                    var dbContextTransaction = request.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
+                    dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
+                }
+
+                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == request.Command.AggregateRootId);
+                if (aggregateEntity == null)
+                {
+                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(request.Command.AggregateRootId);
+                    dbContext.Aggregates.Add(newAggregateEntity);
+                }
+
+                var newCommandEntity = _commandEntityFactory.CreateCommand(request.Command);
+                dbContext.Commands.Add(newCommandEntity);
+
+                foreach (var @event in request.Events)
+                {
+                    var currentVersion = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
+                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, request.Command.ExpectedVersion);
+                    var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
+                    dbContext.Events.Add(newEventEntity);
+                }
+
+                dbContext.SaveChanges();
+            }
         }
 
         public async Task SaveAsync<TAggregate>(SaveDomainData request) where TAggregate : IAggregateRoot
