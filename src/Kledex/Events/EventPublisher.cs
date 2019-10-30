@@ -33,6 +33,7 @@ namespace Kledex.Events
                 await _busMessageDispatcher.DispatchAsync(message);
         }
 
+        /// <inheritdoc />
         public async Task PublishAsync<TEvent>(IEnumerable<TEvent> events) where TEvent : IEvent
         {
             foreach (var @event in events)
@@ -54,6 +55,15 @@ namespace Kledex.Events
 
             if (@event is IBusMessage message)
                 _busMessageDispatcher.DispatchAsync(message).GetAwaiter().GetResult();
+        }
+
+        /// <inheritdoc />
+        public void Publish<TEvent>(IEnumerable<TEvent> events) where TEvent : IEvent
+        {
+            foreach (var @event in events)
+            {
+                Publish(@event);
+            }
         }
     }
 }

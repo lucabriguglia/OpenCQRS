@@ -72,24 +72,25 @@ namespace Kledex.Store.EF
             return result;
         }
 
-        public void Save<TAggregate>(SaveDomainData request) where TAggregate : IAggregateRoot
+        public void Save<TAggregate>(IDomainCommand command, IList<IDomainEvent> events) 
+            where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == request.Command.AggregateRootId);
+                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == command.AggregateRootId);
                 if (aggregateEntity == null)
                 {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(request.Command.AggregateRootId);
+                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
                     dbContext.Aggregates.Add(newAggregateEntity);
                 }
 
-                var newCommandEntity = _commandEntityFactory.CreateCommand(request.Command);
+                var newCommandEntity = _commandEntityFactory.CreateCommand(command);
                 dbContext.Commands.Add(newCommandEntity);
 
-                foreach (var @event in request.Events)
+                foreach (var @event in events)
                 {
                     var currentVersion = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
-                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, request.Command.ExpectedVersion);
+                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command.ExpectedVersion);
                     var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
                     dbContext.Events.Add(newEventEntity);
                 }
@@ -98,24 +99,25 @@ namespace Kledex.Store.EF
             }
         }
 
-        public async Task SaveAsync<TAggregate>(SaveDomainData request) where TAggregate : IAggregateRoot
+        public async Task SaveAsync<TAggregate>(IDomainCommand command, IList<IDomainEvent> events) 
+            where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == request.Command.AggregateRootId);
+                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);
                 if (aggregateEntity == null)
                 {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(request.Command.AggregateRootId);
+                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
                     await dbContext.Aggregates.AddAsync(newAggregateEntity);                    
                 }
 
-                var newCommandEntity = _commandEntityFactory.CreateCommand(request.Command);
+                var newCommandEntity = _commandEntityFactory.CreateCommand(command);
                 await dbContext.Commands.AddAsync(newCommandEntity);
 
-                foreach (var @event in request.Events)
+                foreach (var @event in events)
                 {
                     var currentVersion = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
-                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, request.Command.ExpectedVersion);
+                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command.ExpectedVersion);
                     var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
                     await dbContext.Events.AddAsync(newEventEntity);
                 }

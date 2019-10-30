@@ -61,10 +61,10 @@ namespace Kledex.Tests
 
             _queryDispatcher = new Mock<IQueryProcessor>();
             _queryDispatcher
-                .Setup(x => x.ProcessAsync<Something>(_getSomething))
+                .Setup(x => x.ProcessAsync(_getSomething))
                 .ReturnsAsync(_something);
             _queryDispatcher
-                .Setup(x => x.Process<Something>(_getSomething))
+                .Setup(x => x.Process(_getSomething))
                 .Returns(_something);
 
             _busMessageDispatcher = new Mock<IBusMessageDispatcher>();
@@ -124,15 +124,15 @@ namespace Kledex.Tests
         [Test]
         public async Task GetsResultAsync()
         {
-            await _sut.GetResultAsync<Something>(_getSomething);
-            _queryDispatcher.Verify(x => x.ProcessAsync<Something>(_getSomething), Times.Once);
+            await _sut.GetResultAsync(_getSomething);
+            _queryDispatcher.Verify(x => x.ProcessAsync(_getSomething), Times.Once);
         }
 
         [Test]
         public void GetsResult()
         {
-            _sut.GetResult<Something>(_getSomething);
-            _queryDispatcher.Verify(x => x.Process<Something>(_getSomething), Times.Once);
+            _sut.GetResult(_getSomething);
+            _queryDispatcher.Verify(x => x.Process(_getSomething), Times.Once);
         }
 
         [Test]
