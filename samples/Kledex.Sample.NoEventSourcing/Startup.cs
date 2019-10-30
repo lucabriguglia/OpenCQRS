@@ -3,7 +3,6 @@ using Kledex.Extensions;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Kledex.Store.Cosmos.Sql.Configuration;
-using Kledex.Store.Cosmos.Sql.Extensions;
 using Kledex.Store.EF.Extensions;
 using Kledex.Store.EF.SqlServer;
 using Kledex.UI.Extensions;

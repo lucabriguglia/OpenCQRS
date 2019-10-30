@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using Kledex.Domain;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Kledex.Sample.NoEventSourcing.Data;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {

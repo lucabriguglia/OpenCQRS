@@ -1,5 +1,4 @@
-﻿using Kledex.Domain;
-using Kledex.Extensions;
+﻿using Kledex.Extensions;
 using Kledex.Store.EF.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
