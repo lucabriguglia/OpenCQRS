@@ -77,9 +77,9 @@ namespace Kledex.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                if (request.Properties.ContainsKey(Consts.DbContextTransactionKey))
+                if (request.Command.Properties.ContainsKey(Consts.DbContextTransactionKey))
                 {
-                    var dbContextTransaction = request.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
+                    var dbContextTransaction = request.Command.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
                     dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
                 }
 
@@ -109,9 +109,9 @@ namespace Kledex.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                if (request.Properties.ContainsKey(Consts.DbContextTransactionKey))
+                if (request.Command.Properties.ContainsKey(Consts.DbContextTransactionKey))
                 {
-                    var dbContextTransaction = request.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
+                    var dbContextTransaction = request.Command.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
                     dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
                 }
 

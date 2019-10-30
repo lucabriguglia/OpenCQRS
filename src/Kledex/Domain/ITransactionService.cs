@@ -5,12 +5,23 @@ namespace Kledex.Domain
 {
     public interface ITransactionService
     {
-        Task ProcessAsync();
+        Task ProcessAsync<TAggregate>(IDomainCommand<TAggregate> command)
+            where TAggregate : IAggregateRoot;
+
+        void Process<TAggregate>(IDomainCommand<TAggregate> command)
+            where TAggregate : IAggregateRoot;
     }
 
     public class DefaultTransactionService : ITransactionService
     {
-        public Task ProcessAsync()
+        public void Process<TAggregate>(IDomainCommand<TAggregate> command) 
+            where TAggregate : IAggregateRoot
+        {
+            throw new NotImplementedException(Consts.TransactionServiceRequiredMessage);
+        }
+
+        public Task ProcessAsync<TAggregate>(IDomainCommand<TAggregate> command) 
+            where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException(Consts.TransactionServiceRequiredMessage);
         }

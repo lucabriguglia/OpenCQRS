@@ -80,8 +80,7 @@ namespace Kledex.Domain
             await _domainStore.SaveAsync<TAggregate>(new SaveDomainData
             {
                 Command = command,
-                Events = concreteEvents,
-                //Properties = response.Properties
+                Events = concreteEvents
             });
 
             if (PublishEvents(command))
