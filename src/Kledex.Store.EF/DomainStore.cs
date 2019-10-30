@@ -1,7 +1,6 @@
 ﻿using Kledex.Domain;
 using Kledex.Store.EF.Entities.Factories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -77,12 +76,6 @@ namespace Kledex.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                if (request.Command.Properties.ContainsKey(Consts.DbContextTransactionKey))
-                {
-                    var dbContextTransaction = request.Command.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
-                    dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
-                }
-
                 var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == request.Command.AggregateRootId);
                 if (aggregateEntity == null)
                 {
@@ -109,12 +102,6 @@ namespace Kledex.Store.EF
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                if (request.Command.Properties.ContainsKey(Consts.DbContextTransactionKey))
-                {
-                    var dbContextTransaction = request.Command.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
-                    dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
-                }
-
                 var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == request.Command.AggregateRootId);
                 if (aggregateEntity == null)
                 {
@@ -132,7 +119,7 @@ namespace Kledex.Store.EF
                     var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
                     await dbContext.Events.AddAsync(newEventEntity);
                 }
-                throw new Exception();
+
                 await dbContext.SaveChangesAsync();
             }
         }

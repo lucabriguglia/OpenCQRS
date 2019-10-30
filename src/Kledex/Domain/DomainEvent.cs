@@ -16,7 +16,6 @@ namespace Kledex.Domain
             CommandId = command.Id;
             UserId = command.UserId;
             Source = command.Source;
-            Properties = command.Properties;
         }
     }
 }

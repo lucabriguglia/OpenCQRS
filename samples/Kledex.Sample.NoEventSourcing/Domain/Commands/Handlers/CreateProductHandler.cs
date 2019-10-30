@@ -21,12 +21,6 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
         {
             var product = new Product(command.Name, command.Description, command.Price);
 
-            if (command.Properties.ContainsKey(Consts.DbContextTransactionKey))
-            {
-                var dbContextTransaction = command.Properties[Consts.DbContextTransactionKey] as IDbContextTransaction;
-                _dbContext.Database.UseTransaction(dbContextTransaction.GetDbTransaction());
-            }
-
             _dbContext.Products.Add(product);
 
             await _dbContext.SaveChangesAsync();

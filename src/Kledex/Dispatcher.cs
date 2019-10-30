@@ -19,31 +19,27 @@ namespace Kledex
         private readonly IEventPublisher _eventPublisher;
         private readonly IQueryProcessor _queryProcessor;
         private readonly IBusMessageDispatcher _busMessageDispatcher;
-        private readonly ITransactionService _transactionService;
 
         public Dispatcher(ICommandSender commandSender,
             IDomainCommandSender domainCommandSender,
             IEventPublisher eventPublisher, 
             IQueryProcessor queryProcessor, 
-            IBusMessageDispatcher busMessageDispatcher,
-            ITransactionService transactionService)
+            IBusMessageDispatcher busMessageDispatcher)
         {
             _commandSender = commandSender;
             _domainCommandSender = domainCommandSender;
             _eventPublisher = eventPublisher;
             _queryProcessor = queryProcessor;
             _busMessageDispatcher = busMessageDispatcher;
-            _transactionService = transactionService;
         }
 
         /// <inheritdoc />
         public Task SendAsync<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
-            return _transactionService.ProcessAsync((IDomainCommand<IAggregateRoot>)command);
-            //return command is IDomainCommand 
-            //    ? _domainCommandSender.SendAsync((IDomainCommand<IAggregateRoot>)command) 
-            //    : _commandSender.SendAsync(command);
+            return command is IDomainCommand
+                ? _domainCommandSender.SendAsync((IDomainCommand<IAggregateRoot>)command)
+                : _commandSender.SendAsync(command);
         }
 
         /// <inheritdoc />

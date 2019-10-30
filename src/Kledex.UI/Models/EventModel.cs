@@ -24,8 +24,7 @@ namespace Kledex.UI.Models
                             x.Name != nameof(@event.CommandId) &&
                             x.Name != nameof(@event.UserId) &&
                             x.Name != nameof(@event.Source) &&
-                            x.Name != nameof(@event.TimeStamp) &&
-                            x.Name != nameof(@event.Properties));
+                            x.Name != nameof(@event.TimeStamp));
 
             foreach (var propertyInfo in properties)
             {
