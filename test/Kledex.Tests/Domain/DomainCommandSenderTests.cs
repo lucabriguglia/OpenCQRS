@@ -51,13 +51,11 @@ namespace Kledex.Tests.Domain
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
-                .Setup(x => x.Publish(_somethingCreatedConcrete));
-            _eventPublisher
-                .Setup(x => x.Publish(_aggregateCreatedConcrete));
+                .Setup(x => x.Publish(new List<IDomainEvent>() { _aggregateCreatedConcrete }));
 
             _domainStore = new Mock<IDomainStore>();
             _domainStore
-                .Setup(x => x.Save<Aggregate>(_aggregate.Id, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }));
+                .Setup(x => x.Save<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }));
 
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
@@ -118,14 +116,14 @@ namespace Kledex.Tests.Domain
         public void Send_SavesEvents()
         {
             _sut.Send(_createAggregate);
-            _domainStore.Verify(x => x.Save<Aggregate>(_aggregate.Id, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }), Times.Once);
+            _domainStore.Verify(x => x.Save<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }), Times.Once);
         }
 
         [Test]
         public void Send_PublishesEvents()
         {
             _sut.Send(_createAggregate);
-            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);
+            _eventPublisher.Verify(x => x.Publish(new List<IDomainEvent>() { _aggregateCreatedConcrete }), Times.Once);
         }
 
         [Test]

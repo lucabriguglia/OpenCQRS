@@ -52,15 +52,12 @@ namespace Kledex.Tests.Domain
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
-                .Setup(x => x.PublishAsync(_somethingCreatedConcrete))
-                .Returns(Task.CompletedTask);
-            _eventPublisher
-                .Setup(x => x.PublishAsync(_aggregateCreatedConcrete))
+                .Setup(x => x.PublishAsync(new List<IDomainEvent>() { _aggregateCreatedConcrete }))
                 .Returns(Task.CompletedTask);
 
             _domainStore = new Mock<IDomainStore>();
             _domainStore
-                .Setup(x => x.SaveAsync<Aggregate>(_aggregate.Id, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }))
+                .Setup(x => x.SaveAsync<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }))
                 .Returns(Task.CompletedTask);
 
             _eventFactory = new Mock<IEventFactory>();
@@ -122,14 +119,14 @@ namespace Kledex.Tests.Domain
         public async Task SendAsync_SavesEvents()
         {
             await _sut.SendAsync(_createAggregate);
-            _domainStore.Verify(x => x.SaveAsync<Aggregate>(_aggregate.Id, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }), Times.Once);
+            _domainStore.Verify(x => x.SaveAsync<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }), Times.Once);
         }
 
         [Test]
         public async Task SendAsync_PublishesEvents()
         {
             await _sut.SendAsync(_createAggregate);
-            _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Once);
+            _eventPublisher.Verify(x => x.PublishAsync(new List<IDomainEvent>() { _aggregateCreatedConcrete }), Times.Once);
         }
 
         [Test]
