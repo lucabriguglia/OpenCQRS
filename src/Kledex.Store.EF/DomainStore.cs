@@ -72,15 +72,15 @@ namespace Kledex.Store.EF
             return result;
         }
 
-        public void Save<TAggregate>(IDomainCommand command, IList<IDomainEvent> events) 
+        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) 
             where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == command.AggregateRootId);
+                var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == aggregateRootId);
                 if (aggregateEntity == null)
                 {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
+                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(aggregateRootId);
                     dbContext.Aggregates.Add(newAggregateEntity);
                 }
 
@@ -90,7 +90,7 @@ namespace Kledex.Store.EF
                 foreach (var @event in events)
                 {
                     var currentVersion = dbContext.Events.Count(x => x.AggregateId == @event.AggregateRootId);
-                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command.ExpectedVersion);
+                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command?.ExpectedVersion);
                     var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
                     dbContext.Events.Add(newEventEntity);
                 }
@@ -99,15 +99,15 @@ namespace Kledex.Store.EF
             }
         }
 
-        public async Task SaveAsync<TAggregate>(IDomainCommand command, IList<IDomainEvent> events) 
+        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) 
             where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
-                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);
+                var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == aggregateRootId);
                 if (aggregateEntity == null)
                 {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
+                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(aggregateRootId);
                     await dbContext.Aggregates.AddAsync(newAggregateEntity);                    
                 }
 
@@ -117,7 +117,7 @@ namespace Kledex.Store.EF
                 foreach (var @event in events)
                 {
                     var currentVersion = await dbContext.Events.CountAsync(x => x.AggregateId == @event.AggregateRootId);
-                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command.ExpectedVersion);
+                    var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command?.ExpectedVersion);
                     var newEventEntity = _eventEntityFactory.CreateEvent(@event, nextVersion);
                     await dbContext.Events.AddAsync(newEventEntity);
                 }

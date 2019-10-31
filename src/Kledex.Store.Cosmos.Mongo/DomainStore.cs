@@ -65,13 +65,13 @@ namespace Kledex.Store.Cosmos.Mongo
             return result;
         }
 
-        public void Save<TAggregate>(IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
         {
-            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", command.AggregateRootId.ToString());
+            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", aggregateRootId.ToString());
             var aggregateDocument = _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefault();
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(aggregateRootId);
                 _dbContext.Aggregates.InsertOne(newAggregateDocument);
             }
 
@@ -82,7 +82,7 @@ namespace Kledex.Store.Cosmos.Mongo
             {
                 var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
                 var currentVersion = _dbContext.Events.Find(eventFilter).CountDocuments();
-                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, command.ExpectedVersion);
+                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, command?.ExpectedVersion);
 
                 var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 
@@ -90,13 +90,13 @@ namespace Kledex.Store.Cosmos.Mongo
             }
         }
 
-        public async Task SaveAsync<TAggregate>(IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
         {
-            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", command.AggregateRootId.ToString());
+            var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", aggregateRootId.ToString());
             var aggregateDocument = await _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefaultAsync();
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(command.AggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(aggregateRootId);
                 await _dbContext.Aggregates.InsertOneAsync(newAggregateDocument);
             }
 
@@ -107,7 +107,7 @@ namespace Kledex.Store.Cosmos.Mongo
             {
                 var eventFilter = Builders<EventDocument>.Filter.Eq("aggregateId", @event.AggregateRootId.ToString());
                 var currentVersion = await _dbContext.Events.Find(eventFilter).CountDocumentsAsync();
-                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, command.ExpectedVersion);
+                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, (int)currentVersion, command?.ExpectedVersion);
 
                 var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 

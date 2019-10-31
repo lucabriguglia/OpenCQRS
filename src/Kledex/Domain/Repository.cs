@@ -7,31 +7,29 @@ namespace Kledex.Domain
     /// <inheritdoc />
     public class Repository<T> : IRepository<T> where T : IAggregateRoot
     {
-        private readonly IEventStore _eventStore;
+        private readonly IDomainStore _domainStore;
 
-        public Repository(IEventStore eventStore)
+        public Repository(IDomainStore domainStore)
         {
-            _eventStore = eventStore;
+            _domainStore = domainStore;
         }
 
         /// <inheritdoc />
         public async Task SaveAsync(T aggregate)
         {
-            foreach (var @event in aggregate.Events)
-                await _eventStore.SaveEventAsync<T>(@event, null);
+            await _domainStore.SaveAsync<T>(aggregate.Id, null, aggregate.Events);
         }
 
         /// <inheritdoc />
         public void Save(T aggregate)
         {
-            foreach (var @event in aggregate.Events)
-                _eventStore.SaveEvent<T>(@event, null);       
+            _domainStore.Save<T>(aggregate.Id, null, aggregate.Events);       
         }
 
         /// <inheritdoc />
         public async Task<T> GetByIdAsync(Guid id)
         {
-            var events = await _eventStore.GetEventsAsync(id);
+            var events = await _domainStore.GetEventsAsync(id);
             var domainEvents = events as DomainEvent[] ?? events.ToArray();
             if (!domainEvents.Any())
                 return default(T);
@@ -44,7 +42,7 @@ namespace Kledex.Domain
         /// <inheritdoc />
         public T GetById(Guid id)
         {
-            var events = _eventStore.GetEvents(id);
+            var events = _domainStore.GetEvents(id);
             var domainEvents = events as DomainEvent[] ?? events.ToArray();
             if (!domainEvents.Any())
                 return default(T);

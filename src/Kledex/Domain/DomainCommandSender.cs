@@ -15,9 +15,6 @@ namespace Kledex.Domain
         private readonly IHandlerResolver _handlerResolver;
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventFactory _eventFactory;
-        private readonly IAggregateStore _aggregateStore;
-        private readonly ICommandStore _commandStore;
-        private readonly IEventStore _eventStore;
         private readonly IDomainStore _domainStore;
         private readonly Options _options;
 
@@ -26,18 +23,12 @@ namespace Kledex.Domain
         public DomainCommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
             IEventFactory eventFactory,
-            IAggregateStore aggregateStore,
-            ICommandStore commandStore,
-            IEventStore eventStore,
             IDomainStore domainStore,
             IOptions<Options> options)
         {
             _handlerResolver = handlerResolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
-            _aggregateStore = aggregateStore;
-            _commandStore = commandStore;
-            _eventStore = eventStore;
             _domainStore = domainStore;
             _options = options.Value;
         }
@@ -64,7 +55,7 @@ namespace Kledex.Domain
                 concreteEvents.Add(concreteEvent);
             }
 
-            await _domainStore.SaveAsync<TAggregate>(command, concreteEvents);
+            await _domainStore.SaveAsync<TAggregate>(command.AggregateRootId, command, concreteEvents);
 
             if (PublishEvents(command))
             {
@@ -94,7 +85,7 @@ namespace Kledex.Domain
                 concreteEvents.Add(concreteEvent);
             }
 
-            _domainStore.Save<TAggregate>(command, concreteEvents);
+            _domainStore.Save<TAggregate>(command.AggregateRootId, command, concreteEvents);
 
             if (PublishEvents(command))
             {
