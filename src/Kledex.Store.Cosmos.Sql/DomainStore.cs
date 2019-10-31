@@ -67,7 +67,7 @@ namespace Kledex.Store.Cosmos.Sql
             return result;
         }
 
-        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
         {
             var aggregateDocument = _aggregateRepository.GetDocumentAsync(aggregateRootId.ToString()).GetAwaiter().GetResult();
             if (aggregateDocument == null)
@@ -90,7 +90,7 @@ namespace Kledex.Store.Cosmos.Sql
             }
         }
 
-        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
         {
             var aggregateDocument = await _aggregateRepository.GetDocumentAsync(aggregateRootId.ToString());
             if (aggregateDocument == null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Kledex.Commands;
 using Kledex.Dependencies;
@@ -46,20 +47,20 @@ namespace Kledex.Domain
             var handleMethod = handler.GetType().GetMethod("HandleAsync");
             var events = await (Task<IEnumerable<IDomainEvent>>)handleMethod.Invoke(handler, new object[] { command });
 
-            var concreteEvents = new List<IDomainEvent>();
-
             foreach (var @event in events)
             {
-                @event.Update(command);
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                concreteEvents.Add(concreteEvent);
+                @event.Update(command);               
             }
 
-            await _domainStore.SaveAsync<TAggregate>(command.AggregateRootId, command, concreteEvents);
+            await _domainStore.SaveAsync<TAggregate>(command.AggregateRootId, command, events);
 
             if (PublishEvents(command))
             {
-                await _eventPublisher.PublishAsync(concreteEvents);
+                foreach (var @event in events)
+                {
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                    await _eventPublisher.PublishAsync(concreteEvent);
+                }
             }
         }
 
@@ -76,20 +77,20 @@ namespace Kledex.Domain
             var handleMethod = handler.GetType().GetMethod("Handle");
             var events = (IEnumerable<IDomainEvent>)handleMethod.Invoke(handler, new object[] { command });
 
-            var concreteEvents = new List<IDomainEvent>();
-
             foreach (var @event in events)
             {
                 @event.Update(command);
-                var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
-                concreteEvents.Add(concreteEvent);
             }
 
-            _domainStore.Save<TAggregate>(command.AggregateRootId, command, concreteEvents);
+            _domainStore.Save<TAggregate>(command.AggregateRootId, command, events);
 
             if (PublishEvents(command))
             {
-                _eventPublisher.Publish(concreteEvents);
+                foreach (var @event in events)
+                {
+                    var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
+                    _eventPublisher.Publish(concreteEvent);
+                }
             }
         }
     }

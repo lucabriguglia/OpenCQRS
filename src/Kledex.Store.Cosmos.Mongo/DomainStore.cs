@@ -65,7 +65,7 @@ namespace Kledex.Store.Cosmos.Mongo
             return result;
         }
 
-        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
         {
             var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", aggregateRootId.ToString());
             var aggregateDocument = _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefault();
@@ -90,7 +90,7 @@ namespace Kledex.Store.Cosmos.Mongo
             }
         }
 
-        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
         {
             var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", aggregateRootId.ToString());
             var aggregateDocument = await _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefaultAsync();

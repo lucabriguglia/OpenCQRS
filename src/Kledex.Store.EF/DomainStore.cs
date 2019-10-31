@@ -72,7 +72,7 @@ namespace Kledex.Store.EF
             return result;
         }
 
-        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) 
+        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
             where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
@@ -99,7 +99,7 @@ namespace Kledex.Store.EF
             }
         }
 
-        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IList<IDomainEvent> events) 
+        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
             where TAggregate : IAggregateRoot
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
