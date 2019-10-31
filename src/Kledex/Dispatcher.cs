@@ -30,15 +30,15 @@ namespace Kledex
             _domainCommandSender = domainCommandSender;
             _eventPublisher = eventPublisher;
             _queryProcessor = queryProcessor;
-            _busMessageDispatcher = busMessageDispatcher;            
+            _busMessageDispatcher = busMessageDispatcher;
         }
 
         /// <inheritdoc />
         public Task SendAsync<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
-            return command is IDomainCommand 
-                ? _domainCommandSender.SendAsync((IDomainCommand<IAggregateRoot>)command) 
+            return command is IDomainCommand
+                ? _domainCommandSender.SendAsync((IDomainCommand<IAggregateRoot>)command)
                 : _commandSender.SendAsync(command);
         }
 

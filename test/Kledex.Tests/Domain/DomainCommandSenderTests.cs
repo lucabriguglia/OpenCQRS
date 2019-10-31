@@ -19,9 +19,7 @@ namespace Kledex.Tests.Domain
 
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisher> _eventPublisher;
-        private Mock<IEventStore> _eventStore;
-        private Mock<ICommandStore> _commandStore;
-        private Mock<IAggregateStore> _aggregateStore;
+        private Mock<IDomainStore> _domainStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
@@ -53,21 +51,11 @@ namespace Kledex.Tests.Domain
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
-                .Setup(x => x.Publish(_somethingCreatedConcrete));
-            _eventPublisher
                 .Setup(x => x.Publish(_aggregateCreatedConcrete));
 
-            _eventStore = new Mock<IEventStore>();
-            _eventStore
-                .Setup(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete, null));
-
-            _commandStore = new Mock<ICommandStore>();
-            _commandStore
-                .Setup(x => x.SaveCommand(_createAggregate));
-
-            _aggregateStore = new Mock<IAggregateStore>();
-            _aggregateStore
-                .Setup(x => x.SaveAggregate<Aggregate>(_createAggregate.AggregateRootId));
+            _domainStore = new Mock<IDomainStore>();
+            _domainStore
+                .Setup(x => x.Save<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }));
 
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
@@ -106,9 +94,7 @@ namespace Kledex.Tests.Domain
             _sut = new DomainCommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
+                _domainStore.Object,
                 _optionsMock.Object);
         }
 
@@ -127,31 +113,17 @@ namespace Kledex.Tests.Domain
         }
 
         [Test]
-        public void Send_SavesAggregate()
-        {
-            _sut.Send(_createAggregate);
-            _aggregateStore.Verify(x => x.SaveAggregate<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
-        }
-
-        [Test]
-        public void Send_SavesCommand()
-        {
-            _sut.Send(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommand(_createAggregate), Times.Once);
-        }
-
-        [Test]
         public void Send_SavesEvents()
         {
             _sut.Send(_createAggregate);
-            _eventStore.Verify(x => x.SaveEvent<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
+            _domainStore.Verify(x => x.Save<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }), Times.Once);
         }
 
         [Test]
         public void Send_PublishesEvents()
         {
             _sut.Send(_createAggregate);
-            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete ), Times.Once);
         }
 
         [Test]
@@ -164,9 +136,7 @@ namespace Kledex.Tests.Domain
             _sut = new DomainCommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
+                _domainStore.Object,
                 _optionsMock.Object);
 
             _sut.Send(_createAggregate);

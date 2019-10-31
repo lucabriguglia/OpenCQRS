@@ -20,9 +20,7 @@ namespace Kledex.Tests.Domain
 
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisher> _eventPublisher;
-        private Mock<IEventStore> _eventStore;
-        private Mock<ICommandStore> _commandStore;
-        private Mock<IAggregateStore> _aggregateStore;
+        private Mock<IDomainStore> _domainStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
@@ -54,25 +52,12 @@ namespace Kledex.Tests.Domain
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
-                .Setup(x => x.PublishAsync(_somethingCreatedConcrete))
-                .Returns(Task.CompletedTask);
-            _eventPublisher
-                .Setup(x => x.PublishAsync(_aggregateCreatedConcrete))
+                .Setup(x => x.PublishAsync(_aggregateCreatedConcrete ))
                 .Returns(Task.CompletedTask);
 
-            _eventStore = new Mock<IEventStore>();
-            _eventStore
-                .Setup(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null))
-                .Returns(Task.CompletedTask);
-
-            _commandStore = new Mock<ICommandStore>();
-            _commandStore
-                .Setup(x => x.SaveCommandAsync(_createAggregate))
-                .Returns(Task.CompletedTask);
-
-            _aggregateStore = new Mock<IAggregateStore>();
-            _aggregateStore
-                .Setup(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId))
+            _domainStore = new Mock<IDomainStore>();
+            _domainStore
+                .Setup(x => x.SaveAsync<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }))
                 .Returns(Task.CompletedTask);
 
             _eventFactory = new Mock<IEventFactory>();
@@ -112,9 +97,7 @@ namespace Kledex.Tests.Domain
             _sut = new DomainCommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
+                _domainStore.Object,
                 _optionsMock.Object);
         }
 
@@ -133,31 +116,17 @@ namespace Kledex.Tests.Domain
         }
 
         [Test]
-        public async Task SendAsync_SavesAggregate()
-        {
-            await _sut.SendAsync(_createAggregate);
-            _aggregateStore.Verify(x => x.SaveAggregateAsync<Aggregate>(_createAggregate.AggregateRootId), Times.Once);
-        }
-
-        [Test]
-        public async Task SendAsync_SavesCommand()
-        {
-            await _sut.SendAsync(_createAggregate);
-            _commandStore.Verify(x => x.SaveCommandAsync(_createAggregate), Times.Once);
-        }
-
-        [Test]
         public async Task SendAsync_SavesEvents()
         {
             await _sut.SendAsync(_createAggregate);
-            _eventStore.Verify(x => x.SaveEventAsync<Aggregate>(_aggregateCreatedConcrete, null), Times.Once);
+            _domainStore.Verify(x => x.SaveAsync<Aggregate>(_createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }), Times.Once);
         }
 
         [Test]
         public async Task SendAsync_PublishesEvents()
         {
             await _sut.SendAsync(_createAggregate);
-            _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Once);
+            _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete ), Times.Once);
         }
 
         [Test]
@@ -170,9 +139,7 @@ namespace Kledex.Tests.Domain
             _sut = new DomainCommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _aggregateStore.Object,
-                _commandStore.Object,
-                _eventStore.Object,
+                _domainStore.Object,
                 _optionsMock.Object);
 
             await _sut.SendAsync(_createAggregate);

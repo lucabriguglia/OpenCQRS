@@ -4,7 +4,7 @@ namespace Kledex.Sample.EventSourcing.Reporting.Data
 {
     public class ReportingDbContext : DbContext
     {
-        public ReportingDbContext(DbContextOptions options)
+        public ReportingDbContext(DbContextOptions<ReportingDbContext> options)
             : base(options)
         {
         }

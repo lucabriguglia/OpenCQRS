@@ -18,6 +18,20 @@ namespace Kledex.Extensions
         /// <param name="types">The types.</param>
         public static IKledexServiceBuilder AddKledex(this IServiceCollection services, params Type[] types)
         {
+            return AddKledex(services, opt => {}, types);
+        }
+
+        /// <summary>
+        /// Adds Kledex. 
+        /// Pass any of the types that are contained in the assemblies where your messages and handlers are.
+        /// One for each assembly.
+        /// e.g. typeOf(CreatePost) where CreatePost is one of your commands.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <param name="setupAction">The options.</param>
+        /// <param name="types">The types.</param>
+        public static IKledexServiceBuilder AddKledex(this IServiceCollection services, Action<Options> setupAction, params Type[] types)
+        {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
 
@@ -33,9 +47,12 @@ namespace Kledex.Extensions
 
             services.AddAutoMapper(typeList);
 
+            services.Configure(setupAction);
+
             return new KledexServiceBuilder(services);
         }
 
+        [Obsolete("Please use an override of AddKledex method.")]
         public static IKledexServiceBuilder AddOptions(this IKledexServiceBuilder builder, Action<Options> setupAction)
         {
             if (builder == null)

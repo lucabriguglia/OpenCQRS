@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace Kledex.Domain
 {
-    public interface IEventStore
+    public interface IDomainStore
     {
         /// <summary>
         /// Saves the event asynchronous.
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
-        /// <param name="event">The event.</param>
-        /// <param name="expectedVersion">The expected version.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="events">The events.</param>
         /// <returns></returns>
-        Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion = null) 
+        Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
             where TAggregate : IAggregateRoot;
 
         /// <summary>
@@ -27,9 +27,9 @@ namespace Kledex.Domain
         /// Saves the event.
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
-        /// <param name="event">The event.</param>
-        /// <param name="expectedVersion">The expected version.</param>
-        void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion = null)
+        /// <param name="command">The command.</param>
+        /// <param name="events">The events.</param>
+        void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
             where TAggregate : IAggregateRoot;
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Kledex.Domain
         IEnumerable<DomainEvent> GetEvents(Guid aggregateId);
     }
 
-    public class DefaultEventStore : IEventStore
+    public class DefaultDomainStore : IDomainStore
     {
         public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
         {
@@ -52,13 +52,13 @@ namespace Kledex.Domain
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public void SaveEvent<TAggregate>(IDomainEvent @event, int? expectedVersion = null) 
+        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
             where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public Task SaveEventAsync<TAggregate>(IDomainEvent @event, int? expectedVersion = null) 
+        public Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
             where TAggregate : IAggregateRoot
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
