@@ -84,8 +84,11 @@ namespace Kledex.Store.EF
                     dbContext.Aggregates.Add(newAggregateEntity);
                 }
 
-                var newCommandEntity = _commandEntityFactory.CreateCommand(command);
-                dbContext.Commands.Add(newCommandEntity);
+                if (command != null)
+                {
+                    var newCommandEntity = _commandEntityFactory.CreateCommand(command);
+                    dbContext.Commands.Add(newCommandEntity);
+                }
 
                 foreach (var @event in events)
                 {
@@ -111,8 +114,11 @@ namespace Kledex.Store.EF
                     await dbContext.Aggregates.AddAsync(newAggregateEntity);                    
                 }
 
-                var newCommandEntity = _commandEntityFactory.CreateCommand(command);
-                await dbContext.Commands.AddAsync(newCommandEntity);
+                if (command != null)
+                {
+                    var newCommandEntity = _commandEntityFactory.CreateCommand(command);
+                    await dbContext.Commands.AddAsync(newCommandEntity);
+                }
 
                 foreach (var @event in events)
                 {

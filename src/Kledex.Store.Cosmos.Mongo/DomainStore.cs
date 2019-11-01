@@ -75,8 +75,11 @@ namespace Kledex.Store.Cosmos.Mongo
                 _dbContext.Aggregates.InsertOne(newAggregateDocument);
             }
 
-            var commandDocument = _commandDocumentFactory.CreateCommand(command);
-            _dbContext.Commands.InsertOne(commandDocument);
+            if (command != null)
+            {
+                var commandDocument = _commandDocumentFactory.CreateCommand(command);
+                _dbContext.Commands.InsertOne(commandDocument);
+            }
 
             foreach (var @event in events)
             {
@@ -100,8 +103,11 @@ namespace Kledex.Store.Cosmos.Mongo
                 await _dbContext.Aggregates.InsertOneAsync(newAggregateDocument);
             }
 
-            var commandDocument = _commandDocumentFactory.CreateCommand(command);
-            await _dbContext.Commands.InsertOneAsync(commandDocument);
+            if (command != null)
+            {
+                var commandDocument = _commandDocumentFactory.CreateCommand(command);
+                await _dbContext.Commands.InsertOneAsync(commandDocument);
+            }
 
             foreach (var @event in events)
             {

@@ -76,8 +76,11 @@ namespace Kledex.Store.Cosmos.Sql
                 _aggregateRepository.CreateDocumentAsync(newAggregateDocument).GetAwaiter().GetResult();
             }
 
-            var commandDocument = _commandDocumentFactory.CreateCommand(command);
-            _commandRepository.CreateDocumentAsync(commandDocument).GetAwaiter().GetResult();
+            if (command != null)
+            {
+                var commandDocument = _commandDocumentFactory.CreateCommand(command);
+                _commandRepository.CreateDocumentAsync(commandDocument).GetAwaiter().GetResult();
+            }
 
             foreach (var @event in events)
             {
@@ -99,8 +102,11 @@ namespace Kledex.Store.Cosmos.Sql
                 await _aggregateRepository.CreateDocumentAsync(newAggregateDocument);
             }
 
-            var commandDocument = _commandDocumentFactory.CreateCommand(command);
-            await _commandRepository.CreateDocumentAsync(commandDocument);
+            if (command != null)
+            {
+                var commandDocument = _commandDocumentFactory.CreateCommand(command);
+                await _commandRepository.CreateDocumentAsync(commandDocument);
+            }
 
             foreach (var @event in events)
             {
