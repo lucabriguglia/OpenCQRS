@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Description>CosmosDB (MongoDB) database provider for Kledex domain store.</Description>
+    <Description>CosmosDB (MongoDB API) database provider for Kledex domain store.</Description>
     <PackageTags>$(PackageTags), cosmosdb, mongodb</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
