@@ -106,7 +106,14 @@ namespace Kledex.Tests.Domain
         }
 
         [Test]
-        public void Send_SendsCommand()
+        public void Send_HandlesCommand()
+        {
+            _sut.Send(_createSomething);
+            _commandHandler.Verify(x => x.Handle(_createSomething), Times.Once);
+        }
+
+        [Test]
+        public void Send_HandlesDomainCommand()
         {
             _sut.Send(_createAggregate);
             _domainCommandHandler.Verify(x => x.Handle(_createAggregate), Times.Once);

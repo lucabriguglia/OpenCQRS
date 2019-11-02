@@ -109,7 +109,14 @@ namespace Kledex.Tests.Domain
         }
 
         [Test]
-        public async Task SendAsync_SendsCommand()
+        public async Task SendAsync_HandlesCommand()
+        {
+            await _sut.SendAsync(_createSomething);
+            _commandHandlerAsync.Verify(x => x.HandleAsync(_createSomething), Times.Once);
+        }
+
+        [Test]
+        public async Task SendAsync_HandlesDomainCommand()
         {
             await _sut.SendAsync(_createAggregate);
             _domainCommandHandlerAsync.Verify(x => x.HandleAsync(_createAggregate), Times.Once);
