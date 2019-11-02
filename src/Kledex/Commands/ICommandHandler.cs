@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Kledex.Events;
-
-namespace Kledex.Commands
+﻿namespace Kledex.Commands
 {
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
-        IEnumerable<IEvent> Handle(TCommand command);
+        CommandResponse Handle(TCommand command);
     }
 }

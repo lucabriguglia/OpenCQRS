@@ -36,6 +36,9 @@ namespace Kledex.Tests.Domain
         private AggregateCreated _aggregateCreatedConcrete;
         private Aggregate _aggregate;
 
+        private CommandResponse _commandResponse;
+        private CommandResponse _domainCommandResponse;
+
         [SetUp]
         public void SetUp()
         {
@@ -48,6 +51,9 @@ namespace Kledex.Tests.Domain
             _aggregateCreatedConcrete = new AggregateCreated();
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
+
+            _commandResponse = new CommandResponse { Events = _events };
+            _domainCommandResponse = new CommandResponse { Events = _aggregate.Events };
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
@@ -68,20 +74,17 @@ namespace Kledex.Tests.Domain
             _commandHandler = new Mock<ICommandHandler<CreateSomething>>();
             _commandHandler
                 .Setup(x => x.Handle(_createSomething))
-                .Returns(_events);
+                .Returns(_commandResponse);
 
             _domainCommandHandler = new Mock<ICommandHandler<CreateAggregate>>();
             _domainCommandHandler
                 .Setup(x => x.Handle(_createAggregate))
-                .Returns(_aggregate.Events);
+                .Returns(_domainCommandResponse);
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveHandler<ICommandHandler<CreateSomething>>())
+                .Setup(x => x.ResolveCommandHandler(_createSomething, typeof(ICommandHandler<>)))
                 .Returns(_commandHandler.Object);
-            _handlerResolver
-                .Setup(x => x.ResolveHandler<ICommandHandler<CreateAggregate>>())
-                .Returns(_domainCommandHandler.Object);
             _handlerResolver
                 .Setup(x => x.ResolveCommandHandler(_createAggregate, typeof(ICommandHandler<>)))
                 .Returns(_domainCommandHandler.Object);

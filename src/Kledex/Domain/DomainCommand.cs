@@ -13,6 +13,5 @@ namespace Kledex.Domain
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
         public int? ExpectedVersion { get; set; }
         public bool? SaveCommandData { get; set; }
-        public bool? UseTransaction { get; set; }
     }
 }

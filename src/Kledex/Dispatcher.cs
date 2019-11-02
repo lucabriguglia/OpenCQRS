@@ -20,8 +20,8 @@ namespace Kledex
         private readonly IBusMessageDispatcher _busMessageDispatcher;
 
         public Dispatcher(ICommandSender domainCommandSender,
-            IEventPublisher eventPublisher, 
-            IQueryProcessor queryProcessor, 
+            IEventPublisher eventPublisher,
+            IQueryProcessor queryProcessor,
             IBusMessageDispatcher busMessageDispatcher)
         {
             _commandSender = domainCommandSender;
@@ -31,10 +31,15 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task SendAsync<TCommand>(TCommand command) 
-            where TCommand : ICommand
+        public Task SendAsync(ICommand command)
         {
             return _commandSender.SendAsync(command);
+        }
+
+        /// <inheritdoc />
+        public Task<TResult> SendAsync<TResult>(ICommand command)
+        {
+            return _commandSender.SendAsync<TResult>(command);
         }
 
         /// <inheritdoc />
@@ -58,10 +63,15 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public void Send<TCommand>(TCommand command) 
-            where TCommand : ICommand
+        public void Send(ICommand command)
         {
             _commandSender.Send(command);
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommand command)
+        {
+            return _commandSender.Send<TResult>(command);
         }
 
         /// <inheritdoc />

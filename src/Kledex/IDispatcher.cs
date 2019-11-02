@@ -12,14 +12,19 @@ namespace Kledex
     public interface IDispatcher
     {
         /// <summary>
-        /// Asynchronously sends the specified command.
+        /// Sends the specified command asynchronously.
         /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
-        /// <returns></returns>
-        Task SendAsync<TCommand>(TCommand command) 
-            where TCommand : ICommand;
+        Task SendAsync(ICommand command);
+
+        /// <summary>
+        /// Sends the specified command asynchronously.
+        /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <returns>A custom object set as result in the command hadler response.</returns>
+        Task<TResult> SendAsync<TResult>(ICommand command);
 
         /// <summary>
         /// Asynchronously publishes the specified event.
@@ -52,10 +57,16 @@ namespace Kledex
         /// Sends the specified command.
         /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
-        void Send<TCommand>(TCommand command) 
-            where TCommand : ICommand;
+        void Send(ICommand command);
+
+        /// <summary>
+        /// Sends the specified command.
+        /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <returns>A custom object set as result in the command hadler response.</returns>
+        TResult Send<TResult>(ICommand command);
 
         /// <summary>
         /// Publishes the specified event.
