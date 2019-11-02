@@ -19,7 +19,7 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<IEvent>> HandleAsync(PublishProduct command)
+        public async Task<CommandResponse> HandleAsync(PublishProduct command)
         {
             var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);
 
@@ -32,11 +32,14 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 
             await _dbContext.SaveChangesAsync();
 
-            return new List<IDomainEvent>()
+            return new CommandResponse
             {
-                new ProductPublished
+                Events = new List<IDomainEvent>()
                 {
-                    AggregateRootId = product.Id
+                    new ProductPublished
+                    {
+                        AggregateRootId = product.Id
+                    }
                 }
             };
         }

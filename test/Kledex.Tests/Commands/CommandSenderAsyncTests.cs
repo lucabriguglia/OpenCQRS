@@ -37,6 +37,9 @@ namespace Kledex.Tests.Domain
         private AggregateCreated _aggregateCreatedConcrete;
         private Aggregate _aggregate;
 
+        private CommandResponse _commandResponse;
+        private CommandResponse _domainCommandResponse;
+
         [SetUp]
         public void SetUp()
         {
@@ -49,6 +52,9 @@ namespace Kledex.Tests.Domain
             _aggregateCreatedConcrete = new AggregateCreated();
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
+
+            _commandResponse = new CommandResponse { Events = _events };
+            _domainCommandResponse = new CommandResponse { Events = _aggregate.Events };
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
@@ -71,20 +77,17 @@ namespace Kledex.Tests.Domain
             _commandHandlerAsync = new Mock<ICommandHandlerAsync<CreateSomething>>();
             _commandHandlerAsync
                 .Setup(x => x.HandleAsync(_createSomething))
-                .ReturnsAsync(_events);
+                .ReturnsAsync(_commandResponse);
 
             _domainCommandHandlerAsync = new Mock<ICommandHandlerAsync<CreateAggregate>>();
             _domainCommandHandlerAsync
                 .Setup(x => x.HandleAsync(_createAggregate))
-                .ReturnsAsync(_aggregate.Events);
+                .ReturnsAsync(_domainCommandResponse);
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveHandler<ICommandHandlerAsync<CreateSomething>>())
+                .Setup(x => x.ResolveCommandHandler(_createSomething, typeof(ICommandHandlerAsync<>)))
                 .Returns(_commandHandlerAsync.Object);
-            _handlerResolver
-                .Setup(x => x.ResolveHandler<ICommandHandlerAsync<CreateAggregate>>())
-                .Returns(_domainCommandHandlerAsync.Object);
             _handlerResolver
                 .Setup(x => x.ResolveCommandHandler(_createAggregate, typeof(ICommandHandlerAsync<>)))
                 .Returns(_domainCommandHandlerAsync.Object);
