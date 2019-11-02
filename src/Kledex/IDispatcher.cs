@@ -22,7 +22,7 @@ namespace Kledex
         Task SendAsync<TCommand>(TCommand command) 
             where TCommand : ICommand;
 
-        Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot, TResult> command);
+        Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot> command);
 
         /// <summary>
         /// Asynchronously publishes the specified event.

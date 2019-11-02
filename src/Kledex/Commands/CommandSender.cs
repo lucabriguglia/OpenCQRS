@@ -74,7 +74,7 @@ namespace Kledex.Domain
             }
         }
 
-        public async Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot, TResult> command)
+        public async Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot> command)
         {
             if (command == null)
             {

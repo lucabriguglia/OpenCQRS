@@ -37,9 +37,9 @@ namespace Kledex
             return _commandSender.SendAsync(command);
         }
 
-        public Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot, TResult> command)
+        public Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot> command)
         {
-            return _commandSender.SendAsync(command);
+            return _commandSender.SendAsync<TResult>(command);
         }
 
         /// <inheritdoc />
