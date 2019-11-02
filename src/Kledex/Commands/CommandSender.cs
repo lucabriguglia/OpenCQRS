@@ -40,9 +40,24 @@ namespace Kledex.Domain
             await ProcessAsync(command);
         }
 
+        /// <inheritdoc />
         public async Task<TResult> SendAsync<TResult>(ICommand command)
         {
             var response = await ProcessAsync(command);
+
+            return response.Result != null ? (TResult)response.Result : default;
+        }
+
+        /// <inheritdoc />
+        public void Send(ICommand command)
+        {
+            Process(command);
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommand command)
+        {
+            var response = Process(command);
 
             return response.Result != null ? (TResult)response.Result : default;
         }
@@ -56,7 +71,7 @@ namespace Kledex.Domain
 
             var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandlerAsync<>));
             var handleMethod = handler.GetType().GetMethod("HandleAsync");
-            var response = await(Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
+            var response = await (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
 
             if (command is IDomainCommand domainCommand)
             {
@@ -78,19 +93,6 @@ namespace Kledex.Domain
             }
 
             return response;
-        }
-
-        /// <inheritdoc />
-        public void Send(ICommand command)
-        {
-            Process(command);
-        }
-
-        public TResult Send<TResult>(ICommand command)
-        {
-            var response = Process(command);
-
-            return response.Result != null ? (TResult)response.Result : default;
         }
 
         private CommandResponse Process(ICommand command)
