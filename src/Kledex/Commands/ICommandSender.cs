@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Kledex.Commands;
+using System.Threading.Tasks;
 
-namespace Kledex.Commands
+namespace Kledex.Domain
 {
     /// <summary>
     /// ICommandSender
@@ -8,20 +9,20 @@ namespace Kledex.Commands
     public interface ICommandSender
     {
         /// <summary>
-        /// Asynchronously sends the specified command.
-        /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
+        /// Asynchronously sends the command and the events returned by the handler will be saved to the event store.
+        /// The command handler must implement Kledex.Commands.ICommandHandlerWithWithDomainEventsAsync&lt;TCommand, TAggregate&gt;.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command.</typeparam>
+        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
         Task SendAsync<TCommand>(TCommand command)
             where TCommand : ICommand;
 
         /// <summary>
-        /// Sends the specified command.
-        /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
+        /// Sends the command and the events returned by the handler will be saved to the event store.
+        /// The command handler must implement Kledex.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command.</typeparam>
+        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
         void Send<TCommand>(TCommand command)
             where TCommand : ICommand;

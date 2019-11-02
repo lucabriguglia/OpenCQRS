@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Domain;
+using Kledex.Commands;
+using Kledex.Events;
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 {
-    public class CreateProductHandler : IDomainCommandHandlerAsync<CreateProduct>
+    public class CreateProductHandler : ICommandHandlerAsync<CreateProduct>
     {
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
+        public async Task<IEnumerable<IEvent>> HandleAsync(CreateProduct command)
         {
             var product = new Product(command.AggregateRootId, command.Name, command.Description, command.Price);
 

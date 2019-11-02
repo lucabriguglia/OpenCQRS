@@ -17,13 +17,13 @@ namespace Kledex.Domain
         /// <inheritdoc />
         public async Task SaveAsync(T aggregate)
         {
-            await _domainStore.SaveAsync<T>(aggregate.Id, null, aggregate.Events);
+            await _domainStore.SaveAsync(typeof(T), aggregate.Id, null, aggregate.Events);
         }
 
         /// <inheritdoc />
         public void Save(T aggregate)
         {
-            _domainStore.Save<T>(aggregate.Id, null, aggregate.Events);       
+            _domainStore.Save(typeof(T), aggregate.Id, null, aggregate.Events);       
         }
 
         /// <inheritdoc />

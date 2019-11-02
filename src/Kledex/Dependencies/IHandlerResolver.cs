@@ -6,6 +6,7 @@ namespace Kledex.Dependencies
     {
         THandler ResolveHandler<THandler>();
         object ResolveHandler(Type handlerType);
-        object ResolveHandler(object request, Type type);
+        object ResolveCommandHandler(object request, Type type);
+        object ResolveQueryHandler(object query, Type type);
     }
 }

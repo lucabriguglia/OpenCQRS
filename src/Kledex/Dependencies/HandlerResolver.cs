@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Kledex.Exceptions;
 
 namespace Kledex.Dependencies
@@ -32,17 +33,20 @@ namespace Kledex.Dependencies
             return handler;
         }
 
-        public object ResolveHandler(object request, Type type)
+        public object ResolveCommandHandler(object request, Type type)
         {
             var requestType = request.GetType();
             var handlerType = type.MakeGenericType(requestType);
+            return ResolveHandler(handlerType);
+        }
 
-            var handler = _resolver.Resolve(handlerType);
-
-            if (handler == null)
-                throw new HandlerNotFoundException(handlerType);
-
-            return handler;
+        public object ResolveQueryHandler(object query, Type type)
+        {
+            var queryType = query.GetType();
+            var queryInterface = queryType.GetInterfaces()[0];
+            var resultType = queryInterface.GetGenericArguments().FirstOrDefault();
+            var handlerType = type.MakeGenericType(queryType, resultType);
+            return ResolveHandler(handlerType);
         }
     }
 }

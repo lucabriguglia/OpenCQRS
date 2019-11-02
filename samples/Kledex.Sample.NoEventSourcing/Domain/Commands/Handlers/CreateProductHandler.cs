@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using Kledex.Domain;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Kledex.Sample.NoEventSourcing.Data;
+using Kledex.Events;
+using Kledex.Commands;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
-    public class CreateProductHandler : IDomainCommandHandlerAsync<CreateProduct>
+    public class CreateProductHandler : ICommandHandlerAsync<CreateProduct>
     {
         private readonly SampleDbContext _dbContext;
 
@@ -15,7 +17,7 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
+        public async Task<IEnumerable<IEvent>> HandleAsync(CreateProduct command)
         {
             var product = new Product(command.Name, command.Description, command.Price);
 

@@ -13,8 +13,7 @@ namespace Kledex.Domain
         /// <param name="command">The command.</param>
         /// <param name="events">The events.</param>
         /// <returns></returns>
-        Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
-            where TAggregate : IAggregateRoot;
+        Task SaveAsync(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events);
 
         /// <summary>
         /// Gets the events asynchronous.
@@ -29,8 +28,7 @@ namespace Kledex.Domain
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
         /// <param name="events">The events.</param>
-        void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
-            where TAggregate : IAggregateRoot;
+        void Save(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events);
 
         /// <summary>
         /// Gets the events.
@@ -52,14 +50,12 @@ namespace Kledex.Domain
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
-            where TAggregate : IAggregateRoot
+        public void Save(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }
 
-        public Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
-            where TAggregate : IAggregateRoot
+        public Task SaveAsync(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);
         }

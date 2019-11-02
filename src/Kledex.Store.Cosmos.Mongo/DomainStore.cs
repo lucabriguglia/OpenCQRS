@@ -65,13 +65,13 @@ namespace Kledex.Store.Cosmos.Mongo
             return result;
         }
 
-        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public void Save(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
         {
             var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", aggregateRootId.ToString());
             var aggregateDocument = _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefault();
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(aggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(aggregateType, aggregateRootId);
                 _dbContext.Aggregates.InsertOne(newAggregateDocument);
             }
 
@@ -93,13 +93,13 @@ namespace Kledex.Store.Cosmos.Mongo
             }
         }
 
-        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public async Task SaveAsync(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
         {
             var aggregateFilter = Builders<AggregateDocument>.Filter.Eq("_id", aggregateRootId.ToString());
             var aggregateDocument = await _dbContext.Aggregates.Find(aggregateFilter).FirstOrDefaultAsync();
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(aggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(aggregateType, aggregateRootId);
                 await _dbContext.Aggregates.InsertOneAsync(newAggregateDocument);
             }
 

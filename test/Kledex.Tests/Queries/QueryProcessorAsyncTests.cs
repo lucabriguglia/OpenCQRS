@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Dependencies;
 using Kledex.Queries;
 using Kledex.Tests.Fakes;
 using Moq;
@@ -12,7 +13,7 @@ namespace Kledex.Tests.Queries
     {
         private IQueryProcessor _sut;
 
-        private Mock<IQueryHandlerResolver> _queryHandlerResolver;
+        private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IQueryHandlerAsync<GetSomething, Something>> _queryHandler;
 
         private GetSomething _getSomething;
@@ -29,12 +30,12 @@ namespace Kledex.Tests.Queries
                 .Setup(x => x.HandleAsync(_getSomething))
                 .ReturnsAsync(_something);
 
-            _queryHandlerResolver = new Mock<IQueryHandlerResolver>();
-            _queryHandlerResolver
-                .Setup(x => x.ResolveHandler(_getSomething, typeof(IQueryHandlerAsync<,>)))
+            _handlerResolver = new Mock<IHandlerResolver>();
+            _handlerResolver
+                .Setup(x => x.ResolveQueryHandler(_getSomething, typeof(IQueryHandlerAsync<,>)))
                 .Returns(_queryHandler.Object);
 
-            _sut = new QueryProcessor(_queryHandlerResolver.Object);
+            _sut = new QueryProcessor(_handlerResolver.Object);
         }
     
         [Test]

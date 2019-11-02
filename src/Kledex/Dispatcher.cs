@@ -15,19 +15,16 @@ namespace Kledex
     public class Dispatcher : IDispatcher
     {
         private readonly ICommandSender _commandSender;
-        private readonly IDomainCommandSender _domainCommandSender;
         private readonly IEventPublisher _eventPublisher;
         private readonly IQueryProcessor _queryProcessor;
         private readonly IBusMessageDispatcher _busMessageDispatcher;
 
-        public Dispatcher(ICommandSender commandSender,
-            IDomainCommandSender domainCommandSender,
+        public Dispatcher(ICommandSender domainCommandSender,
             IEventPublisher eventPublisher, 
             IQueryProcessor queryProcessor, 
             IBusMessageDispatcher busMessageDispatcher)
         {
-            _commandSender = commandSender;
-            _domainCommandSender = domainCommandSender;
+            _commandSender = domainCommandSender;
             _eventPublisher = eventPublisher;
             _queryProcessor = queryProcessor;
             _busMessageDispatcher = busMessageDispatcher;
@@ -37,9 +34,7 @@ namespace Kledex
         public Task SendAsync<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
-            return command is IDomainCommand
-                ? _domainCommandSender.SendAsync((IDomainCommand<IAggregateRoot>)command)
-                : _commandSender.SendAsync(command);
+            return _commandSender.SendAsync(command);
         }
 
         /// <inheritdoc />
@@ -66,10 +61,7 @@ namespace Kledex
         public void Send<TCommand>(TCommand command) 
             where TCommand : ICommand
         {
-            if (command is IDomainCommand)
-                _domainCommandSender.Send((IDomainCommand<IAggregateRoot>)command);
-            else
-                _commandSender.Send(command);
+            _commandSender.Send(command);
         }
 
         /// <inheritdoc />

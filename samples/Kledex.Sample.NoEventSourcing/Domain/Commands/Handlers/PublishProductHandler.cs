@@ -5,10 +5,12 @@ using Kledex.Domain;
 using Microsoft.EntityFrameworkCore;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Kledex.Sample.NoEventSourcing.Data;
+using Kledex.Commands;
+using Kledex.Events;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
-    public class PublishProductHandler : IDomainCommandHandlerAsync<PublishProduct>
+    public class PublishProductHandler : ICommandHandlerAsync<PublishProduct>
     {
         private readonly SampleDbContext _dbContext;
 
@@ -17,7 +19,7 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(PublishProduct command)
+        public async Task<IEnumerable<IEvent>> HandleAsync(PublishProduct command)
         {
             var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);
 

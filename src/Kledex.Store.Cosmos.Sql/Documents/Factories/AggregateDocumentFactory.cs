@@ -1,16 +1,15 @@
 ﻿using System;
-using Kledex.Domain;
 
 namespace Kledex.Store.Cosmos.Sql.Documents.Factories
 {
     public class AggregateDocumentFactory : IAggregateDocumentFactory
     {
-        public AggregateDocument CreateAggregate<TAggregate>(Guid aggregateRootId) where TAggregate : IAggregateRoot
+        public AggregateDocument CreateAggregate(Type aggregateType, Guid aggregateRootId)
         {
             return new AggregateDocument
             {
                 Id = aggregateRootId,
-                Type = typeof(TAggregate).AssemblyQualifiedName
+                Type = aggregateType.AssemblyQualifiedName
             };
         }
     }

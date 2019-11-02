@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kledex.Commands;
 using Kledex.Domain;
+using Kledex.Events;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
-    public class UpdateProductHandler : IDomainCommandHandlerAsync<UpdateProduct>
+    public class UpdateProductHandler : ICommandHandlerAsync<UpdateProduct>
     {
         private readonly SampleDbContext _dbContext;
 
@@ -17,7 +19,7 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProduct command)
+        public async Task<IEnumerable<IEvent>> HandleAsync(UpdateProduct command)
         {
             var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);
 

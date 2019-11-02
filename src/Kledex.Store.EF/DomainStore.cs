@@ -72,15 +72,14 @@ namespace Kledex.Store.EF
             return result;
         }
 
-        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
-            where TAggregate : IAggregateRoot
+        public void Save(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
                 var aggregateEntity = dbContext.Aggregates.FirstOrDefault(x => x.Id == aggregateRootId);
                 if (aggregateEntity == null)
                 {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(aggregateRootId);
+                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate(aggregateType, aggregateRootId);
                     dbContext.Aggregates.Add(newAggregateEntity);
                 }
 
@@ -102,16 +101,15 @@ namespace Kledex.Store.EF
             }
         }
 
-        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) 
-            where TAggregate : IAggregateRoot
+        public async Task SaveAsync(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {
                 var aggregateEntity = await dbContext.Aggregates.FirstOrDefaultAsync(x => x.Id == aggregateRootId);
                 if (aggregateEntity == null)
                 {
-                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate<TAggregate>(aggregateRootId);
-                    await dbContext.Aggregates.AddAsync(newAggregateEntity);                    
+                    var newAggregateEntity = _aggregateEntityFactory.CreateAggregate(aggregateType, aggregateRootId);
+                    await dbContext.Aggregates.AddAsync(newAggregateEntity);
                 }
 
                 if (command != null)

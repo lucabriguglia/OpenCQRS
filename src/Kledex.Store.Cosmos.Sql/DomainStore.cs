@@ -67,12 +67,12 @@ namespace Kledex.Store.Cosmos.Sql
             return result;
         }
 
-        public void Save<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public void Save(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
         {
             var aggregateDocument = _aggregateRepository.GetDocumentAsync(aggregateRootId.ToString()).GetAwaiter().GetResult();
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(aggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(aggregateType, aggregateRootId);
                 _aggregateRepository.CreateDocumentAsync(newAggregateDocument).GetAwaiter().GetResult();
             }
 
@@ -93,12 +93,12 @@ namespace Kledex.Store.Cosmos.Sql
             }
         }
 
-        public async Task SaveAsync<TAggregate>(Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events) where TAggregate : IAggregateRoot
+        public async Task SaveAsync(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
         {
             var aggregateDocument = await _aggregateRepository.GetDocumentAsync(aggregateRootId.ToString());
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate<TAggregate>(aggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(aggregateType, aggregateRootId);
                 await _aggregateRepository.CreateDocumentAsync(newAggregateDocument);
             }
 
