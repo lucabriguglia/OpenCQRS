@@ -12,7 +12,6 @@ namespace Kledex.Domain
         DateTime TimeStamp { get; set; }
         int? ExpectedVersion { get; set; }
         bool? SaveCommandData { get; set; }
-        bool? UseTransaction { get; set; }
     }
 
     public interface IDomainCommand<out TAggregateRoot> : IDomainCommand 
