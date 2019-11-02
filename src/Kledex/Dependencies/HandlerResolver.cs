@@ -33,9 +33,9 @@ namespace Kledex.Dependencies
             return handler;
         }
 
-        public object ResolveCommandHandler(object request, Type type)
+        public object ResolveCommandHandler(object commnad, Type type)
         {
-            var requestType = request.GetType();
+            var requestType = commnad.GetType();
             var handlerType = type.MakeGenericType(requestType);
             return ResolveHandler(handlerType);
         }
