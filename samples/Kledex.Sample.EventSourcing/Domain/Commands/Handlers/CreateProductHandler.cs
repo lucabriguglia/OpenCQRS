@@ -9,13 +9,11 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
         {
             var product = new Product(command.AggregateRootId, command.Name, command.Description, command.Price);
 
-            var events = await Task.FromResult(product.Events);
-
-            return new CommandResponse
+            return await Task.FromResult(new CommandResponse
             {
-                Events = events,
+                Events = product.Events,
                 Result = true
-            };
+            });
         }
     }
 }
