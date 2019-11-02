@@ -18,6 +18,8 @@ namespace Kledex.Domain
         Task SendAsync<TCommand>(TCommand command)
             where TCommand : ICommand;
 
+        Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot, TResult> command);
+
         /// <summary>
         /// Sends the command and the events returned by the handler will be saved to the event store.
         /// The command handler must implement Kledex.Commands.ICommandHandlerWithDomainEvents&lt;TCommand, TAggregate&gt;.

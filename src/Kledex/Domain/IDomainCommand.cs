@@ -19,4 +19,9 @@ namespace Kledex.Domain
         where TAggregateRoot : IAggregateRoot
     {
     }
+
+    public interface IDomainCommand<out TAggregateRoot, TResult> : IDomainCommand
+        where TAggregateRoot : IAggregateRoot
+    {
+    }
 }

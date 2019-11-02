@@ -74,6 +74,27 @@ namespace Kledex.Domain
             }
         }
 
+        public async Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot, TResult> command)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+
+            var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandlerAsync2<>));
+            var handleMethod = handler.GetType().GetMethod("HandleAsync");
+            var response = await(Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
+
+            foreach (var @event in (IEnumerable<IDomainEvent>)response.Events)
+            {
+                @event.Update(command);
+            }
+
+            await _domainStore.SaveAsync(GetAggregateType(command), command.AggregateRootId, command, (IEnumerable<IDomainEvent>)response.Events);
+
+            return (TResult)response.Result;
+        }
+
         /// <inheritdoc />
         public void Send<TCommand>(TCommand command)
             where TCommand : ICommand
