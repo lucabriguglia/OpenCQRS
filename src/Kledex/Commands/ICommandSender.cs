@@ -15,10 +15,9 @@ namespace Kledex.Domain
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        Task SendAsync<TCommand>(TCommand command)
-            where TCommand : ICommand;
+        Task SendAsync(ICommand command);
 
-        Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot> command);
+        Task<TResult> SendAsync<TResult>(ICommand command);
 
         /// <summary>
         /// Sends the command and the events returned by the handler will be saved to the event store.
@@ -26,7 +25,8 @@ namespace Kledex.Domain
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="command">The command.</param>
-        void Send<TCommand>(TCommand command)
-            where TCommand : ICommand;
+        void Send(ICommand command);
+
+        TResult Send<TResult>(ICommand command);
     }
 }

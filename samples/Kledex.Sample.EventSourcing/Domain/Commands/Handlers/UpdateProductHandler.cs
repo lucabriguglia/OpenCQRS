@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kledex.Commands;
 using Kledex.Domain;
-using Kledex.Events;
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 {
@@ -16,7 +14,7 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
             _repository = repository;
         }
 
-        public async Task<IEnumerable<IEvent>> HandleAsync(UpdateProduct command)
+        public async Task<CommandResponse> HandleAsync(UpdateProduct command)
         {
             var product = await _repository.GetByIdAsync(command.AggregateRootId);
 
@@ -27,7 +25,10 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 
             product.Update(command.Name, command.Description, command.Price);
 
-            return product.Events;
+            return new CommandResponse
+            {
+                Events = product.Events
+            };
         }
     }
 }

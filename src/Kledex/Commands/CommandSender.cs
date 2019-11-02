@@ -35,104 +35,95 @@ namespace Kledex.Domain
         }
 
         /// <inheritdoc />
-        public async Task SendAsync<TCommand>(TCommand command)
-            where TCommand : ICommand
+        public async Task SendAsync(ICommand command)
+        {
+            await ProcessAsync(command);
+        }
+
+        public async Task<TResult> SendAsync<TResult>(ICommand command)
+        {
+            var response = await ProcessAsync(command);
+
+            return response.Result != null ? (TResult)response.Result : default;
+        }
+
+        private async Task<CommandResponse> ProcessAsync(ICommand command)
         {
             if (command == null)
             {
                 throw new ArgumentNullException(nameof(command));
             }
 
-            IEnumerable<IEvent> events;
+            var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandlerAsync<>));
+            var handleMethod = handler.GetType().GetMethod("HandleAsync");
+            var response = await(Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
 
-            if (command is IDomainCommand<IAggregateRoot> domainCommand)
+            if (command is IDomainCommand domainCommand)
             {
-                var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandlerAsync<>));
-                var handleMethod = handler.GetType().GetMethod("HandleAsync");
-                events = await (Task<IEnumerable<IEvent>>)handleMethod.Invoke(handler, new object[] { command });
-
-                foreach (var @event in (IEnumerable<IDomainEvent>)events)
+                foreach (var @event in (IEnumerable<IDomainEvent>)response.Events)
                 {
                     @event.Update(domainCommand);
                 }
 
-                await _domainStore.SaveAsync(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)events);
-            }
-            else
-            {
-                var handler = _handlerResolver.ResolveHandler<ICommandHandlerAsync<TCommand>>();
-                events = await handler.HandleAsync(command);
+                await _domainStore.SaveAsync(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)response.Events);
             }
 
             if (PublishEvents(command))
             {
-                foreach (var @event in events)
+                foreach (var @event in response.Events)
                 {
                     var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                     await _eventPublisher.PublishAsync(concreteEvent);
                 }
             }
-        }
 
-        public async Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot> command)
-        {
-            if (command == null)
-            {
-                throw new ArgumentNullException(nameof(command));
-            }
-
-            var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandlerAsync2<>));
-            var handleMethod = handler.GetType().GetMethod("HandleAsync");
-            var response = await(Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
-
-            foreach (var @event in (IEnumerable<IDomainEvent>)response.Events)
-            {
-                @event.Update(command);
-            }
-
-            await _domainStore.SaveAsync(GetAggregateType(command), command.AggregateRootId, command, (IEnumerable<IDomainEvent>)response.Events);
-
-            return (TResult)response.Result;
+            return response;
         }
 
         /// <inheritdoc />
-        public void Send<TCommand>(TCommand command)
-            where TCommand : ICommand
+        public void Send(ICommand command)
+        {
+            Process(command);
+        }
+
+        public TResult Send<TResult>(ICommand command)
+        {
+            var response = Process(command);
+
+            return response.Result != null ? (TResult)response.Result : default;
+        }
+
+        private CommandResponse Process(ICommand command)
         {
             if (command == null)
             {
                 throw new ArgumentNullException(nameof(command));
             }
 
-            IEnumerable<IEvent> events;
+            var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandler<>));
+            var handleMethod = handler.GetType().GetMethod("Handle");
+            var response = (CommandResponse)handleMethod.Invoke(handler, new object[] { command });
 
-            if (command is IDomainCommand<IAggregateRoot> domainCommand)
+            if (command is IDomainCommand domainCommand)
             {
-                var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandler<>));
-                var handleMethod = handler.GetType().GetMethod("Handle");
-                events = (IEnumerable<IEvent>)handleMethod.Invoke(handler, new object[] { command });
-
-                foreach (var @event in (IEnumerable<IDomainEvent>)events)
+                foreach (var @event in (IEnumerable<IDomainEvent>)response.Events)
                 {
                     @event.Update(domainCommand);
                 }
 
-                _domainStore.Save(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)events);
-            }
-            else
-            {
-                var handler = _handlerResolver.ResolveHandler<ICommandHandler<TCommand>>();
-                events = handler.Handle(command);
+                _domainStore.Save(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)response.Events);
             }
 
             if (PublishEvents(command))
             {
-                foreach (var @event in events)
+                foreach (var @event in response.Events)
                 {
                     var concreteEvent = _eventFactory.CreateConcreteEvent(@event);
                     _eventPublisher.Publish(concreteEvent);
                 }
             }
+
+            return response;
         }
 
         private Type GetAggregateType(IDomainCommand domainCommand)

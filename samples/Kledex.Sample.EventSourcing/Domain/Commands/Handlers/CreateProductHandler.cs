@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Kledex.Commands;
-using Kledex.Events;
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 {
-    public class CreateProductHandler : ICommandHandlerAsync2<CreateProduct>
+    public class CreateProductHandler : ICommandHandlerAsync<CreateProduct>
     {
         public async Task<CommandResponse> HandleAsync(CreateProduct command)
         {

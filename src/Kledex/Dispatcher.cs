@@ -31,13 +31,13 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task SendAsync<TCommand>(TCommand command)
-            where TCommand : ICommand
+        public Task SendAsync(ICommand command)
         {
             return _commandSender.SendAsync(command);
         }
 
-        public Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot> command)
+        /// <inheritdoc />
+        public Task<TResult> SendAsync<TResult>(ICommand command)
         {
             return _commandSender.SendAsync<TResult>(command);
         }
@@ -63,10 +63,15 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public void Send<TCommand>(TCommand command) 
-            where TCommand : ICommand
+        public void Send(ICommand command)
         {
             _commandSender.Send(command);
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommand command)
+        {
+            return _commandSender.Send<TResult>(command);
         }
 
         /// <inheritdoc />

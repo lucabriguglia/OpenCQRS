@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Kledex.Bus;
 using Kledex.Commands;
-using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Queries;
 
@@ -19,10 +18,9 @@ namespace Kledex
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        Task SendAsync<TCommand>(TCommand command) 
-            where TCommand : ICommand;
+        Task SendAsync(ICommand command);
 
-        Task<TResult> SendAsync<TResult>(IDomainCommand<IAggregateRoot> command);
+        Task<TResult> SendAsync<TResult>(ICommand command);
 
         /// <summary>
         /// Asynchronously publishes the specified event.
@@ -57,8 +55,9 @@ namespace Kledex
         /// </summary>
         /// <typeparam name="TCommand">The type of the command.</typeparam>
         /// <param name="command">The command.</param>
-        void Send<TCommand>(TCommand command) 
-            where TCommand : ICommand;
+        void Send(ICommand command);
+
+        TResult Send<TResult>(ICommand command);
 
         /// <summary>
         /// Publishes the specified event.
