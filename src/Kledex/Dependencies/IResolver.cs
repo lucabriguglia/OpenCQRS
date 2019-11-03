@@ -8,5 +8,6 @@ namespace Kledex.Dependencies
         T Resolve<T>();
         IEnumerable<T> ResolveAll<T>();
         object Resolve(Type type);
+        IEnumerable<object> ResolveAll(Type type);
     }
 }

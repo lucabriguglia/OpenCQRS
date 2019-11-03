@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kledex.Commands;
 using Kledex.Domain;
+using Kledex.Events;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
-    public class UpdateProductHandler : IDomainCommandHandlerAsync<UpdateProduct>
+    public class UpdateProductHandler : ICommandHandlerAsync<UpdateProduct>
     {
         private readonly SampleDbContext _dbContext;
 
@@ -17,7 +19,7 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(UpdateProduct command)
+        public async Task<CommandResponse> HandleAsync(UpdateProduct command)
         {
             var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);
 
@@ -30,14 +32,17 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 
             await _dbContext.SaveChangesAsync();
 
-            return new List<IDomainEvent>()
+            return new CommandResponse
             {
-                new ProductUpdated
+                Events = new List<IDomainEvent>()
                 {
-                    AggregateRootId = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    Price = product.Price
+                    new ProductUpdated
+                    {
+                        AggregateRootId = product.Id,
+                        Name = product.Name,
+                        Description = product.Description,
+                        Price = product.Price
+                    }
                 }
             };
         }

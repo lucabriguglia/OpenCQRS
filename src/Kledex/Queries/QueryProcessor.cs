@@ -1,3 +1,4 @@
+using Kledex.Dependencies;
 using System;
 using System.Threading.Tasks;
 
@@ -6,11 +7,11 @@ namespace Kledex.Queries
     /// <inheritdoc />
     public class QueryProcessor : IQueryProcessor
     {
-        private readonly IQueryHandlerResolver _queryHandlerResolver;
+        private readonly IHandlerResolver _handlerResolver;
 
-        public QueryProcessor(IQueryHandlerResolver queryHandlerResolver)
+        public QueryProcessor(IHandlerResolver handlerResolver)
         {
-            _queryHandlerResolver = queryHandlerResolver;
+            _handlerResolver = handlerResolver;
         }
 
         /// <inheritdoc />
@@ -19,7 +20,7 @@ namespace Kledex.Queries
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var handler = _queryHandlerResolver.ResolveHandler(query, typeof(IQueryHandlerAsync<,>));
+            var handler = _handlerResolver.ResolveQueryHandler(query, typeof(IQueryHandlerAsync<,>));
 
             var handleMethod = handler.GetType().GetMethod("HandleAsync");
 
@@ -32,7 +33,7 @@ namespace Kledex.Queries
             if (query == null)
                 throw new ArgumentNullException(nameof(query));
 
-            var handler = _queryHandlerResolver.ResolveHandler(query, typeof(IQueryHandler<,>));
+            var handler = _handlerResolver.ResolveQueryHandler(query, typeof(IQueryHandler<,>));
 
             var handleMethod = handler.GetType().GetMethod("Handle");
 

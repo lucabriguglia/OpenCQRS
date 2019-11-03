@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kledex.Commands;
 using Kledex.Domain;
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 {
-    public class DeleteProductHandler : IDomainCommandHandlerAsync<DeleteProduct>
+    public class DeleteProductHandler : ICommandHandlerAsync<DeleteProduct>
     {
         private readonly IRepository<Product> _repository;
 
@@ -14,7 +14,7 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
             _repository = repository;
         }
 
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(DeleteProduct command)
+        public async Task<CommandResponse> HandleAsync(DeleteProduct command)
         {
             var product = await _repository.GetByIdAsync(command.AggregateRootId);
 
@@ -25,7 +25,10 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 
             product.Delete();
 
-            return product.Events;
+            return new CommandResponse
+            {
+                Events = product.Events
+            };
         }
     }
 }

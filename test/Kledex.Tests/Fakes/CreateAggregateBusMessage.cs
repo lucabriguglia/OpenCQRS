@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Kledex.Tests.Fakes
 {
-    public class CreateAggregateBusMessage : DomainCommand, IBusQueueMessage
+    public class CreateAggregateBusMessage : DomainCommand<Aggregate>, IBusQueueMessage
     {
         public DateTime? ScheduledEnqueueTimeUtc { get; set; }
         public string QueueName { get; set; } = "create-something";

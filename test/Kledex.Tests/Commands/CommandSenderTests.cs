@@ -10,7 +10,7 @@ using Moq;
 using NUnit.Framework;
 using Options = Kledex.Configuration.Options;
 
-namespace Kledex.Tests.Commands
+namespace Kledex.Tests.Domain
 {
     [TestFixture]
     public class CommandSenderTests
@@ -19,10 +19,11 @@ namespace Kledex.Tests.Commands
 
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisher> _eventPublisher;
+        private Mock<IDomainStore> _domainStore;
         private Mock<IEventFactory> _eventFactory;
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
-        private Mock<IDomainCommandHandler<CreateAggregate>> _domainCommandHandler;
+        private Mock<ICommandHandler<CreateAggregate>> _domainCommandHandler;
         private Mock<IOptions<Options>> _optionsMock;
 
         private CreateSomething _createSomething;
@@ -34,6 +35,9 @@ namespace Kledex.Tests.Commands
         private AggregateCreated _aggregateCreated;
         private AggregateCreated _aggregateCreatedConcrete;
         private Aggregate _aggregate;
+
+        private CommandResponse _commandResponse;
+        private CommandResponse _domainCommandResponse;
 
         [SetUp]
         public void SetUp()
@@ -48,11 +52,16 @@ namespace Kledex.Tests.Commands
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
 
+            _commandResponse = new CommandResponse { Events = _events };
+            _domainCommandResponse = new CommandResponse { Events = _aggregate.Events };
+
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
-                .Setup(x => x.Publish(_somethingCreatedConcrete));
-            _eventPublisher
                 .Setup(x => x.Publish(_aggregateCreatedConcrete));
+
+            _domainStore = new Mock<IDomainStore>();
+            _domainStore
+                .Setup(x => x.Save(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }));
 
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
@@ -65,19 +74,19 @@ namespace Kledex.Tests.Commands
             _commandHandler = new Mock<ICommandHandler<CreateSomething>>();
             _commandHandler
                 .Setup(x => x.Handle(_createSomething))
-                .Returns(_events);
+                .Returns(_commandResponse);
 
-            _domainCommandHandler = new Mock<IDomainCommandHandler<CreateAggregate>>();
+            _domainCommandHandler = new Mock<ICommandHandler<CreateAggregate>>();
             _domainCommandHandler
                 .Setup(x => x.Handle(_createAggregate))
-                .Returns(_aggregate.Events);
+                .Returns(_domainCommandResponse);
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveHandler<ICommandHandler<CreateSomething>>())
+                .Setup(x => x.ResolveCommandHandler(_createSomething, typeof(ICommandHandler<>)))
                 .Returns(_commandHandler.Object);
             _handlerResolver
-                .Setup(x => x.ResolveHandler<IDomainCommandHandler<CreateAggregate>>())
+                .Setup(x => x.ResolveCommandHandler(_createAggregate, typeof(ICommandHandler<>)))
                 .Returns(_domainCommandHandler.Object);
 
             _optionsMock = new Mock<IOptions<Options>>();
@@ -88,28 +97,68 @@ namespace Kledex.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
+                _domainStore.Object,
                 _optionsMock.Object);
         }
 
         [Test]
         public void Send_ThrowsException_WhenCommandIsNull()
         {
-            _createSomething = null;
-            Assert.Throws<ArgumentNullException>(() => _sut.Send(_createSomething));
+            _createAggregate = null;
+            Assert.Throws<ArgumentNullException>(() => _sut.Send(_createAggregate));
         }
 
         [Test]
-        public void Send_SendsCommand()
+        public void Send_HandlesCommand()
         {
             _sut.Send(_createSomething);
             _commandHandler.Verify(x => x.Handle(_createSomething), Times.Once);
         }
 
         [Test]
+        public void Send_HandlesDomainCommand()
+        {
+            _sut.Send(_createAggregate);
+            _domainCommandHandler.Verify(x => x.Handle(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public void Send_SavesEvents()
+        {
+            _sut.Send(_createAggregate);
+            _domainStore.Verify(x => x.Save(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }), Times.Once);
+        }
+
+        [Test]
         public void Send_PublishesEvents()
         {
-            _sut.Send(_createSomething);
-            _eventPublisher.Verify(x => x.Publish(_somethingCreatedConcrete), Times.Once);
+            _sut.Send(_createAggregate);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete ), Times.Once);
+        }
+
+        [Test]
+        public void Send_NotPublishesEvents_WhenSetInOptions()
+        {
+            _optionsMock
+                .Setup(x => x.Value)
+                .Returns(new Options { PublishEvents = false });
+
+            _sut = new CommandSender(_handlerResolver.Object,
+                _eventPublisher.Object,
+                _eventFactory.Object,
+                _domainStore.Object,
+                _optionsMock.Object);
+
+            _sut.Send(_createAggregate);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Never);
+        }
+
+        [Test]
+        public void Send_NotPublishesEvents_WhenSetInCommand()
+        {
+            _createAggregate.PublishEvents = false;
+            _sut.Send(_createAggregate);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Never);
         }
     }
 }

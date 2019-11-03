@@ -46,20 +46,20 @@ namespace Kledex.Domain
             _events.Add(@event);
         }
 
+        private void ApplyEvent(IDomainEvent @event)
+        {
+            this.AsDynamic().Apply(@event);
+            Version++;
+        }
+
         /// <summary>
         /// Adds the event to the new events collection and calls the related apply method.
         /// </summary>
         /// <param name="event">The event.</param>
         protected void AddAndApplyEvent(IDomainEvent @event)
         {
-            _events.Add(@event);
+            AddEvent(@event);
             ApplyEvent(@event);
-        }
-
-        private void ApplyEvent(IDomainEvent @event)
-        {
-            this.AsDynamic().Apply(@event);
-            Version++;
         }
     }
 }

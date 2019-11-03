@@ -15,40 +15,36 @@ namespace Kledex
     public class Dispatcher : IDispatcher
     {
         private readonly ICommandSender _commandSender;
-        private readonly IDomainCommandSender _domainCommandSender;
         private readonly IEventPublisher _eventPublisher;
         private readonly IQueryProcessor _queryProcessor;
         private readonly IBusMessageDispatcher _busMessageDispatcher;
 
-        public Dispatcher(ICommandSender commandSender,
-            IDomainCommandSender domainCommandSender,
-            IEventPublisher eventPublisher, 
-            IQueryProcessor queryProcessor, 
+        public Dispatcher(ICommandSender domainCommandSender,
+            IEventPublisher eventPublisher,
+            IQueryProcessor queryProcessor,
             IBusMessageDispatcher busMessageDispatcher)
         {
-            _commandSender = commandSender;
-            _domainCommandSender = domainCommandSender;
+            _commandSender = domainCommandSender;
             _eventPublisher = eventPublisher;
             _queryProcessor = queryProcessor;
-            _busMessageDispatcher = busMessageDispatcher;            
+            _busMessageDispatcher = busMessageDispatcher;
         }
 
         /// <inheritdoc />
-        public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
+        public Task SendAsync(ICommand command)
         {
             return _commandSender.SendAsync(command);
         }
 
         /// <inheritdoc />
-        public Task SendAsync<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
-            where TAggregate : IAggregateRoot
+        public Task<TResult> SendAsync<TResult>(ICommand command)
         {
-            return _domainCommandSender.SendAsync<TCommand, TAggregate>(command);
+            return _commandSender.SendAsync<TResult>(command);
         }
 
         /// <inheritdoc />
-        public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
+        public Task PublishAsync<TEvent>(TEvent @event) 
+            where TEvent : IEvent
         {
             return _eventPublisher.PublishAsync(@event);
         }
@@ -60,27 +56,27 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task DispatchBusMessageAsync<TMessage>(TMessage message) where TMessage : IBusMessage
+        public Task DispatchBusMessageAsync<TMessage>(TMessage message) 
+            where TMessage : IBusMessage
         {
             return _busMessageDispatcher.DispatchAsync(message);
         }
 
         /// <inheritdoc />
-        public void Send<TCommand>(TCommand command) where TCommand : ICommand
+        public void Send(ICommand command)
         {
             _commandSender.Send(command);
         }
 
         /// <inheritdoc />
-        public void Send<TCommand, TAggregate>(TCommand command) 
-            where TCommand : IDomainCommand 
-            where TAggregate : IAggregateRoot
+        public TResult Send<TResult>(ICommand command)
         {
-            _domainCommandSender.Send<TCommand, TAggregate>(command);
+            return _commandSender.Send<TResult>(command);
         }
 
         /// <inheritdoc />
-        public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        public void Publish<TEvent>(TEvent @event) 
+            where TEvent : IEvent
         {
             _eventPublisher.Publish(@event);
         }

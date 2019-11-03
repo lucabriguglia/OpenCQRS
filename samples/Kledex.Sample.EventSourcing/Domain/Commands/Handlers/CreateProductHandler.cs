@@ -1,23 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Kledex.Domain;
+﻿using System.Threading.Tasks;
+using Kledex.Commands;
 
 namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 {
-    public class CreateProductHandler : IDomainCommandHandlerAsync<CreateProduct>
+    public class CreateProductHandler : ICommandHandlerAsync<CreateProduct>
     {
-        private readonly IRepository<Product> _repository;
-
-        public CreateProductHandler(IRepository<Product> repository)
-        {
-            _repository = repository;
-        }
-
-        public async Task<IEnumerable<IDomainEvent>> HandleAsync(CreateProduct command)
+        public async Task<CommandResponse> HandleAsync(CreateProduct command)
         {
             var product = new Product(command.AggregateRootId, command.Name, command.Description, command.Price);
 
-            return await Task.FromResult(product.Events);
+            return await Task.FromResult(new CommandResponse
+            {
+                Events = product.Events,
+                Result = true
+            });
         }
     }
 }

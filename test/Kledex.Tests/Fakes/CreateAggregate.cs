@@ -2,7 +2,7 @@
 
 namespace Kledex.Tests.Fakes
 {
-    public class CreateAggregate : DomainCommand
+    public class CreateAggregate : DomainCommand<Aggregate>
     {
     }
 }
