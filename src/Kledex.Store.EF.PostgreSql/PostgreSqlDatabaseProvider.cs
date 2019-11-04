@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Store.EF.PostgreSql
 {
@@ -8,7 +7,7 @@ namespace Kledex.Store.EF.PostgreSql
         public DomainDbContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
-            optionsBuilder.UseNpgsql(new SqlConnection(connectionString));
+            optionsBuilder.UseNpgsql(connectionString);
 
             return new DomainDbContext(optionsBuilder.Options);
         }

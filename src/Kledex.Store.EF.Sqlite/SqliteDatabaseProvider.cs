@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Store.EF.Sqlite
 {
@@ -8,7 +7,7 @@ namespace Kledex.Store.EF.Sqlite
         public DomainDbContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
-            optionsBuilder.UseSqlite(new SqlConnection(connectionString));
+            optionsBuilder.UseSqlite(connectionString);
 
             return new DomainDbContext(optionsBuilder.Options);
         }
