@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Store.EF.SqlServer
 {
@@ -7,7 +8,7 @@ namespace Kledex.Store.EF.SqlServer
         public DomainDbContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(new SqlConnection(connectionString));
 
             return new DomainDbContext(optionsBuilder.Options);
         }

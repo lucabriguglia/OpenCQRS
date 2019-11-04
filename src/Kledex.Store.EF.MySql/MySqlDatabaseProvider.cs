@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Store.EF.MySql
 {
@@ -7,7 +8,7 @@ namespace Kledex.Store.EF.MySql
         public DomainDbContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
-            optionsBuilder.UseMySQL(connectionString);
+            optionsBuilder.UseMySQL(new SqlConnection(connectionString));
 
             return new DomainDbContext(optionsBuilder.Options);
         }

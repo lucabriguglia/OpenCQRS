@@ -7,6 +7,7 @@ using Kledex.Events;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
