@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Kledex.Commands
 {
@@ -8,5 +9,6 @@ namespace Kledex.Commands
         string Source { get; set; }
         DateTime TimeStamp { get; set; }
         bool? PublishEvents { get; set; }
+        IDictionary<string, object> Properties { get; set; }
     }
 }
