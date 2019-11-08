@@ -58,6 +58,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Sample.EventSourcing
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.UI", "src\Kledex.UI\Kledex.UI.csproj", "{698A5F31-4E71-46EF-A93F-8B80AAA62F77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Validation.FluentValidation", "src\Kledex.Validation.FluentValidation\Kledex.Validation.FluentValidation.csproj", "{EC89F18E-266A-4C33-8E70-9F3AB331BB6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{698A5F31-4E71-46EF-A93F-8B80AAA62F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{698A5F31-4E71-46EF-A93F-8B80AAA62F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{698A5F31-4E71-46EF-A93F-8B80AAA62F77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC89F18E-266A-4C33-8E70-9F3AB331BB6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC89F18E-266A-4C33-8E70-9F3AB331BB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC89F18E-266A-4C33-8E70-9F3AB331BB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC89F18E-266A-4C33-8E70-9F3AB331BB6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{7FC48BED-63CC-4BD0-8A90-27DD4AF7CDCB} = {FF129AB8-1B8D-4BAA-AB1F-39D2FA497397}
 		{99E0EA26-E961-40A1-A580-BCB255B37838} = {FF129AB8-1B8D-4BAA-AB1F-39D2FA497397}
 		{698A5F31-4E71-46EF-A93F-8B80AAA62F77} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
+		{EC89F18E-266A-4C33-8E70-9F3AB331BB6C} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}

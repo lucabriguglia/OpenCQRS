@@ -83,10 +83,10 @@ namespace Kledex.Tests.Domain
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveCommandHandler(_createSomething, typeof(ICommandHandler<>)))
+                .Setup(x => x.ResolveHandler(_createSomething, typeof(ICommandHandler<>)))
                 .Returns(_commandHandler.Object);
             _handlerResolver
-                .Setup(x => x.ResolveCommandHandler(_createAggregate, typeof(ICommandHandler<>)))
+                .Setup(x => x.ResolveHandler(_createAggregate, typeof(ICommandHandler<>)))
                 .Returns(_domainCommandHandler.Object);
 
             _optionsMock = new Mock<IOptions<Options>>();
