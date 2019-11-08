@@ -13,8 +13,8 @@
         public bool SaveCommandData { get; set; } = true;
 
         /// <summary>
-        /// The value indicating whether to use transactions. Default value is false.
+        /// The value indicating whether to validate commands. Default value is false.
         /// </summary>
-        public bool UseTransactions { get; set; } = false;
+        public bool ValidateCommands { get; set; } = false;
     }
 }

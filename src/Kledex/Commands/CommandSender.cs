@@ -21,6 +21,7 @@ namespace Kledex.Domain
         private readonly IValidationService _validationService;
         private readonly Options _options;
 
+        private bool ValidateCommand(ICommand command) => command.Validate ?? _options.ValidateCommands;
         private bool PublishEvents(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
 
         public CommandSender(IHandlerResolver handlerResolver,
@@ -73,7 +74,7 @@ namespace Kledex.Domain
                 throw new ArgumentNullException(nameof(command));
             }
 
-            if (true) // TO DO: Add option to request validation
+            if (ValidateCommand(command))
             {
                 await _validationService.ValidateAsync(command);
             }           
@@ -114,6 +115,11 @@ namespace Kledex.Domain
             if (command == null)
             {
                 throw new ArgumentNullException(nameof(command));
+            }
+
+            if (ValidateCommand(command))
+            {
+                _validationService.Validate(command);
             }
 
             var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandler<>));

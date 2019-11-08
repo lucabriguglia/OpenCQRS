@@ -22,12 +22,26 @@ namespace Kledex.Validation.FluentValidation
             var validateMethod = validator.GetType().GetMethod("ValidateAsync");
             var validationResult = await(Task<ValidationResult>)validateMethod.Invoke(validator, new object[] { command });
 
+            return BuildValidationResponse(validationResult);
+        }
+
+        public ValidationResponse Validate(ICommand command)
+        {
+            var validator = _handlerResolver.ResolveHandler(command, typeof(IValidator<>));
+            var validateMethod = validator.GetType().GetMethod("Validate");
+            var validationResult = (ValidationResult)validateMethod.Invoke(validator, new object[] { command });
+
+            return BuildValidationResponse(validationResult);
+        }
+
+        private ValidationResponse BuildValidationResponse(ValidationResult validationResult)
+        {
             var errors = new List<ValidationError>();
 
             foreach (var failure in validationResult.Errors)
             {
                 errors.Add(new ValidationError
-                { 
+                {
                     PropertyName = failure.PropertyName,
                     ErrorMessage = failure.ErrorMessage
                 });

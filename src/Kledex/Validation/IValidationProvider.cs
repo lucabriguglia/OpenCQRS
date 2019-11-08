@@ -6,5 +6,6 @@ namespace Kledex.Validation
     public interface IValidationProvider
     {
         Task<ValidationResponse> ValidateAsync(ICommand command);
+        ValidationResponse Validate(ICommand command);
     }
 }
