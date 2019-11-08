@@ -5,6 +5,7 @@ using Kledex.Dependencies;
 using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Tests.Fakes;
+using Kledex.Validation;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
@@ -98,6 +99,7 @@ namespace Kledex.Tests.Domain
                 _eventPublisher.Object,
                 _eventFactory.Object,
                 _domainStore.Object,
+                new Mock<IValidationService>().Object,
                 _optionsMock.Object);
         }
 
@@ -147,6 +149,7 @@ namespace Kledex.Tests.Domain
                 _eventPublisher.Object,
                 _eventFactory.Object,
                 _domainStore.Object,
+                new Mock<IValidationService>().Object,
                 _optionsMock.Object);
 
             _sut.Send(_createAggregate);
