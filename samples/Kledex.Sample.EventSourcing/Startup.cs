@@ -47,7 +47,7 @@ namespace Kledex.Sample.EventSourcing
                 {
                     opt.PublishEvents = true;
                     opt.SaveCommandData = true;
-                    opt.ValidateCommands = true;
+                    opt.ValidateCommands = false;
                 }, typeof(Product))
                 .AddCosmosDbSqlProvider(Configuration)
                 .AddServiceBusProvider(Configuration)

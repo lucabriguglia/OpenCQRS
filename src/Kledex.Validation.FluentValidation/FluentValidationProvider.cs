@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
@@ -19,8 +20,8 @@ namespace Kledex.Validation.FluentValidation
         public async Task<ValidationResponse> ValidateAsync(ICommand command)
         {
             var validator = _handlerResolver.ResolveHandler(command, typeof(IValidator<>));
-            var validateMethod = validator.GetType().GetMethod("ValidateAsync");
-            var validationResult = await(Task<ValidationResult>)validateMethod.Invoke(validator, new object[] { command });
+            var validateMethod = validator.GetType().GetMethod("ValidateAsync", new [] { command.GetType(), typeof(CancellationToken) });
+            var validationResult = await(Task<ValidationResult>)validateMethod.Invoke(validator, new object[] { command, default(CancellationToken) });
 
             return BuildValidationResponse(validationResult);
         }
@@ -28,8 +29,8 @@ namespace Kledex.Validation.FluentValidation
         public ValidationResponse Validate(ICommand command)
         {
             var validator = _handlerResolver.ResolveHandler(command, typeof(IValidator<>));
-            var validateMethod = validator.GetType().GetMethod("Validate");
-            var validationResult = (ValidationResult)validateMethod.Invoke(validator, new object[] { command });
+            var validateMethod = validator.GetType().GetMethod("Validate", new[] { command.GetType(), typeof(CancellationToken) });
+            var validationResult = (ValidationResult)validateMethod.Invoke(validator, new object[] { command, default(CancellationToken) });
 
             return BuildValidationResponse(validationResult);
         }

@@ -48,7 +48,7 @@ namespace Kledex.Sample.NoEventSourcing
                 {
                     opt.PublishEvents = true;
                     opt.SaveCommandData = true;
-                    opt.ValidateCommands = true;
+                    opt.ValidateCommands = false;
                 }, typeof(Product))
                 .AddSqlServerProvider(Configuration)
                 .AddServiceBusProvider(Configuration)

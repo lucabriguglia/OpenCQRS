@@ -23,7 +23,7 @@ namespace Kledex.Validation
             var validationResponse = await _validationProvider.ValidateAsync(command);
 
             if (!validationResponse.IsValid)
-                throw new Exception(BuildErrorMessage(validationResponse.Errors));
+                throw new ValidationException(BuildErrorMessage(validationResponse.Errors));
         }
 
         public void Validate(ICommand command)
@@ -34,7 +34,7 @@ namespace Kledex.Validation
             var validationResponse = _validationProvider.Validate(command);
 
             if (!validationResponse.IsValid)
-                throw new Exception(BuildErrorMessage(validationResponse.Errors));
+                throw new ValidationException(BuildErrorMessage(validationResponse.Errors));
         }
 
         private static string BuildErrorMessage(IEnumerable<ValidationError> errors)
