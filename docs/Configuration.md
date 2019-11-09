@@ -1,3 +1,5 @@
+# Configuration
+
 ## Register services
 
 In ConfigureServices method of Startup.cs:

@@ -1,3 +1,5 @@
+# Installation
+
 ## Installing the main package
 
 Via Package Manager

@@ -1,3 +1,5 @@
+# Queries
+
 First, create a model to be returned and a query that implements the **IQuery<>** interface:
 
 ```C#
