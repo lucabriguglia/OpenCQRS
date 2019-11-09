@@ -71,7 +71,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7D99A7AE-B
 		docs\Message-Bus.md = docs\Message-Bus.md
 		docs\Queries.md = docs\Queries.md
 		docs\README.md = docs\README.md
-		docs\Roadmap.md = docs\Roadmap.md
 		docs\Samples.md = docs\Samples.md
 		docs\With-Event-Sourcing.md = docs\With-Event-Sourcing.md
 		docs\Without-Event-Sourcing.md = docs\Without-Event-Sourcing.md
