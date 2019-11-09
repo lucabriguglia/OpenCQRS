@@ -11,7 +11,7 @@ using Moq;
 using NUnit.Framework;
 using Options = Kledex.Configuration.Options;
 
-namespace Kledex.Tests.Domain
+namespace Kledex.Tests.Commands
 {
     [TestFixture]
     public class CommandSenderTests
@@ -22,6 +22,7 @@ namespace Kledex.Tests.Domain
         private Mock<IEventPublisher> _eventPublisher;
         private Mock<IDomainStore> _domainStore;
         private Mock<IEventFactory> _eventFactory;
+        private Mock<IValidationService> _validationService;
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
         private Mock<ICommandHandler<CreateAggregate>> _domainCommandHandler;
@@ -72,6 +73,10 @@ namespace Kledex.Tests.Domain
                 .Setup(x => x.CreateConcreteEvent(_aggregateCreated))
                 .Returns(_aggregateCreatedConcrete);
 
+            _validationService = new Mock<IValidationService>();
+            _validationService
+                .Setup(x => x.Validate(_createAggregate));
+
             _commandHandler = new Mock<ICommandHandler<CreateSomething>>();
             _commandHandler
                 .Setup(x => x.Handle(_createSomething))
@@ -99,7 +104,7 @@ namespace Kledex.Tests.Domain
                 _eventPublisher.Object,
                 _eventFactory.Object,
                 _domainStore.Object,
-                new Mock<IValidationService>().Object,
+                _validationService.Object,
                 _optionsMock.Object);
         }
 
@@ -108,6 +113,14 @@ namespace Kledex.Tests.Domain
         {
             _createAggregate = null;
             Assert.Throws<ArgumentNullException>(() => _sut.Send(_createAggregate));
+        }
+
+        [Test]
+        public void Send_ValidatesCommand()
+        {
+            _createSomething.Validate = true;
+            _sut.Send(_createSomething);
+            _validationService.Verify(x => x.Validate(_createSomething), Times.Once);
         }
 
         [Test]
