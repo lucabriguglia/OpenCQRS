@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Description>FluentValidation provider for Kledex validation</Description>
+    <PackageTags>$(PackageTags), validation, fluentvalidation</PackageTags>
+    <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
