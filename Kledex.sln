@@ -58,20 +58,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Sample.EventSourcing
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.UI", "src\Kledex.UI\Kledex.UI.csproj", "{698A5F31-4E71-46EF-A93F-8B80AAA62F77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Validation.FluentValidation", "src\Kledex.Validation.FluentValidation\Kledex.Validation.FluentValidation.csproj", "{EC89F18E-266A-4C33-8E70-9F3AB331BB6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Validation.FluentValidation", "src\Kledex.Validation.FluentValidation\Kledex.Validation.FluentValidation.csproj", "{EC89F18E-266A-4C33-8E70-9F3AB331BB6C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7D99A7AE-BB7F-4155-B192-11F5E81C5ADA}"
 	ProjectSection(SolutionItems) = preProject
-		docs\_Sidebar.md = docs\_Sidebar.md
 		docs\Basics.md = docs\Basics.md
 		docs\Commands.md = docs\Commands.md
 		docs\Configuration.md = docs\Configuration.md
 		docs\Domain.md = docs\Domain.md
 		docs\Events.md = docs\Events.md
-		docs\Home.md = docs\Home.md
 		docs\Installation.md = docs\Installation.md
 		docs\Message-Bus.md = docs\Message-Bus.md
 		docs\Queries.md = docs\Queries.md
+		docs\README.md = docs\README.md
 		docs\Roadmap.md = docs\Roadmap.md
 		docs\Samples.md = docs\Samples.md
 		docs\With-Event-Sourcing.md = docs\With-Event-Sourcing.md
