@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -35,25 +36,16 @@ namespace Kledex.Validation.FluentValidation
             return BuildValidationResponse(validationResult);
         }
 
-        private ValidationResponse BuildValidationResponse(ValidationResult validationResult)
+        private static ValidationResponse BuildValidationResponse(ValidationResult validationResult)
         {
-            var errors = new List<ValidationError>();
-
-            foreach (var failure in validationResult.Errors)
+            return new ValidationResponse
             {
-                errors.Add(new ValidationError
+                Errors = validationResult.Errors.Select(failure => new ValidationError
                 {
                     PropertyName = failure.PropertyName,
                     ErrorMessage = failure.ErrorMessage
-                });
-            }
-
-            var result = new ValidationResponse
-            {
-                Errors = errors
+                }).ToList()
             };
-
-            return result;
         }
     }
 }
