@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Validation
+namespace Kledex.Exceptions
 {
     public class ValidationException : Exception
     {

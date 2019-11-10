@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Kledex.Commands;
 using Kledex.Dependencies;
+using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Validation;
 using Microsoft.Extensions.Options;
 using Options = Kledex.Configuration.Options;
 
-namespace Kledex.Domain
+namespace Kledex.Commands
 {
     /// <inheritdoc />
     public class CommandSender : ICommandSender
@@ -153,7 +153,7 @@ namespace Kledex.Domain
             return response;
         }
 
-        private Type GetAggregateType(IDomainCommand domainCommand)
+        private static Type GetAggregateType(IDomainCommand domainCommand)
         {
             var commandType = domainCommand.GetType();
             var commandInterface = commandType.GetInterfaces()[1];

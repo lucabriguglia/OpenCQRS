@@ -32,7 +32,7 @@ namespace Kledex.Domain
         }
 
         /// <summary>
-        /// To be overridden in inheriting clesses for providing a collection of atomic values of
+        /// To be overridden in inheriting classes for providing a collection of atomic values of
         /// this Value Object.
         /// </summary>
         /// <returns>Collection of atomic values.</returns>

@@ -9,9 +9,10 @@ namespace Kledex.Domain
         /// <summary>
         /// Saves the event asynchronous.
         /// </summary>
-        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        /// <param name="aggregateRootId"></param>
         /// <param name="command">The command.</param>
         /// <param name="events">The events.</param>
+        /// <param name="aggregateType"></param>
         /// <returns></returns>
         Task SaveAsync(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events);
 
@@ -25,9 +26,10 @@ namespace Kledex.Domain
         /// <summary>
         /// Saves the event.
         /// </summary>
-        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        /// <param name="aggregateRootId"></param>
         /// <param name="command">The command.</param>
         /// <param name="events">The events.</param>
+        /// <param name="aggregateType"></param>
         void Save(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events);
 
         /// <summary>
