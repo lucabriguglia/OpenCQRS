@@ -6,6 +6,7 @@ using Kledex.Store.Cosmos.Sql.Configuration;
 using Kledex.Store.EF.Extensions;
 using Kledex.Store.EF.SqlServer;
 using Kledex.UI.Extensions;
+using Kledex.Validation.FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,9 +44,15 @@ namespace Kledex.Sample.NoEventSourcing
                 options.UseSqlServer(Configuration.GetConnectionString("SampleDb")));
 
             services
-                .AddKledex(typeof(Product))
+                .AddKledex(opt =>
+                {
+                    opt.PublishEvents = true;
+                    opt.SaveCommandData = true;
+                    opt.ValidateCommands = false;
+                }, typeof(Product))
                 .AddSqlServerProvider(Configuration)
                 .AddServiceBusProvider(Configuration)
+                .AddFluentValidation()
                 .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

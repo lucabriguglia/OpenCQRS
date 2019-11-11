@@ -6,12 +6,13 @@ using Kledex.Dependencies;
 using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Tests.Fakes;
+using Kledex.Validation;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
 using Options = Kledex.Configuration.Options;
 
-namespace Kledex.Tests.Domain
+namespace Kledex.Tests.Commands
 {
     [TestFixture]
     public class CommandSenderAsyncTests
@@ -22,6 +23,7 @@ namespace Kledex.Tests.Domain
         private Mock<IEventPublisher> _eventPublisher;
         private Mock<IDomainStore> _domainStore;
         private Mock<IEventFactory> _eventFactory;
+        private Mock<IValidationService> _validationService;
 
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
         private Mock<ICommandHandlerAsync<CreateAggregate>> _domainCommandHandlerAsync;
@@ -74,6 +76,11 @@ namespace Kledex.Tests.Domain
                 .Setup(x => x.CreateConcreteEvent(_aggregateCreated))
                 .Returns(_aggregateCreatedConcrete);
 
+            _validationService = new Mock<IValidationService>();
+            _validationService
+                .Setup(x => x.ValidateAsync(_createAggregate))
+                .Returns(Task.CompletedTask);
+
             _commandHandlerAsync = new Mock<ICommandHandlerAsync<CreateSomething>>();
             _commandHandlerAsync
                 .Setup(x => x.HandleAsync(_createSomething))
@@ -86,10 +93,10 @@ namespace Kledex.Tests.Domain
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveCommandHandler(_createSomething, typeof(ICommandHandlerAsync<>)))
+                .Setup(x => x.ResolveHandler(_createSomething, typeof(ICommandHandlerAsync<>)))
                 .Returns(_commandHandlerAsync.Object);
             _handlerResolver
-                .Setup(x => x.ResolveCommandHandler(_createAggregate, typeof(ICommandHandlerAsync<>)))
+                .Setup(x => x.ResolveHandler(_createAggregate, typeof(ICommandHandlerAsync<>)))
                 .Returns(_domainCommandHandlerAsync.Object);
 
             _optionsMock = new Mock<IOptions<Options>>();
@@ -101,6 +108,7 @@ namespace Kledex.Tests.Domain
                 _eventPublisher.Object,
                 _eventFactory.Object,
                 _domainStore.Object,
+                _validationService.Object,
                 _optionsMock.Object);
         }
 
@@ -109,6 +117,14 @@ namespace Kledex.Tests.Domain
         {
             _createAggregate = null;
             Assert.ThrowsAsync<ArgumentNullException>(async () => await _sut.SendAsync(_createAggregate));
+        }
+
+        [Test]
+        public async Task SendAsync_ValidatesCommand()
+        {
+            _createSomething.Validate = true;
+            await _sut.SendAsync(_createSomething);
+            _validationService.Verify(x => x.ValidateAsync(_createSomething), Times.Once);
         }
 
         [Test]
@@ -150,6 +166,7 @@ namespace Kledex.Tests.Domain
                 _eventPublisher.Object,
                 _eventFactory.Object,
                 _domainStore.Object,
+                new Mock<IValidationService>().Object,
                 _optionsMock.Object);
 
             await _sut.SendAsync(_createAggregate);

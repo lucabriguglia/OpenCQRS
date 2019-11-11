@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Kledex.Commands;
 using Kledex.Dependencies;
+using Kledex.Domain;
 using Kledex.Events;
+using Kledex.Validation;
 using Microsoft.Extensions.Options;
 using Options = Kledex.Configuration.Options;
 
-namespace Kledex.Domain
+namespace Kledex.Commands
 {
     /// <inheritdoc />
     public class CommandSender : ICommandSender
@@ -17,20 +18,24 @@ namespace Kledex.Domain
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventFactory _eventFactory;
         private readonly IDomainStore _domainStore;
+        private readonly IValidationService _validationService;
         private readonly Options _options;
 
+        private bool ValidateCommand(ICommand command) => command.Validate ?? _options.ValidateCommands;
         private bool PublishEvents(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
 
         public CommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
             IEventFactory eventFactory,
             IDomainStore domainStore,
+            IValidationService validationService,
             IOptions<Options> options)
         {
             _handlerResolver = handlerResolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
             _domainStore = domainStore;
+            _validationService = validationService;
             _options = options.Value;
         }
 
@@ -69,7 +74,12 @@ namespace Kledex.Domain
                 throw new ArgumentNullException(nameof(command));
             }
 
-            var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandlerAsync<>));
+            if (ValidateCommand(command))
+            {
+                await _validationService.ValidateAsync(command);
+            }           
+
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandlerAsync<>));
             var handleMethod = handler.GetType().GetMethod("HandleAsync");
             var response = await (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
 
@@ -107,7 +117,12 @@ namespace Kledex.Domain
                 throw new ArgumentNullException(nameof(command));
             }
 
-            var handler = _handlerResolver.ResolveCommandHandler(command, typeof(ICommandHandler<>));
+            if (ValidateCommand(command))
+            {
+                _validationService.Validate(command);
+            }
+
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandler<>));
             var handleMethod = handler.GetType().GetMethod("Handle");
             var response = (CommandResponse)handleMethod.Invoke(handler, new object[] { command });
 
@@ -138,7 +153,7 @@ namespace Kledex.Domain
             return response;
         }
 
-        private Type GetAggregateType(IDomainCommand domainCommand)
+        private static Type GetAggregateType(IDomainCommand domainCommand)
         {
             var commandType = domainCommand.GetType();
             var commandInterface = commandType.GetInterfaces()[1];

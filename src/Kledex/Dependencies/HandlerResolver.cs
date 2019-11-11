@@ -33,10 +33,10 @@ namespace Kledex.Dependencies
             return handler;
         }
 
-        public object ResolveCommandHandler(object command, Type type)
+        public object ResolveHandler(object param, Type type)
         {
-            var commandType = command.GetType();
-            var handlerType = type.MakeGenericType(commandType);
+            var paramType = param.GetType();
+            var handlerType = type.MakeGenericType(paramType);
             return ResolveHandler(handlerType);
         }
 
