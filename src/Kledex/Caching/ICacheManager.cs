@@ -5,11 +5,9 @@ namespace Kledex.Caching
 {
     public interface ICacheManager
     {
+        Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> acquire);
         Task<T> GetOrCreateAsync<T>(string key, int cacheTime, Func<Task<T>> acquire);
-        Task<bool> IsSetAsync(string key);
-        Task<bool> RemoveAsync(string key);
-        T GetOrCreate<T>(string key, int cacheTime, Func<T> acquire);        
-        bool IsSet(string key);
-        void Remove(string key);
+        T GetOrCreate<T>(string key, Func<T> acquire);
+        T GetOrCreate<T>(string key, int cacheTime, Func<T> acquire);
     }
 }
