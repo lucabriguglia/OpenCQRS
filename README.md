@@ -10,33 +10,38 @@ Kledex also has Azure Service Bus and RabbitMQ integrations.
 
 ### Main
 
-[![Nuget Package](https://img.shields.io/badge/Kledex-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex)
+[![Nuget Package](https://img.shields.io/badge/Kledex-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex)
 
 ### Storage
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Store.Cosmos.Mongo-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Mongo)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.Cosmos.Mongo-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Mongo)
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Store.Cosmos.Sql-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Sql)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.Cosmos.Sql-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Sql)
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.MySql-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.MySql)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.MySql-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.MySql)
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.PostgreSql-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.PostgreSql)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.PostgreSql-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.PostgreSql)
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.Sqlite-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.Sqlite)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.Sqlite-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.Sqlite)
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.SqlServer-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.SqlServer)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.SqlServer-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.SqlServer)
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.InMemory-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.InMemory)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Store.EF.InMemory-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.InMemory)
 
 ### Bus
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.ServiceBus-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.ServiceBus)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.ServiceBus-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.ServiceBus)
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.RabbitMQ-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.RabbitMQ-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ)
 
 ### Validation
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Validation.FluentValidation-2.1.0-blue.svg)](https://www.nuget.org/packages/Kledex.Validation.FluentValidation)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Validation.FluentValidation-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Validation.FluentValidation)
+
+### Caching
+
+[![Nuget Package](https://img.shields.io/badge/Kledex.Caching.Memory-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Memory)
+[![Nuget Package](https://img.shields.io/badge/Kledex.Caching.Redis-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Redis)
 
 ## Samples
 
