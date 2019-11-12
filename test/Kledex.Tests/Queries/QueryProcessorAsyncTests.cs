@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Caching;
 using Kledex.Dependencies;
 using Kledex.Queries;
 using Kledex.Tests.Fakes;
+using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
+using Options = Kledex.Configuration.Options;
 
 namespace Kledex.Tests.Queries
 {
@@ -35,7 +38,7 @@ namespace Kledex.Tests.Queries
                 .Setup(x => x.ResolveQueryHandler(_getSomething, typeof(IQueryHandlerAsync<,>)))
                 .Returns(_queryHandler.Object);
 
-            _sut = new QueryProcessor(_handlerResolver.Object);
+            _sut = new QueryProcessor(_handlerResolver.Object, new Mock<ICacheManager>().Object, new Mock<IOptions<Options>>().Object);
         }
     
         [Test]

@@ -45,10 +45,14 @@ namespace Kledex.Caching.Memory
         public void Set(string key, int cacheTime, object data)
         {
             if (data == null)
+            {
                 return;
+            }
 
             if (IsSet(key))
+            {
                 return;
+            }
 
             var memoryCacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(cacheTime));
 

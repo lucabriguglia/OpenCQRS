@@ -4,7 +4,7 @@ using Kledex.Sample.NoEventSourcing.Domain;
 
 namespace Kledex.Sample.NoEventSourcing.Reporting
 {
-    public class GetPublishedProducts : IQuery<IEnumerable<Product>>
+    public class GetPublishedProducts : Query<IEnumerable<Product>>
     {
     }
 }

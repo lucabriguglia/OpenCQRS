@@ -4,7 +4,7 @@ using Kledex.Sample.NoEventSourcing.Domain;
 
 namespace Kledex.Sample.NoEventSourcing.Reporting
 {
-    public class GetProduct : IQuery<Product>
+    public class GetProduct : Query<Product>
     {
         public Guid ProductId { get; set; }
     }

@@ -4,7 +4,7 @@ using Kledex.Sample.EventSourcing.Reporting.Data;
 
 namespace Kledex.Sample.EventSourcing.Reporting.Queries
 {
-    public class GetProduct : IQuery<ProductEntity>
+    public class GetProduct : Query<ProductEntity>
     {
         public Guid ProductId { get; set; }
     }

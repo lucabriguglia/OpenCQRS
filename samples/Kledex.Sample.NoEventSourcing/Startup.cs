@@ -1,4 +1,5 @@
 using Kledex.Bus.ServiceBus.Extensions;
+using Kledex.Caching.Memory;
 using Kledex.Extensions;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain;
@@ -52,7 +53,8 @@ namespace Kledex.Sample.NoEventSourcing
                 }, typeof(Product))
                 .AddSqlServerProvider(Configuration)
                 .AddServiceBusProvider(Configuration)
-                .AddFluentValidation()
+                .AddFluentValidationProvider()
+                .AddMemoryCacheProvider()
                 .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

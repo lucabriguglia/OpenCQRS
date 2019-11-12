@@ -1,4 +1,5 @@
 using Kledex.Bus.ServiceBus.Extensions;
+using Kledex.Caching.Memory;
 using Kledex.Extensions;
 using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
@@ -51,7 +52,8 @@ namespace Kledex.Sample.EventSourcing
                 }, typeof(Product))
                 .AddCosmosDbSqlProvider(Configuration)
                 .AddServiceBusProvider(Configuration)
-                .AddFluentValidation()
+                .AddFluentValidationProvider()
+                .AddMemoryCacheProvider()
                 .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

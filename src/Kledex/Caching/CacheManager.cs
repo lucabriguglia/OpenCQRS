@@ -26,13 +26,20 @@ namespace Kledex.Caching
             var data = await _cacheProvider.GetAsync<T>(key);
 
             if (data != null)
+            {
                 return data;
+            }
 
             var result = await acquireAsync();
 
             await _cacheProvider.SetAsync(key, cacheTime, result);
 
             return result;
+        }
+
+        public Task RemoveAsync(string key)
+        {
+            return _cacheProvider.RemoveAsync(key);
         }
 
         public T GetOrCreate<T>(string key, Func<T> acquire)
@@ -45,13 +52,20 @@ namespace Kledex.Caching
             var data = _cacheProvider.Get<T>(key);
 
             if (data != null)
+            {
                 return data;
+            }
 
             var result = acquire();
 
             _cacheProvider.Set(key, cacheTime, result);
 
             return result;
+        }
+
+        public void Remove(string key)
+        {
+            _cacheProvider.Remove(key);
         }
     }
 }
