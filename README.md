@@ -28,19 +28,23 @@ Kledex also has Azure Service Bus and RabbitMQ integrations.
 
 ### Bus
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.ServiceBus-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.ServiceBus)
-
-[![Nuget Package](https://img.shields.io/badge/Kledex.Bus.RabbitMQ-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ)
+| Package | Latest Stable |
+| --- | --- |
+| [Kledex.Bus.ServiceBus](https://www.nuget.org/packages/Kledex.Bus.ServiceBus) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.ServiceBus) |
+| [Kledex.Bus.RabbitMQ](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ) |
 
 ### Validation
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Validation.FluentValidation-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Validation.FluentValidation)
+| Package | Latest Stable |
+| --- | --- |
+| [Kledex.Validation.FluentValidation](https://www.nuget.org/packages/Kledex.Validation.FluentValidation) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Validation.FluentValidation) |
 
 ### Caching
 
-[![Nuget Package](https://img.shields.io/badge/Kledex.Caching.Memory-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Memory)
-
-[![Nuget Package](https://img.shields.io/badge/Kledex.Caching.Redis-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Redis)
+| Package | Latest Stable |
+| --- | --- |
+| [Kledex.Caching.Memory](https://www.nuget.org/packages/Kledex.Caching.Memory) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Memory) |
+| [Kledex.Caching.Redis](https://www.nuget.org/packages/Kledex.Caching.Redis) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Redis) |
 
 ## Samples
 
