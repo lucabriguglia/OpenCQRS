@@ -95,7 +95,10 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                await _domainStore.SaveAsync(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)response.Events);
+                await _domainStore.SaveAsync(GetAggregateType(domainCommand), 
+                    domainCommand.AggregateRootId, 
+                    domainCommand, 
+                    (IEnumerable<IDomainEvent>)response.Events);
             }
 
             if (PublishEvents(command))
@@ -138,7 +141,10 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                _domainStore.Save(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)response.Events);
+                _domainStore.Save(GetAggregateType(domainCommand), 
+                    domainCommand.AggregateRootId, 
+                    domainCommand, 
+                    (IEnumerable<IDomainEvent>)response.Events);
             }
 
             if (PublishEvents(command))
