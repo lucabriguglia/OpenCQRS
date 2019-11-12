@@ -23,6 +23,7 @@ Kledex also has Azure Service Bus and RabbitMQ integrations.
 | [Kledex.Validation.FluentValidation](https://www.nuget.org/packages/Kledex.Validation.FluentValidation) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Validation.FluentValidation) |
 | [Kledex.Caching.Memory](https://www.nuget.org/packages/Kledex.Caching.Memory) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Memory) |
 | [Kledex.Caching.Redis](https://www.nuget.org/packages/Kledex.Caching.Redis) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Redis) |
+| [Kledex.UI](https://www.nuget.org/packages/Kledex.UI) | [![Nuget Package](https://img.shields.io/badge/nuget-2.2.0-blue.svg)](https://www.nuget.org/packages/Kledex.UI) |
 
 ## Samples
 
