@@ -62,6 +62,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Validation.FluentVal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Caching.Memory", "src\Kledex.Caching.Memory\Kledex.Caching.Memory.csproj", "{4AA061EE-6DBE-464B-B467-08BDA68D9F40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Caching.Redis", "src\Kledex.Caching.Redis\Kledex.Caching.Redis.csproj", "{60755BA7-4F80-4AEC-8B0E-32414C1C6553}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,10 @@ Global
 		{4AA061EE-6DBE-464B-B467-08BDA68D9F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AA061EE-6DBE-464B-B467-08BDA68D9F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AA061EE-6DBE-464B-B467-08BDA68D9F40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60755BA7-4F80-4AEC-8B0E-32414C1C6553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60755BA7-4F80-4AEC-8B0E-32414C1C6553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60755BA7-4F80-4AEC-8B0E-32414C1C6553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60755BA7-4F80-4AEC-8B0E-32414C1C6553}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,6 +169,7 @@ Global
 		{698A5F31-4E71-46EF-A93F-8B80AAA62F77} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{EC89F18E-266A-4C33-8E70-9F3AB331BB6C} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{4AA061EE-6DBE-464B-B467-08BDA68D9F40} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
+		{60755BA7-4F80-4AEC-8B0E-32414C1C6553} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}
