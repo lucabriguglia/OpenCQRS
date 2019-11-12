@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
+using System.Threading.Tasks;
 
 namespace Kledex.Caching.Memory
 {
@@ -12,12 +13,36 @@ namespace Kledex.Caching.Memory
             _memoryCache = memoryCache;
         }
 
+        public async Task<T> GetAsync<T>(string key)
+        {
+            await Task.CompletedTask;
+            return Get<T>(key);
+        }
+
+        public async Task SetAsync(string key, int cacheTime, object data)
+        {
+            await Task.CompletedTask;
+            Set(key, cacheTime, data);
+        }
+
+        public async Task<bool> IsSetAsync(string key)
+        {
+            await Task.CompletedTask;
+            return IsSet(key);
+        }
+
+        public async Task RemoveAsync(string key)
+        {
+            await Task.CompletedTask;
+            Remove(key);
+        }
+
         public T Get<T>(string key)
         {
             return (T)_memoryCache.Get(key);
         }
 
-        public void Set(string key, object data, int cacheTime)
+        public void Set(string key, int cacheTime, object data)
         {
             if (data == null)
                 return;

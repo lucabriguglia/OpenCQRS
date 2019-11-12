@@ -16,14 +16,23 @@ namespace Kledex.Caching
             _options = options.Value;
         }
 
-        public Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> acquire)
+        public Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> acquireAsync)
         {
-            throw new NotImplementedException();
+            return GetOrCreateAsync(key, _options.CacheTime, acquireAsync);
         }
 
-        public Task<T> GetOrCreateAsync<T>(string key, int cacheTime, Func<Task<T>> acquire)
+        public async Task<T> GetOrCreateAsync<T>(string key, int cacheTime, Func<Task<T>> acquireAsync)
         {
-            throw new NotImplementedException();
+            var data = await _cacheProvider.GetAsync<T>(key);
+
+            if (data != null)
+                return data;
+
+            var result = await acquireAsync();
+
+            await _cacheProvider.SetAsync(key, cacheTime, result);
+
+            return result;
         }
 
         public T GetOrCreate<T>(string key, Func<T> acquire)
@@ -40,7 +49,7 @@ namespace Kledex.Caching
 
             var result = acquire();
 
-            _cacheProvider.Set(key, result, cacheTime);
+            _cacheProvider.Set(key, cacheTime, result);
 
             return result;
         }
