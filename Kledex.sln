@@ -64,6 +64,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Caching.Memory", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Caching.Redis", "src\Kledex.Caching.Redis\Kledex.Caching.Redis.csproj", "{60755BA7-4F80-4AEC-8B0E-32414C1C6553}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D7A5-4562-8B9B-1C27B83EE580}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Basics.md = docs\Basics.md
+		docs\Commands.md = docs\Commands.md
+		docs\Configuration.md = docs\Configuration.md
+		docs\Domain.md = docs\Domain.md
+		docs\Events.md = docs\Events.md
+		docs\index.md = docs\index.md
+		docs\Installation.md = docs\Installation.md
+		docs\Message-Bus.md = docs\Message-Bus.md
+		docs\Queries.md = docs\Queries.md
+		docs\Roadmap.md = docs\Roadmap.md
+		docs\Samples.md = docs\Samples.md
+		docs\Validation.md = docs\Validation.md
+		docs\With-Event-Sourcing.md = docs\With-Event-Sourcing.md
+		docs\Without-Event-Sourcing.md = docs\Without-Event-Sourcing.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
