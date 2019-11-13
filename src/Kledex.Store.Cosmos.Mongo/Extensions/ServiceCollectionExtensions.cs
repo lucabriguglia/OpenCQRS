@@ -13,10 +13,14 @@ namespace Kledex.Store.Cosmos.Mongo.Extensions
         public static IKledexServiceBuilder AddCosmosDbMongoDbProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
+            {
                 throw new ArgumentNullException(nameof(builder));
+            }
 
             if (configuration == null)
+            {
                 throw new ArgumentNullException(nameof(configuration));
+            }
 
             builder.Services
                 .Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));

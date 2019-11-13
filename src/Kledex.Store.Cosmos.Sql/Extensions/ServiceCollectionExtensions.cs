@@ -17,10 +17,14 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
         public static IKledexServiceBuilder AddCosmosDbSqlProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
+            {
                 throw new ArgumentNullException(nameof(builder));
+            }
 
             if (configuration == null)
+            {
                 throw new ArgumentNullException(nameof(configuration));
+            }
 
             builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
 

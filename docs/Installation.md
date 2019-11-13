@@ -38,3 +38,9 @@ Kledex currently supports the following message bus providers:
 
 Kledex currently supports the following validation providers:
 - Kledex.Validation.FluentValidation
+
+## Installing a caching provider package
+
+Kledex currently supports the following caching providers:
+- Kledex.Caching.Memory
+- Kledex.Caching.Redis

@@ -27,10 +27,14 @@ namespace Kledex.UI.Extensions
         public static IKledexServiceBuilder AddUI(this IKledexServiceBuilder builder, Action<UIOptions> setupAction)
         {
             if (builder == null)
+            {
                 throw new ArgumentNullException(nameof(builder));
+            }
 
             if (setupAction == null)
+            {
                 throw new ArgumentNullException(nameof(setupAction));
+            }
 
             builder.Services.Scan(s => s
                 .FromAssembliesOf(typeof(GetAggregateModel))
