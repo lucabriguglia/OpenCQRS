@@ -37,32 +37,12 @@ services
     .AddSqlServerProvider(Configuration);
 ```
 
-| Property | Description | Default Value | Override |
+| Property | Description | Default | Override |
 | --- | --- | --- | --- |
-| PublishEvents | The value indicating whether events are published automatically | true | The default behavior can be overridden by setting the PublishEvents in any command |
-| SaveCommandData | The value indicating whether domain commands data is saved | true | TThe default behavior can be overridden by setting the SaveCommandData in any domain command |
-| ValidateCommands | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate in any command |
-| CacheTime | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime in any cacheable query |
-
-**PublishEvents**
-- The value indicating whether events are published automatically. 
-- Default value is true.
-- The default behavior can be overridden by setting the PublishEvents in any command.
-
-**SaveCommandData**
-- The value indicating whether domain commands data is saved. 
-- Default value is true.
-- The default behavior can be overridden by setting the SaveCommandData in any domain command.
-
-**ValidateCommands**
-- The value indicating whether all commands need to be validated before being sent to the handler. 
-- Default value is false.
-- The default behavior can be overridden by setting the Validate in any command.
-
-**CacheTime**
-- The value indicating the default cache time (in seconds). 
-- Default value is 60.
-- The default behavior can be overridden by setting the CacheTime in any cacheable query.
+| **PublishEvents** | The value indicating whether events are published automatically | true | The default behavior can be overridden by setting the PublishEvents property in any command |
+| **SaveCommandData** | The value indicating whether domain commands data is saved | true | The default behavior can be overridden by setting the SaveCommandData property in any domain command |
+| **ValidateCommands** | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate property in any command |
+| **CacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
 
 A message bus provider needs to be registered as well in order to use the message bus functionalities.
 Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet package has been installed, register a provider:
