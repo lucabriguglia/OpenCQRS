@@ -21,7 +21,9 @@ namespace Kledex.Bus.ServiceBus.Queues
         public async Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage
         {
             if (string.IsNullOrEmpty(message.QueueName))
+            {
                 throw new ApplicationException("Queue name is mandatory");
+            }
 
             var client = new Microsoft.Azure.ServiceBus.QueueClient(new ServiceBusConnectionStringBuilder(_connectionString)
             {

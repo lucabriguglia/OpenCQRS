@@ -44,11 +44,11 @@ namespace Kledex.Sample.EventSourcing
                 options.UseSqlServer(Configuration.GetConnectionString("ReadModel")));
 
             services
-                .AddKledex(opt => 
+                .AddKledex(options => 
                 {
-                    opt.PublishEvents = true;
-                    opt.SaveCommandData = true;
-                    opt.ValidateCommands = false;
+                    options.PublishEvents = true;
+                    options.SaveCommandData = true;
+                    options.ValidateCommands = false;
                 }, typeof(Product))
                 .AddCosmosDbSqlProvider(Configuration)
                 .AddServiceBusProvider()

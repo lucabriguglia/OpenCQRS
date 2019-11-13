@@ -21,7 +21,9 @@ namespace Kledex.Bus.RabbitMQ.Queues
         public Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage
         {
             if (string.IsNullOrEmpty(message.QueueName))
+            {
                 throw new ApplicationException("Queue name is mandatory");
+            }
 
             var factory = new ConnectionFactory
             {
