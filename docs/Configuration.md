@@ -26,8 +26,7 @@ services
          options.SaveCommandData = true;
          options.ValidateCommands = false;
          options.CacheTime = 600;
-     }, typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerProvider(Configuration);
+     }, typeof(CreateProduct), typeof(GetProduct));
 ```
 
 | Property | Description | Default | Override |
@@ -103,7 +102,7 @@ public void Configure(IApplicationBuilder app)
 
 Update appsettings.json as required.
 
-For any domain store provider, message bus and redis cache provider add the related connection string:
+For any domain store provider or message bus provider and redis cache provider add the related connection string:
 
 ```JSON
 "ConnectionStrings": {
@@ -112,6 +111,12 @@ For any domain store provider, message bus and redis cache provider add the rela
   "KledexRedisCache": "your-redis-cache-connectionstring"
 }
 ```
+
+| Connection | For |
+| --- | --- |
+| **KledexDomainStore** | SqlServer, MySql, PostgreSql, Sqlite, Cosmos (Mongo) |
+| **KledexMessageBus** | Service Bus, RabbitMQ |
+| **KledexRedisCache** | Redis Cache |
 
 Only for CosmosDB SQL (DocumentDB), add the following configuration section:
 
