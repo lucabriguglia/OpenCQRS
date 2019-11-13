@@ -1,6 +1,6 @@
 # Basic
 
-There is a single interface to be used, **IDispatcher** in Kledex namespace.
+There is a single interface to use, **IDispatcher** in Kledex namespace.
 Note that all handlers are available as asynchronous as well as synchronous.
 
 There are 3 kinds of messages:
