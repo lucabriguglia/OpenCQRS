@@ -1,5 +1,10 @@
 # Release Notes
 
+## Kledex 2.2
+_**Released ??/??/2019**_
+- Cache Manager
+- Change configuration
+
 ## Kledex 2.1
 _**Released 11/11/2019**_
 - Command validation
