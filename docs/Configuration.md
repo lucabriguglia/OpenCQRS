@@ -25,12 +25,13 @@ You can also set a few options:
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddOptions(opt =>
+    .AddKledex(options =>
     {
-        opt.PublishEvents = true;
-        opt.SaveCommandData = false;
-    })
+         options.PublishEvents = true;
+         options.SaveCommandData = true;
+         options.ValidateCommands = false;
+         options.CacheTime = 600;
+     }, typeof(CreateProduct), typeof(GetProduct))
     .AddSqlServerProvider(Configuration);
 ```
 
@@ -40,9 +41,19 @@ services
 - The default behavior can be overridden by setting the PublishEvents in any command.
 
 **SaveCommandData**
-- The value indicating whether commands are saved alongside events. 
+- The value indicating whether domain commands data is saved. 
 - Default value is true.
 - The default behavior can be overridden by setting the SaveCommandData in any domain command.
+
+**ValidateCommands**
+- The value indicating whether all commands need to be validated before being sent to the handler. 
+- Default value is false.
+- The default behavior can be overridden by setting the Validate in any command.
+
+**CacheTime**
+- The value indicating the default cache time (in seconds). 
+- Default value is 60.
+- The default behavior can be overridden by setting the CacheTime in any cacheable query.
 
 A message bus provider needs to be registered as well in order to use the message bus functionalities.
 Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet package has been installed, register a provider:
@@ -54,7 +65,7 @@ services
     .AddServiceBusProvider(Configuration);
 ```
 
-Add a validation provider if you want your commands to be validated before the command handler is called:
+Add a validation provider if you want your commands to be validated before the command handler is executed:
 
 ```C#
 services
@@ -86,65 +97,27 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
-## Settings
+## App Settings
 
-Update appsettings.json with the following configurations.
+Update appsettings.json as required.
 
-For CosmosDB SQL (DocumentDB):
+For any domain store provider, message bus and redis cache provider add the related connection string:
+
+```JSON
+"ConnectionStrings": {
+  "KledexDomainStore": "Server=(localdb)\\mssqllocaldb;Database=DomainStore;Trusted_Connection=True;",
+  "KledexMessageBus": "your-message-bus-connection-string",
+  "KledexRedisCache": "your-redis-cache-connectionstring"
+}
+```
+
+For CosmosDB SQL (DocumentDB) only add the following configuration section:
 
 ```JSON
 {
-  "DomainDbConfiguration": {
+  "KledexCosmosSqlConfiguration": {
     "ServerEndpoint": "https://localhost:8081",
-    "AuthKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-    "DatabaseId": "DomainStore",
-    "AggregateCollectionId": "Aggregates",
-    "CommandCollectionId": "Commands",
-    "EventCollectionId": "Events"
-  }
-}
-```
-
-For CosmosDB MongoDB:
-
-```JSON
-{
-  "DomainDbConfiguration": {
-    "ConnectionString": "mongodb://localhost:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==@localhost:10255/admin?ssl=true",
-    "DatabaseName": "DomainStore",
-    "AggregateCollectionName": "Aggregates",
-    "CommandCollectionName": "Commands",
-    "EventCollectionName": "Events"
-  }
-}
-```
-
-For Entity Framework Core (SqlServer, MySQL, PostgreSQL and Sqlite):
-
-```JSON
-{
-  "DomainDbConfiguration": {
-    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=DomainDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-  }
-}
-```
-
-For Azure Service Bus:
-
-```JSON
-{
-  "ServiceBusConfiguration": {
-    "ConnectionString": "your-azure-service-bus-connection-string"
-  }
-}
-```
-
-For RabbitMQ:
-
-```JSON
-{
-  "RabbitMQConfiguration": {
-    "ConnectionString": "your-rabbit-mq-connection-string"
+    "AuthKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
   }
 }
 ```
