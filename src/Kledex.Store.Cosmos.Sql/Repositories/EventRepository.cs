@@ -7,7 +7,7 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
 {
     public class EventRepository : BaseDocumentRepository<EventDocument>
     {
-        public EventRepository(IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings) 
+        public EventRepository(IDocumentClient documentClient, IOptions<DomainDbOptions> settings) 
             : base(settings.Value.EventCollectionId, documentClient, settings)
         {
         }

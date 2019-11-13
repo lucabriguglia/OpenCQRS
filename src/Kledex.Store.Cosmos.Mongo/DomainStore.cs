@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kledex.Domain;
-using Kledex.Store.Cosmos.Mongo.Configuration;
 using Kledex.Store.Cosmos.Mongo.Documents;
 using Kledex.Store.Cosmos.Mongo.Documents.Factories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -19,13 +19,13 @@ namespace Kledex.Store.Cosmos.Mongo
         private readonly IEventDocumentFactory _eventDocumentFactory;
         private readonly IVersionService _versionService;
 
-        public DomainStore(IOptions<DomainDbConfiguration> settings,
+        public DomainStore(IConfiguration configuration, IOptions<DomainDbOptions> settings,
             IAggregateDocumentFactory aggregateDocumentFactory,
             ICommandDocumentFactory commandDocumentFactory,
             IEventDocumentFactory eventDocumentFactory,
             IVersionService versionService)
         {
-            _dbContext = new DomainDbContext(settings);
+            _dbContext = new DomainDbContext(configuration, settings);
             _aggregateDocumentFactory = aggregateDocumentFactory;
             _commandDocumentFactory = commandDocumentFactory;
             _commandDocumentFactory = commandDocumentFactory;

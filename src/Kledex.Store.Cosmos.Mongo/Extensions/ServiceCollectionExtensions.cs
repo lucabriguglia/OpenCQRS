@@ -1,29 +1,31 @@
 ﻿using System;
 using Kledex.Domain;
 using Kledex.Extensions;
-using Kledex.Store.Cosmos.Mongo.Configuration;
 using Kledex.Store.Cosmos.Mongo.Documents.Factories;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kledex.Store.Cosmos.Mongo.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosDbMongoDbProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddCosmosDbMongoDbProvider(this IKledexServiceBuilder builder)
+        {
+            return AddCosmosDbMongoDbProvider(builder, opt => { });
+        }
+
+        public static IKledexServiceBuilder AddCosmosDbMongoDbProvider(this IKledexServiceBuilder builder, Action<DomainDbOptions> setupAction)
         {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            if (configuration == null)
+            if (setupAction == null)
             {
-                throw new ArgumentNullException(nameof(configuration));
+                throw new ArgumentNullException(nameof(setupAction));
             }
 
-            builder.Services
-                .Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
+            builder.Services.Configure(setupAction);
 
             builder.Services
                 .AddTransient<IDomainStore, DomainStore>();

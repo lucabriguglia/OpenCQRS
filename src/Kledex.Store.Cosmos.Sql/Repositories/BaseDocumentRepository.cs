@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Kledex.Store.Cosmos.Sql.Configuration;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
@@ -17,7 +16,7 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
         private readonly string _databaseId;
         private readonly string _collectionId;
 
-        protected BaseDocumentRepository(string collectionId, IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings)
+        protected BaseDocumentRepository(string collectionId, IDocumentClient documentClient, IOptions<DomainDbOptions> settings)
         {
             _documentClient = documentClient;
             _databaseId = settings.Value.DatabaseId;

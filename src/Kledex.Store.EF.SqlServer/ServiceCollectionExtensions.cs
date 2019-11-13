@@ -12,14 +12,18 @@ namespace Kledex.Store.EF.SqlServer
         public static IKledexServiceBuilder AddSqlServerProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
             if (builder == null)
+            {
                 throw new ArgumentNullException(nameof(builder));
+            }
 
             if (configuration == null)
+            {
                 throw new ArgumentNullException(nameof(configuration));
+            }
 
-            builder.AddEFProvider(configuration);
+            builder.AddEFProvider();
 
-            var connectionString = configuration.GetSection(Constants.DomainDbConfigurationConnectionString).Value;
+            var connectionString = configuration.GetConnectionString(Consts.DomainStoreConnectionString);
 
             builder.Services.AddDbContext<DomainDbContext>(options =>
                 options.UseSqlServer(connectionString));

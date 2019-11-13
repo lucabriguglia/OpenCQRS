@@ -45,14 +45,14 @@ namespace Kledex.Sample.NoEventSourcing
                 options.UseSqlServer(Configuration.GetConnectionString("SampleDb")));
 
             services
-                .AddKledex(opt =>
+                .AddKledex(options =>
                 {
-                    opt.PublishEvents = true;
-                    opt.SaveCommandData = true;
-                    opt.ValidateCommands = false;
+                    options.PublishEvents = true;
+                    options.SaveCommandData = true;
+                    options.ValidateCommands = false;
                 }, typeof(Product))
                 .AddSqlServerProvider(Configuration)
-                .AddServiceBusProvider(Configuration)
+                .AddServiceBusProvider()
                 .AddFluentValidationProvider()
                 .AddMemoryCacheProvider()
                 .AddUI();
@@ -61,7 +61,7 @@ namespace Kledex.Sample.NoEventSourcing
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SampleDbContext dbContext, IOptions<DomainDbConfiguration> settings)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SampleDbContext dbContext)
         {
             dbContext.Database.EnsureCreated();
             app.UseKledex().EnsureDomainDbCreated();

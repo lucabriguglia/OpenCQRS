@@ -17,9 +17,9 @@ namespace Kledex.Store.EF.PostgreSql
             if (configuration == null)
                 throw new ArgumentNullException(nameof(configuration));
 
-            builder.AddEFProvider(configuration);
+            builder.AddEFProvider();
 
-            var connectionString = configuration.GetSection(Constants.DomainDbConfigurationConnectionString).Value;
+            var connectionString = configuration.GetConnectionString(Consts.DomainStoreConnectionString);
 
             builder.Services.AddDbContext<DomainDbContext>(options =>
                 options.UseNpgsql(connectionString));

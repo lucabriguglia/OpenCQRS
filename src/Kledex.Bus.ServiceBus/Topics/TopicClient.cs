@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Kledex.Bus.ServiceBus.Factories;
 using Microsoft.Azure.ServiceBus;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace Kledex.Bus.ServiceBus.Topics
 {
@@ -11,10 +11,10 @@ namespace Kledex.Bus.ServiceBus.Topics
         private readonly IMessageFactory _messageFactory;
         private readonly string _connectionString;
 
-        public TopicClient(IMessageFactory messageFactory, IOptions<ServiceBusConfiguration> serviceBusConfiguration)
+        public TopicClient(IMessageFactory messageFactory, IConfiguration configuration)
         {
             _messageFactory = messageFactory;
-            _connectionString = serviceBusConfiguration.Value.ConnectionString;
+            _connectionString = configuration.GetConnectionString("KledexMessageBus");
         }
 
         /// <inheritdoc />
