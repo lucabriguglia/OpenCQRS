@@ -2,6 +2,8 @@
 
 ## Register services
 
+### Main
+
 In ConfigureServices method of Startup.cs:
 
 ```C#
@@ -12,18 +14,9 @@ CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
 
-A domain store database provider needs to be registered as well in order to use the event sourcing functionalities.
-After the NuGet package of your choice has been installed, register the database provider:
+#### Options
 
-```C#
-services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerProvider(Configuration);
-```
-
-### Options
-
-You can also set a few options:
+It is possible to set a few options for the main package:
 
 ```C#
 services
@@ -44,6 +37,18 @@ services
 | **ValidateCommands** | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate property in any command |
 | **CacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
 
+### Store
+
+A domain store database provider needs to be registered as well in order to use the event sourcing functionalities.
+After the NuGet package of your choice has been installed, register the database provider:
+
+```C#
+services
+    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddSqlServerProvider(Configuration);
+```
+### Message Bus
+
 A message bus provider needs to be registered as well in order to use the message bus functionalities.
 Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet package has been installed, register a provider:
 
@@ -51,8 +56,10 @@ Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet packag
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddSqlServerProvider(Configuration)
-    .AddServiceBusProvider(Configuration);
+    .AddServiceBusProvider();
 ```
+
+### Validation
 
 Add a validation provider if you want your commands to be validated before the command handler is executed:
 
@@ -60,9 +67,15 @@ Add a validation provider if you want your commands to be validated before the c
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddSqlServerProvider(Configuration)
-    .AddServiceBusProvider()
     .AddFluentValidationProvider();
 ```
+### Caching
+
+...
+
+### UI
+
+...
 
 ## Configure Services
 
