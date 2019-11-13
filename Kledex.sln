@@ -67,6 +67,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D7A5-4562-8B9B-1C27B83EE580}"
 	ProjectSection(SolutionItems) = preProject
 		docs\Basics.md = docs\Basics.md
+		docs\Caching.md = docs\Caching.md
 		docs\Commands.md = docs\Commands.md
 		docs\Configuration.md = docs\Configuration.md
 		docs\Domain.md = docs\Domain.md
@@ -75,7 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D
 		docs\Installation.md = docs\Installation.md
 		docs\Message-Bus.md = docs\Message-Bus.md
 		docs\Queries.md = docs\Queries.md
-		docs\Roadmap.md = docs\Roadmap.md
+		docs\Release-Notes.md = docs\Release-Notes.md
 		docs\Samples.md = docs\Samples.md
 		docs\Validation.md = docs\Validation.md
 		docs\With-Event-Sourcing.md = docs\With-Event-Sourcing.md

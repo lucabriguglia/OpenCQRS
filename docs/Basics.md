@@ -1,3 +1,5 @@
+# Basic
+
 There is a single interface to be used, **IDispatcher** in Kledex namespace.
 Note that all handlers are available as asynchronous as well as synchronous.
 

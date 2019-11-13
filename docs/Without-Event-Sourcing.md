@@ -1,4 +1,4 @@
-Remember that CQRS does **NOT** need Event Sourcing.
+# Without Event Sourcing
 
 Event Sourcing functionalities of Kledex can be used just as an advanced logging system for your domain.
 The CQRS pattern does not need the domain object to be recreated from history by loading all past events.

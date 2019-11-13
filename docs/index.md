@@ -1,4 +1,4 @@
-Welcome to the wiki!
+# Kledex
 
 - [Installation](/Installation)
 - [Configuration](/Configuration)
@@ -11,5 +11,6 @@ Welcome to the wiki!
    - [Without Event Sourcing](/Without-Event-Sourcing)
 - [Message Bus](/Message-Bus)
 - [Validation](/Validation)
+- [Caching](/Caching)
 - [Samples](/Samples)
-- [Roadmap](/Roadmap)
+- [Release Notes](/Release-Notes)

@@ -1,6 +1,4 @@
-## Kledex 2.2 (Q1 2020)
-- CosmosDB SQL API EF database provider
-- Cache Manager
+# Release Notes
 
 ## Kledex 2.1
 _**Released 11/11/2019**_
