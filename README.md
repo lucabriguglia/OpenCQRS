@@ -4,7 +4,7 @@
 
 Kledex is a .NET Core framework that can be used to create a simple and clean design by enforcing single responsibility and separation of concerns.
 Its advanced features are ideal for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing.
-With Kledex you can also automatically dispatch events to a message bus, validate your commands before they are sent to the command handler and automatically cache the result of your queries.
+With Kledex you can also automatically dispatch events to a message bus (Service Bus or RabbitMQ), validate your commands before they are sent to the command handler and automatically cache the result of your queries (Memory Cache or Redis).
 
 Full Documentation: [https://lucabriguglia.github.io/Kledex/](https://lucabriguglia.github.io/Kledex/)
 
