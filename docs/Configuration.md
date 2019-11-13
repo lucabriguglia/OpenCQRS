@@ -37,6 +37,13 @@ services
     .AddSqlServerProvider(Configuration);
 ```
 
+| Property | Description | Default Value | Override |
+| --- | --- | --- | --- |
+| PublishEvents | The value indicating whether events are published automatically | true | The default behavior can be overridden by setting the PublishEvents in any command |
+| SaveCommandData | The value indicating whether domain commands data is saved | true | TThe default behavior can be overridden by setting the SaveCommandData in any domain command |
+| ValidateCommands | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate in any command |
+| CacheTime | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime in any cacheable query |
+
 **PublishEvents**
 - The value indicating whether events are published automatically. 
 - Default value is true.
