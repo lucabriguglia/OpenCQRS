@@ -1,5 +1,6 @@
 using Kledex.Bus.ServiceBus.Extensions;
 using Kledex.Caching.Memory;
+using Kledex.Caching.Redis;
 using Kledex.Extensions;
 using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
