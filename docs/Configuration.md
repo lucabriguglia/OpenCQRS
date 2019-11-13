@@ -29,7 +29,7 @@ services
      }, typeof(CreateProduct), typeof(GetProduct));
 ```
 
-| Property | Description | Default | Override |
+| Property | Description | Default | Notes |
 | --- | --- | --- | --- |
 | **PublishEvents** | The value indicating whether events are published automatically | true | The default behavior can be overridden by setting the PublishEvents property in any command |
 | **SaveCommandData** | The value indicating whether domain commands data is saved | true | The default behavior can be overridden by setting the SaveCommandData property in any domain command |
@@ -46,6 +46,52 @@ services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddSqlServerProvider(Configuration);
 ```
+#### Options
+
+It is possible to set some options the CosmosDB providers.
+
+**ComsosDB SQL API**
+
+```C#
+services
+    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddCosmosDbSqlProvider(Configuration, options =>
+    {
+        options.DatabaseId = "DatabaseId";
+        options.AggregateCollectionId = "AggregateCollectionId";
+        options.CommandCollectionId = "CommandCollectionId";
+        options.EventCollectionId = "EventCollectionId";
+    });
+```
+
+| Property | Description | Default |
+| --- | --- | --- |
+| **DatabaseId** | The Id of the Database | DomainStore |
+| **AggregateCollectionId** | The Id of the Aggregate collection | Aggregates |
+| **CommandCollectionId** | The Id of the Command collection | Commands |
+| **EventCollectionId** | The Id of the Event collection | Events |
+
+**ComsosDB Mongo API**
+
+```C#
+services
+    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddCosmosDbMongoProvider(Configuration, options =>
+    {
+        options.DatabaseName = "DatabaseName";
+        options.AggregateCollectionName = "AggregateCollectionName";
+        options.CommandCollectionName = "CommandCollectionName";
+        options.EventCollectionName = "EventCollectionName";
+    });
+```
+
+| Property | Description | Default |
+| --- | --- | --- |
+| **DatabaseName** | The Name of the Database | DomainStore |
+| **AggregateCollectionName** | The Name of the Aggregate collection | Aggregates |
+| **CommandCollectionName** | The Name of the Command collection | Commands |
+| **EventCollectionName** | The Name of the Event collection | Events |
+
 ### Message Bus
 
 A message bus provider needs to be registered as well in order to use the message bus functionalities.
