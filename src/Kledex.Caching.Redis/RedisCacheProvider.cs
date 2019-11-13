@@ -1,48 +1,67 @@
-﻿using System;
+﻿using StackExchange.Redis;
+using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Kledex.Caching.Redis
 {
     public class RedisCacheProvider : ICacheProvider
     {
-        public Task<T> GetAsync<T>(string key)
+        private readonly IConnectionMultiplexer _connectionMultiplexer;
+        private readonly int _db;
+        private readonly object _asyncState;
+
+        private IDatabase Database => _connectionMultiplexer.GetDatabase(_db, _asyncState);
+
+        public RedisCacheProvider(IConnectionMultiplexer connectionMultiplexer, int db = -1, object asyncState = null)
         {
-            throw new NotImplementedException();
+            _connectionMultiplexer = connectionMultiplexer;
+            _db = db;
+            _asyncState = asyncState;
         }
 
-        public Task SetAsync(string key, int cacheTime, object data)
+        public async Task<T> GetAsync<T>(string key)
         {
-            throw new NotImplementedException();
+            var value = await Database.StringGetAsync(key);
+            return value.IsNullOrEmpty ? default : JsonSerializer.Deserialize<T>(value);
+        }
+
+        public async Task SetAsync(string key, int cacheTime, object data)
+        {
+            var json = JsonSerializer.Serialize(data);
+            await Database.StringSetAsync(key, json, TimeSpan.FromSeconds(cacheTime));
         }
 
         public Task<bool> IsSetAsync(string key)
         {
-            throw new NotImplementedException();
+            return Database.KeyExistsAsync(key);
         }
 
         public Task RemoveAsync(string key)
         {
-            throw new NotImplementedException();
+            return Database.KeyDeleteAsync(key);
         }
 
         public T Get<T>(string key)
         {
-            throw new NotImplementedException();
+            var value = Database.StringGet(key);
+            return value.IsNullOrEmpty ? default : JsonSerializer.Deserialize<T>(value);
         }
 
         public void Set(string key, int cacheTime, object data)
         {
-            throw new NotImplementedException();
+            var json = JsonSerializer.Serialize(data);
+            Database.StringSet(key, json, TimeSpan.FromSeconds(cacheTime));
         }
 
         public bool IsSet(string key)
         {
-            throw new NotImplementedException();
+            return Database.KeyExists(key);
         }
 
         public void Remove(string key)
         {
-            throw new NotImplementedException();
+            Database.KeyDelete(key);
         }
     }
 }
