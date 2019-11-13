@@ -21,6 +21,8 @@ services
     .AddSqlServerProvider(Configuration);
 ```
 
+### Options
+
 You can also set a few options:
 
 ```C#
@@ -71,7 +73,7 @@ Add a validation provider if you want your commands to be validated before the c
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddSqlServerProvider(Configuration)
-    .AddServiceBusProvider(Configuration)
+    .AddServiceBusProvider()
     .AddFluentValidationProvider();
 ```
 
@@ -111,7 +113,7 @@ For any domain store provider, message bus and redis cache provider add the rela
 }
 ```
 
-For CosmosDB SQL (DocumentDB) only add the following configuration section:
+Only for CosmosDB SQL (DocumentDB), add the following configuration section:
 
 ```JSON
 {
