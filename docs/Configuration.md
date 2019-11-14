@@ -212,8 +212,8 @@ public void Configure(IApplicationBuilder app)
 
 Update appsettings.json as required.
 
-<a name="settings-ef"></a>
-### Entity Framework Core
+<a name="settings-connstrings"></a>
+### Connection Strings
 
 For any domain store provider or message bus provider and redis cache provider add the related connection string:
 
@@ -225,9 +225,9 @@ For any domain store provider or message bus provider and redis cache provider a
 }
 ```
 
-| Connection | For |
+| Name | For |
 | --- | --- |
-| **KledexDomainStore** | SqlServer, MySql, PostgreSql, Sqlite, Cosmos (Mongo) |
+| **KledexDomainStore** | SqlServer, MySql, PostgreSql, Sqlite, CosmosDB Mongo API |
 | **KledexMessageBus** | Service Bus, RabbitMQ |
 | **KledexRedisCache** | Redis Cache |
 
