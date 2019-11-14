@@ -8,7 +8,11 @@
     - [Caching Provider](#caching)
     - [UI](#ui)
 - [Configure Services](#configure)
+    - [CosmosDB SQL API](#config-cosmos)
+    - [Entity Framework](#config-ef)
 - [App Settings](#settings)
+    - [Connection Strings](#settings-connstrings)
+    - [CosmosDB SQL API](#settings-cosmos)
 
 <a name="register"></a>
 ## Register services
@@ -179,7 +183,10 @@ services
 
 In Configure method of Startup.cs:
 
-For CosmosDB Sql (DocumentDB):
+<a name="config-cosmos"></a>
+### CosmosDB SQL API
+
+For CosmosDB SQL API:
 
 ```C#
 public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> settings)
@@ -187,6 +194,9 @@ public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> s
     app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
 }
 ```
+
+<a name="config-ef"></a>
+### Entity Framework Core
 
 For Entity Framework Core (SqlServer, MySQL, PostgreSQL and Sqlite):
 
@@ -201,6 +211,9 @@ public void Configure(IApplicationBuilder app)
 ## App Settings
 
 Update appsettings.json as required.
+
+<a name="settings-ef"></a>
+### Entity Framework Core
 
 For any domain store provider or message bus provider and redis cache provider add the related connection string:
 
@@ -218,7 +231,10 @@ For any domain store provider or message bus provider and redis cache provider a
 | **KledexMessageBus** | Service Bus, RabbitMQ |
 | **KledexRedisCache** | Redis Cache |
 
-Only for CosmosDB SQL (DocumentDB), add the following configuration section:
+<a name="settings-cosmos"></a>
+### CosmosDB SQL API
+
+Only for CosmosDB SQL API, add the following configuration section:
 
 ```JSON
 {
