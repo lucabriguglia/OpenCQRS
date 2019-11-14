@@ -1,6 +1,6 @@
 # Commands
 
-The dispatcher will automatically publish any events returned by the handler unless the property **PublishEvents** is to _false_ on a global or a command level.
+The dispatcher will automatically publish any events returned by the handler unless the property **PublishEvents** is set to _false_ on a global or a command level.
 
 First, create a command that inherits from the **Command** class:
 
