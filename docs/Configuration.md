@@ -73,7 +73,7 @@ services
 
 It is possible to set some options the CosmosDB providers.
 
-**ComsosDB SQL API**
+**CosmosDB SQL API**
 
 ```C#
 services
@@ -94,7 +94,7 @@ services
 | **CommandCollectionId** | The Id of the Command collection | Commands |
 | **EventCollectionId** | The Id of the Event collection | Events |
 
-**ComsosDB Mongo API**
+**CosmosDB Mongo API**
 
 ```C#
 services
