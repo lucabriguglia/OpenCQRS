@@ -1,6 +1,6 @@
 # Kledex
 
-- [Installation](Installation)
+- [Installation](Kledex/Installation)
 - [Configuration](Configuration)
 - [Basics](Basics)
    - [Commands](Commands)
