@@ -17,14 +17,14 @@ public class SomethingHappenedHandlerOne : IEventHandlerAsync<SomethingHappened>
 {
     private readonly IServiceOne _serviceOne;
 
-    public SomethingHappenedHandlerAsyncOne(IServiceOne serviceOne)
+    public SomethingHappenedHandlerOne(IServiceOne serviceOne)
     {
         _serviceOne = serviceOne;
     }
 
-    public async Task HandleAsync(SomethingHappened @event)
+    public Task HandleAsync(SomethingHappened @event)
     {
-        await _serviceOne.DoSomethingElseAsync();
+        return _serviceOne.DoSomethingElseAsync();
     }
 }
 
@@ -32,19 +32,19 @@ public class SomethingHappenedHandlerTwo : IEventHandlerAsync<SomethingHappened>
 {
     private readonly IServiceTwo _serviceTwo;
 
-    public SomethingHappenedHandlerAsyncTwo(IServiceTwo serviceTwo)
+    public SomethingHappenedHandlerTwo(IServiceTwo serviceTwo)
     {
         _serviceTwo = serviceTwo;
     }
 
-    public async Task HandleAsync(SomethingHappened @event)
+    public Task HandleAsync(SomethingHappened @event)
     {
-        await _serviceTwo.DoSomethingElseAsync();
+        return _serviceTwo.DoSomethingElseAsync();
     }
 }
 ```
 
-As already mentioned, events can be published automatically after a command has been executed or published directly using the dispatcher:
+As already mentioned, events can be published automatically after a command has been executed (which is the default behaviour) or published directly using the dispatcher:
 
 ```C#
 var @event = new SomethingHappened();
