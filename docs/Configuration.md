@@ -71,7 +71,7 @@ services
     .AddSqlServerProvider(Configuration);
 ```
 
-It is possible to set some options the CosmosDB providers.
+It is possible to set some options the the CosmosDB providers (Mongo and SQL APIs).
 
 **CosmosDB SQL API**
 
