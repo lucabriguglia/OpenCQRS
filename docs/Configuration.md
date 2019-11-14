@@ -54,6 +54,15 @@ services
 A domain store database provider needs to be registered as well in order to use the event sourcing functionalities.
 After the NuGet package of your choice has been installed, register the database provider:
 
+| Package | Method |
+| --- | --- |
+| **Kledex.Store.Cosmos.Mongo** | AddCosmosDbMongoDbProvider |
+| **Kledex.Store.Cosmos.Sql** | AddCosmosDbSqlProvider |
+| **Kledex.Store.EF.MySql** | AddMySqlProvider |
+| **Kledex.Store.EF.PostgreSql** | AddPostgreSqlProvider |
+| **Kledex.Store.EF.Sqlite** | AddSqliteProvider |
+| **Kledex.Store.EF.SqlServer** | AddSqlServerProvider |
+
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
@@ -111,6 +120,11 @@ services
 A message bus provider needs to be registered as well in order to use the message bus functionalities.
 Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet package has been installed, register a provider:
 
+| Package | Method |
+| --- | --- |
+| **Kledex.Bus.RabbitMQ** | AddRabbitMQProvider |
+| **Kledex.Bus.ServiceBus** | AddServiceBusProvider |
+
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
@@ -122,6 +136,10 @@ services
 ### Validation
 
 Add a validation provider if you want your commands to be validated before the command handler is executed:
+
+| Package | Method |
+| --- | --- |
+| **Kledex.Validation.FluentValidation** | AddFluentValidationProvider |
 
 ```C#
 services
@@ -135,10 +153,29 @@ services
 
 ...
 
+| Package | Method |
+| --- | --- |
+| **Kledex.Caching.Memory** | AddMemoryCacheProvider |
+| **Kledex.Caching.Redis** | AddRedisCacheProvider |
+
+```C#
+services
+    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddSqlServerProvider(Configuration)
+    .AddMemoryCacheProvider();
+```
+
 <a name="ui"></a>
 ### UI
 
 ...
+
+```C#
+services
+    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddSqlServerProvider(Configuration)
+    .AddUI();
+```
 
 <a name="configure"></a>
 ## Configure Services
