@@ -1,8 +1,6 @@
 # Without Event Sourcing
 
-Event Sourcing functionalities of Kledex can be used just as an advanced logging system for your domain.
-The CQRS pattern does not need the domain object to be recreated from history by loading all past events.
-The single source of truth can be a SQL Server database with normalised data (or any other data provider) and use the read model to optimised queries.
+Event Sourcing functionalities of Kledex can be used just as an advanced logging system for your domain. The single source of truth can be a SQL Server database with normalised data (or any other data provider) and use the read model for optimised queries or use just one data store altogether.
 
 First, create a domain object that inherits from **AggregateRoot**.
 This is how a Product class might look like:
@@ -35,6 +33,8 @@ public class Product : AggregateRoot
     }
 }
 ```
+
+Note that the domain model can be the same as the one shown in the Event Sourcing sample.
 
 Next, create a command and an event:
 
@@ -97,4 +97,4 @@ await _dispatcher.SendAsync(command)
 
 The read model(s) can be created the same way we would have done using Event Sourcing, using event handlers or better using a message bus.
 
-The main difference here is that we are using a normal repository for saving our normalised data but at the same time we have the complete history of all the changes that happened to the domain (all events are automatically saved anyway by the dispatcher).
+The main difference here is that we are using a normal repository for saving our normalised data but at the same time we have the complete history of all the changes that happened to the domain (all events are automatically saved anyway by the framework).
