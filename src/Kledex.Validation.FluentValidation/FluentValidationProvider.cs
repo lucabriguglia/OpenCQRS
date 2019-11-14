@@ -29,8 +29,8 @@ namespace Kledex.Validation.FluentValidation
         public ValidationResponse Validate(ICommand command)
         {
             var validator = _handlerResolver.ResolveHandler(command, typeof(IValidator<>));
-            var validateMethod = validator.GetType().GetMethod("Validate", new[] { command.GetType(), typeof(CancellationToken) });
-            var validationResult = (ValidationResult)validateMethod.Invoke(validator, new object[] { command, default(CancellationToken) });
+            var validateMethod = validator.GetType().GetMethod("Validate", new[] { command.GetType() });
+            var validationResult = (ValidationResult)validateMethod.Invoke(validator, new object[] { command });
 
             return BuildValidationResponse(validationResult);
         }
