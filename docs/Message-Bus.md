@@ -32,7 +32,7 @@ public class SomethingHappened : DomainEvent, IBusQueueMessage
 
 Where QueueName is obviously the name of the queue you want your message to be sent to. Properties is a dictionary used to set all additional settings of the bus message (e.g. ScheduledEnqueueTimeUtc).
 
-A message can be also sent directly using the IDispatcher interface:
+A message can also be sent directly using the IDispatcher interface:
 
 ```C#
 var command = new DoSomething(); // It needs to implement either IBusQueueMessage or IBusTopicMessage
