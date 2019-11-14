@@ -2,6 +2,14 @@
 
 ## Register services
 
+- [Main](#main)
+- [Store Provider](#store)
+- [Message Bus Provider](#bus)
+- [Validation Provider](#validation)
+- [Caching Provider](#caching)
+- [UI](#ui)
+
+<a name="main"></a>
 ### Main
 
 In ConfigureServices method of Startup.cs:
@@ -36,6 +44,7 @@ services
 | **ValidateCommands** | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate property in any command |
 | **CacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
 
+<a name="store"></a>
 ### Store
 
 A domain store database provider needs to be registered as well in order to use the event sourcing functionalities.
@@ -92,6 +101,7 @@ services
 | **CommandCollectionName** | The Name of the Command collection | Commands |
 | **EventCollectionName** | The Name of the Event collection | Events |
 
+<a name="bus"></a>
 ### Message Bus
 
 A message bus provider needs to be registered as well in order to use the message bus functionalities.
@@ -104,6 +114,7 @@ services
     .AddServiceBusProvider();
 ```
 
+<a name="validation"></a>
 ### Validation
 
 Add a validation provider if you want your commands to be validated before the command handler is executed:
@@ -114,10 +125,13 @@ services
     .AddSqlServerProvider(Configuration)
     .AddFluentValidationProvider();
 ```
+
+<a name="caching"></a>
 ### Caching
 
 ...
 
+<a name="ui"></a>
 ### UI
 
 ...
