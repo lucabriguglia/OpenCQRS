@@ -1,13 +1,17 @@
 # Configuration
 
-## Register services
+- [Register Services](#register)
+    - [Main](#main)
+    - [Store Provider](#store)
+    - [Message Bus Provider](#bus)
+    - [Validation Provider](#validation)
+    - [Caching Provider](#caching)
+    - [UI](#ui)
+- [Configure Services](#configure)
+- [App Settings](#settings)
 
-- [Main](#main)
-- [Store Provider](#store)
-- [Message Bus Provider](#bus)
-- [Validation Provider](#validation)
-- [Caching Provider](#caching)
-- [UI](#ui)
+<a name="register"></a>
+## Register services
 
 <a name="main"></a>
 ### Main
@@ -136,6 +140,7 @@ services
 
 ...
 
+<a name="configure"></a>
 ## Configure Services
 
 In Configure method of Startup.cs:
@@ -158,6 +163,7 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
+<a name="settings"></a>
 ## App Settings
 
 Update appsettings.json as required.
