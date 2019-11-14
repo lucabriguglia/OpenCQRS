@@ -1,6 +1,6 @@
 # With Event Sourcing
 
-By using the SendAsync method, the dispatcher will automatically publish the events set in the response of the handler and save those events to the domain store (alongside aggregate and command).
+By using the _SendAsync_ method, the dispatcher will automatically publish the events set in the response of the handler and save those events to the domain store (alongside aggregate and command).
 
 First, create a domain object that inherits from **AggregateRoot**.
 This is how a simple _Product_ class might look like:
@@ -52,8 +52,7 @@ public class Product : AggregateRoot
 ```
 
 Note that the empty constructor is required in order to create a new object.
-After every command is executed, an event is added to the pending list of events and applied to the domain object by calling the **AddAndApplyEvent** method.
-The **Apply** methods are also used to load the object from history when _GetById_ method of the Repository is called.
+After every command is executed, an event is added to the pending list of events and applied to the domain object by calling the **AddAndApplyEvent** method. The **Apply** methods are also used to load the object from history when using _GetById_ method of the Repository.
 
 Next, create a command and an event:
 
@@ -101,7 +100,7 @@ await _dispatcher.SendAsync(command)
 ```
 
 At this stage, we might want to create our read model.
-It can be achieved by sending a message to a bus or by creating an event handler that will be called after the execution of the command:
+It can be achieved by sending a message to a bus or by creating an event handler that will be called automatically after the execution of the command:
 
 ```C#
 public class ProductCreatedHandler : IEventHandlerAsync<ProductCreated>
@@ -173,7 +172,7 @@ public class ProductTitleUpdatedHandler : IEventHandlerAsync<ProductTitleUpdated
 }
 ```
 
-As per prevoius example, the dispatcher can be used to update the product.
+As per prevoius example, use the dispatcher to update the product.
 
 ```C#
 await dispatcher.SendAsync(new UpdateProductTitle
