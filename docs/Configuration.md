@@ -26,8 +26,6 @@ CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
 
-#### Options
-
 It is possible to set a few options for the main package:
 
 ```C#
@@ -68,7 +66,6 @@ services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddSqlServerProvider(Configuration);
 ```
-#### Options
 
 It is possible to set some options the CosmosDB providers.
 
