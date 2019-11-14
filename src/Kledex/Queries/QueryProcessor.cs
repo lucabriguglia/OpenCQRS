@@ -35,7 +35,7 @@ namespace Kledex.Queries
             Task<TResult> GetResultAsync(IQuery<TResult> query)
             {
                 var handler = _handlerResolver.ResolveQueryHandler(query, typeof(IQueryHandlerAsync<,>));
-                var handleMethod = handler.GetType().GetMethod("HandleAsync");
+                var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { query.GetType() });
                 return (Task<TResult>)handleMethod.Invoke(handler, new object[] { query });
             }
 
@@ -66,7 +66,7 @@ namespace Kledex.Queries
             TResult GetResult(IQuery<TResult> query)
             {
                 var handler = _handlerResolver.ResolveQueryHandler(query, typeof(IQueryHandler<,>));
-                var handleMethod = handler.GetType().GetMethod("Handle");
+                var handleMethod = handler.GetType().GetMethod("Handle", new[] { query.GetType() });
                 return (TResult)handleMethod.Invoke(handler, new object[] { query });
             }
 

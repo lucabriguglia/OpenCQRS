@@ -80,7 +80,7 @@ namespace Kledex.Commands
             }           
 
             var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandlerAsync<>));
-            var handleMethod = handler.GetType().GetMethod("HandleAsync");
+            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType() });
             var response = await (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
 
             if (response == null)
@@ -126,7 +126,7 @@ namespace Kledex.Commands
             }
 
             var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandler<>));
-            var handleMethod = handler.GetType().GetMethod("Handle");
+            var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType() });
             var response = (CommandResponse)handleMethod.Invoke(handler, new object[] { command });
 
             if (response == null)
