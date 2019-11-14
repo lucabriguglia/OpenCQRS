@@ -1,6 +1,6 @@
 # Queries
 
-First, create a model to be returned and a query that implements the **IQuery<>** interface:
+First, create the model for the result and a query that implements the **IQuery<>** interface:
 
 ```C#
 public class Something
@@ -20,9 +20,16 @@ Next, create the handler:
 ```C#
 public class GetSomethingQueryHandler : IQueryHandlerAsync<GetSomething, Something>
 {
-    public async Task<Something> HandleAsync(GetSomething query)
+    private readonly MyDbContext _dbContext;
+
+    public GetProductsHandler(MyDbContext dbContext)
     {
-        return await _db.Somethings.FirstOrDefaultAsync(x => x.Id == query.Id);
+        _dbContext = dbContext;
+    }
+        
+    public Task<Something> HandleAsync(GetSomething query)
+    {
+        return _dbContext.Somethings.FirstOrDefaultAsync(x => x.Id == query.Id);
     }
 }
 ```
@@ -33,3 +40,5 @@ And finally, get the result using the dispatcher:
 var query = new GetSomething { Id = 123 };
 var something = await _dispatcher.GetResultAsync(query);
 ```
+
+It is possible to automatically cahce the result using one of the cache providers. [Click here to know more](/Caching).
