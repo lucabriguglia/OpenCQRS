@@ -9,7 +9,7 @@
     - [UI](#ui)
 - [Configure Services](#configure)
     - [CosmosDB SQL API](#config-cosmos)
-    - [Entity Framework](#config-ef)
+    - [Entity Framework Core](#config-ef)
 - [App Settings](#settings)
     - [Connection Strings](#settings-connstrings)
     - [CosmosDB SQL API](#settings-cosmos)
