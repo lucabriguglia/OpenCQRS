@@ -3,7 +3,7 @@
 ## Kledex 2.2
 _**Released ??/??/2019**_
 - Cache Manager
-- Change configuration
+- Changes to configuration
 
 ## Kledex 2.1
 _**Released 11/11/2019**_
@@ -28,31 +28,4 @@ _**Released 18/07/2019**_
 
 ## Kledex 1.0
 _**Released 25/05/2019**_
-Identical to OpenCQRS 6.1 but re-branded.
-
-## OpenCQRS 6.1
-_**Released 06/05/2019**_
-- Event type mapper configuration in startup
-- Support for RabbitMQ
-
-## OpenCQRS 6.0
-_**Released 23/03/2019**_
-- Optional command saving
-- IDispatcher refactoring
-- Add aggregate store
-
-## OpenCQRS 5.3
-_**Released 22/09/2018**_
-- Add in memory data provider
-
-## OpenCQRS 5.2
-_**Released 18/08/2018**_
-- Add expected version to domain commands
-
-## OpenCQRS 5.1
-_**Released 09/08/2018**_
-- Add Topics to Azure Service Bus plugin
-
-## OpenCQRS 5.0
-_**Released 21/07/2018**_
-- Azure Service Bus Integration (Queues only)
+Initial release

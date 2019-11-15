@@ -152,7 +152,7 @@ services
 <a name="caching"></a>
 ### Caching
 
-...
+Add a caching provider if you want the result of your queries to be automatically cached:
 
 | Package | Method |
 | --- | --- |
@@ -169,7 +169,7 @@ services
 <a name="ui"></a>
 ### UI
 
-...
+Experimental package to get a view of the aggregate and all associated events:
 
 ```C#
 services
