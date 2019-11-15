@@ -169,7 +169,7 @@ services
 <a name="ui"></a>
 ### UI
 
-Experimental package to get a view of the aggregate and all associated events:
+Experimental package to get a view of an aggregate and all associated events:
 
 ```C#
 services
