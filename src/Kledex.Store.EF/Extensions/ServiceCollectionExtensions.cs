@@ -1,7 +1,6 @@
 ﻿using Kledex.Extensions;
-using Kledex.Store.EF.Configuration;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 // ReSharper disable InconsistentNaming
 
@@ -9,9 +8,12 @@ namespace Kledex.Store.EF.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddEFProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddEFProvider(this IKledexServiceBuilder builder)
         {
-            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection(Constants.DomainDbConfigurationSection));
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
 
             builder.Services.Scan(s => s
                 .FromAssembliesOf(typeof(DomainDbContext))

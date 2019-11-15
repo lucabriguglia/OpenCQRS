@@ -16,16 +16,31 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
     {
         public static IKledexServiceBuilder AddCosmosDbSqlProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
+            return AddCosmosDbSqlProvider(builder, configuration, opt => { });
+        }
+
+        public static IKledexServiceBuilder AddCosmosDbSqlProvider(this IKledexServiceBuilder builder, IConfiguration configuration, Action<DomainDbOptions> setupAction)
+        {
             if (builder == null)
+            {
                 throw new ArgumentNullException(nameof(builder));
+            }
 
             if (configuration == null)
+            {
                 throw new ArgumentNullException(nameof(configuration));
+            }
 
-            builder.Services.Configure<DomainDbConfiguration>(configuration.GetSection("DomainDbConfiguration"));
+            if (setupAction == null)
+            {
+                throw new ArgumentNullException(nameof(setupAction));
+            }
 
-            var endpoint = configuration.GetSection("DomainDbConfiguration:ServerEndpoint").Value;
-            var key = configuration.GetSection("DomainDbConfiguration:AuthKey").Value;
+            builder.Services.Configure<KledexCosmosSqlConfiguration>(configuration.GetSection("KledexCosmosSqlConfiguration"));
+            builder.Services.Configure(setupAction);
+
+            var endpoint = configuration.GetSection("KledexCosmosSqlConfiguration:ServerEndpoint").Value;
+            var key = configuration.GetSection("KledexCosmosSqlConfiguration:AuthKey").Value;
             builder.Services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
             builder.Services

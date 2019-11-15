@@ -5,7 +5,7 @@ namespace Kledex.Validation.FluentValidation
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddFluentValidation(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddFluentValidationProvider(this IKledexServiceBuilder builder)
         {
             builder.Services.AddTransient<IValidationProvider, FluentValidationProvider>();
 

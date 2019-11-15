@@ -2,8 +2,8 @@
 using Kledex.Bus.ServiceBus.Queues;
 using Kledex.Bus.ServiceBus.Topics;
 using Kledex.Extensions;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Kledex.Bus.ServiceBus.Extensions
 {
@@ -13,12 +13,13 @@ namespace Kledex.Bus.ServiceBus.Extensions
         /// Adds the service bus provider.
         /// </summary>
         /// <param name="builder">The builder.</param>
-        /// <param name="configuration">The configuration.</param>
         /// <returns></returns>
-        public static IKledexServiceBuilder AddServiceBusProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddServiceBusProvider(this IKledexServiceBuilder builder)
         {
-            builder.Services
-                .Configure<ServiceBusConfiguration>(configuration.GetSection("ServiceBusConfiguration"));
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
 
             builder.Services
                 .AddTransient<IBusMessageDispatcher, BusMessageDispatcher>()

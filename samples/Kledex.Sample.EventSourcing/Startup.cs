@@ -1,8 +1,9 @@
 using Kledex.Bus.ServiceBus.Extensions;
+using Kledex.Caching.Memory;
 using Kledex.Extensions;
 using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
-using Kledex.Store.Cosmos.Sql.Configuration;
+using Kledex.Store.Cosmos.Sql;
 using Kledex.Store.Cosmos.Sql.Extensions;
 using Kledex.UI.Extensions;
 using Kledex.Validation.FluentValidation;
@@ -43,22 +44,23 @@ namespace Kledex.Sample.EventSourcing
                 options.UseSqlServer(Configuration.GetConnectionString("ReadModel")));
 
             services
-                .AddKledex(opt => 
+                .AddKledex(options => 
                 {
-                    opt.PublishEvents = true;
-                    opt.SaveCommandData = true;
-                    opt.ValidateCommands = false;
+                    options.PublishEvents = true;
+                    options.SaveCommandData = true;
+                    options.ValidateCommands = false;
                 }, typeof(Product))
                 .AddCosmosDbSqlProvider(Configuration)
-                .AddServiceBusProvider(Configuration)
-                .AddFluentValidation()
+                .AddServiceBusProvider()
+                .AddFluentValidationProvider()
+                .AddMemoryCacheProvider()
                 .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ReportingDbContext dbContext, IOptions<DomainDbConfiguration> settings)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ReportingDbContext dbContext, IOptions<DomainDbOptions> settings)
         {
             dbContext.Database.EnsureCreated();
             app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);

@@ -80,7 +80,7 @@ namespace Kledex.Commands
             }           
 
             var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandlerAsync<>));
-            var handleMethod = handler.GetType().GetMethod("HandleAsync");
+            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType() });
             var response = await (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
 
             if (response == null)
@@ -95,7 +95,10 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                await _domainStore.SaveAsync(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)response.Events);
+                await _domainStore.SaveAsync(GetAggregateType(domainCommand), 
+                    domainCommand.AggregateRootId, 
+                    domainCommand, 
+                    (IEnumerable<IDomainEvent>)response.Events);
             }
 
             if (PublishEvents(command))
@@ -123,7 +126,7 @@ namespace Kledex.Commands
             }
 
             var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandler<>));
-            var handleMethod = handler.GetType().GetMethod("Handle");
+            var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType() });
             var response = (CommandResponse)handleMethod.Invoke(handler, new object[] { command });
 
             if (response == null)
@@ -138,7 +141,10 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                _domainStore.Save(GetAggregateType(domainCommand), domainCommand.AggregateRootId, domainCommand, (IEnumerable<IDomainEvent>)response.Events);
+                _domainStore.Save(GetAggregateType(domainCommand), 
+                    domainCommand.AggregateRootId, 
+                    domainCommand, 
+                    (IEnumerable<IDomainEvent>)response.Events);
             }
 
             if (PublishEvents(command))

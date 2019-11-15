@@ -1,5 +1,5 @@
-﻿using Kledex.Store.Cosmos.Mongo.Configuration;
-using Kledex.Store.Cosmos.Mongo.Documents;
+﻿using Kledex.Store.Cosmos.Mongo.Documents;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -12,9 +12,9 @@ namespace Kledex.Store.Cosmos.Mongo
         private readonly string _commandCollectionName;
         private readonly string _eventCollectionName;
 
-        public DomainDbContext(IOptions<DomainDbConfiguration> settings)
+        public DomainDbContext(IConfiguration configuration, IOptions<DomainDbOptions> settings)
         {
-            var client = new MongoClient(settings.Value.ConnectionString);
+            var client = new MongoClient(configuration.GetConnectionString("KledexDomainStore"));
             _database = client.GetDatabase(settings.Value.DatabaseName);
             _aggregateCollectionName = settings.Value.AggregateCollectionName;
             _commandCollectionName = settings.Value.CommandCollectionName;

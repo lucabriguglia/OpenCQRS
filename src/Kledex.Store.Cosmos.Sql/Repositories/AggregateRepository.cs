@@ -7,7 +7,7 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
 {
     public class AggregateRepository : BaseDocumentRepository<AggregateDocument>
     {
-        public AggregateRepository(IDocumentClient documentClient, IOptions<DomainDbConfiguration> settings) 
+        public AggregateRepository(IDocumentClient documentClient, IOptions<DomainDbOptions> settings) 
             : base(settings.Value.AggregateCollectionId, documentClient, settings)
         {
         }

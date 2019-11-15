@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Kledex.Bus.ServiceBus\Kledex.Bus.ServiceBus.csproj" />
+    <ProjectReference Include="..\..\src\Kledex.Caching.Memory\Kledex.Caching.Memory.csproj" />
+    <ProjectReference Include="..\..\src\Kledex.Caching.Redis\Kledex.Caching.Redis.csproj" />
     <ProjectReference Include="..\..\src\Kledex.Store.Cosmos.Sql\Kledex.Store.Cosmos.Sql.csproj" />
     <ProjectReference Include="..\..\src\Kledex.Store.EF.SqlServer\Kledex.Store.EF.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\Kledex.UI\Kledex.UI.csproj" />

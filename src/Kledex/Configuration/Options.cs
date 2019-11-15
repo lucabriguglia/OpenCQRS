@@ -16,5 +16,10 @@
         /// The value indicating whether to validate commands. Default value is false.
         /// </summary>
         public bool ValidateCommands { get; set; } = false;
+
+        /// <summary>
+        /// The value indicating the cache time (in seconds). Default value is 60.
+        /// </summary>
+        public int CacheTime { get; set; } = 60;
     }
 }

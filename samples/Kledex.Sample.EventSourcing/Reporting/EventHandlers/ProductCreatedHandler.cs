@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kledex.Caching;
 using Kledex.Events;
 using Kledex.Sample.EventSourcing.Domain.Events;
 using Kledex.Sample.EventSourcing.Reporting.Data;
@@ -8,10 +9,12 @@ namespace Kledex.Sample.EventSourcing.Reporting.EventHandlers
     public class ProductCreatedHandler : IEventHandlerAsync<ProductCreated>
     {
         private readonly ReportingDbContext _dbContext;
+        private readonly ICacheManager _cacheManager;
 
-        public ProductCreatedHandler(ReportingDbContext dbContext)
+        public ProductCreatedHandler(ReportingDbContext dbContext, ICacheManager cacheManager)
         {
             _dbContext = dbContext;
+            _cacheManager = cacheManager;
         }
 
         public async Task HandleAsync(ProductCreated @event)
@@ -26,6 +29,8 @@ namespace Kledex.Sample.EventSourcing.Reporting.EventHandlers
             });
 
             await _dbContext.SaveChangesAsync();
+
+            await _cacheManager.RemoveAsync(CacheKeys.ProductsCacheKey);
         }
     }
 }

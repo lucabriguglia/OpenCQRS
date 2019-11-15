@@ -32,7 +32,9 @@ namespace Kledex.Domain
             var events = await _domainStore.GetEventsAsync(id);
             var domainEvents = events as DomainEvent[] ?? events.ToArray();
             if (!domainEvents.Any())
-                return default(T);
+            {
+                return default;
+            }
 
             var aggregate = Activator.CreateInstance<T>();        
             aggregate.LoadsFromHistory(domainEvents);
@@ -45,7 +47,9 @@ namespace Kledex.Domain
             var events = _domainStore.GetEvents(id);
             var domainEvents = events as DomainEvent[] ?? events.ToArray();
             if (!domainEvents.Any())
-                return default(T);
+            {
+                return default;
+            }
 
             var aggregate = Activator.CreateInstance<T>();          
             aggregate.LoadsFromHistory(domainEvents);

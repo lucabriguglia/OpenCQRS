@@ -1,7 +1,6 @@
 ﻿using System;
 using Kledex.Dependencies;
-using Kledex.Store.EF.Configuration;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace Kledex.Store.EF
 {
@@ -10,10 +9,10 @@ namespace Kledex.Store.EF
         private readonly IResolver _resolver;
         private readonly string _connectionString;
 
-        public DomainDbContextFactory(IResolver resolver, IOptions<DomainDbConfiguration> domainDbConfiguration)
+        public DomainDbContextFactory(IResolver resolver, IConfiguration configuration)
         {
             _resolver = resolver;
-            _connectionString = domainDbConfiguration.Value.ConnectionString;
+            _connectionString = configuration.GetConnectionString(Consts.DomainStoreConnectionString);
         }
 
         public DomainDbContext CreateDbContext()

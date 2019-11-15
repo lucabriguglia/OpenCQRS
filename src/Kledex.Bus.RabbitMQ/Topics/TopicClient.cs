@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kledex.Bus.RabbitMQ.Factories;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
 // ReSharper disable StringLiteralTypo
@@ -13,10 +13,10 @@ namespace Kledex.Bus.RabbitMQ.Topics
         private readonly IMessageFactory _messageFactory;
         private readonly string _connectionString;
 
-        public TopicClient(IMessageFactory messageFactory, IOptions<ServiceBusConfiguration> serviceBusConfiguration)
+        public TopicClient(IMessageFactory messageFactory, IConfiguration configuration)
         {
             _messageFactory = messageFactory;
-            _connectionString = serviceBusConfiguration.Value.ConnectionString;
+            _connectionString = configuration.GetConnectionString("KledexMessageBus");
         }
 
         /// <inheritdoc />

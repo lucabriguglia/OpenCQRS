@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kledex.Bus.RabbitMQ.Factories;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
 namespace Kledex.Bus.RabbitMQ.Queues
@@ -11,17 +11,19 @@ namespace Kledex.Bus.RabbitMQ.Queues
         private readonly IMessageFactory _messageFactory;
         private readonly string _connectionString;
 
-        public QueueClient(IMessageFactory messageFactory, IOptions<ServiceBusConfiguration> serviceBusConfiguration)
+        public QueueClient(IMessageFactory messageFactory, IConfiguration configuration)
         {
             _messageFactory = messageFactory;
-            _connectionString = serviceBusConfiguration.Value.ConnectionString;
+            _connectionString = configuration.GetConnectionString("KledexMessageBus");
         }
 
         /// <inheritdoc />
         public Task SendAsync<TMessage>(TMessage message) where TMessage : IBusQueueMessage
         {
             if (string.IsNullOrEmpty(message.QueueName))
+            {
                 throw new ApplicationException("Queue name is mandatory");
+            }
 
             var factory = new ConnectionFactory
             {
