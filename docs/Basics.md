@@ -1,7 +1,9 @@
 # Basic
 
 The **IDispatcher** interface contains all the methods needed to send commands, publish events and get results from queries.
+
 The **IRepository<T>** interface can be used to load an aggregate from history by replaying all the associated events.
+  
 Note that all methods and handlers are available as asynchronous as well as synchronous.
 
 There are 3 kinds of messages:
