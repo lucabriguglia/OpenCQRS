@@ -16,12 +16,14 @@ namespace Kledex.Caching
             _options = options.Value;
         }
 
-        public Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> acquireAsync)
+        /// <inheritdoc />
+        public Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> acquireAsync)
         {
-            return GetOrCreateAsync(key, _options.CacheTime, acquireAsync);
+            return GetOrSetAsync(key, _options.CacheTime, acquireAsync);
         }
 
-        public async Task<T> GetOrCreateAsync<T>(string key, int cacheTime, Func<Task<T>> acquireAsync)
+        /// <inheritdoc />
+        public async Task<T> GetOrSetAsync<T>(string key, int cacheTime, Func<Task<T>> acquireAsync)
         {
             var data = await _cacheProvider.GetAsync<T>(key);
 
@@ -37,17 +39,20 @@ namespace Kledex.Caching
             return result;
         }
 
+        /// <inheritdoc />
         public Task RemoveAsync(string key)
         {
             return _cacheProvider.RemoveAsync(key);
         }
 
-        public T GetOrCreate<T>(string key, Func<T> acquire)
+        /// <inheritdoc />
+        public T GetOrSet<T>(string key, Func<T> acquire)
         {
-            return GetOrCreate(key, _options.CacheTime, acquire);
+            return GetOrSet(key, _options.CacheTime, acquire);
         }
 
-        public T GetOrCreate<T>(string key, int cacheTime, Func<T> acquire)
+        /// <inheritdoc />
+        public T GetOrSet<T>(string key, int cacheTime, Func<T> acquire)
         {
             var data = _cacheProvider.Get<T>(key);
 
@@ -63,6 +68,7 @@ namespace Kledex.Caching
             return result;
         }
 
+        /// <inheritdoc />
         public void Remove(string key)
         {
             _cacheProvider.Remove(key);

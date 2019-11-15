@@ -43,7 +43,7 @@ namespace Kledex.Tests.Queries
 
             _cacheManager = new Mock<ICacheManager>();
             _cacheManager
-                .Setup(x => x.GetOrCreate(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Something>>()))
+                .Setup(x => x.GetOrSet(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Something>>()))
                 .Returns(_something);
 
             _options = new Mock<IOptions<Options>>();
@@ -72,7 +72,7 @@ namespace Kledex.Tests.Queries
         public void Process_ReturnsResultFromCache()
         {
             var result = _sut.Process(_getSomethingCacheable);
-            _cacheManager.Verify(x => x.GetOrCreate(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Something>>()), Times.Once);
+            _cacheManager.Verify(x => x.GetOrSet(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Something>>()), Times.Once);
         }
     }
 }

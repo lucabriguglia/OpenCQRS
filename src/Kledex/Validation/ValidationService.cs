@@ -16,6 +16,7 @@ namespace Kledex.Validation
             _validationProvider = validationProvider;
         }
 
+        /// <inheritdoc />
         public async Task ValidateAsync(ICommand command)
         {
             if (command == null)
@@ -27,6 +28,7 @@ namespace Kledex.Validation
                 throw new ValidationException(BuildErrorMessage(validationResponse.Errors));
         }
 
+        /// <inheritdoc />
         public void Validate(ICommand command)
         {
             if (command == null)

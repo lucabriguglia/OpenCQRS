@@ -44,7 +44,7 @@ namespace Kledex.Tests.Queries
 
             _cacheManager = new Mock<ICacheManager>();
             _cacheManager
-                .Setup(x => x.GetOrCreateAsync(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Task<Something>>>()))
+                .Setup(x => x.GetOrSetAsync(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Task<Something>>>()))
                 .ReturnsAsync(_something);
 
             _options = new Mock<IOptions<Options>>();
@@ -73,7 +73,7 @@ namespace Kledex.Tests.Queries
         public async Task ProcessAsync_ReturnsResultFromCache()
         {
             var result = await _sut.ProcessAsync(_getSomethingCacheable);
-            _cacheManager.Verify(x => x.GetOrCreateAsync(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Task<Something>>>()), Times.Once);
+            _cacheManager.Verify(x => x.GetOrSetAsync(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Task<Something>>>()), Times.Once);
         }
     }
 }

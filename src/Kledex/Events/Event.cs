@@ -2,7 +2,7 @@
 
 namespace Kledex.Events
 {
-    public class Event : IEvent
+    public abstract class Event : IEvent
     {
         public string UserId { get; set; }
         public string Source { get; set; }

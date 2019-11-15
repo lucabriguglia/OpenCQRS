@@ -46,7 +46,7 @@ namespace Kledex.Queries
                     throw new QueryException("Cache key is required.");
                 }
 
-                return _cacheManager.GetOrCreateAsync(
+                return _cacheManager.GetOrSetAsync(
                     cacheableQuery.CacheKey, 
                     cacheableQuery.CacheTime ?? _options.CacheTime, 
                     () => GetResultAsync(query));
@@ -77,7 +77,7 @@ namespace Kledex.Queries
                     throw new QueryException("Cache key is required.");
                 }
 
-                return _cacheManager.GetOrCreate(
+                return _cacheManager.GetOrSet(
                     cacheableQuery.CacheKey,
                     cacheableQuery.CacheTime ?? _options.CacheTime,
                     () => GetResult(query));
