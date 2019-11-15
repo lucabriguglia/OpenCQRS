@@ -28,4 +28,4 @@ _**Released 18/07/2019**_
 
 ## Kledex 1.0
 _**Released 25/05/2019**_
-Initial release
+- Initial release
