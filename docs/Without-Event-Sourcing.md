@@ -98,3 +98,5 @@ await _dispatcher.SendAsync(command)
 The read model(s) can be created the same way we would have done using Event Sourcing, using event handlers or better using a message bus.
 
 The main difference here is that we are using a normal repository for saving our normalised data but at the same time we have the complete history of all the changes that happened to the domain (all events are automatically saved anyway by the framework).
+
+It is possible to validate the command automatically before it is sent to the command handler. [Click here to know more](Validation).
