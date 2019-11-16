@@ -17,5 +17,6 @@ With Kledex you can automatically dispatch events to a message bus (Service Bus 
 - [Validation](Validation)
 - [Caching](Caching)
 - [UI](UI)
+- [Providers](Providers)
 - [Samples](Samples)
 - [Release Notes](Release-Notes)
