@@ -1,3 +1,39 @@
 # Validation
 
-Work in progress...
+Kledex can automatically call a validation service before a command is sent to the command handler. In order to do that a validation provider needs to be installed and configured as described [here](Configuration#validation). You can configure to validate all commands by setting the option _ValidateCommands_ to _true_ when registering the main package as described [here](Configuration#main) or on a case by case basis by setting the _Validate_ property to _true_ on the command level:
+
+```C#
+public class CreateProduct : DomainCommand<Product>
+{
+    public CreateProduct()
+    {
+        Validate = true;
+    }
+
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public decimal Price { get; set; }
+}
+```
+
+The only validation provider currenlty available is the _FluentValidation_ provider. Thereofore, you need to create a class that inherits from the **AbstractValidator<>** class of _FluentValidation_:
+
+```C#
+public CreateProductValidator()
+{
+    RuleFor(c => c.Name)
+        .NotEmpty().WithMessage("Product name is required.")
+        .Length(1, 100).WithMessage("Product name length must be between 1 and 100 characters.");
+
+    RuleFor(c => c.Description)
+        .NotEmpty().WithMessage("Product description is required.")
+        .Length(1, 100).WithMessage("Product description length must be between 1 and 100 characters.");
+
+    RuleFor(c => c.Price)
+        .GreaterThan(0.0M).WithMessage("Product price must be greater than zero.");
+}
+```
+
+Kledex will automatically resolve and execute it.
+
+Note that the assemblies that contain the validators need to be registered the same way command, query and event handlers are as explained [here](Configuration#main).
