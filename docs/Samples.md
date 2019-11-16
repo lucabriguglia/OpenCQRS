@@ -4,8 +4,8 @@ Run the sample web projects to view how Kledex works and how it produces the sam
 
 The following is a list of products created using the sample web application:
 
-![List](https://github.com/lucabriguglia/Kledex/blob/master/docs/images/list.PNG)
+![List](images/list.PNG)
 
 And this is a detailed view of a product with all associated events:
 
-![Product](https://github.com/lucabriguglia/Kledex/blob/master/docs/images/product.PNG)
+![Product](images/product.PNG)
