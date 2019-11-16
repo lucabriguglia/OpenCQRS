@@ -47,4 +47,4 @@ var query = new GetSomething(123);
 var something = await _dispatcher.GetResultAsync(query);
 ```
 
-As you can see the only difference is the query class.
+As you can see the only difference is in the query class.
