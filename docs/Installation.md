@@ -1,6 +1,6 @@
 # Installation
 
-## Installing the main package
+Installing the various packages:
 
 Via Package Manager
 
@@ -14,7 +14,11 @@ Or via Paket CLI
 
     paket add Kledex
 
-## Installing a database provider package
+## Main package
+
+- **Kledex**
+
+## Database provider packages
 
 Kledex currently supports the following database providers:
 
@@ -28,24 +32,24 @@ For Entity Framework Core:
 - **Kledex.Store.EF.PostgreSql**
 - **Kledex.Store.EF.Sqlite**
 
-## Installing a message bus provider package
+## Message bus provider packages
 
 Kledex currently supports the following message bus providers:
 - **Kledex.Bus.ServiceBus**
 - **Kledex.Bus.RabbitMQ**
 
-## Installing a validation provider package
+## Validation provider package
 
 Kledex currently supports the following validation providers:
 - **Kledex.Validation.FluentValidation**
 
-## Installing a caching provider package
+## Caching provider packages
 
 Kledex currently supports the following caching providers:
 - **Kledex.Caching.Memory**
 - **Kledex.Caching.Redis**
 
-## Installing the UI package
+## UI package
 
 UI experimental package:
 - **Kledex.UI**
