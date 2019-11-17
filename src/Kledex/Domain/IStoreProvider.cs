@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Kledex.Domain
 {
-    public interface IDomainStore
+    public interface IStoreProvider
     {
         /// <summary>
         /// Saves the event asynchronous.
@@ -40,7 +40,7 @@ namespace Kledex.Domain
         IEnumerable<DomainEvent> GetEvents(Guid aggregateId);
     }
 
-    public class DefaultDomainStore : IDomainStore
+    public class DefaultDomainStore : IStoreProvider
     {
         public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
         {

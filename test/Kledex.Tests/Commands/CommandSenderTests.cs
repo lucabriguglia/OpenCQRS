@@ -20,7 +20,7 @@ namespace Kledex.Tests.Commands
 
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisher> _eventPublisher;
-        private Mock<IDomainStore> _domainStore;
+        private Mock<IStoreProvider> _storeProvider;
         private Mock<IEventFactory> _eventFactory;
         private Mock<IValidationService> _validationService;
 
@@ -61,8 +61,8 @@ namespace Kledex.Tests.Commands
             _eventPublisher
                 .Setup(x => x.Publish(_aggregateCreatedConcrete));
 
-            _domainStore = new Mock<IDomainStore>();
-            _domainStore
+            _storeProvider = new Mock<IStoreProvider>();
+            _storeProvider
                 .Setup(x => x.Save(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }));
 
             _eventFactory = new Mock<IEventFactory>();
@@ -103,7 +103,7 @@ namespace Kledex.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _domainStore.Object,
+                _storeProvider.Object,
                 _validationService.Object,
                 _optionsMock.Object);
         }
@@ -141,7 +141,7 @@ namespace Kledex.Tests.Commands
         public void Send_SavesEvents()
         {
             _sut.Send(_createAggregate);
-            _domainStore.Verify(x => x.Save(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }), Times.Once);
+            _storeProvider.Verify(x => x.Save(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }), Times.Once);
         }
 
         [Test]
@@ -161,7 +161,7 @@ namespace Kledex.Tests.Commands
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _eventFactory.Object,
-                _domainStore.Object,
+                _storeProvider.Object,
                 new Mock<IValidationService>().Object,
                 _optionsMock.Object);
 

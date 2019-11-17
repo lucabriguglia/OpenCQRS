@@ -17,7 +17,7 @@ namespace Kledex.Commands
         private readonly IHandlerResolver _handlerResolver;
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventFactory _eventFactory;
-        private readonly IDomainStore _domainStore;
+        private readonly IStoreProvider _storeProvider;
         private readonly IValidationService _validationService;
         private readonly Options _options;
 
@@ -27,14 +27,14 @@ namespace Kledex.Commands
         public CommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,  
             IEventFactory eventFactory,
-            IDomainStore domainStore,
+            IStoreProvider storeProvider,
             IValidationService validationService,
             IOptions<Options> options)
         {
             _handlerResolver = handlerResolver;
             _eventPublisher = eventPublisher;
             _eventFactory = eventFactory;
-            _domainStore = domainStore;
+            _storeProvider = storeProvider;
             _validationService = validationService;
             _options = options.Value;
         }
@@ -95,7 +95,7 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                await _domainStore.SaveAsync(GetAggregateType(domainCommand), 
+                await _storeProvider.SaveAsync(GetAggregateType(domainCommand), 
                     domainCommand.AggregateRootId, 
                     domainCommand, 
                     (IEnumerable<IDomainEvent>)response.Events);
@@ -141,7 +141,7 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                _domainStore.Save(GetAggregateType(domainCommand), 
+                _storeProvider.Save(GetAggregateType(domainCommand), 
                     domainCommand.AggregateRootId, 
                     domainCommand, 
                     (IEnumerable<IDomainEvent>)response.Events);
