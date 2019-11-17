@@ -44,7 +44,7 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
             builder.Services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
             builder.Services
-                .AddTransient<IDomainStore, DomainStore>();
+                .AddTransient<IStoreProvider, StoreProvider>();
 
             builder.Services
                 .AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>()

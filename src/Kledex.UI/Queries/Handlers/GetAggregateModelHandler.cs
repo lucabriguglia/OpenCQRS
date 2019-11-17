@@ -7,16 +7,16 @@ namespace Kledex.UI.Queries.Handlers
 {
     public class GetAggregateModelHandler : IQueryHandlerAsync<GetAggregateModel, AggregateModel>
     {
-        private readonly IDomainStore _domainStore;
+        private readonly IStoreProvider _storeProvider;
 
-        public GetAggregateModelHandler(IDomainStore domainStore)
+        public GetAggregateModelHandler(IStoreProvider storeProvider)
         {
-            _domainStore = domainStore;
+            _storeProvider = storeProvider;
         }
 
         public async Task<AggregateModel> HandleAsync(GetAggregateModel query)
         {
-            var events = await _domainStore.GetEventsAsync(query.AggregateRootId);
+            var events = await _storeProvider.GetEventsAsync(query.AggregateRootId);
             var aggregate = new AggregateModel(events);
             return aggregate;
         }

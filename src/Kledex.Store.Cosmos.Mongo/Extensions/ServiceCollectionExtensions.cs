@@ -28,7 +28,7 @@ namespace Kledex.Store.Cosmos.Mongo.Extensions
             builder.Services.Configure(setupAction);
 
             builder.Services
-                .AddTransient<IDomainStore, DomainStore>();
+                .AddTransient<IStoreProvider, StoreProvider>();
 
             builder.Services
                 .AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>()

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kledex.Store.EF
 {
-    public class DomainStore : IDomainStore
+    public class StoreProvider : IStoreProvider
     {
         private readonly IDomainDbContextFactory _dbContextFactory;
         private readonly IAggregateEntityFactory _aggregateEntityFactory;
@@ -17,7 +17,7 @@ namespace Kledex.Store.EF
         private readonly IEventEntityFactory _eventEntityFactory;
         private readonly IVersionService _versionService;
 
-        public DomainStore(IDomainDbContextFactory dbContextFactory, 
+        public StoreProvider(IDomainDbContextFactory dbContextFactory, 
             IAggregateEntityFactory aggregateEntityFactory,
             ICommandEntityFactory commandEntityFactory,
             IEventEntityFactory eventEntityFactory,
