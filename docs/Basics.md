@@ -1,4 +1,4 @@
-# Basic
+# Basics
 
 The **IDispatcher** interface contains all the methods needed to send commands, publish events and get results from queries.
 
