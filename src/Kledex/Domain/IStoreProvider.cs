@@ -40,7 +40,7 @@ namespace Kledex.Domain
         IEnumerable<DomainEvent> GetEvents(Guid aggregateId);
     }
 
-    public class DefaultDomainStore : IStoreProvider
+    public class DefaultStoreProvider : IStoreProvider
     {
         public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
         {
