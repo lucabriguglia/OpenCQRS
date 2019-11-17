@@ -19,7 +19,7 @@ Or via Paket CLI
 Kledex currently supports the following database providers:
 
 For CosmosDB:
-- Kledex.Store.Cosmos.Sql (DocumentDB)
+- Kledex.Store.Cosmos.Sql
 - Kledex.Store.Cosmos.Mongo
 
 For Entity Framework Core:
