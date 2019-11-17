@@ -5,13 +5,11 @@ namespace Kledex.Bus
 {
     public class BusMessageDispatcher : IBusMessageDispatcher
     {
-        private readonly IQueueClient _queueClient;
-        private readonly ITopicClient _topicClient;
+        private readonly IBusProvider _busProvider;
 
-        public BusMessageDispatcher(IQueueClient queueClient, ITopicClient topicClient)
+        public BusMessageDispatcher(IBusProvider busProvider)
         {
-            _queueClient = queueClient;
-            _topicClient = topicClient;
+            _busProvider = busProvider;
         }
 
         public Task DispatchAsync<TMessage>(TMessage message) where TMessage : IBusMessage
@@ -23,12 +21,12 @@ namespace Kledex.Bus
 
             if (message is IBusQueueMessage queueMessage)
             {
-                return _queueClient.SendAsync(queueMessage);
+                return _busProvider.SendQueueMessageAsync(queueMessage);
             }
 
             if (message is IBusTopicMessage topicMessage)
             {
-                return _topicClient.SendAsync(topicMessage);
+                return _busProvider.SendTopicMessageAsync(topicMessage);
             }
 
             throw new NotSupportedException("The message must implement either the IBusQueueMessage or the IBusTopicMessage interface");

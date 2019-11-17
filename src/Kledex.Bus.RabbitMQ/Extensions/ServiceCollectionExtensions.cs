@@ -1,6 +1,4 @@
 ﻿using Kledex.Bus.RabbitMQ.Factories;
-using Kledex.Bus.RabbitMQ.Queues;
-using Kledex.Bus.RabbitMQ.Topics;
 using Kledex.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -25,8 +23,7 @@ namespace Kledex.Bus.RabbitMQ.Extensions
 
             builder.Services
                 .AddTransient<IBusMessageDispatcher, BusMessageDispatcher>()
-                .AddTransient<IQueueClient, QueueClient>()
-                .AddTransient<ITopicClient, TopicClient>()
+                .AddTransient<IBusProvider, BusProvider>()
                 .AddTransient<IMessageFactory, MessageFactory>();
 
             return builder;
