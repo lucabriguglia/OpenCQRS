@@ -7,5 +7,5 @@ Thre are four different providers and for each of them there is only one interfa
 | --- | --- | --- | --- |
 | **Store** | Stores domain data | _IStoreProvider_ | [CosmosDB Mongo API](https://github.com/lucabriguglia/Kledex/tree/master/src/Kledex.Store.Cosmos.Mongo) |
 | **Bus** | Sends events to a message bus | _IBusProvider_ | [RabbitMQ](https://github.com/lucabriguglia/Kledex/tree/master/src/Kledex.Bus.RabbitMQ) |
-| **Caching** | Gets query results from cache | _ICacheProvider_ | [Redis](https://github.com/lucabriguglia/Kledex/tree/master/src/Kledex.Cache.Redis) |
+| **Caching** | Gets query results from cache | _ICacheProvider_ | [Redis](https://github.com/lucabriguglia/Kledex/tree/master/src/Kledex.Caching.Redis) |
 | **Validation** | Validates commands | _IValidationProvider_ | [FluentValidation](https://github.com/lucabriguglia/Kledex/tree/master/src/Kledex.Validation.FluentValidation) |
