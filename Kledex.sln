@@ -85,6 +85,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D
 		docs\Without-Event-Sourcing.md = docs\Without-Event-Sourcing.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{665061C5-C28A-4F6D-9579-0572629CDA04}"
+	ProjectSection(SolutionItems) = preProject
+		docs\images\list.PNG = docs\images\list.PNG
+		docs\images\product.PNG = docs\images\product.PNG
+		docs\images\SendCommandFlow.png = docs\images\SendCommandFlow.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +198,7 @@ Global
 		{EC89F18E-266A-4C33-8E70-9F3AB331BB6C} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{4AA061EE-6DBE-464B-B467-08BDA68D9F40} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{60755BA7-4F80-4AEC-8B0E-32414C1C6553} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
+		{665061C5-C28A-4F6D-9579-0572629CDA04} = {1282A8FB-D7A5-4562-8B9B-1C27B83EE580}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}
