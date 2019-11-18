@@ -8,7 +8,7 @@ With Kledex you can automatically dispatch events to a message bus (Service Bus 
 
 **Full Documentation**: [https://lucabriguglia.github.io/Kledex](https://lucabriguglia.github.io/Kledex)
 
-## Flows
+## Main Flow
 
 ![Send Command Flow](docs/images/SendCommandFlow.png)
 
