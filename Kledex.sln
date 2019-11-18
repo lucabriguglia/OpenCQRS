@@ -89,7 +89,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{665061
 	ProjectSection(SolutionItems) = preProject
 		docs\images\list.PNG = docs\images\list.PNG
 		docs\images\product.PNG = docs\images\product.PNG
-		docs\images\SendCommandFlow.png = docs\images\SendCommandFlow.png
+		docs\images\SendCommandFlow.svg = docs\images\SendCommandFlow.svg
 	EndProjectSection
 EndProject
 Global
