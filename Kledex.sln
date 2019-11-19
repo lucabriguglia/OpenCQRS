@@ -98,6 +98,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{BF
 		docs\_layouts\default.html = docs\_layouts\default.html
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{7883593A-6225-4485-8EAE-E4EF3B799285}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{3866F9A3-E13A-4E7A-A4B7-8E3A85A921B8}"
+	ProjectSection(SolutionItems) = preProject
+		style.scss = style.scss
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -206,6 +213,8 @@ Global
 		{60755BA7-4F80-4AEC-8B0E-32414C1C6553} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 		{665061C5-C28A-4F6D-9579-0572629CDA04} = {1282A8FB-D7A5-4562-8B9B-1C27B83EE580}
 		{BFD2582D-AC9C-4AEA-A631-6A24605298FB} = {1282A8FB-D7A5-4562-8B9B-1C27B83EE580}
+		{7883593A-6225-4485-8EAE-E4EF3B799285} = {1282A8FB-D7A5-4562-8B9B-1C27B83EE580}
+		{3866F9A3-E13A-4E7A-A4B7-8E3A85A921B8} = {7883593A-6225-4485-8EAE-E4EF3B799285}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}
