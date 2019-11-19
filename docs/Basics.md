@@ -11,7 +11,13 @@ There are 3 kinds of messages:
 - [Events](Events) (multiple handlers)
 - [Queries](Queries) (single handler)
 
-Mapping between dispatcher methods and handlers:
+It's also possible to use the following interfaces directly without going through the framework flows:
+- **ICacheManager**
+- **IValidationService**
+
+## Handlers
+
+The following is the mapping between dispatcher methods and handlers:
 
 | Method | Handler |
 | --- | --- |
@@ -19,6 +25,6 @@ Mapping between dispatcher methods and handlers:
 | PublishAsync | IEventHandlerAsync |
 | GetResultAsync | IQueryHandlerAsync |
 
-It's also possible to use the following interfaces directly without going through the framework flows:
-- ICacheManager
-- IValidationService
+## Main Flow
+
+![Send Command Flow](assets/img/SendCommandFlow.svg)
