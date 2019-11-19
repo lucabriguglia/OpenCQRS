@@ -66,6 +66,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Caching.Redis", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D7A5-4562-8B9B-1C27B83EE580}"
 	ProjectSection(SolutionItems) = preProject
+		docs\_config.yml = docs\_config.yml
 		docs\Basics.md = docs\Basics.md
 		docs\Caching.md = docs\Caching.md
 		docs\Commands.md = docs\Commands.md
