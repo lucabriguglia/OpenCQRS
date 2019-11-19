@@ -10,7 +10,7 @@ With Kledex you can automatically dispatch events to a message bus (Service Bus 
 
 ## Main Flow
 
-![Send Command Flow](docs/images/SendCommandFlow.svg)
+![Send Command Flow](docs/assets/img/SendCommandFlow.svg)
 
 ## Packages
 
