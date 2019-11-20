@@ -42,15 +42,27 @@ namespace Kledex.Commands
         /// <inheritdoc />
         public async Task SendAsync(ICommand command)
         {
-            await ProcessAsync(command);
+            await ProcessAsync(command, () => GetCommandResponseAsync(command));
+        }
+
+        /// <inheritdoc />
+        public Task SendAsync(params ICommand[] commands)
+        {
+            return ProcessAsync(commands);
         }
 
         /// <inheritdoc />
         public async Task<TResult> SendAsync<TResult>(ICommand command)
         {
-            var response = await ProcessAsync(command);
-
+            var response = await ProcessAsync(command, () => GetCommandResponseAsync(command));
             return response?.Result != null ? (TResult)response.Result : default;
+        }
+
+        /// <inheritdoc />
+        public async Task<TResult> SendAsync<TResult>(params ICommand[] commands)
+        {
+            var lastStepReponse = await ProcessAsync(commands);
+            return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
         }
 
         /// <inheritdoc />
@@ -63,11 +75,10 @@ namespace Kledex.Commands
         public TResult Send<TResult>(ICommand command)
         {
             var response = Process(command);
-
             return response?.Result != null ? (TResult)response.Result : default;
         }
 
-        private async Task<CommandResponse> ProcessAsync(ICommand command)
+        private async Task<CommandResponse> ProcessAsync(ICommand command, Func<Task<CommandResponse>> getResponse)
         {
             if (command == null)
             {
@@ -79,9 +90,7 @@ namespace Kledex.Commands
                 await _validationService.ValidateAsync(command);
             }           
 
-            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandlerAsync<>));
-            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType() });
-            var response = await (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
+            var response = await getResponse();
 
             if (response == null)
             {
@@ -111,6 +120,19 @@ namespace Kledex.Commands
             }
 
             return response;
+        }
+
+        private async Task<CommandResponse> ProcessAsync(params ICommand[] commands)
+        {
+            CommandResponse lastStepResponse = null;
+
+            foreach (var command in commands)
+            {
+                var response = await ProcessAsync(command, () => GetSequenceCommandResponseAsync(command, lastStepResponse));
+                lastStepResponse = response;
+            }
+
+            return lastStepResponse;
         }
 
         private CommandResponse Process(ICommand command)
@@ -165,6 +187,20 @@ namespace Kledex.Commands
             var commandInterface = commandType.GetInterfaces()[1];
             var aggregateType = commandInterface.GetGenericArguments().FirstOrDefault();
             return aggregateType;
+        }
+
+        private Task<CommandResponse> GetCommandResponseAsync(ICommand command)
+        {
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandlerAsync<>));
+            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType() });
+            return (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
+        }
+
+        private Task<CommandResponse> GetSequenceCommandResponseAsync(ICommand command, CommandResponse previousStepResponse)
+        {
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ISequenceCommandHandlerAsync<>));
+            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType(), typeof(CommandResponse) });
+            return (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command, previousStepResponse });
         }
     }
 }
