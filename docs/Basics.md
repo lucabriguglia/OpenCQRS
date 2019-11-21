@@ -19,11 +19,12 @@ It's also possible to use the following interfaces directly without going throug
 
 The following is the mapping between dispatcher methods and handlers:
 
-| Method | Handler |
-| --- | --- |
-| SendAsync | ICommandHandlerAsync |
-| PublishAsync | IEventHandlerAsync |
-| GetResultAsync | IQueryHandlerAsync |
+| Method | Parameter | Handler |
+| --- | --- | --- |
+| SendAsync | ICommand | ICommandHandlerAsync |
+| SendAsync | ICommandSequence | ISequenceCommandHandlerAsync |
+| PublishAsync | IEvent | IEventHandlerAsync |
+| GetResultAsync | IQuery | IQueryHandlerAsync |
 
 ## Main Flow
 

@@ -67,10 +67,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D7A5-4562-8B9B-1C27B83EE580}"
 	ProjectSection(SolutionItems) = preProject
 		docs\Basics.md = docs\Basics.md
-		docs\Caching.md = docs\Caching.md
+		docs\Caching-Queries.md = docs\Caching-Queries.md
+		docs\Command-Sequence.md = docs\Command-Sequence.md
+		docs\Command-Validation.md = docs\Command-Validation.md
 		docs\Commands.md = docs\Commands.md
 		docs\Configuration.md = docs\Configuration.md
-		docs\Domain.md = docs\Domain.md
+		docs\Domain-Commands.md = docs\Domain-Commands.md
 		docs\Events.md = docs\Events.md
 		docs\index.md = docs\index.md
 		docs\Installation.md = docs\Installation.md
@@ -80,7 +82,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D
 		docs\Release-Notes.md = docs\Release-Notes.md
 		docs\Samples.md = docs\Samples.md
 		docs\UI.md = docs\UI.md
-		docs\Validation.md = docs\Validation.md
 		docs\With-Event-Sourcing.md = docs\With-Event-Sourcing.md
 		docs\Without-Event-Sourcing.md = docs\Without-Event-Sourcing.md
 	EndProjectSection
@@ -94,7 +95,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{05D6EE8E-C35
 		docs\assets\img\SendCommandFlow.svg = docs\assets\img\SendCommandFlow.svg
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Sample.CommandSequence", "samples\Kledex.Sample.CommandSequence\Kledex.Sample.CommandSequence.csproj", "{6DB19E10-1942-44CC-B592-01A34CEE8C77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Sample.CommandSequence", "samples\Kledex.Sample.CommandSequence\Kledex.Sample.CommandSequence.csproj", "{6DB19E10-1942-44CC-B592-01A34CEE8C77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

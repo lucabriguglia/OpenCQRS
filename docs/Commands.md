@@ -89,4 +89,9 @@ public class DoSomethingHandler : ICommandHandlerAsync<DoSomething>
 
 Note the two optional properties can be set in the commands: **UserId** and **Source**.
 
-It is possible to validate the command automatically before it is sent to the command handler. [Click here to know more](Validation).
+## Related
+
+- [Command Validation](Command-Validation)
+- [Command Sequence](Command-Sequence)
+- [Domain Commands With Event Sourcing](With-Event-Sourcing)
+- [Domain Commands Without Event Sourcing](Without-Event-Sourcing)

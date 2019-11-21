@@ -48,3 +48,7 @@ var something = await _dispatcher.GetResultAsync(query);
 ```
 
 As you can see the only difference is in the query class.
+
+## Related
+
+- [Queries](Queries)

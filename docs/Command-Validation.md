@@ -37,3 +37,10 @@ public CreateProductValidator()
 Kledex will automatically resolve and execute it.
 
 Note that the assemblies that contain the validators need to be registered the same way command, query and event handlers are as explained [here](Configuration#main).
+
+## Related
+
+- [Commands](Commands)
+- [Command Sequence](Command-Sequence)
+- [Domain Commands With Event Sourcing](With-Event-Sourcing)
+- [Domain Commands Without Event Sourcing](Without-Event-Sourcing)
