@@ -83,7 +83,7 @@ namespace Kledex
         /// <inheritdoc />
         public void Send(ISequenceCommand sequenceCommand)
         {
-            _commandSender.SendAsync(sequenceCommand);
+            _commandSender.Send(sequenceCommand);
         }
 
         /// <inheritdoc />

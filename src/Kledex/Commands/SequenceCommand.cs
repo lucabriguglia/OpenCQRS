@@ -9,7 +9,7 @@ namespace Kledex.Commands
         public ReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
 
         /// <summary>
-        /// Adds the command to the new command sequence collection.
+        /// Adds the command to the sequence collection.
         /// </summary>
         /// <param name="command">The command.</param>
         protected void AddCommand(ICommand command)

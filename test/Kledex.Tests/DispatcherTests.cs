@@ -19,29 +19,34 @@ namespace Kledex.Tests
         private Mock<IQueryProcessor> _queryDispatcher;
         private Mock<IBusMessageDispatcher> _busMessageDispatcher;
 
-        private CreateSomething _createSomething;
         private SomethingCreated _somethingCreated;
         private GetSomething _getSomething;
         private Something _something;
         private CreateAggregate _createAggregate;
         private CreateAggregateBusMessage _createAggregateBusMessage;
+        private SampleSequenceCommand _sampleSequenceCommand;
 
         [SetUp]
         public void SetUp()
         {
-            _createSomething = new CreateSomething();
             _somethingCreated = new SomethingCreated();
             _getSomething = new GetSomething();
             _something = new Something();
             _createAggregate = new CreateAggregate();
             _createAggregateBusMessage = new CreateAggregateBusMessage();
+            _sampleSequenceCommand = new SampleSequenceCommand();
 
             _commandSender = new Mock<ICommandSender>();
             _commandSender
-                .Setup(x => x.SendAsync((IDomainCommand<IAggregateRoot>)_createAggregate))
+                .Setup(x => x.SendAsync(_createAggregate))
                 .Returns(Task.CompletedTask);
             _commandSender
-                .Setup(x => x.Send((IDomainCommand<IAggregateRoot>)_createAggregate));
+                .Setup(x => x.Send(_createAggregate));
+            _commandSender
+                .Setup(x => x.SendAsync(_sampleSequenceCommand))
+                .Returns(Task.CompletedTask);
+            _commandSender
+                .Setup(x => x.Send(_sampleSequenceCommand));
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
@@ -70,17 +75,59 @@ namespace Kledex.Tests
         }
 
         [Test]
-        public async Task SendsCommandWithAggregateAsync()
+        public async Task SendsCommandAsync()
         {
             await _sut.SendAsync(_createAggregate);
             _commandSender.Verify(x => x.SendAsync(_createAggregate), Times.Once);
         }
 
         [Test]
-        public void SendsCommandWithAggregate()
+        public async Task SendsCommandWithResultAsync()
+        {
+            await _sut.SendAsync<string>(_createAggregate);
+            _commandSender.Verify(x => x.SendAsync<string>(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public async Task SendsSequenceCommandAsync()
+        {
+            await _sut.SendAsync(_sampleSequenceCommand);
+            _commandSender.Verify(x => x.SendAsync(_sampleSequenceCommand), Times.Once);
+        }
+
+        [Test]
+        public async Task SendsSequenceCommandWithResultAsync()
+        {
+            await _sut.SendAsync<string>(_sampleSequenceCommand);
+            _commandSender.Verify(x => x.SendAsync<string>(_sampleSequenceCommand), Times.Once);
+        }
+
+        [Test]
+        public void SendsCommand()
         {
             _sut.Send(_createAggregate);
             _commandSender.Verify(x => x.Send(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public void SendsCommandWithResult()
+        {
+            _sut.Send<string>(_createAggregate);
+            _commandSender.Verify(x => x.Send<string>(_createAggregate), Times.Once);
+        }
+
+        [Test]
+        public void SendsSequenceCommand()
+        {
+            _sut.Send(_sampleSequenceCommand);
+            _commandSender.Verify(x => x.Send(_sampleSequenceCommand), Times.Once);
+        }
+
+        [Test]
+        public void SendsSequenceCommandWithResult()
+        {
+            _sut.Send<string>(_sampleSequenceCommand);
+            _commandSender.Verify(x => x.Send<string>(_sampleSequenceCommand), Times.Once);
         }
 
         [Test]
