@@ -56,7 +56,7 @@ namespace Kledex.Commands
         /// <inheritdoc />
         public Task SendAsync(ISequenceCommand sequenceCommand)
         {
-            return ProcessAsync(sequenceCommand);
+            return ProcessSequenceCommandAsync(sequenceCommand);
         }
 
         /// <inheritdoc />
@@ -69,11 +69,11 @@ namespace Kledex.Commands
         /// <inheritdoc />
         public async Task<TResult> SendAsync<TResult>(ISequenceCommand sequenceCommand)
         {
-            var lastStepReponse = await ProcessAsync(sequenceCommand);
+            var lastStepReponse = await ProcessSequenceCommandAsync(sequenceCommand);
             return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
         }
 
-        private async Task<CommandResponse> ProcessAsync(ISequenceCommand sequenceCommand)
+        private async Task<CommandResponse> ProcessSequenceCommandAsync(ISequenceCommand sequenceCommand)
         {
             CommandResponse lastStepResponse = null;
 
@@ -147,17 +147,43 @@ namespace Kledex.Commands
         /// <inheritdoc />
         public void Send(ICommand command)
         {
-            Process(command);
+            Process(command, () => GetCommandResponse(command));
+        }
+
+        /// <inheritdoc />
+        public void Send(ISequenceCommand sequenceCommand)
+        {
+            ProcessSequenceCommand(sequenceCommand);
         }
 
         /// <inheritdoc />
         public TResult Send<TResult>(ICommand command)
         {
-            var response = Process(command);
+            var response = Process(command, () => GetCommandResponse(command));
             return response?.Result != null ? (TResult)response.Result : default;
         }
 
-        private CommandResponse Process(ICommand command)
+        /// <inheritdoc />
+        public TResult Send<TResult>(ISequenceCommand sequenceCommand)
+        {
+            var lastStepReponse = ProcessSequenceCommand(sequenceCommand);
+            return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
+        }
+
+        private CommandResponse ProcessSequenceCommand(ISequenceCommand sequenceCommand)
+        {
+            CommandResponse lastStepResponse = null;
+
+            foreach (var command in sequenceCommand.Commands)
+            {
+                var response = Process(command, () => GetSequenceCommandResponse(command, lastStepResponse));
+                lastStepResponse = response;
+            }
+
+            return lastStepResponse;
+        }
+
+        private CommandResponse Process(ICommand command, Func<CommandResponse> getResponse)
         {
             if (command == null)
             {
@@ -169,9 +195,7 @@ namespace Kledex.Commands
                 _validationService.Validate(command);
             }
 
-            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandler<>));
-            var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType() });
-            var response = (CommandResponse)handleMethod.Invoke(handler, new object[] { command });
+            var response = getResponse();
 
             if (response == null)
             {
@@ -201,6 +225,20 @@ namespace Kledex.Commands
             }
 
             return response;
+        }
+
+        private CommandResponse GetCommandResponse(ICommand command)
+        {
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandler<>));
+            var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType() });
+            return (CommandResponse)handleMethod.Invoke(handler, new object[] { command });
+        }
+
+        private CommandResponse GetSequenceCommandResponse(ICommand command, CommandResponse previousStepResponse)
+        {
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ISequenceCommandHandler<>));
+            var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType(), typeof(CommandResponse) });
+            return (CommandResponse)handleMethod.Invoke(handler, new object[] { command, previousStepResponse });
         }
     }
 }

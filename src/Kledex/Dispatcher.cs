@@ -81,9 +81,21 @@ namespace Kledex
         }
 
         /// <inheritdoc />
+        public void Send(ISequenceCommand sequenceCommand)
+        {
+            _commandSender.SendAsync(sequenceCommand);
+        }
+
+        /// <inheritdoc />
         public TResult Send<TResult>(ICommand command)
         {
             return _commandSender.Send<TResult>(command);
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ISequenceCommand sequenceCommand)
+        {
+            return _commandSender.Send<TResult>(sequenceCommand);
         }
 
         /// <inheritdoc />

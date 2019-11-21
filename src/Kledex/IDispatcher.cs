@@ -19,7 +19,7 @@ namespace Kledex
         Task SendAsync(ICommand command);
 
         /// <summary>
-        /// Sends the specified commands asynchronously.
+        /// Sends the specified sequence command asynchronously.
         /// The command handler must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="sequenceCommand">The sequence command.</param>
@@ -34,7 +34,7 @@ namespace Kledex
         Task<TResult> SendAsync<TResult>(ICommand command);
 
         /// <summary>
-        /// Sends the specified commands asynchronously.
+        /// Sends the specified sequence command asynchronously.
         /// The command handler must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
@@ -77,12 +77,28 @@ namespace Kledex
         void Send(ICommand command);
 
         /// <summary>
+        /// Sends the specified sequence command.
+        /// The command handler must implement Kledex.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
+        /// </summary>
+        /// <param name="sequenceCommand">The sequence command.</param>
+        void Send(ISequenceCommand sequenceCommand);
+
+        /// <summary>
         /// Sends the specified command.
         /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
         /// <returns>A custom object set as result in the command hadler response.</returns>
         TResult Send<TResult>(ICommand command);
+
+        /// <summary>
+        /// Sends the sequence specified sequence command.
+        /// The command handler must implement Kledex.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="sequenceCommand">The sequence command.</param>
+        /// <returns>A custom object set as result in the command hadler response.</returns>
+        TResult Send<TResult>(ISequenceCommand sequenceCommand);
 
         /// <summary>
         /// Publishes the specified event.
