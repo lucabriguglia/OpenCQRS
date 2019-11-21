@@ -1,10 +1,8 @@
-﻿using Kledex.Commands;
-
-namespace Kledex.Sample.CommandSequence.Commands
+﻿namespace Kledex.Sample.CommandSequence.Commands
 {
-    public class SampleSequenceCommand : SequenceCommand
+    public class SampleCommandSequence : Kledex.Commands.CommandSequence
     {
-        public SampleSequenceCommand()
+        public SampleCommandSequence()
         {
             AddCommand(new FirstCommand { Name = "My Name" });
             AddCommand(new SecondCommand());

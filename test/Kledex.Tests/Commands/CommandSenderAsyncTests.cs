@@ -40,7 +40,7 @@ namespace Kledex.Tests.Commands
         private AggregateCreated _aggregateCreatedConcrete;
         private Aggregate _aggregate;
 
-        private SampleSequenceCommand _sampleSequenceCommand;
+        private sampleCommandSequence _sampleCommandSequence;
 
         private CommandResponse _commandResponse;
         private CommandResponse _domainCommandResponse;
@@ -58,7 +58,7 @@ namespace Kledex.Tests.Commands
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
 
-            _sampleSequenceCommand = new SampleSequenceCommand();
+            _sampleCommandSequence = new sampleCommandSequence();
 
             _commandResponse = new CommandResponse { Events = _events, Result = "Result" };
             _domainCommandResponse = new CommandResponse { Events = _aggregate.Events, Result = "Result" };
@@ -155,9 +155,9 @@ namespace Kledex.Tests.Commands
         }
 
         [Test]
-        public async Task SendAsync_HandlesCommand_InSequenceCommand()
+        public async Task SendAsync_HandlesCommand_InCommandSequence()
         {
-            await _sut.SendAsync(_sampleSequenceCommand);
+            await _sut.SendAsync(_sampleCommandSequence);
             _sequenceCommandHandlerAsync.Verify(x => x.HandleAsync(It.IsAny<ICommand>(), It.IsAny<CommandResponse>()), Times.Once);
         }
 

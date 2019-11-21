@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Kledex.Commands
 {
-    public abstract class SequenceCommand : ISequenceCommand
+    public abstract class CommandSequence : ICommandSequence
     {
         private readonly List<ICommand> _commands = new List<ICommand>();
         public ReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();

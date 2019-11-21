@@ -24,7 +24,7 @@ namespace Kledex.Tests
         private Something _something;
         private CreateAggregate _createAggregate;
         private CreateAggregateBusMessage _createAggregateBusMessage;
-        private SampleSequenceCommand _sampleSequenceCommand;
+        private sampleCommandSequence _sampleCommandSequence;
 
         [SetUp]
         public void SetUp()
@@ -34,7 +34,7 @@ namespace Kledex.Tests
             _something = new Something();
             _createAggregate = new CreateAggregate();
             _createAggregateBusMessage = new CreateAggregateBusMessage();
-            _sampleSequenceCommand = new SampleSequenceCommand();
+            _sampleCommandSequence = new sampleCommandSequence();
 
             _commandSender = new Mock<ICommandSender>();
             _commandSender
@@ -43,10 +43,10 @@ namespace Kledex.Tests
             _commandSender
                 .Setup(x => x.Send(_createAggregate));
             _commandSender
-                .Setup(x => x.SendAsync(_sampleSequenceCommand))
+                .Setup(x => x.SendAsync(_sampleCommandSequence))
                 .Returns(Task.CompletedTask);
             _commandSender
-                .Setup(x => x.Send(_sampleSequenceCommand));
+                .Setup(x => x.Send(_sampleCommandSequence));
 
             _eventPublisher = new Mock<IEventPublisher>();
             _eventPublisher
@@ -89,17 +89,17 @@ namespace Kledex.Tests
         }
 
         [Test]
-        public async Task SendsSequenceCommandAsync()
+        public async Task SendsCommandSequenceAsync()
         {
-            await _sut.SendAsync(_sampleSequenceCommand);
-            _commandSender.Verify(x => x.SendAsync(_sampleSequenceCommand), Times.Once);
+            await _sut.SendAsync(_sampleCommandSequence);
+            _commandSender.Verify(x => x.SendAsync(_sampleCommandSequence), Times.Once);
         }
 
         [Test]
-        public async Task SendsSequenceCommandWithResultAsync()
+        public async Task SendsCommandSequenceWithResultAsync()
         {
-            await _sut.SendAsync<string>(_sampleSequenceCommand);
-            _commandSender.Verify(x => x.SendAsync<string>(_sampleSequenceCommand), Times.Once);
+            await _sut.SendAsync<string>(_sampleCommandSequence);
+            _commandSender.Verify(x => x.SendAsync<string>(_sampleCommandSequence), Times.Once);
         }
 
         [Test]
@@ -117,17 +117,17 @@ namespace Kledex.Tests
         }
 
         [Test]
-        public void SendsSequenceCommand()
+        public void SendsCommandSequence()
         {
-            _sut.Send(_sampleSequenceCommand);
-            _commandSender.Verify(x => x.Send(_sampleSequenceCommand), Times.Once);
+            _sut.Send(_sampleCommandSequence);
+            _commandSender.Verify(x => x.Send(_sampleCommandSequence), Times.Once);
         }
 
         [Test]
-        public void SendsSequenceCommandWithResult()
+        public void SendsCommandSequenceWithResult()
         {
-            _sut.Send<string>(_sampleSequenceCommand);
-            _commandSender.Verify(x => x.Send<string>(_sampleSequenceCommand), Times.Once);
+            _sut.Send<string>(_sampleCommandSequence);
+            _commandSender.Verify(x => x.Send<string>(_sampleCommandSequence), Times.Once);
         }
 
         [Test]

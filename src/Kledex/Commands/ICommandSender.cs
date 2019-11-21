@@ -20,7 +20,7 @@ namespace Kledex.Domain
         /// The command handler must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="sequenceCommand">The sequence command.</param>
-        Task SendAsync(ISequenceCommand sequenceCommand);
+        Task SendAsync(ICommandSequence sequenceCommand);
 
         /// <summary>
         /// Sends the specified command asynchronously.
@@ -37,7 +37,7 @@ namespace Kledex.Domain
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="sequenceCommand">The sequence command.</param>
         /// <returns>A custom object set as result in the command hadler response.</returns>
-        Task<TResult> SendAsync<TResult>(ISequenceCommand sequenceCommand);
+        Task<TResult> SendAsync<TResult>(ICommandSequence sequenceCommand);
 
         /// <summary>
         /// Sends the specified command.
@@ -51,7 +51,7 @@ namespace Kledex.Domain
         /// The command handler must implement Kledex.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <param name="sequenceCommand">The sequence command.</param>
-        void Send(ISequenceCommand sequenceCommand);
+        void Send(ICommandSequence sequenceCommand);
 
         /// <summary>
         /// Sends the specified command.
@@ -68,6 +68,6 @@ namespace Kledex.Domain
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="sequenceCommand">The sequence command.</param>
         /// <returns>A custom object set as result in the command hadler response.</returns>
-        TResult Send<TResult>(ISequenceCommand sequenceCommand);
+        TResult Send<TResult>(ICommandSequence sequenceCommand);
     }
 }

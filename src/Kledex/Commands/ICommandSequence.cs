@@ -2,7 +2,7 @@
 
 namespace Kledex.Commands
 {
-    public interface ISequenceCommand
+    public interface ICommandSequence
     {
         ReadOnlyCollection<ICommand> Commands { get; }
     }

@@ -37,7 +37,7 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task SendAsync(ISequenceCommand sequenceCommand)
+        public Task SendAsync(ICommandSequence sequenceCommand)
         {
             return _commandSender.SendAsync(sequenceCommand);
         }
@@ -49,7 +49,7 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task<TResult> SendAsync<TResult>(ISequenceCommand sequenceCommand)
+        public Task<TResult> SendAsync<TResult>(ICommandSequence sequenceCommand)
         {
             return _commandSender.SendAsync<TResult>(sequenceCommand);
         }
@@ -81,7 +81,7 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public void Send(ISequenceCommand sequenceCommand)
+        public void Send(ICommandSequence sequenceCommand)
         {
             _commandSender.Send(sequenceCommand);
         }
@@ -93,7 +93,7 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public TResult Send<TResult>(ISequenceCommand sequenceCommand)
+        public TResult Send<TResult>(ICommandSequence sequenceCommand)
         {
             return _commandSender.Send<TResult>(sequenceCommand);
         }
