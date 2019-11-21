@@ -39,6 +39,14 @@ namespace Kledex.Commands
             _options = options.Value;
         }
 
+        private static Type GetAggregateType(IDomainCommand domainCommand)
+        {
+            var commandType = domainCommand.GetType();
+            var commandInterface = commandType.GetInterfaces()[1];
+            var aggregateType = commandInterface.GetGenericArguments().FirstOrDefault();
+            return aggregateType;
+        }
+
         /// <inheritdoc />
         public async Task SendAsync(ICommand command)
         {
@@ -65,19 +73,6 @@ namespace Kledex.Commands
             return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
         }
 
-        /// <inheritdoc />
-        public void Send(ICommand command)
-        {
-            Process(command);
-        }
-
-        /// <inheritdoc />
-        public TResult Send<TResult>(ICommand command)
-        {
-            var response = Process(command);
-            return response?.Result != null ? (TResult)response.Result : default;
-        }
-
         private async Task<CommandResponse> ProcessAsync(ICommand command, Func<Task<CommandResponse>> getResponse)
         {
             if (command == null)
@@ -88,7 +83,7 @@ namespace Kledex.Commands
             if (ValidateCommand(command))
             {
                 await _validationService.ValidateAsync(command);
-            }           
+            }
 
             var response = await getResponse();
 
@@ -104,9 +99,9 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                await _storeProvider.SaveAsync(GetAggregateType(domainCommand), 
-                    domainCommand.AggregateRootId, 
-                    domainCommand, 
+                await _storeProvider.SaveAsync(GetAggregateType(domainCommand),
+                    domainCommand.AggregateRootId,
+                    domainCommand,
                     (IEnumerable<IDomainEvent>)response.Events);
             }
 
@@ -133,6 +128,33 @@ namespace Kledex.Commands
             }
 
             return lastStepResponse;
+        }
+
+        private Task<CommandResponse> GetCommandResponseAsync(ICommand command)
+        {
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandlerAsync<>));
+            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType() });
+            return (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
+        }
+
+        private Task<CommandResponse> GetSequenceCommandResponseAsync(ICommand command, CommandResponse previousStepResponse)
+        {
+            var handler = _handlerResolver.ResolveHandler(command, typeof(ISequenceCommandHandlerAsync<>));
+            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType(), typeof(CommandResponse) });
+            return (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command, previousStepResponse });
+        }
+
+        /// <inheritdoc />
+        public void Send(ICommand command)
+        {
+            Process(command);
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommand command)
+        {
+            var response = Process(command);
+            return response?.Result != null ? (TResult)response.Result : default;
         }
 
         private CommandResponse Process(ICommand command)
@@ -179,28 +201,6 @@ namespace Kledex.Commands
             }
 
             return response;
-        }
-
-        private static Type GetAggregateType(IDomainCommand domainCommand)
-        {
-            var commandType = domainCommand.GetType();
-            var commandInterface = commandType.GetInterfaces()[1];
-            var aggregateType = commandInterface.GetGenericArguments().FirstOrDefault();
-            return aggregateType;
-        }
-
-        private Task<CommandResponse> GetCommandResponseAsync(ICommand command)
-        {
-            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandlerAsync<>));
-            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType() });
-            return (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command });
-        }
-
-        private Task<CommandResponse> GetSequenceCommandResponseAsync(ICommand command, CommandResponse previousStepResponse)
-        {
-            var handler = _handlerResolver.ResolveHandler(command, typeof(ISequenceCommandHandlerAsync<>));
-            var handleMethod = handler.GetType().GetMethod("HandleAsync", new[] { command.GetType(), typeof(CommandResponse) });
-            return (Task<CommandResponse>)handleMethod.Invoke(handler, new object[] { command, previousStepResponse });
         }
     }
 }
