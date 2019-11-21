@@ -54,9 +54,9 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
-        public Task SendAsync(ICommandSequence sequenceCommand)
+        public Task SendAsync(ICommandSequence commandSequence)
         {
-            return ProcessSequenceCommandAsync(sequenceCommand);
+            return ProcessCommandSequenceAsync(commandSequence);
         }
 
         /// <inheritdoc />
@@ -67,17 +67,17 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
-        public async Task<TResult> SendAsync<TResult>(ICommandSequence sequenceCommand)
+        public async Task<TResult> SendAsync<TResult>(ICommandSequence commandSequence)
         {
-            var lastStepReponse = await ProcessSequenceCommandAsync(sequenceCommand);
+            var lastStepReponse = await ProcessCommandSequenceAsync(commandSequence);
             return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
         }
 
-        private async Task<CommandResponse> ProcessSequenceCommandAsync(ICommandSequence sequenceCommand)
+        private async Task<CommandResponse> ProcessCommandSequenceAsync(ICommandSequence commandSequence)
         {
             CommandResponse lastStepResponse = null;
 
-            foreach (var command in sequenceCommand.Commands)
+            foreach (var command in commandSequence.Commands)
             {
                 var response = await ProcessAsync(command, () => GetSequenceCommandResponseAsync(command, lastStepResponse));
                 lastStepResponse = response;
@@ -151,9 +151,9 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
-        public void Send(ICommandSequence sequenceCommand)
+        public void Send(ICommandSequence commandSequence)
         {
-            ProcessSequenceCommand(sequenceCommand);
+            ProcessSequenceCommand(commandSequence);
         }
 
         /// <inheritdoc />
@@ -164,17 +164,17 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
-        public TResult Send<TResult>(ICommandSequence sequenceCommand)
+        public TResult Send<TResult>(ICommandSequence commandSequence)
         {
-            var lastStepReponse = ProcessSequenceCommand(sequenceCommand);
+            var lastStepReponse = ProcessSequenceCommand(commandSequence);
             return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
         }
 
-        private CommandResponse ProcessSequenceCommand(ICommandSequence sequenceCommand)
+        private CommandResponse ProcessSequenceCommand(ICommandSequence commandSequence)
         {
             CommandResponse lastStepResponse = null;
 
-            foreach (var command in sequenceCommand.Commands)
+            foreach (var command in commandSequence.Commands)
             {
                 var response = Process(command, () => GetSequenceCommandResponse(command, lastStepResponse));
                 lastStepResponse = response;
