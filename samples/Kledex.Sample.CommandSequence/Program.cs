@@ -10,7 +10,7 @@ namespace Kledex.Sample.CommandSequence
     {
         static void Main(string[] args)
         {
-            IServiceProvider serviceProvider = ConfigureServices();
+            var serviceProvider = ConfigureServices();
 
             var dispatcher = serviceProvider.GetService<IDispatcher>();
 
@@ -25,7 +25,7 @@ namespace Kledex.Sample.CommandSequence
 
         private static IServiceProvider ConfigureServices()
         {
-            IServiceCollection services = new ServiceCollection();
+            var services = new ServiceCollection();
 
             services
                 .AddKledex(typeof(Program))
