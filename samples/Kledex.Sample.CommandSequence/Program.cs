@@ -14,11 +14,13 @@ namespace Kledex.Sample.CommandSequence
 
             var dispatcher = serviceProvider.GetService<IDispatcher>();
 
-            dispatcher.SendAsync(
+            var result = dispatcher.SendAsync<string>(
                 new FirstCommand { Name = "My Name" }, 
                 new SecondCommand(), 
                 new ThirdCommand())
                 .GetAwaiter().GetResult();
+
+            Console.WriteLine($"Final result: {result}");
 
             Console.ReadLine();
         }
