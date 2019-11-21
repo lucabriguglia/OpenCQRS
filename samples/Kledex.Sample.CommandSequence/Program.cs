@@ -1,0 +1,37 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using Kledex.Extensions;
+using Kledex.Sample.CommandSequence.Commands;
+using Kledex.Validation.FluentValidation;
+
+namespace Kledex.Sample.CommandSequence
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            IServiceProvider serviceProvider = ConfigureServices();
+
+            var dispatcher = serviceProvider.GetService<IDispatcher>();
+
+            dispatcher.SendAsync(
+                new FirstCommand { Name = "My Name" }, 
+                new SecondCommand(), 
+                new ThirdCommand())
+                .GetAwaiter().GetResult();
+
+            Console.ReadLine();
+        }
+
+        private static IServiceProvider ConfigureServices()
+        {
+            IServiceCollection services = new ServiceCollection();
+
+            services
+                .AddKledex(typeof(Program))
+                .AddFluentValidationProvider();
+
+            return services.BuildServiceProvider();
+        }
+    }
+}
