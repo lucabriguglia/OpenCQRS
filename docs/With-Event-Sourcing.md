@@ -1,4 +1,4 @@
-# With Event Sourcing
+# Domain Commands With Event Sourcing
 
 By using the _SendAsync_ method, the dispatcher will automatically publish the events set in the response of the handler and save those events to the domain store (alongside aggregate and command).
 

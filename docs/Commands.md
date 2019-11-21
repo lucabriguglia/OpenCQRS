@@ -1,6 +1,6 @@
 # Commands
 
-The dispatcher will automatically publish any events returned by the handler unless the property **PublishEvents** is set to _false_ on a global or a command level.
+The dispatcher will automatically publish any events returned by the handler unless the property **PublishEvents** is set to _false_ on a global or a command level (see [Configuration](Configuration#main)).
 
 First, create a command that inherits from the **Command** class:
 
@@ -87,7 +87,7 @@ public class DoSomethingHandler : ICommandHandlerAsync<DoSomething>
 }
 ```
 
-Note the two optional properties can be set in the commands: **UserId** and **Source**.
+Note that two optional properties can be set in the commands: **UserId** and **Source**.
 
 ## Related
 

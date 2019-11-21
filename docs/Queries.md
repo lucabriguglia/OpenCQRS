@@ -43,4 +43,4 @@ var something = await _dispatcher.GetResultAsync(query);
 
 ## Related
 
-- [Caching Queries](Caching-Queries).
+- [Caching Queries](Caching-Queries)
