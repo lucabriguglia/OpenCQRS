@@ -14,10 +14,8 @@ namespace Kledex.Sample.CommandSequence
 
             var dispatcher = serviceProvider.GetService<IDispatcher>();
 
-            var result = dispatcher.SendAsync<string>(
-                new FirstCommand { Name = "My Name" }, 
-                new SecondCommand(), 
-                new ThirdCommand())
+            var result = dispatcher
+                .SendAsync<string>(new SampleSequenceCommand())
                 .GetAwaiter().GetResult();
 
             Console.WriteLine($"Final result: {result}");

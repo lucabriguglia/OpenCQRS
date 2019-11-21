@@ -54,9 +54,9 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
-        public Task SendAsync(params ICommand[] commands)
+        public Task SendAsync(ISequenceCommand sequenceCommand)
         {
-            return ProcessAsync(commands);
+            return ProcessAsync(sequenceCommand);
         }
 
         /// <inheritdoc />
@@ -67,17 +67,17 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
-        public async Task<TResult> SendAsync<TResult>(params ICommand[] commands)
+        public async Task<TResult> SendAsync<TResult>(ISequenceCommand sequenceCommand)
         {
-            var lastStepReponse = await ProcessAsync(commands);
+            var lastStepReponse = await ProcessAsync(sequenceCommand);
             return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
         }
 
-        private async Task<CommandResponse> ProcessAsync(params ICommand[] commands)
+        private async Task<CommandResponse> ProcessAsync(ISequenceCommand sequenceCommand)
         {
             CommandResponse lastStepResponse = null;
 
-            foreach (var command in commands)
+            foreach (var command in sequenceCommand.Commands)
             {
                 var response = await ProcessAsync(command, () => GetSequenceCommandResponseAsync(command, lastStepResponse));
                 lastStepResponse = response;
