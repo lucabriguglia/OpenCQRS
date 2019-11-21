@@ -37,9 +37,21 @@ namespace Kledex
         }
 
         /// <inheritdoc />
+        public Task SendAsync(params ICommand[] commands)
+        {
+            return _commandSender.SendAsync(commands);
+        }
+
+        /// <inheritdoc />
         public Task<TResult> SendAsync<TResult>(ICommand command)
         {
             return _commandSender.SendAsync<TResult>(command);
+        }
+
+        /// <inheritdoc />
+        public Task<TResult> SendAsync<TResult>(params ICommand[] commands)
+        {
+            return _commandSender.SendAsync<TResult>(commands);
         }
 
         /// <inheritdoc />
