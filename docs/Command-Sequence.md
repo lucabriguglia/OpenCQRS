@@ -75,7 +75,7 @@ public class ThirdCommandHandler : ISequenceCommandHandlerAsync<ThirdCommand>
 }
 ```
 
-Last, create a class that inherits from the _CommandSequence_ abstract class and add all yoyr commands:
+Last, create a class that inherits from the _CommandSequence_ abstract class and add all your commands:
 
 ```C#
 public class SampleCommandSequence : CommandSequence
