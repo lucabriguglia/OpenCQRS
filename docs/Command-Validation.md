@@ -16,7 +16,7 @@ public class CreateProduct : DomainCommand<Product>
 }
 ```
 
-The only validation provider currenlty available is the _FluentValidation_ provider. Thereofore, you need to create a class that inherits from the **AbstractValidator<>** class of _FluentValidation_:
+The only validation provider currenlty available is the _FluentValidation_ provider. Therefore, you need to create a class that inherits from the **AbstractValidator<>** class of _FluentValidation_:
 
 ```C#
 public CreateProductValidator()
@@ -34,7 +34,7 @@ public CreateProductValidator()
 }
 ```
 
-Kledex will automatically resolve and execute it.
+Kledex will automatically resolve and execute it. To know more about FluentValidation please visit their [website](https://fluentvalidation.net).
 
 Note that the assemblies that contain the validators need to be registered the same way command, query and event handlers are as explained [here](Configuration#main).
 
