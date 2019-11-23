@@ -1,4 +1,4 @@
-# With Event Sourcing
+# Domain Commands With Event Sourcing
 
 By using the _SendAsync_ method, the dispatcher will automatically publish the events set in the response of the handler and save those events to the domain store (alongside aggregate and command).
 
@@ -185,4 +185,9 @@ await dispatcher.SendAsync(new UpdateProductTitle
 A new event is saved and the read model is updated using the event handler.
 Next time the aggregate is loaded from history using the repository, two events will be applied in order to recreate the current state.
 
-It is possible to validate the command automatically before it is sent to the command handler. [Click here to know more](Validation).
+## Related
+
+- [Commands](Commands)
+- [Command Validation](Command-Validation)
+- [Command Sequence](Command-Sequence)
+- [Domain Commands Without Event Sourcing](Without-Event-Sourcing)

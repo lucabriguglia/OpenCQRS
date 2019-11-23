@@ -1,4 +1,4 @@
-# Without Event Sourcing
+# Domain Commands Without Event Sourcing
 
 Event Sourcing functionalities of Kledex can be used just as an advanced logging system for your domain. The single source of truth can be a SQL Server database with normalised data (or any other data provider) and use the read model for optimised queries or use just one data store altogether.
 
@@ -99,4 +99,9 @@ The read model(s) can be created the same way we would have done using Event Sou
 
 The main difference here is that we are using a normal repository for saving our normalised data but at the same time we have the complete history of all the changes that happened to the domain (all events are automatically saved anyway by the framework).
 
-It is possible to validate the command automatically before it is sent to the command handler. [Click here to know more](Validation).
+## Related
+
+- [Commands](Commands)
+- [Command Validation](Command-Validation)
+- [Command Sequence](Command-Sequence)
+- [Domain Commands With Event Sourcing](With-Event-Sourcing)

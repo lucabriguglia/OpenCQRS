@@ -41,4 +41,6 @@ var query = new GetSomething { Id = 123 };
 var something = await _dispatcher.GetResultAsync(query);
 ```
 
-It is possible to automatically cahce the result using one of the cache providers. [Click here to know more](Caching).
+## Related
+
+- [Caching Queries](Caching-Queries)
