@@ -1,7 +1,15 @@
 # Release Notes
 
+## Kledex 2.3
+_**Released 23/11/2019**_
+- Command sequence
+
+## Kledex 2.2.1
+_**Released 17/11/2019**_
+- Minor improvements
+
 ## Kledex 2.2
-_**Released ??/??/2019**_
+_**Released 15/11/2019**_
 - Cache Manager
 - Changes to configuration
 
