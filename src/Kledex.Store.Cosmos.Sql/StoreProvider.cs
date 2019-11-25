@@ -37,7 +37,7 @@ namespace Kledex.Store.Cosmos.Sql
             _versionService = versionService;
         }
 
-        public IEnumerable<DomainEvent> GetEvents(Guid aggregateId)
+        public IEnumerable<IDomainEvent> GetEvents(Guid aggregateId)
         {
             var result = new List<DomainEvent>();
 
@@ -52,7 +52,7 @@ namespace Kledex.Store.Cosmos.Sql
             return result;
         }
 
-        public async Task<IEnumerable<DomainEvent>> GetEventsAsync(Guid aggregateId)
+        public async Task<IEnumerable<IDomainEvent>> GetEventsAsync(Guid aggregateId)
         {
             var result = new List<DomainEvent>();
 
@@ -67,25 +67,25 @@ namespace Kledex.Store.Cosmos.Sql
             return result;
         }
 
-        public void Save(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
+        public void Save(SaveStoreData request)
         {
-            var aggregateDocument = _aggregateRepository.GetDocumentAsync(aggregateRootId.ToString()).GetAwaiter().GetResult();
+            var aggregateDocument = _aggregateRepository.GetDocumentAsync(request.AggregateRootId.ToString()).GetAwaiter().GetResult();
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(aggregateType, aggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(request.AggregateType, request.AggregateRootId);
                 _aggregateRepository.CreateDocumentAsync(newAggregateDocument).GetAwaiter().GetResult();
             }
 
-            if (command != null)
+            if (request.DomainCommand != null)
             {
-                var commandDocument = _commandDocumentFactory.CreateCommand(command);
+                var commandDocument = _commandDocumentFactory.CreateCommand(request.DomainCommand);
                 _commandRepository.CreateDocumentAsync(commandDocument).GetAwaiter().GetResult();
             }
 
-            foreach (var @event in events)
+            foreach (var @event in request.Events)
             {
                 var currentVersion = _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId).GetAwaiter().GetResult();
-                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command?.ExpectedVersion);
+                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, request.DomainCommand?.ExpectedVersion);
 
                 var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 
@@ -93,25 +93,25 @@ namespace Kledex.Store.Cosmos.Sql
             }
         }
 
-        public async Task SaveAsync(Type aggregateType, Guid aggregateRootId, IDomainCommand command, IEnumerable<IDomainEvent> events)
+        public async Task SaveAsync(SaveStoreData request)
         {
-            var aggregateDocument = await _aggregateRepository.GetDocumentAsync(aggregateRootId.ToString());
+            var aggregateDocument = await _aggregateRepository.GetDocumentAsync(request.AggregateRootId.ToString());
             if (aggregateDocument == null)
             {
-                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(aggregateType, aggregateRootId);
+                var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(request.AggregateType, request.AggregateRootId);
                 await _aggregateRepository.CreateDocumentAsync(newAggregateDocument);
             }
 
-            if (command != null)
+            if (request.DomainCommand != null)
             {
-                var commandDocument = _commandDocumentFactory.CreateCommand(command);
+                var commandDocument = _commandDocumentFactory.CreateCommand(request.DomainCommand);
                 await _commandRepository.CreateDocumentAsync(commandDocument);
             }
 
-            foreach (var @event in events)
+            foreach (var @event in request.Events)
             {
                 var currentVersion = await _eventRepository.GetCountAsync(d => d.AggregateId == @event.AggregateRootId);
-                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, command?.ExpectedVersion);
+                var nextVersion = _versionService.GetNextVersion(@event.AggregateRootId, currentVersion, request.DomainCommand?.ExpectedVersion);
 
                 var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 
