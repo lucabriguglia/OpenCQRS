@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Kledex.Commands;
 using Kledex.Dependencies;
@@ -45,6 +46,8 @@ namespace Kledex.Tests.Commands
         private CommandResponse _commandResponse;
         private CommandResponse _domainCommandResponse;
 
+        private SaveStoreData _storeDataSaved;
+
         [SetUp]
         public void SetUp()
         {
@@ -70,7 +73,8 @@ namespace Kledex.Tests.Commands
 
             _storeProvider = new Mock<IStoreProvider>();
             _storeProvider
-                .Setup(x => x.SaveAsync(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreatedConcrete }))
+                .Setup(x => x.SaveAsync(It.IsAny<SaveStoreData>()))
+                .Callback<SaveStoreData>(x => _storeDataSaved = x)
                 .Returns(Task.CompletedTask);
 
             _eventFactory = new Mock<IEventFactory>();
@@ -162,10 +166,20 @@ namespace Kledex.Tests.Commands
         }
 
         [Test]
-        public async Task SendAsync_SavesEvents()
+        public async Task SendAsync_SavesStoreData()
         {
             await _sut.SendAsync(_createAggregate);
-            _storeProvider.Verify(x => x.SaveAsync(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }), Times.Once);
+            _storeProvider.Verify(x => x.SaveAsync(It.IsAny<SaveStoreData>()), Times.Once);
+        }
+
+        [Test]
+        public async Task SendAsync_SavesCorrectData()
+        {
+            await _sut.SendAsync(_createAggregate);
+            Assert.AreEqual(_aggregate.GetType(), _storeDataSaved.AggregateType);
+            Assert.AreEqual(_createAggregate.AggregateRootId, _storeDataSaved.AggregateRootId);
+            Assert.AreEqual(_aggregateCreated, _storeDataSaved.Events.FirstOrDefault());
+            Assert.AreEqual(_createAggregate, _storeDataSaved.DomainCommand);
         }
 
         [Test]

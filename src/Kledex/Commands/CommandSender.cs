@@ -112,10 +112,13 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                await _storeProvider.SaveAsync(GetAggregateType(domainCommand),
-                    domainCommand.AggregateRootId,
-                    domainCommand,
-                    (IEnumerable<IDomainEvent>)response.Events);
+                await _storeProvider.SaveAsync(new SaveStoreData
+                {
+                    AggregateType = GetAggregateType(domainCommand),
+                    AggregateRootId = domainCommand.AggregateRootId,
+                    Events = (IEnumerable<IDomainEvent>)response.Events,
+                    DomainCommand = domainCommand
+                });
             }
 
             if (PublishEvents(command))
@@ -209,10 +212,13 @@ namespace Kledex.Commands
                     @event.Update(domainCommand);
                 }
 
-                _storeProvider.Save(GetAggregateType(domainCommand), 
-                    domainCommand.AggregateRootId, 
-                    domainCommand, 
-                    (IEnumerable<IDomainEvent>)response.Events);
+                _storeProvider.Save(new SaveStoreData
+                {
+                    AggregateType = GetAggregateType(domainCommand),
+                    AggregateRootId = domainCommand.AggregateRootId,
+                    Events = (IEnumerable<IDomainEvent>)response.Events,
+                    DomainCommand = domainCommand
+                });
             }
 
             if (PublishEvents(command))

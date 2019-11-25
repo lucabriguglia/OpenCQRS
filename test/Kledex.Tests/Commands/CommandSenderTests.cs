@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Kledex.Commands;
 using Kledex.Dependencies;
 using Kledex.Domain;
@@ -44,6 +45,8 @@ namespace Kledex.Tests.Commands
         private CommandResponse _commandResponse;
         private CommandResponse _domainCommandResponse;
 
+        private SaveStoreData _storeDataSaved;
+
         [SetUp]
         public void SetUp()
         {
@@ -68,7 +71,8 @@ namespace Kledex.Tests.Commands
 
             _storeProvider = new Mock<IStoreProvider>();
             _storeProvider
-                .Setup(x => x.Save(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }));
+                .Setup(x => x.Save(It.IsAny<SaveStoreData>()))
+                .Callback<SaveStoreData>(x => _storeDataSaved = x);
 
             _eventFactory = new Mock<IEventFactory>();
             _eventFactory
@@ -158,10 +162,20 @@ namespace Kledex.Tests.Commands
         }
 
         [Test]
-        public void Send_SavesEvents()
+        public void Send_SavesStoreData()
         {
             _sut.Send(_createAggregate);
-            _storeProvider.Verify(x => x.Save(_aggregate.GetType(), _createAggregate.AggregateRootId, _createAggregate, new List<IDomainEvent>() { _aggregateCreated }), Times.Once);
+            _storeProvider.Verify(x => x.Save(It.IsAny<SaveStoreData>()), Times.Once);
+        }
+
+        [Test]
+        public void Send_SavesCorrectData()
+        {
+            _sut.Send(_createAggregate);
+            Assert.AreEqual(_aggregate.GetType(), _storeDataSaved.AggregateType);
+            Assert.AreEqual(_createAggregate.AggregateRootId, _storeDataSaved.AggregateRootId);
+            Assert.AreEqual(_aggregateCreated, _storeDataSaved.Events.FirstOrDefault());
+            Assert.AreEqual(_createAggregate, _storeDataSaved.DomainCommand);
         }
 
         [Test]
