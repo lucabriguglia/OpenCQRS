@@ -8,7 +8,9 @@ Its advanced features are ideal for Domain Driven Design (DDD), Command Query Re
 
 With Kledex you can automatically dispatch events to a message bus (Service Bus or RabbitMQ), validate your commands before they are sent to the command handler (FluentValidation) and automatically cache the result of your queries (Memory or Redis).
 
-**Full Documentation**: [https://lucabriguglia.github.io/Kledex](https://lucabriguglia.github.io/Kledex)
+**Full Documentation**: [Kledex Wiki](https://lucabriguglia.github.io/Kledex).
+
+**Visual Studio Template**: [DDD-CQRS-ES Starter Kit](https://github.com/lucabriguglia/DDD-CQRS-ES-Starter-Kit).
 
 ## Main Flow
 
