@@ -68,7 +68,7 @@ public class ProductCreated : DomainEvent
 }
 ```
 
-Create the first handler:
+Create the first handler or a custom service as explained [here](Commands):
 
 ```C#
 public class CreateProductHandler : ICommandHandlerAsync<CreateProduct>
@@ -122,7 +122,7 @@ public class ProductCreatedHandler : IEventHandlerAsync<ProductCreated>
 
 The aggregate and the first event have been saved to the event store and the product can be retrieved from history using the repository.
 
-New commands, events and handlers can now be added:
+Now you can add new commands, events and handlers or services as explained [here](Commands):
 
 ```C#
 public class UpdateProductTitle : DomainCommand<Product>

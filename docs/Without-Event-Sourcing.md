@@ -50,7 +50,7 @@ public class ProductCreated : DomainEvent
 }
 ```
 
-Create the handler:
+Create the handler or a custom service as explained [here](Commands):
 
 ```C#
 public class CreateProductHandler : ICommandHandlerAsync<CreateProduct>
