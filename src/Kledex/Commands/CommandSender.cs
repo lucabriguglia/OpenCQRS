@@ -39,18 +39,16 @@ namespace Kledex.Commands
             _options = options.Value;
         }
 
-        private static Type GetAggregateType(IDomainCommand domainCommand)
-        {
-            var commandType = domainCommand.GetType();
-            var commandInterface = commandType.GetInterfaces()[1];
-            var aggregateType = commandInterface.GetGenericArguments().FirstOrDefault();
-            return aggregateType;
-        }
-
         /// <inheritdoc />
         public async Task SendAsync(ICommand command)
         {
             await ProcessAsync(command, () => GetCommandResponseAsync(command));
+        }
+
+        /// <inheritdoc />
+        public async Task SendAsync(ICommand command, Func<Task<CommandResponse>> commandHandler)
+        {
+            await ProcessAsync(command, commandHandler);
         }
 
         /// <inheritdoc />
@@ -63,6 +61,13 @@ namespace Kledex.Commands
         public async Task<TResult> SendAsync<TResult>(ICommand command)
         {
             var response = await ProcessAsync(command, () => GetCommandResponseAsync(command));
+            return response?.Result != null ? (TResult)response.Result : default;
+        }
+
+        /// <inheritdoc />
+        public async Task<TResult> SendAsync<TResult>(ICommand command, Func<Task<CommandResponse>> commandHandler)
+        {
+            var response = await ProcessAsync(command, commandHandler);
             return response?.Result != null ? (TResult)response.Result : default;
         }
 
@@ -245,6 +250,14 @@ namespace Kledex.Commands
             var handler = _handlerResolver.ResolveHandler(command, typeof(ISequenceCommandHandler<>));
             var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType(), typeof(CommandResponse) });
             return (CommandResponse)handleMethod.Invoke(handler, new object[] { command, previousStepResponse });
+        }
+
+        private static Type GetAggregateType(IDomainCommand domainCommand)
+        {
+            var commandType = domainCommand.GetType();
+            var commandInterface = commandType.GetInterfaces()[1];
+            var aggregateType = commandInterface.GetGenericArguments().FirstOrDefault();
+            return aggregateType;
         }
     }
 }

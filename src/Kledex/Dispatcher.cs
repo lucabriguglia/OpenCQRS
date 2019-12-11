@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Kledex.Bus;
 using Kledex.Commands;
 using Kledex.Domain;
@@ -37,6 +38,12 @@ namespace Kledex
         }
 
         /// <inheritdoc />
+        public Task SendAsync(ICommand command, Func<Task<CommandResponse>> commandHandler)
+        {
+            return _commandSender.SendAsync(command, commandHandler);
+        }
+
+        /// <inheritdoc />
         public Task SendAsync(ICommandSequence commandSequence)
         {
             return _commandSender.SendAsync(commandSequence);
@@ -46,6 +53,12 @@ namespace Kledex
         public Task<TResult> SendAsync<TResult>(ICommand command)
         {
             return _commandSender.SendAsync<TResult>(command);
+        }
+
+        /// <inheritdoc />
+        public Task<TResult> SendAsync<TResult>(ICommand command, Func<Task<CommandResponse>> commandHandler)
+        {
+            return _commandSender.SendAsync<TResult>(command, commandHandler);
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
 ﻿using Kledex.Commands;
+using System;
 using System.Threading.Tasks;
 
 namespace Kledex.Domain
@@ -15,6 +16,12 @@ namespace Kledex.Domain
         /// <param name="command">The command.</param>
         Task SendAsync(ICommand command);
 
+        /// <summary>Sends the specified command asynchronously.</summary>
+        /// <param name="command">The command.</param>
+        /// <param name="commandHandler">The command handler.</param>
+        /// <returns></returns>
+        Task SendAsync(ICommand command, Func<Task<CommandResponse>> commandHandler);
+
         /// <summary>
         /// Sends the specified command sequence asynchronously.
         /// The command handler must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
@@ -29,6 +36,13 @@ namespace Kledex.Domain
         /// <param name="command">The command.</param>
         /// <returns>A custom object set as result in the command hadler response.</returns>
         Task<TResult> SendAsync<TResult>(ICommand command);
+
+        /// <summary>Sends the specified command asynchronously.</summary>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="command">The command.</param>
+        /// <param name="commandHandler">The command handler.</param>
+        /// <returns></returns>
+        Task<TResult> SendAsync<TResult>(ICommand command, Func<Task<CommandResponse>> commandHandler);
 
         /// <summary>
         /// Sends the specified command sequence asynchronously.
