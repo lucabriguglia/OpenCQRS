@@ -21,7 +21,7 @@ The following is the mapping between dispatcher methods and handlers:
 
 | Method | Parameter | Handler |
 | --- | --- | --- |
-| SendAsync | ICommand | ICommandHandlerAsync |
+| SendAsync | ICommand | ICommandHandlerAsync or Custom |
 | SendAsync | ICommandSequence | ISequenceCommandHandlerAsync |
 | PublishAsync | IEvent | IEventHandlerAsync |
 | GetResultAsync | IQuery | IQueryHandlerAsync |

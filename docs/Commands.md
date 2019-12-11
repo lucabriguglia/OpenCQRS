@@ -18,9 +18,10 @@ public class SomethingHappened : Event
 }
 ```
 
-Next, create the handler:
+Next, create the handler that can implement the default ICommandHandlerAsync<ICommand> interface or be a custom one:
 
 ```C#
+// Option 1 - Default command handler
 public class DoSomethingHandler : ICommandHandlerAsync<DoSomething>
 {
     private readonly IMyService _myService;
@@ -43,20 +44,59 @@ public class DoSomethingHandler : ICommandHandlerAsync<DoSomething>
         };
     }
 }
+
+// Option 2 - Custom command handler or service
+public interface ISomethingService
+{
+    Task<CommandResponse> DoSomethingAsync(DoSomething command);
+}
+
+public class SomethingService : ISomethingService
+{
+    private readonly IMyService _myService;
+
+    public SomethingService(IMyService myService)
+    {
+        _myService = myService;
+    }
+
+    public async Task<CommandResponse> DoSomethingAsync(DoSomething command)
+    {
+        await _myService.MyMethodAsync();
+
+        return new CommandResponse
+        {
+            Events = new List<IDomainEvent>()
+            {
+                new SomethingHappened()
+            }
+        };
+    }
+}
 ```
 
 And finally, send the command using the dispatcher:
 
 ```C#
 var command = new DoSomething();
-await _dispatcher.SendAsync(command)
+
+// Option 1 - The dispatcher will automatically resolve the command handler (ICommandHandlerAsync<DoSomething>)
+await _dispatcher.SendAsync(command);
+
+// Option 2 - Use your custom command handler or service
+await _dispatcher.SendAsync(command, () => _somethingService.DoSomethingAsync(command));
 ```
 
 It is also possible to get a result from the command handler by specifying the type in the dispatcher:
 
 ```C#
 var command = new DoSomething();
-var result = await _dispatcher.SendAsync<bool>(command)
+
+// Option 1 - The dispatcher will automatically resolve the command handler (ICommandHandlerAsync<DoSomething>)
+await _dispatcher.SendAsync<bool>(command);
+
+// Option 2 - Use your custom command handler or service
+await _dispatcher.SendAsync<bool>(command, () => _somethingService.DoSomethingAsync(command));
 ```
 
 And by setting the value of the result in the command response:
