@@ -18,7 +18,7 @@ public class SomethingHappened : Event
 }
 ```
 
-Next, create the handler that can implement the default ICommandHandlerAsync<ICommand> interface or be a custom one:
+Next, create the handler that implements the default ICommandHandlerAsync<ICommand> interface or create a custom one:
 
 ```C#
 // Option 1 - Default command handler
