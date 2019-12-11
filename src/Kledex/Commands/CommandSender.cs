@@ -159,6 +159,12 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
+        public void Send(ICommand command, Func<CommandResponse> commandHandler)
+        {
+            Process(command, commandHandler);
+        }
+
+        /// <inheritdoc />
         public void Send(ICommandSequence commandSequence)
         {
             ProcessSequenceCommand(commandSequence);
@@ -168,6 +174,13 @@ namespace Kledex.Commands
         public TResult Send<TResult>(ICommand command)
         {
             var response = Process(command, () => GetCommandResponse(command));
+            return response?.Result != null ? (TResult)response.Result : default;
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommand command, Func<CommandResponse> commandHandler)
+        {
+            var response = Process(command, commandHandler);
             return response?.Result != null ? (TResult)response.Result : default;
         }
 

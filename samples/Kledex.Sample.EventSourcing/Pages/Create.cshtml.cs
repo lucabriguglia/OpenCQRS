@@ -31,7 +31,7 @@ namespace Kledex.Sample.EventSourcing.Pages
             };
 
             // Option 1 - The dispatcher will automatically resolve the command handler (ICommandHandlerAsync<CreateProduct>)
-            //await _dispatcher.SendAsync(command);
+            await _dispatcher.SendAsync(command);
 
             // Option 2 - Use your custom command handler or service
             await _dispatcher.SendAsync(command, () => _productService.CreateProductAsync(command));

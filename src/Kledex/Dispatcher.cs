@@ -94,6 +94,12 @@ namespace Kledex
         }
 
         /// <inheritdoc />
+        public void Send(ICommand command, Func<CommandResponse> commandHandler)
+        {
+            _commandSender.Send(command, commandHandler);
+        }
+
+        /// <inheritdoc />
         public void Send(ICommandSequence commandSequence)
         {
             _commandSender.Send(commandSequence);
@@ -103,6 +109,12 @@ namespace Kledex
         public TResult Send<TResult>(ICommand command)
         {
             return _commandSender.Send<TResult>(command);
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommand command, Func<CommandResponse> commandHandler)
+        {
+            return _commandSender.Send<TResult>(command, commandHandler);
         }
 
         /// <inheritdoc />
