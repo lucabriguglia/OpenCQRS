@@ -5,6 +5,7 @@ using Kledex.Commands;
 using Kledex.Dependencies;
 using Kledex.Domain;
 using Kledex.Events;
+using Kledex.Mapping;
 using Kledex.Tests.Fakes;
 using Kledex.Validation;
 using Microsoft.Extensions.Options;
@@ -22,7 +23,7 @@ namespace Kledex.Tests.Commands
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<IEventPublisher> _eventPublisher;
         private Mock<IStoreProvider> _storeProvider;
-        private Mock<IEventFactory> _eventFactory;
+        private Mock<IObjectFactory> _objectFactory;
         private Mock<IValidationService> _validationService;
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
@@ -74,12 +75,12 @@ namespace Kledex.Tests.Commands
                 .Setup(x => x.Save(It.IsAny<SaveStoreData>()))
                 .Callback<SaveStoreData>(x => _storeDataSaved = x);
 
-            _eventFactory = new Mock<IEventFactory>();
-            _eventFactory
-                .Setup(x => x.CreateConcreteEvent(_somethingCreated))
+            _objectFactory = new Mock<IObjectFactory>();
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(_somethingCreated))
                 .Returns(_somethingCreatedConcrete);
-            _eventFactory
-                .Setup(x => x.CreateConcreteEvent(_aggregateCreated))
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(_aggregateCreated))
                 .Returns(_aggregateCreatedConcrete);
 
             _validationService = new Mock<IValidationService>();
@@ -119,7 +120,7 @@ namespace Kledex.Tests.Commands
 
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
-                _eventFactory.Object,
+                _objectFactory.Object,
                 _storeProvider.Object,
                 _validationService.Object,
                 _optionsMock.Object);
@@ -194,7 +195,7 @@ namespace Kledex.Tests.Commands
 
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
-                _eventFactory.Object,
+                _objectFactory.Object,
                 _storeProvider.Object,
                 new Mock<IValidationService>().Object,
                 _optionsMock.Object);

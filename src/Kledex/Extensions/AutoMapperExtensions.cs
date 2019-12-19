@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Input;
 using AutoMapper;
 using Kledex.Domain;
+using Kledex.Events;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kledex.Extensions
@@ -19,13 +21,22 @@ namespace Kledex.Extensions
             {
                 foreach (var type in types)
                 {
-                    var domainEventTypes = type.Assembly.GetTypes()
-                        .Where(t => t.GetTypeInfo().IsClass && !t.GetTypeInfo().IsAbstract && typeof(IDomainEvent).IsAssignableFrom(t))
+                    var commandTypes = type.Assembly.GetTypes()
+                        .Where(t => t.GetTypeInfo().IsClass && !t.GetTypeInfo().IsAbstract && typeof(ICommand).IsAssignableFrom(t))
                         .ToList();
 
-                    foreach (var domainEventType in domainEventTypes)
+                    foreach (var commandType in commandTypes)
                     {
-                        cfg.CreateMap(domainEventType, domainEventType);
+                        cfg.CreateMap(commandType, commandType);
+                    }
+
+                    var eventTypes = type.Assembly.GetTypes()
+                        .Where(t => t.GetTypeInfo().IsClass && !t.GetTypeInfo().IsAbstract && typeof(IEvent).IsAssignableFrom(t))
+                        .ToList();
+
+                    foreach (var eventType in eventTypes)
+                    {
+                        cfg.CreateMap(eventType, eventType);
                     }
                 }
             });
