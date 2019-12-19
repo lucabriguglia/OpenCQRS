@@ -32,13 +32,15 @@ namespace Kledex
         }
 
         /// <inheritdoc />
-        public Task SendAsync(ICommand command)
+        public Task SendAsync<TCommand>(TCommand command) 
+            where TCommand : ICommand
         {
             return _commandSender.SendAsync(command);
         }
 
         /// <inheritdoc />
-        public Task SendAsync(ICommand command, Func<Task<CommandResponse>> commandHandler)
+        public Task SendAsync<TCommand>(TCommand command, Func<Task<CommandResponse>> commandHandler) 
+            where TCommand : ICommand
         {
             return _commandSender.SendAsync(command, commandHandler);
         }

@@ -17,13 +17,15 @@ namespace Kledex
         /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
-        Task SendAsync(ICommand command);
+        Task SendAsync<TCommand>(TCommand command)
+            where TCommand : ICommand;
 
         /// <summary>Sends the specified command asynchronously.</summary>
         /// <param name="command">The command.</param>
         /// <param name="commandHandler">The command handler.</param>
         /// <returns></returns>
-        Task SendAsync(ICommand command, Func<Task<CommandResponse>> commandHandler);
+        Task SendAsync<TCommand>(TCommand command, Func<Task<CommandResponse>> commandHandler)
+            where TCommand : ICommand;
 
         /// <summary>
         /// Sends the specified command sequence asynchronously.
