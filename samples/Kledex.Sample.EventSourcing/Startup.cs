@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Documents;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,7 +51,12 @@ namespace Kledex.Sample.EventSourcing
                     options.SaveCommandData = true;
                     options.ValidateCommands = false;
                 }, typeof(Product))
-                .AddCosmosDbSqlProvider(Configuration)
+                .AddCosmosDbSqlProvider(Configuration, options =>
+                {
+                    options.PartitionKey = new PartitionKey("MyPartition");
+                    options.OfferThroughput = 400;
+                    options.ConsistencyLevel = ConsistencyLevel.Eventual;
+                })
                 .AddServiceBusProvider()
                 .AddFluentValidationProvider()
                 .AddMemoryCacheProvider()
