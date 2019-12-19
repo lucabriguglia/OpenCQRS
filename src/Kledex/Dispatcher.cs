@@ -13,7 +13,7 @@ namespace Kledex
     /// Dispatcher
     /// </summary>
     /// <seealso cref="T:Kledex.IDispatcher" />
-    public class Dispatcher : IDispatcher
+    public partial class Dispatcher : IDispatcher
     {
         private readonly ICommandSender _commandSender;
         private readonly IEventPublisher _eventPublisher;
@@ -87,55 +87,6 @@ namespace Kledex
             where TMessage : IBusMessage
         {
             return _busMessageDispatcher.DispatchAsync(message);
-        }
-
-        /// <inheritdoc />
-        public void Send(ICommand command)
-        {
-            _commandSender.Send(command);
-        }
-
-        /// <inheritdoc />
-        public void Send(ICommand command, Func<CommandResponse> commandHandler)
-        {
-            _commandSender.Send(command, commandHandler);
-        }
-
-        /// <inheritdoc />
-        public void Send(ICommandSequence commandSequence)
-        {
-            _commandSender.Send(commandSequence);
-        }
-
-        /// <inheritdoc />
-        public TResult Send<TResult>(ICommand command)
-        {
-            return _commandSender.Send<TResult>(command);
-        }
-
-        /// <inheritdoc />
-        public TResult Send<TResult>(ICommand command, Func<CommandResponse> commandHandler)
-        {
-            return _commandSender.Send<TResult>(command, commandHandler);
-        }
-
-        /// <inheritdoc />
-        public TResult Send<TResult>(ICommandSequence commandSequence)
-        {
-            return _commandSender.Send<TResult>(commandSequence);
-        }
-
-        /// <inheritdoc />
-        public void Publish<TEvent>(TEvent @event) 
-            where TEvent : IEvent
-        {
-            _eventPublisher.Publish(@event);
-        }
-
-        /// <inheritdoc />
-        public TResult GetResult<TResult>(IQuery<TResult> query)
-        {
-            return _queryProcessor.Process(query);
         }
     }
 }

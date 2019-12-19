@@ -4,8 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using AutoMapper;
-using Kledex.Domain;
 using Kledex.Events;
+using Kledex.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kledex.Extensions
@@ -21,22 +21,16 @@ namespace Kledex.Extensions
             {
                 foreach (var type in types)
                 {
-                    var commandTypes = type.Assembly.GetTypes()
-                        .Where(t => t.GetTypeInfo().IsClass && !t.GetTypeInfo().IsAbstract && typeof(ICommand).IsAssignableFrom(t))
+                    var typesToMap = type.Assembly.GetTypes()
+                        .Where(t => t.GetTypeInfo().IsClass && !t.GetTypeInfo().IsAbstract && (
+                        typeof(ICommand).IsAssignableFrom(t) || 
+                        typeof(IEvent).IsAssignableFrom(t) || 
+                        typeof(IQuery<>).IsAssignableFrom(t)))
                         .ToList();
 
-                    foreach (var commandType in commandTypes)
+                    foreach (var typeToMap in typesToMap)
                     {
-                        cfg.CreateMap(commandType, commandType);
-                    }
-
-                    var eventTypes = type.Assembly.GetTypes()
-                        .Where(t => t.GetTypeInfo().IsClass && !t.GetTypeInfo().IsAbstract && typeof(IEvent).IsAssignableFrom(t))
-                        .ToList();
-
-                    foreach (var eventType in eventTypes)
-                    {
-                        cfg.CreateMap(eventType, eventType);
+                        cfg.CreateMap(typeToMap, typeToMap);
                     }
                 }
             });
