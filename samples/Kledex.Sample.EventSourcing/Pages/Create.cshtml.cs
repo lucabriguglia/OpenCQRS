@@ -34,7 +34,7 @@ namespace Kledex.Sample.EventSourcing.Pages
             //await _dispatcher.SendAsync(command);
 
             // Option 2 - Use your custom command handler or service
-            await _dispatcher.SendAsync(command, () => _productService.CreateProductAsync(command));
+            //await _dispatcher.SendAsync(command, () => _productService.CreateProductAsync(command));
 
             return RedirectToPage("/List");
         }

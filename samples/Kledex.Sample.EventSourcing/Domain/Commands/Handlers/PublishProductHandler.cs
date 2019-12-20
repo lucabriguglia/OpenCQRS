@@ -27,7 +27,8 @@ namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
 
             return new CommandResponse
             {
-                Events = product.Events
+                Events = product.Events,
+                Result = true
             };
         }
     }

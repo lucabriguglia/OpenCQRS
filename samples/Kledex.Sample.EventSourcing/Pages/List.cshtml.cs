@@ -45,7 +45,7 @@ namespace Kledex.Sample.EventSourcing.Pages
                 AggregateRootId = id
             };
 
-            await _dispatcher.SendAsync(command);
+            var result = await _dispatcher.SendAsync<bool>(command);
 
             return RedirectToPage();
         }

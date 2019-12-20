@@ -24,7 +24,7 @@ namespace Kledex.Tests
         private Something _something;
         private CreateAggregate _createAggregate;
         private CreateAggregateBusMessage _createAggregateBusMessage;
-        private sampleCommandSequence _sampleCommandSequence;
+        private SampleCommandSequence _sampleCommandSequence;
 
         [SetUp]
         public void SetUp()
@@ -34,7 +34,7 @@ namespace Kledex.Tests
             _something = new Something();
             _createAggregate = new CreateAggregate();
             _createAggregateBusMessage = new CreateAggregateBusMessage();
-            _sampleCommandSequence = new sampleCommandSequence();
+            _sampleCommandSequence = new SampleCommandSequence();
 
             _commandSender = new Mock<ICommandSender>();
             _commandSender

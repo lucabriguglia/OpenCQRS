@@ -14,13 +14,15 @@ namespace Kledex.Domain
         /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
-        Task SendAsync(ICommand command);
+        Task SendAsync<TCommand>(TCommand command)
+            where TCommand : ICommand;
 
         /// <summary>Sends the specified command asynchronously.</summary>
         /// <param name="command">The command.</param>
         /// <param name="commandHandler">The command handler.</param>
         /// <returns></returns>
-        Task SendAsync(ICommand command, Func<Task<CommandResponse>> commandHandler);
+        Task SendAsync<TCommand>(TCommand command, Func<Task<CommandResponse>> commandHandler)
+            where TCommand : ICommand;
 
         /// <summary>
         /// Sends the specified command sequence asynchronously.
@@ -58,13 +60,15 @@ namespace Kledex.Domain
         /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
-        void Send(ICommand command);
+        void Send<TCommand>(TCommand command)
+            where TCommand : ICommand;
 
         /// <summary>Sends the specified command.</summary>
         /// <param name="command">The command.</param>
         /// <param name="commandHandler">The command handler.</param>
         /// <returns></returns>
-        void Send(ICommand command, Func<CommandResponse> commandHandler);
+        void Send<TCommand>(TCommand command, Func<CommandResponse> commandHandler)
+            where TCommand : ICommand;
 
         /// <summary>
         /// Sends the specified command sequence.
