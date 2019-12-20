@@ -13,13 +13,15 @@ namespace Kledex
     public partial class Dispatcher : IDispatcher
     {
         /// <inheritdoc />
-        public void Send(ICommand command)
+        public void Send<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
             _commandSender.Send(command);
         }
 
         /// <inheritdoc />
-        public void Send(ICommand command, Func<CommandResponse> commandHandler)
+        public void Send<TCommand>(TCommand command, Func<CommandResponse> commandHandler)
+            where TCommand : ICommand
         {
             _commandSender.Send(command, commandHandler);
         }

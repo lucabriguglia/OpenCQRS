@@ -90,13 +90,15 @@ namespace Kledex
         /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
-        void Send(ICommand command);
+        void Send<TCommand>(TCommand command)
+            where TCommand : ICommand;
 
         /// <summary>Sends the specified command.</summary>
         /// <param name="command">The command.</param>
         /// <param name="commandHandler">The command handler.</param>
         /// <returns></returns>
-        void Send(ICommand command, Func<CommandResponse> commandHandler);
+        void Send<TCommand>(TCommand command, Func<CommandResponse> commandHandler)
+            where TCommand : ICommand;
 
         /// <summary>
         /// Sends the specified command sequence.

@@ -8,13 +8,15 @@ namespace Kledex.Commands
     public partial class CommandSender : ICommandSender
     {
         /// <inheritdoc />
-        public void Send(ICommand command)
+        public void Send<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
             Process(command, () => GetCommandResponse(command));
         }
 
         /// <inheritdoc />
-        public void Send(ICommand command, Func<CommandResponse> commandHandler)
+        public void Send<TCommand>(TCommand command, Func<CommandResponse> commandHandler)
+            where TCommand : ICommand
         {
             Process(command, commandHandler);
         }
@@ -28,7 +30,8 @@ namespace Kledex.Commands
         /// <inheritdoc />
         public TResult Send<TResult>(ICommand command)
         {
-            var response = Process(command, () => GetCommandResponse(command));
+            var concreteCommand = _objectFactory.CreateConcreteObject(command);
+            var response = Process(command, () => GetCommandResponse(concreteCommand));
             return response?.Result != null ? (TResult)response.Result : default;
         }
 
@@ -52,7 +55,8 @@ namespace Kledex.Commands
 
             foreach (var command in commandSequence.Commands)
             {
-                var response = Process(command, () => GetSequenceCommandResponse(command, lastStepResponse));
+                var concreteCommand = _objectFactory.CreateConcreteObject(command);
+                var response = Process(command, () => GetSequenceCommandResponse(concreteCommand, lastStepResponse));
                 lastStepResponse = response;
             }
 
@@ -106,18 +110,18 @@ namespace Kledex.Commands
             return response;
         }
 
-        private CommandResponse GetCommandResponse(ICommand command)
+        private CommandResponse GetCommandResponse<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
-            var handler = _handlerResolver.ResolveHandler(command, typeof(ICommandHandler<>));
-            var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType() });
-            return (CommandResponse)handleMethod.Invoke(handler, new object[] { command });
+            var handler = _handlerResolver.ResolveHandler<ICommandHandler<TCommand>>();
+            return handler.Handle(command);
         }
 
-        private CommandResponse GetSequenceCommandResponse(ICommand command, CommandResponse previousStepResponse)
+        private CommandResponse GetSequenceCommandResponse<TCommand>(TCommand command, CommandResponse previousStepResponse)
+            where TCommand : ICommand
         {
-            var handler = _handlerResolver.ResolveHandler(command, typeof(ISequenceCommandHandler<>));
-            var handleMethod = handler.GetType().GetMethod("Handle", new[] { command.GetType(), typeof(CommandResponse) });
-            return (CommandResponse)handleMethod.Invoke(handler, new object[] { command, previousStepResponse });
+            var handler = _handlerResolver.ResolveHandler<ISequenceCommandHandler<TCommand>>();
+            return handler.Handle(command, previousStepResponse);
         }
     }
 }
