@@ -29,20 +29,23 @@ namespace Kledex.Tests.Commands
 
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
         private Mock<ICommandHandlerAsync<CreateAggregate>> _domainCommandHandlerAsync;
-        private Mock<ISequenceCommandHandlerAsync<ICommand>> _sequenceCommandHandlerAsync;
+        private Mock<ISequenceCommandHandlerAsync<CommandInSequence>> _sequenceCommandHandlerAsync;
         private Mock<IOptions<Options>> _optionsMock;
 
         private CreateSomething _createSomething;
+        private CreateSomething _createSomethingConcrete;
         private SomethingCreated _somethingCreated;
         private SomethingCreated _somethingCreatedConcrete;
         private IEnumerable<IEvent> _events;
 
         private CreateAggregate _createAggregate;
+        private CreateAggregate _createAggregateConcrete;
         private AggregateCreated _aggregateCreated;
         private AggregateCreated _aggregateCreatedConcrete;
         private Aggregate _aggregate;
 
-        private sampleCommandSequence _sampleCommandSequence;
+        private SampleCommandSequence _sampleCommandSequence;
+        private CommandInSequence _commandInSequenceConcrete;
 
         private CommandResponse _commandResponse;
         private CommandResponse _domainCommandResponse;
@@ -53,16 +56,19 @@ namespace Kledex.Tests.Commands
         public void SetUp()
         {
             _createSomething = new CreateSomething();
+            _createSomethingConcrete = new CreateSomething();
             _somethingCreated = new SomethingCreated();
             _somethingCreatedConcrete = new SomethingCreated();
             _events = new List<IEvent> { _somethingCreated };
 
             _createAggregate = new CreateAggregate();
+            _createAggregateConcrete = new CreateAggregate();
             _aggregateCreatedConcrete = new AggregateCreated();
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
 
-            _sampleCommandSequence = new sampleCommandSequence();
+            _sampleCommandSequence = new SampleCommandSequence();
+            _commandInSequenceConcrete = new CommandInSequence();
 
             _commandResponse = new CommandResponse { Events = _events, Result = "Result" };
             _domainCommandResponse = new CommandResponse { Events = _aggregate.Events, Result = "Result" };
@@ -85,6 +91,15 @@ namespace Kledex.Tests.Commands
             _objectFactory
                 .Setup(x => x.CreateConcreteObject(_aggregateCreated))
                 .Returns(_aggregateCreatedConcrete);
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(_createSomething))
+                .Returns(_createSomethingConcrete);
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(_createAggregate))
+                .Returns(_createAggregateConcrete);
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(It.IsAny<CommandInSequence>()))
+                .Returns(_commandInSequenceConcrete);
 
             _validationService = new Mock<IValidationService>();
             _validationService
@@ -93,28 +108,31 @@ namespace Kledex.Tests.Commands
 
             _commandHandlerAsync = new Mock<ICommandHandlerAsync<CreateSomething>>();
             _commandHandlerAsync
-                .Setup(x => x.HandleAsync(_createSomething))
+                .Setup(x => x.HandleAsync(_createSomethingConcrete))
                 .ReturnsAsync(_commandResponse);
 
             _domainCommandHandlerAsync = new Mock<ICommandHandlerAsync<CreateAggregate>>();
             _domainCommandHandlerAsync
                 .Setup(x => x.HandleAsync(_createAggregate))
                 .ReturnsAsync(_domainCommandResponse);
+            _domainCommandHandlerAsync
+                .Setup(x => x.HandleAsync(_createAggregateConcrete))
+                .ReturnsAsync(_domainCommandResponse);
 
-            _sequenceCommandHandlerAsync = new Mock<ISequenceCommandHandlerAsync<ICommand>>();
+            _sequenceCommandHandlerAsync = new Mock<ISequenceCommandHandlerAsync<CommandInSequence>>();
             _sequenceCommandHandlerAsync
-                .Setup(x => x.HandleAsync(It.IsAny<ICommand>(), It.IsAny<CommandResponse>()))
-                .ReturnsAsync(It.IsAny<CommandResponse>());
+                .Setup(x => x.HandleAsync(It.IsAny<CommandInSequence>(), It.IsAny<CommandResponse>()))
+                .ReturnsAsync(_commandResponse);
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveHandler(_createSomething, typeof(ICommandHandlerAsync<>)))
+                .Setup(x => x.ResolveHandler<ICommandHandlerAsync<CreateSomething>>())
                 .Returns(_commandHandlerAsync.Object);
             _handlerResolver
-                .Setup(x => x.ResolveHandler(_createAggregate, typeof(ICommandHandlerAsync<>)))
+                .Setup(x => x.ResolveHandler<ICommandHandlerAsync<CreateAggregate>>())
                 .Returns(_domainCommandHandlerAsync.Object);
             _handlerResolver
-                .Setup(x => x.ResolveHandler(It.IsAny<ICommand>(), typeof(ISequenceCommandHandlerAsync<>)))
+                .Setup(x => x.ResolveHandler<ISequenceCommandHandlerAsync<CommandInSequence>>())
                 .Returns(_sequenceCommandHandlerAsync.Object);
 
             _optionsMock = new Mock<IOptions<Options>>();
@@ -163,7 +181,7 @@ namespace Kledex.Tests.Commands
         public async Task SendAsync_HandlesCommand_InCommandSequence()
         {
             await _sut.SendAsync(_sampleCommandSequence);
-            _sequenceCommandHandlerAsync.Verify(x => x.HandleAsync(It.IsAny<ICommand>(), It.IsAny<CommandResponse>()), Times.Once);
+            _sequenceCommandHandlerAsync.Verify(x => x.HandleAsync(It.IsAny<CommandInSequence>(), It.IsAny<CommandResponse>()), Times.Once);
         }
 
         [Test]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Kledex.Commands;
 using Kledex.Dependencies;
 using Kledex.Domain;
@@ -28,20 +29,23 @@ namespace Kledex.Tests.Commands
 
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
         private Mock<ICommandHandler<CreateAggregate>> _domainCommandHandler;
-        private Mock<ISequenceCommandHandler<ICommand>> _sequenceCommandHandler;
+        private Mock<ISequenceCommandHandler<CommandInSequence>> _sequenceCommandHandler;
         private Mock<IOptions<Options>> _optionsMock;
 
         private CreateSomething _createSomething;
+        private CreateSomething _createSomethingConcrete;
         private SomethingCreated _somethingCreated;
         private SomethingCreated _somethingCreatedConcrete;
         private IEnumerable<IEvent> _events;
 
         private CreateAggregate _createAggregate;
+        private CreateAggregate _createAggregateConcrete;
         private AggregateCreated _aggregateCreated;
         private AggregateCreated _aggregateCreatedConcrete;
         private Aggregate _aggregate;
 
-        private sampleCommandSequence _sampleCommandSequence;
+        private SampleCommandSequence _sampleCommandSequence;
+        private CommandInSequence _commandInSequenceConcrete;
 
         private CommandResponse _commandResponse;
         private CommandResponse _domainCommandResponse;
@@ -52,16 +56,19 @@ namespace Kledex.Tests.Commands
         public void SetUp()
         {
             _createSomething = new CreateSomething();
+            _createSomethingConcrete = new CreateSomething();
             _somethingCreated = new SomethingCreated();
             _somethingCreatedConcrete = new SomethingCreated();
             _events = new List<IEvent> { _somethingCreated };
 
             _createAggregate = new CreateAggregate();
+            _createAggregateConcrete = new CreateAggregate();
             _aggregateCreatedConcrete = new AggregateCreated();
             _aggregate = new Aggregate();
             _aggregateCreated = (AggregateCreated)_aggregate.Events[0];
 
-            _sampleCommandSequence = new sampleCommandSequence();
+            _sampleCommandSequence = new SampleCommandSequence();
+            _commandInSequenceConcrete = new CommandInSequence();
 
             _commandResponse = new CommandResponse { Events = _events, Result = "Result" };
             _domainCommandResponse = new CommandResponse { Events = _aggregate.Events, Result = "Result" };
@@ -82,6 +89,15 @@ namespace Kledex.Tests.Commands
             _objectFactory
                 .Setup(x => x.CreateConcreteObject(_aggregateCreated))
                 .Returns(_aggregateCreatedConcrete);
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(_createSomething))
+                .Returns(_createSomethingConcrete);
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(_createAggregate))
+                .Returns(_createAggregateConcrete);
+            _objectFactory
+                .Setup(x => x.CreateConcreteObject(It.IsAny<CommandInSequence>()))
+                .Returns(_commandInSequenceConcrete);
 
             _validationService = new Mock<IValidationService>();
             _validationService
@@ -89,28 +105,31 @@ namespace Kledex.Tests.Commands
 
             _commandHandler = new Mock<ICommandHandler<CreateSomething>>();
             _commandHandler
-                .Setup(x => x.Handle(_createSomething))
+                .Setup(x => x.Handle(_createSomethingConcrete))
                 .Returns(_commandResponse);
 
             _domainCommandHandler = new Mock<ICommandHandler<CreateAggregate>>();
             _domainCommandHandler
                 .Setup(x => x.Handle(_createAggregate))
                 .Returns(_domainCommandResponse);
+            _domainCommandHandler
+                .Setup(x => x.Handle(_createAggregateConcrete))
+                .Returns(_domainCommandResponse);
 
-            _sequenceCommandHandler = new Mock<ISequenceCommandHandler<ICommand>>();
+            _sequenceCommandHandler = new Mock<ISequenceCommandHandler<CommandInSequence>>();
             _sequenceCommandHandler
-                .Setup(x => x.Handle(It.IsAny<ICommand>(), It.IsAny<CommandResponse>()))
-                .Returns(It.IsAny<CommandResponse>());
+                .Setup(x => x.Handle(It.IsAny<CommandInSequence>(), It.IsAny<CommandResponse>()))
+                .Returns(_commandResponse);
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveHandler(_createSomething, typeof(ICommandHandler<>)))
+                .Setup(x => x.ResolveHandler<ICommandHandler<CreateSomething>>())
                 .Returns(_commandHandler.Object);
             _handlerResolver
-                .Setup(x => x.ResolveHandler(_createAggregate, typeof(ICommandHandler<>)))
+                .Setup(x => x.ResolveHandler<ICommandHandler<CreateAggregate>>())
                 .Returns(_domainCommandHandler.Object);
             _handlerResolver
-                .Setup(x => x.ResolveHandler(It.IsAny<ICommand>(), typeof(ISequenceCommandHandler<>)))
+                .Setup(x => x.ResolveHandler<ISequenceCommandHandler<CommandInSequence>>())
                 .Returns(_sequenceCommandHandler.Object);
 
             _optionsMock = new Mock<IOptions<Options>>();
@@ -159,7 +178,7 @@ namespace Kledex.Tests.Commands
         public void Send_HandlesCommand_InCommandSequence()
         {
             _sut.Send(_sampleCommandSequence);
-            _sequenceCommandHandler.Verify(x => x.Handle(It.IsAny<ICommand>(), It.IsAny<CommandResponse>()), Times.Once);
+            _sequenceCommandHandler.Verify(x => x.Handle(It.IsAny<CommandInSequence>(), It.IsAny<CommandResponse>()), Times.Once);
         }
 
         [Test]
@@ -183,7 +202,7 @@ namespace Kledex.Tests.Commands
         public void Send_PublishesEvents()
         {
             _sut.Send(_createAggregate);
-            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete ), Times.Once);
+            _eventPublisher.Verify(x => x.Publish(_aggregateCreatedConcrete), Times.Once);
         }
 
         [Test]

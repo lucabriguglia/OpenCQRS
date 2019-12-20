@@ -2,11 +2,11 @@
 
 namespace Kledex.Tests.Fakes
 {
-    public class sampleCommandSequence : CommandSequence
+    public class SampleCommandSequence : CommandSequence
     {
-        public sampleCommandSequence()
+        public SampleCommandSequence()
         {
-            AddCommand(new CreateSomething());
+            AddCommand(new CommandInSequence());
         }
     }
 }
