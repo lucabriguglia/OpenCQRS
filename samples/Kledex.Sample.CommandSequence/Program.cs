@@ -3,6 +3,7 @@ using System;
 using Kledex.Extensions;
 using Kledex.Sample.CommandSequence.Commands;
 using Kledex.Validation.FluentValidation;
+using Kledex.Utilities;
 
 namespace Kledex.Sample.CommandSequence
 {
@@ -14,9 +15,7 @@ namespace Kledex.Sample.CommandSequence
 
             var dispatcher = serviceProvider.GetService<IDispatcher>();
 
-            var result = dispatcher
-                .SendAsync<string>(new SampleCommandSequence())
-                .GetAwaiter().GetResult();
+            var result = AsyncUtil.RunSync(() => dispatcher.SendAsync<string>(new SampleCommandSequence()));
 
             Console.WriteLine($"Final result: {result}");
 
