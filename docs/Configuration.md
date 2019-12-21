@@ -84,6 +84,8 @@ services
         options.AggregateCollectionId = "AggregateCollectionId";
         options.CommandCollectionId = "CommandCollectionId";
         options.EventCollectionId = "EventCollectionId";
+		options.OfferThroughput = 400;
+        options.ConsistencyLevel = ConsistencyLevel.Session;
     });
 ```
 
@@ -93,6 +95,10 @@ services
 | **AggregateCollectionId** | The Id of the Aggregate collection | Aggregates |
 | **CommandCollectionId** | The Id of the Command collection | Commands |
 | **EventCollectionId** | The Id of the Event collection | Events |
+| **OfferThroughput** | The offer throughput provisioned | 400 |
+| **ConsistencyLevel** | The consistency level | Session |
+
+Note that the partition key is set by default to '/type'.
 
 **CosmosDB Mongo API**
 
