@@ -28,18 +28,6 @@ namespace Kledex.Validation
                 throw new ValidationException(BuildErrorMessage(validationResponse.Errors));
         }
 
-        /// <inheritdoc />
-        public void Validate(ICommand command)
-        {
-            if (command == null)
-                throw new ArgumentNullException(nameof(command));
-
-            var validationResponse = _validationProvider.Validate(command);
-
-            if (!validationResponse.IsValid)
-                throw new ValidationException(BuildErrorMessage(validationResponse.Errors));
-        }
-
         private static string BuildErrorMessage(IEnumerable<ValidationError> errors)
         {
             var errorsText = errors.Select(x => $"\r\n - {x.ErrorMessage}").ToArray();

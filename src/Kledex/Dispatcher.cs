@@ -5,6 +5,7 @@ using Kledex.Commands;
 using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Queries;
+using Kledex.Utilities;
 
 namespace Kledex
 {
@@ -13,7 +14,7 @@ namespace Kledex
     /// Dispatcher
     /// </summary>
     /// <seealso cref="T:Kledex.IDispatcher" />
-    public partial class Dispatcher : IDispatcher
+    public class Dispatcher : IDispatcher
     {
         private readonly ICommandSender _commandSender;
         private readonly IEventPublisher _eventPublisher;
@@ -87,6 +88,43 @@ namespace Kledex
             where TMessage : IBusMessage
         {
             return _busMessageDispatcher.DispatchAsync(message);
+        }
+
+        public void Send<TCommand>(TCommand command)
+            where TCommand : ICommand
+        {
+            AsyncUtil.RunSync(() => SendAsync(command));
+        }
+
+        /// <inheritdoc />
+        public void Send(ICommandSequence commandSequence)
+        {
+            AsyncUtil.RunSync(() => SendAsync(commandSequence));
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommand command)
+        {
+            return AsyncUtil.RunSync(() => SendAsync<TResult>(command));
+        }
+
+        /// <inheritdoc />
+        public TResult Send<TResult>(ICommandSequence commandSequence)
+        {
+            return AsyncUtil.RunSync(() => SendAsync<TResult>(commandSequence));
+        }
+
+        /// <inheritdoc />
+        public void Publish<TEvent>(TEvent @event)
+            where TEvent : IEvent
+        {
+            AsyncUtil.RunSync(() => PublishAsync(@event));
+        }
+
+        /// <inheritdoc />
+        public TResult GetResult<TResult>(IQuery<TResult> query)
+        {
+            return AsyncUtil.RunSync(() => GetResultAsync(query));
         }
     }
 }

@@ -54,36 +54,5 @@ namespace Kledex.Queries
 
             return GetResultAsync(query);
         }
-
-        /// <inheritdoc />
-        public TResult Process<TResult>(IQuery<TResult> query)
-        {
-            if (query == null)
-            {
-                throw new ArgumentNullException(nameof(query));
-            }
-
-            TResult GetResult(IQuery<TResult> query)
-            {
-                var handler = _handlerResolver.ResolveQueryHandler(query, typeof(IQueryHandler<,>));
-                var handleMethod = handler.GetType().GetMethod("Handle", new[] { query.GetType() });
-                return (TResult)handleMethod.Invoke(handler, new object[] { query });
-            }
-
-            if (query is ICacheableQuery<TResult> cacheableQuery)
-            {
-                if (string.IsNullOrEmpty(cacheableQuery.CacheKey))
-                {
-                    throw new QueryException("Cache key is required.");
-                }
-
-                return _cacheManager.GetOrSet(
-                    cacheableQuery.CacheKey,
-                    cacheableQuery.CacheTime ?? _options.CacheTime,
-                    () => GetResult(query));
-            }
-
-            return GetResult(query);
-        }
     }
 }

@@ -44,34 +44,5 @@ namespace Kledex.Caching
         {
             return _cacheProvider.RemoveAsync(key);
         }
-
-        /// <inheritdoc />
-        public T GetOrSet<T>(string key, Func<T> acquire)
-        {
-            return GetOrSet(key, _options.CacheTime, acquire);
-        }
-
-        /// <inheritdoc />
-        public T GetOrSet<T>(string key, int cacheTime, Func<T> acquire)
-        {
-            var data = _cacheProvider.Get<T>(key);
-
-            if (data != null)
-            {
-                return data;
-            }
-
-            var result = acquire();
-
-            _cacheProvider.Set(key, cacheTime, result);
-
-            return result;
-        }
-
-        /// <inheritdoc />
-        public void Remove(string key)
-        {
-            _cacheProvider.Remove(key);
-        }
     }
 }

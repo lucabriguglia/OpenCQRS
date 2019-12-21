@@ -41,29 +41,5 @@ namespace Kledex.Events
                 await PublishAsync(@event);
             }
         }
-
-        /// <inheritdoc />
-        public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
-        {
-            if (@event == null)
-                throw new ArgumentNullException(nameof(@event));
-
-            var handlers = _resolver.ResolveAll<IEventHandler<TEvent>>();
-
-            foreach (var handler in handlers)
-                handler.Handle(@event);
-
-            if (@event is IBusMessage message)
-                _busMessageDispatcher.DispatchAsync(message).GetAwaiter().GetResult();
-        }
-
-        /// <inheritdoc />
-        public void Publish<TEvent>(IEnumerable<TEvent> events) where TEvent : IEvent
-        {
-            foreach (var @event in events)
-            {
-                Publish(@event);
-            }
-        }
     }
 }

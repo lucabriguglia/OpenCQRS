@@ -13,7 +13,7 @@ using Options = Kledex.Configuration.Options;
 namespace Kledex.Commands
 {
     /// <inheritdoc />
-    public partial class CommandSender : ICommandSender
+    public class CommandSender : ICommandSender
     {
         private readonly IHandlerResolver _handlerResolver;
         private readonly IEventPublisher _eventPublisher;
@@ -164,6 +164,16 @@ namespace Kledex.Commands
             var commandInterface = commandType.GetInterfaces()[1];
             var aggregateType = commandInterface.GetGenericArguments().FirstOrDefault();
             return aggregateType;
+        }
+
+        public void Send<TCommand>(TCommand command, Func<CommandResponse> commandHandler) where TCommand : ICommand
+        {
+            throw new NotImplementedException();
+        }
+
+        public TResult Send<TResult>(ICommand command, Func<CommandResponse> commandHandler)
+        {
+            throw new NotImplementedException();
         }
     }
 }

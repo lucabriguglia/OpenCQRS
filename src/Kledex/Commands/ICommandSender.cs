@@ -55,14 +55,6 @@ namespace Kledex.Domain
         /// <returns>A custom object set as result in the command hadler response.</returns>
         Task<TResult> SendAsync<TResult>(ICommandSequence commandSequence);
 
-        /// <summary>
-        /// Sends the specified command.
-        /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        void Send<TCommand>(TCommand command)
-            where TCommand : ICommand;
-
         /// <summary>Sends the specified command.</summary>
         /// <param name="command">The command.</param>
         /// <param name="commandHandler">The command handler.</param>
@@ -70,35 +62,11 @@ namespace Kledex.Domain
         void Send<TCommand>(TCommand command, Func<CommandResponse> commandHandler)
             where TCommand : ICommand;
 
-        /// <summary>
-        /// Sends the specified command sequence.
-        /// The command handler must implement Kledex.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
-        /// </summary>
-        /// <param name="commandSequence">The command sequence.</param>
-        void Send(ICommandSequence commandSequence);
-
-        /// <summary>
-        /// Sends the specified command.
-        /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <returns>A custom object set as result in the command hadler response.</returns>
-        TResult Send<TResult>(ICommand command);
-
         /// <summary>Sends the specified command.</summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="command">The command.</param>
         /// <param name="commandHandler">The command handler.</param>
         /// <returns></returns>
         TResult Send<TResult>(ICommand command, Func<CommandResponse> commandHandler);
-
-        /// <summary>
-        /// Sends the sequence specified command sequence.
-        /// The command handler must implement Kledex.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="commandSequence">The command sequence.</param>
-        /// <returns>A custom object set as result in the command hadler response.</returns>
-        TResult Send<TResult>(ICommandSequence commandSequence);
     }
 }
