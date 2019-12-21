@@ -15,7 +15,6 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
         private readonly IDocumentClient _documentClient;
         private readonly string _databaseId;
         private readonly string _collectionId;
-        private readonly PartitionKey _partitionKey;
         private readonly int? _offerThroughput;
         private readonly ConsistencyLevel? _consistencyLevel;
 
@@ -24,21 +23,20 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
             _documentClient = documentClient;
             _databaseId = settings.Value.DatabaseId;
             _collectionId = collectionId;
-            _partitionKey = settings.Value.PartitionKey;
             _offerThroughput = settings.Value.OfferThroughput;
             _consistencyLevel = settings.Value.ConsistencyLevel;
         }
 
-        public async Task<Document> CreateDocumentAsync(TDocument document)
+        public async Task<Document> CreateDocumentAsync(TDocument document, string partitionKey)
         {
-            return await _documentClient.CreateDocumentAsync(GetUri(), document, GetRequestOptions());
+            return await _documentClient.CreateDocumentAsync(GetUri(), document, GetRequestOptions(partitionKey));
         }
 
-        public async Task<TDocument> GetDocumentAsync(string documentId)
+        public async Task<TDocument> GetDocumentAsync(string documentId, string partitionKey)
         {
             try
             {
-                Document document = await _documentClient.ReadDocumentAsync(GetUri(documentId), GetRequestOptions());
+                Document document = await _documentClient.ReadDocumentAsync(GetUri(documentId), GetRequestOptions(partitionKey));
                 return (TDocument)(dynamic)document;
             }
             catch (DocumentClientException e)
@@ -84,11 +82,11 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
                 : UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId);
         }
 
-        private RequestOptions GetRequestOptions()
+        private RequestOptions GetRequestOptions(string partitionKey)
         {
             return new RequestOptions
             {
-                PartitionKey = _partitionKey,
+                PartitionKey = new PartitionKey(partitionKey),
                 OfferThroughput = _offerThroughput,
                 ConsistencyLevel = _consistencyLevel
             };
@@ -98,9 +96,9 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
         {
             return new FeedOptions
             {
-                PartitionKey = _partitionKey,
+                EnableCrossPartitionQuery = true,
                 ConsistencyLevel = _consistencyLevel,
-                MaxItemCount = -1
+                MaxItemCount = -1,
             };
         }
     }

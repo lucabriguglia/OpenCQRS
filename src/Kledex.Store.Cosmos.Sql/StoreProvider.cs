@@ -69,17 +69,17 @@ namespace Kledex.Store.Cosmos.Sql
 
         public void Save(SaveStoreData request)
         {
-            var aggregateDocument = _aggregateRepository.GetDocumentAsync(request.AggregateRootId.ToString()).GetAwaiter().GetResult();
+            var aggregateDocument = _aggregateRepository.GetDocumentAsync(request.AggregateRootId.ToString(), request.AggregateType.AssemblyQualifiedName).GetAwaiter().GetResult();
             if (aggregateDocument == null)
             {
                 var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(request.AggregateType, request.AggregateRootId);
-                _aggregateRepository.CreateDocumentAsync(newAggregateDocument).GetAwaiter().GetResult();
+                _aggregateRepository.CreateDocumentAsync(newAggregateDocument, request.AggregateType.AssemblyQualifiedName).GetAwaiter().GetResult();
             }
 
             if (request.DomainCommand != null)
             {
                 var commandDocument = _commandDocumentFactory.CreateCommand(request.DomainCommand);
-                _commandRepository.CreateDocumentAsync(commandDocument).GetAwaiter().GetResult();
+                _commandRepository.CreateDocumentAsync(commandDocument, request.DomainCommand.GetType().AssemblyQualifiedName).GetAwaiter().GetResult();
             }
 
             foreach (var @event in request.Events)
@@ -89,23 +89,23 @@ namespace Kledex.Store.Cosmos.Sql
 
                 var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 
-                _eventRepository.CreateDocumentAsync(eventDocument).GetAwaiter().GetResult();
+                _eventRepository.CreateDocumentAsync(eventDocument, @event.GetType().AssemblyQualifiedName).GetAwaiter().GetResult();
             }
         }
 
         public async Task SaveAsync(SaveStoreData request)
         {
-            var aggregateDocument = await _aggregateRepository.GetDocumentAsync(request.AggregateRootId.ToString());
+            var aggregateDocument = await _aggregateRepository.GetDocumentAsync(request.AggregateRootId.ToString(), request.AggregateType.AssemblyQualifiedName);
             if (aggregateDocument == null)
             {
                 var newAggregateDocument = _aggregateDocumentFactory.CreateAggregate(request.AggregateType, request.AggregateRootId);
-                await _aggregateRepository.CreateDocumentAsync(newAggregateDocument);
+                await _aggregateRepository.CreateDocumentAsync(newAggregateDocument, request.AggregateType.AssemblyQualifiedName);
             }
 
             if (request.DomainCommand != null)
             {
                 var commandDocument = _commandDocumentFactory.CreateCommand(request.DomainCommand);
-                await _commandRepository.CreateDocumentAsync(commandDocument);
+                await _commandRepository.CreateDocumentAsync(commandDocument, request.DomainCommand.GetType().AssemblyQualifiedName);
             }
 
             foreach (var @event in request.Events)
@@ -115,7 +115,7 @@ namespace Kledex.Store.Cosmos.Sql
 
                 var eventDocument = _eventDocumentFactory.CreateEvent(@event, nextVersion);
 
-                await _eventRepository.CreateDocumentAsync(eventDocument);
+                await _eventRepository.CreateDocumentAsync(eventDocument, @event.GetType().AssemblyQualifiedName);
             }
         }
     }

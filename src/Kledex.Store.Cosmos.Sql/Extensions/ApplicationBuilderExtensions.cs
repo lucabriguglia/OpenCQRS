@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Kledex.Extensions;
-using Kledex.Store.Cosmos.Sql;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +15,9 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
             var documentClient = builder.App.ApplicationServices.GetService<IDocumentClient>();
 
             CreateDatabaseIfNotExistsAsync(documentClient, settings.Value.DatabaseId).Wait();
-            CreateCollectionIfNotExistsAsync(documentClient, settings.Value.DatabaseId, settings.Value.AggregateCollectionId).Wait();
-            CreateCollectionIfNotExistsAsync(documentClient, settings.Value.DatabaseId, settings.Value.CommandCollectionId).Wait();
-            CreateCollectionIfNotExistsAsync(documentClient, settings.Value.DatabaseId, settings.Value.EventCollectionId).Wait();
+            CreateCollectionIfNotExistsAsync(documentClient, settings.Value.AggregateCollectionId, settings).Wait();
+            CreateCollectionIfNotExistsAsync(documentClient, settings.Value.CommandCollectionId, settings).Wait();
+            CreateCollectionIfNotExistsAsync(documentClient, settings.Value.EventCollectionId, settings).Wait();
 
             return builder;
         }
@@ -32,7 +32,10 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
             {
                 if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    await documentClient.CreateDatabaseAsync(new Database { Id = databaseId });
+                    await documentClient.CreateDatabaseAsync(new Database 
+                    { 
+                        Id = databaseId 
+                    });
                 }
                 else
                 {
@@ -41,20 +44,34 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
             }
         }
 
-        private static async Task CreateCollectionIfNotExistsAsync(IDocumentClient documentClient, string databaseId, string collectionId)
+        private static async Task CreateCollectionIfNotExistsAsync(IDocumentClient documentClient, string collectionId, IOptions<DomainDbOptions> settings)
         {
             try
             {
-                await documentClient.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(databaseId, collectionId));
+                await documentClient.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(settings.Value.DatabaseId, collectionId));
             }
             catch (DocumentClientException e)
             {
                 if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    await documentClient.CreateDocumentCollectionAsync(
-                        UriFactory.CreateDatabaseUri(databaseId),
-                        new DocumentCollection { Id = collectionId },
-                        new RequestOptions { OfferThroughput = 1000 });
+                    await documentClient.CreateDocumentCollectionIfNotExistsAsync(
+                        UriFactory.CreateDatabaseUri(settings.Value.DatabaseId),
+                        new DocumentCollection 
+                        { 
+                            Id = collectionId, 
+                            PartitionKey = new PartitionKeyDefinition 
+                            {  
+                                Paths = new Collection<string>
+                                {
+                                    "/type"
+                                }
+                            } 
+                        },
+                        new RequestOptions 
+                        { 
+                            OfferThroughput = settings.Value.OfferThroughput,
+                            ConsistencyLevel = settings.Value.ConsistencyLevel
+                        });
                 }
                 else
                 {

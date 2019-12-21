@@ -53,9 +53,8 @@ namespace Kledex.Sample.EventSourcing
                 }, typeof(Product))
                 .AddCosmosDbSqlProvider(Configuration, options =>
                 {
-                    options.PartitionKey = new PartitionKey("MyPartition");
                     options.OfferThroughput = 400;
-                    options.ConsistencyLevel = ConsistencyLevel.Eventual;
+                    options.ConsistencyLevel = ConsistencyLevel.Session;
                 })
                 .AddServiceBusProvider()
                 .AddFluentValidationProvider()
