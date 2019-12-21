@@ -1,5 +1,13 @@
 # Release Notes
 
+## Kledex 2.4
+_**Released ??/12/2019**_
+- Custom handler or service for commands
+- Default partition key set to '/type' for CosmosDB SQL provider
+- OfferThroughput and ConsistencyLevel options for CosmosDB SQL provider
+- Performance improvements
+- AsyncUtil
+
 ## Kledex 2.3
 _**Released 23/11/2019**_
 - Command sequence
