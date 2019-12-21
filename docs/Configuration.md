@@ -80,12 +80,12 @@ services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosDbSqlProvider(Configuration, options =>
     {
-		options.DatabaseId = "DatabaseId";
-		options.AggregateCollectionId = "AggregateCollectionId";
-		options.CommandCollectionId = "CommandCollectionId";
-		options.EventCollectionId = "EventCollectionId";
-		options.OfferThroughput = 400;
-		options.ConsistencyLevel = ConsistencyLevel.Session;
+	options.DatabaseId = "DatabaseId";
+	options.AggregateCollectionId = "AggregateCollectionId";
+	options.CommandCollectionId = "CommandCollectionId";
+	options.EventCollectionId = "EventCollectionId";
+	options.OfferThroughput = 400;
+	options.ConsistencyLevel = ConsistencyLevel.Session;
     });
 ```
 
