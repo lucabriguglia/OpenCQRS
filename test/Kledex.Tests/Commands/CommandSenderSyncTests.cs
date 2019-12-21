@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Kledex.Commands;
 using Kledex.Dependencies;
 using Kledex.Domain;
@@ -17,7 +16,7 @@ using Options = Kledex.Configuration.Options;
 namespace Kledex.Tests.Commands
 {
     [TestFixture]
-    public class CommandSenderTests
+    public class CommandSenderSyncTests
     {
         private ICommandSender _sut;
 
