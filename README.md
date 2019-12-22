@@ -18,9 +18,16 @@ With Kledex you can automatically dispatch events to a message bus (Service Bus 
 
 ## Packages
 
+### Main
+
 | Package | Latest Stable |
 | --- | --- |
 | [Kledex](https://www.nuget.org/packages/Kledex) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex) |
+
+### Store Providers
+
+| Package | Latest Stable |
+| --- | --- |
 | [Kledex.Store.Cosmos.Mongo](https://www.nuget.org/packages/Kledex.Store.Cosmos.Mongo) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Mongo) |
 | [Kledex.Store.Cosmos.Sql](https://www.nuget.org/packages/Kledex.Store.Cosmos.Sql) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.Cosmos.Sql) |
 | [Kledex.Store.EF.MySql](https://www.nuget.org/packages/Kledex.Store.EF.MySql) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.MySql) |
@@ -28,9 +35,29 @@ With Kledex you can automatically dispatch events to a message bus (Service Bus 
 | [Kledex.Store.EF.Sqlite](https://www.nuget.org/packages/Kledex.Store.EF.Sqlite) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.Sqlite) |
 | [Kledex.Store.EF.SqlServer](https://www.nuget.org/packages/Kledex.Store.EF.SqlServer) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.SqlServer) |
 | [Kledex.Store.EF.InMemory](https://www.nuget.org/packages/Kledex.Store.EF.InMemory) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.InMemory) |
+
+### Bus Providers
+
+| Package | Latest Stable |
+| --- | --- |
 | [Kledex.Bus.ServiceBus](https://www.nuget.org/packages/Kledex.Bus.ServiceBus) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.ServiceBus) |
 | [Kledex.Bus.RabbitMQ](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Bus.RabbitMQ) |
+
+### Validation Providers
+
+| Package | Latest Stable |
+| --- | --- |
 | [Kledex.Validation.FluentValidation](https://www.nuget.org/packages/Kledex.Validation.FluentValidation) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Validation.FluentValidation) |
+
+### Caching Providers
+
+| Package | Latest Stable |
+| --- | --- |
 | [Kledex.Caching.Memory](https://www.nuget.org/packages/Kledex.Caching.Memory) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Memory) |
 | [Kledex.Caching.Redis](https://www.nuget.org/packages/Kledex.Caching.Redis) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.Caching.Redis) |
+
+### Misc
+
+| Package | Latest Stable |
+| --- | --- |
 | [Kledex.UI](https://www.nuget.org/packages/Kledex.UI) | [![Nuget Package](https://img.shields.io/badge/nuget-2.4.0-blue.svg)](https://www.nuget.org/packages/Kledex.UI) |
