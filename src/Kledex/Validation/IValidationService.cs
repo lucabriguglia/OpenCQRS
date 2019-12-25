@@ -8,10 +8,12 @@ namespace Kledex.Validation
         /// <summary>Validates the command asynchronously.</summary>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        Task ValidateAsync(ICommand command);
+        Task ValidateAsync<TCommand>(TCommand command)
+            where TCommand : ICommand;
 
         /// <summary>Validates the command.</summary>
         /// <param name="command">The command.</param>
-        void Validate(ICommand command);
+        void Validate<TCommand>(TCommand command)
+            where TCommand : ICommand;
     }
 }

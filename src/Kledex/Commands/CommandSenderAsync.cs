@@ -106,7 +106,8 @@ namespace Kledex.Commands
 
             if (ValidateCommand(command))
             {
-                await _validationService.ValidateAsync(command);
+                var concreteCommand = _objectFactory.CreateConcreteObject(command);
+                await _validationService.ValidateAsync(concreteCommand);
             }
 
             var response = await getResponse();

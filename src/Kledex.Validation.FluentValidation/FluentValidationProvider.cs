@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
@@ -17,20 +16,20 @@ namespace Kledex.Validation.FluentValidation
             _handlerResolver = handlerResolver;
         }
 
-        public async Task<ValidationResponse> ValidateAsync(ICommand command)
+        public async Task<ValidationResponse> ValidateAsync<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
-            var validator = _handlerResolver.ResolveHandler(command, typeof(IValidator<>));
-            var validateMethod = validator.GetType().GetMethod("ValidateAsync", new [] { command.GetType(), typeof(CancellationToken) });
-            var validationResult = await(Task<ValidationResult>)validateMethod.Invoke(validator, new object[] { command, default(CancellationToken) });
+            var validator = _handlerResolver.ResolveHandler<IValidator<TCommand>>();
+            var validationResult = await validator.ValidateAsync(command);
 
             return BuildValidationResponse(validationResult);
         }
 
-        public ValidationResponse Validate(ICommand command)
+        public ValidationResponse Validate<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
-            var validator = _handlerResolver.ResolveHandler(command, typeof(IValidator<>));
-            var validateMethod = validator.GetType().GetMethod("Validate", new[] { command.GetType() });
-            var validationResult = (ValidationResult)validateMethod.Invoke(validator, new object[] { command });
+            var validator = _handlerResolver.ResolveHandler<IValidator<TCommand>>();
+            var validationResult = validator.Validate(command);
 
             return BuildValidationResponse(validationResult);
         }

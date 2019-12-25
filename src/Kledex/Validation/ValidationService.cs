@@ -17,7 +17,8 @@ namespace Kledex.Validation
         }
 
         /// <inheritdoc />
-        public async Task ValidateAsync(ICommand command)
+        public async Task ValidateAsync<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
@@ -29,7 +30,8 @@ namespace Kledex.Validation
         }
 
         /// <inheritdoc />
-        public void Validate(ICommand command)
+        public void Validate<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
