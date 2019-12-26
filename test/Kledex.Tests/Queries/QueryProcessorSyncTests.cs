@@ -11,7 +11,7 @@ using Options = Kledex.Configuration.Options;
 namespace Kledex.Tests.Queries
 {
     [TestFixture]
-    public class QueryProcessorTests
+    public class QueryProcessorSyncTests
     {
         private IQueryProcessor _sut;
 
@@ -38,7 +38,7 @@ namespace Kledex.Tests.Queries
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveQueryHandler(_getSomething, typeof(IQueryHandler<,>)))
+                .Setup(x => x.ResolveHandler<IQueryHandler<GetSomething, Something>>())
                 .Returns(_queryHandler.Object);
 
             _cacheManager = new Mock<ICacheManager>();

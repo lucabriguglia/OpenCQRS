@@ -103,7 +103,7 @@ namespace Kledex.Tests.Commands
 
             _validationService = new Mock<IValidationService>();
             _validationService
-                .Setup(x => x.ValidateAsync(_createAggregate))
+                .Setup(x => x.ValidateAsync(It.IsAny<CreateSomething>()))
                 .Returns(Task.CompletedTask);
 
             _commandHandlerAsync = new Mock<ICommandHandlerAsync<CreateSomething>>();
@@ -160,7 +160,7 @@ namespace Kledex.Tests.Commands
         {
             _createSomething.Validate = true;
             await _sut.SendAsync(_createSomething);
-            _validationService.Verify(x => x.ValidateAsync(_createSomething), Times.Once);
+            _validationService.Verify(x => x.ValidateAsync(It.IsAny<CreateSomething>()), Times.Once);
         }
 
         [Test]

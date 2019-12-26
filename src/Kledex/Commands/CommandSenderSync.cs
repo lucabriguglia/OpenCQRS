@@ -72,7 +72,8 @@ namespace Kledex.Commands
 
             if (ValidateCommand(command))
             {
-                _validationService.Validate(command);
+                var concreteCommand = _objectFactory.CreateConcreteObject(command);
+                _validationService.Validate(concreteCommand);
             }
 
             var response = getResponse();

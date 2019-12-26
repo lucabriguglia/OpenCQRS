@@ -39,7 +39,7 @@ namespace Kledex.Tests.Queries
 
             _handlerResolver = new Mock<IHandlerResolver>();
             _handlerResolver
-                .Setup(x => x.ResolveQueryHandler(_getSomething, typeof(IQueryHandlerAsync<,>)))
+                .Setup(x => x.ResolveHandler<IQueryHandlerAsync<GetSomething, Something>>())
                 .Returns(_queryHandler.Object);
 
             _cacheManager = new Mock<ICacheManager>();

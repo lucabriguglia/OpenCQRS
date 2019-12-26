@@ -100,7 +100,7 @@ namespace Kledex.Tests.Commands
 
             _validationService = new Mock<IValidationService>();
             _validationService
-                .Setup(x => x.Validate(_createAggregate));
+                .Setup(x => x.Validate(It.IsAny<CreateSomething>()));
 
             _commandHandler = new Mock<ICommandHandler<CreateSomething>>();
             _commandHandler
@@ -156,7 +156,7 @@ namespace Kledex.Tests.Commands
         {
             _createSomething.Validate = true;
             _sut.Send(_createSomething);
-            _validationService.Verify(x => x.Validate(_createSomething), Times.Once);
+            _validationService.Verify(x => x.Validate(It.IsAny<CreateSomething>()), Times.Once);
         }
 
         [Test]
