@@ -1,5 +1,9 @@
 # Release Notes
 
+## Kledex 2.4.1
+_**Released 26/12/2019**_
+- Performance improvements for cammand validation and queries
+
 ## Kledex 2.4
 _**Released 22/12/2019**_
 - Custom handler or service for commands
