@@ -98,6 +98,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{05D6EE8E-C35
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Sample.CommandSequence", "samples\Kledex.Sample.CommandSequence\Kledex.Sample.CommandSequence.csproj", "{6DB19E10-1942-44CC-B592-01A34CEE8C77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Store.EF.Cosmos", "src\Kledex.Store.EF.Cosmos\Kledex.Store.EF.Cosmos.csproj", "{E11E8FAB-DE31-4702-8459-2ECCE463EE14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -184,6 +186,10 @@ Global
 		{6DB19E10-1942-44CC-B592-01A34CEE8C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DB19E10-1942-44CC-B592-01A34CEE8C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DB19E10-1942-44CC-B592-01A34CEE8C77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E11E8FAB-DE31-4702-8459-2ECCE463EE14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E11E8FAB-DE31-4702-8459-2ECCE463EE14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E11E8FAB-DE31-4702-8459-2ECCE463EE14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E11E8FAB-DE31-4702-8459-2ECCE463EE14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -211,6 +217,7 @@ Global
 		{7883593A-6225-4485-8EAE-E4EF3B799285} = {1282A8FB-D7A5-4562-8B9B-1C27B83EE580}
 		{05D6EE8E-C356-4BF1-A015-90471F4E682E} = {7883593A-6225-4485-8EAE-E4EF3B799285}
 		{6DB19E10-1942-44CC-B592-01A34CEE8C77} = {FF129AB8-1B8D-4BAA-AB1F-39D2FA497397}
+		{E11E8FAB-DE31-4702-8459-2ECCE463EE14} = {A9692D21-8091-4A3F-8F7C-54B821EFDF97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {154500C3-9A83-4F15-9D78-E1C285AD80AE}

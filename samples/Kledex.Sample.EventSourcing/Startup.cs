@@ -5,6 +5,7 @@ using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 using Kledex.Store.Cosmos.Sql;
 using Kledex.Store.Cosmos.Sql.Extensions;
+using Kledex.Store.EF.Cosmos.Extensions;
 using Kledex.UI.Extensions;
 using Kledex.Validation.FluentValidation;
 using Microsoft.AspNetCore.Builder;
@@ -51,11 +52,11 @@ namespace Kledex.Sample.EventSourcing
                     options.SaveCommandData = true;
                     options.ValidateCommands = false;
                 }, typeof(Product))
-                .AddCosmosDbSqlProvider(Configuration, options =>
+                .AddCosmosProvider(/*Configuration, options =>
                 {
                     options.OfferThroughput = 400;
                     options.ConsistencyLevel = ConsistencyLevel.Session;
-                })
+                }*/)
                 .AddServiceBusProvider()
                 .AddFluentValidationProvider()
                 .AddMemoryCacheProvider()
@@ -68,7 +69,8 @@ namespace Kledex.Sample.EventSourcing
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ReportingDbContext dbContext, IOptions<DomainDbOptions> settings)
         {
             dbContext.Database.EnsureCreated();
-            app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
+            //app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
+            app.UseKledex().EnsureCosmosDbCreated();
 
             if (env.IsDevelopment())
             {
