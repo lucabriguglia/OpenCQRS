@@ -1,18 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Kledex.Store.EF.Cosmos
 {
     public class CosmosDatabaseProvider : IDatabaseProvider
     {
+        private readonly CosmosOptions _settings;
+
+        public CosmosDatabaseProvider(IOptions<CosmosOptions> settings)
+        {
+            _settings = settings.Value;
+        }
+
         public DomainDbContext CreateDbContext(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
-            optionsBuilder.UseCosmos(
-                "https://localhost:8081",
-                "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-                databaseName: "OrdersDB");
 
-            return new CosmosDomainDbContext(optionsBuilder.Options);
+            optionsBuilder.UseCosmos(_settings.ServiceEndpoint,  _settings.AuthKey, _settings.DatabaseName);
+
+            return new CosmosDomainDbContext(optionsBuilder.Options, _settings);
         }
     }
 }

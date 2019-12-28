@@ -1,7 +1,6 @@
 ﻿using System;
 using Kledex.Extensions;
 using Kledex.Store.EF.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kledex.Store.EF.Cosmos.Extensions
@@ -10,16 +9,24 @@ namespace Kledex.Store.EF.Cosmos.Extensions
     {
         public static IKledexServiceBuilder AddCosmosProvider(this IKledexServiceBuilder builder)
         {
+            return AddCosmosProvider(builder, opt => { });
+        }
+
+        public static IKledexServiceBuilder AddCosmosProvider(this IKledexServiceBuilder builder, Action<CosmosOptions> configureOptions)
+        {
             if (builder == null)
+            {
                 throw new ArgumentNullException(nameof(builder));
+            }
+
+            if (configureOptions == null)
+            {
+                throw new ArgumentNullException(nameof(configureOptions));
+            }
+
+            builder.Services.Configure(configureOptions);
 
             builder.AddEFProvider();
-
-            builder.Services.AddDbContext<DomainDbContext>(options =>
-                options.UseCosmos(
-                    "https://localhost:8081",
-                    "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-                    databaseName: "OrdersDB"));
 
             builder.Services.AddTransient<IDatabaseProvider, CosmosDatabaseProvider>();
 
