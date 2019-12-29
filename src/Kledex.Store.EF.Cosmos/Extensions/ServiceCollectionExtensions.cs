@@ -1,5 +1,6 @@
 ﻿using System;
 using Kledex.Extensions;
+using Kledex.Store.EF.Cosmos.Configuration;
 using Kledex.Store.EF.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,12 +8,12 @@ namespace Kledex.Store.EF.Cosmos.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddCosmosStoreProvider(this IKledexServiceBuilder builder)
         {
-            return AddCosmosProvider(builder, opt => { });
+            return AddCosmosStoreProvider(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosProvider(this IKledexServiceBuilder builder, Action<CosmosOptions> configureOptions)
+        public static IKledexServiceBuilder AddCosmosStoreProvider(this IKledexServiceBuilder builder, Action<CosmosDatabaseOptions> configureOptions)
         {
             if (builder == null)
             {

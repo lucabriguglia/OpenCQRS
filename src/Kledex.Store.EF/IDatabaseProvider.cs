@@ -2,6 +2,6 @@
 {
     public interface IDatabaseProvider
     {
-        DomainDbContext CreateDbContext(string connectionString);
+        DomainDbContext CreateDbContext();
     }
 }

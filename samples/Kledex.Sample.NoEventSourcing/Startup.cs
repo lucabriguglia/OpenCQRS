@@ -3,9 +3,8 @@ using Kledex.Caching.Memory;
 using Kledex.Extensions;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain;
-using Kledex.Store.Cosmos.Sql.Configuration;
 using Kledex.Store.EF.Extensions;
-using Kledex.Store.EF.SqlServer;
+using Kledex.Store.EF.SqlServer.Extensions;
 using Kledex.UI.Extensions;
 using Kledex.Validation.FluentValidation;
 using Microsoft.AspNetCore.Builder;
@@ -16,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 namespace Kledex.Sample.NoEventSourcing
 {
@@ -51,7 +49,7 @@ namespace Kledex.Sample.NoEventSourcing
                     options.SaveCommandData = true;
                     options.ValidateCommands = false;
                 }, typeof(Product))
-                .AddSqlServerProvider(Configuration)
+                .AddSqlServerStoreProvider()
                 .AddServiceBusProvider()
                 .AddFluentValidationProvider()
                 .AddMemoryCacheProvider()

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Documents;
+using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,11 +52,13 @@ namespace Kledex.Sample.EventSourcing
                     options.SaveCommandData = true;
                     options.ValidateCommands = false;
                 }, typeof(Product))
-                .AddCosmosProvider(/*Configuration, options =>
+                .AddCosmosStoreProvider(options =>
                 {
+                    options.ServiceEndpoint = Configuration.GetSection("KledexCosmos:ServerEndpoint").Value;
+                    options.AuthKey = Configuration.GetSection("KledexCosmos:AuthKey").Value;
                     options.OfferThroughput = 400;
                     options.ConsistencyLevel = ConsistencyLevel.Session;
-                }*/)
+                })
                 .AddServiceBusProvider()
                 .AddFluentValidationProvider()
                 .AddMemoryCacheProvider()

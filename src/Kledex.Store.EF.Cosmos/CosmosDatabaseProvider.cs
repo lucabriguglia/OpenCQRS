@@ -1,18 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Kledex.Store.EF.Cosmos.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Kledex.Store.EF.Cosmos
 {
     public class CosmosDatabaseProvider : IDatabaseProvider
     {
-        private readonly CosmosOptions _settings;
+        private readonly CosmosDatabaseOptions _settings;
 
-        public CosmosDatabaseProvider(IOptions<CosmosOptions> settings)
+        public CosmosDatabaseProvider(IOptions<CosmosDatabaseOptions> settings)
         {
             _settings = settings.Value;
         }
 
-        public DomainDbContext CreateDbContext(string connectionString)
+        public DomainDbContext CreateDbContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
 

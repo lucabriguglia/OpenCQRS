@@ -4,10 +4,10 @@ namespace Kledex.Store.EF.InMemory
 {
     public class InMemoryDatabaseProvider : IDatabaseProvider
     {
-        public DomainDbContext CreateDbContext(string connectionString)
+        public DomainDbContext CreateDbContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
-            optionsBuilder.UseInMemoryDatabase(connectionString);
+            optionsBuilder.UseInMemoryDatabase(databaseName: "DomainDb");
 
             return new DomainDbContext(optionsBuilder.Options);
         }

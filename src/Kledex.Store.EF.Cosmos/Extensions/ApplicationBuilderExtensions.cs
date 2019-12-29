@@ -7,9 +7,9 @@ namespace Kledex.Store.EF.Cosmos.Extensions
     {
         public static IKledexAppBuilder EnsureCosmosDbCreated(this IKledexAppBuilder builder)
         {
-            var documentClient = builder.App.ApplicationServices.GetService<IDomainDbContextFactory>();
+            var dbContextFactory = builder.App.ApplicationServices.GetService<IDomainDbContextFactory>();
 
-            using (var dbContext = documentClient.CreateDbContext())
+            using (var dbContext = dbContextFactory.CreateDbContext())
             {
                 dbContext.Database.EnsureCreated();
             }

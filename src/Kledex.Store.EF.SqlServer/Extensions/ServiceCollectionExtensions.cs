@@ -1,32 +1,33 @@
 ﻿using System;
 using Kledex.Extensions;
+using Kledex.Store.EF.Configuration;
 using Kledex.Store.EF.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kledex.Store.EF.SqlServer
+namespace Kledex.Store.EF.SqlServer.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddSqlServerProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddSqlServerStoreProvider(this IKledexServiceBuilder builder)
+        {
+            return AddSqlServerStoreProvider(builder, opt => { });
+        }
+
+        public static IKledexServiceBuilder AddSqlServerStoreProvider(this IKledexServiceBuilder builder, Action<DatabaseOptions> configureOptions)
         {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            if (configuration == null)
+            if (configureOptions == null)
             {
-                throw new ArgumentNullException(nameof(configuration));
+                throw new ArgumentNullException(nameof(configureOptions));
             }
 
             builder.AddEFProvider();
-
-            var connectionString = configuration.GetConnectionString(Consts.DomainStoreConnectionString);
-
-            builder.Services.AddDbContext<DomainDbContext>(options =>
-                options.UseSqlServer(connectionString));
 
             builder.Services.AddTransient<IDatabaseProvider, SqlServerDatabaseProvider>();
 

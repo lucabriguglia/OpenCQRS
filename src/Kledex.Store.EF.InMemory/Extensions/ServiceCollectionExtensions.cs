@@ -4,11 +4,11 @@ using Kledex.Store.EF.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kledex.Store.EF.InMemory
+namespace Kledex.Store.EF.InMemory.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddInMemoryProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddInMemoryStoreProvider(this IKledexServiceBuilder builder)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

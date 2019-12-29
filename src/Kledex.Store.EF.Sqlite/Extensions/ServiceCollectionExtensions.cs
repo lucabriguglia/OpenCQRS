@@ -1,28 +1,29 @@
 ﻿using System;
 using Kledex.Extensions;
+using Kledex.Store.EF.Configuration;
 using Kledex.Store.EF.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kledex.Store.EF.Sqlite
+namespace Kledex.Store.EF.Sqlite.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddSqliteProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddSqliteStoreProvider(this IKledexServiceBuilder builder)
+        {
+            return AddSqliteStoreProvider(builder, opt => { });
+        }
+
+        public static IKledexServiceBuilder AddSqliteStoreProvider(this IKledexServiceBuilder builder, Action<DatabaseOptions> configureOptions)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
 
-            if (configuration == null)
-                throw new ArgumentNullException(nameof(configuration));
+            if (configureOptions == null)
+                throw new ArgumentNullException(nameof(configureOptions));
 
             builder.AddEFProvider();
-
-            var connectionString = configuration.GetConnectionString(Consts.DomainStoreConnectionString);
-
-            builder.Services.AddDbContext<DomainDbContext>(options =>
-                options.UseSqlite(connectionString));
 
             builder.Services.AddTransient<IDatabaseProvider, SqliteDatabaseProvider>();
 

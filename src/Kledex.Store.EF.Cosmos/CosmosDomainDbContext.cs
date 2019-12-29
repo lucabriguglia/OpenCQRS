@@ -1,13 +1,14 @@
-﻿using Kledex.Store.EF.Entities;
+﻿using Kledex.Store.EF.Cosmos.Configuration;
+using Kledex.Store.EF.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kledex.Store.EF.Cosmos
 {
     public class CosmosDomainDbContext : DomainDbContext
     {
-        private readonly CosmosOptions _settings;
+        private readonly CosmosDatabaseOptions _settings;
 
-        public CosmosDomainDbContext(DbContextOptions<DomainDbContext> options, CosmosOptions settings)
+        public CosmosDomainDbContext(DbContextOptions<DomainDbContext> options, CosmosDatabaseOptions settings)
             : base(options)
         {
             _settings = settings;
