@@ -53,7 +53,9 @@ namespace Kledex.Sample.NoEventSourcing
                 {
                     options.ConnectionString = Configuration.GetConnectionString("MyDomainStore");
                 })
-                .AddServiceBus()
+                .AddServiceBus(options => {
+                    options.ConnectionString = Configuration.GetConnectionString("MyMessageBus");
+                })
                 .AddFluentValidation()
                 .AddMemoryCache()
                 .AddUI();

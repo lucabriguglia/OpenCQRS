@@ -1,5 +1,6 @@
 using Kledex.Bus.ServiceBus.Extensions;
 using Kledex.Caching.Memory.Extensions;
+using Kledex.Caching.Redis.Extensions;
 using Kledex.Extensions;
 using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
@@ -58,8 +59,13 @@ namespace Kledex.Sample.EventSourcing
                     options.OfferThroughput = 400;
                     options.ConsistencyLevel = ConsistencyLevel.Session;
                 })
-                .AddServiceBus()
+                .AddServiceBus(options => {
+                    options.ConnectionString = Configuration.GetConnectionString("MyMessageBus");
+                })
                 .AddFluentValidation()
+                //.AddRedisCache(options => {
+                //    options.ConnectionString = Configuration.GetConnectionString("MyRedisCache");
+                //})
                 .AddMemoryCache()
                 .AddUI();
 

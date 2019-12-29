@@ -2,19 +2,19 @@
 using System.Threading.Tasks;
 using Kledex.Bus.ServiceBus.Factories;
 using Microsoft.Azure.ServiceBus;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Kledex.Bus.ServiceBus.Queues
 {
-    public class BusProvider : IBusProvider
+    public class ServiceBusProvider : IBusProvider
     {
         private readonly IMessageFactory _messageFactory;
         private readonly string _connectionString;
 
-        public BusProvider(IMessageFactory messageFactory, IConfiguration configuration)
+        public ServiceBusProvider(IMessageFactory messageFactory, IOptions<BusOptions> settings)
         {
             _messageFactory = messageFactory;
-            _connectionString = configuration.GetConnectionString("KledexMessageBus");
+            _connectionString = settings.Value.ConnectionString;
         }
 
         /// <inheritdoc />

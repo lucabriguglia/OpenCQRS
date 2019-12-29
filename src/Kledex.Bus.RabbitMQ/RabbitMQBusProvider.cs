@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kledex.Bus.RabbitMQ.Factories;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 
 namespace Kledex.Bus.RabbitMQ
 {
-    public class BusProvider : IBusProvider
+    public class RabbitMQBusProvider : IBusProvider
     {
         private readonly IMessageFactory _messageFactory;
         private readonly string _connectionString;
 
-        public BusProvider(IMessageFactory messageFactory, IConfiguration configuration)
+        public RabbitMQBusProvider(IMessageFactory messageFactory, IOptions<BusOptions> settings)
         {
             _messageFactory = messageFactory;
-            _connectionString = configuration.GetConnectionString("KledexMessageBus");
+            _connectionString = settings.Value.ConnectionString;
         }
 
         /// <inheritdoc />

@@ -36,12 +36,12 @@ namespace Kledex.UI.Extensions
                 throw new ArgumentNullException(nameof(setupAction));
             }
 
+            builder.Services.Configure(setupAction);
+
             builder.Services.Scan(s => s
                 .FromAssembliesOf(typeof(GetAggregateModel))
                 .AddClasses()
                 .AsImplementedInterfaces());
-
-            builder.Services.Configure(setupAction);
 
             return builder;
         }

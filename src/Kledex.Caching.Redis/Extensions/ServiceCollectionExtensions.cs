@@ -1,6 +1,7 @@
-﻿using Kledex.Extensions;
-using Microsoft.Extensions.Configuration;
+﻿using Kledex.Caching.Redis.Configuration;
+using Kledex.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System;
 
@@ -8,27 +9,25 @@ namespace Kledex.Caching.Redis.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddRedisCache(this IKledexServiceBuilder builder, IConfiguration configuration, int db = -1, object asyncState = null)
+        public static IKledexServiceBuilder AddRedisCache(this IKledexServiceBuilder builder, Action<RedisOptions> configureOptions)
         {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            if (configuration == null)
+            if (configureOptions == null)
             {
-                throw new ArgumentNullException(nameof(configuration));
+                throw new ArgumentNullException(nameof(configureOptions));
             }
 
-            var connectionString = configuration.GetConnectionString("KledexRedisCache");
+            builder.Services.Configure(configureOptions);
 
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new Exception("KledexRedisCache connection string not found.");
-            }
+            var sp = builder.Services.BuildServiceProvider();
+            var options = sp.GetService<IOptions<RedisOptions>>().Value;
 
-            builder.Services.AddSingleton<IConnectionMultiplexer>(x => ConnectionMultiplexer.Connect(connectionString));
-            builder.Services.AddSingleton<ICacheProvider>(x => new RedisCacheProvider(x.GetRequiredService<IConnectionMultiplexer>(), db, asyncState));
+            builder.Services.AddSingleton<IConnectionMultiplexer>(x => ConnectionMultiplexer.Connect(options.ConnectionString));
+            builder.Services.AddSingleton<ICacheProvider>(x => new RedisCacheProvider(x.GetRequiredService<IConnectionMultiplexer>(), options.Db, options.AsyncState));
 
             return builder;
         }
