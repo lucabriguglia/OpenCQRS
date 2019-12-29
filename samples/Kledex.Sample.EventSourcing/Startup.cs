@@ -1,13 +1,12 @@
 using Kledex.Bus.ServiceBus.Extensions;
-using Kledex.Caching.Memory;
+using Kledex.Caching.Memory.Extensions;
 using Kledex.Extensions;
 using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 using Kledex.Store.Cosmos.Sql;
-using Kledex.Store.Cosmos.Sql.Extensions;
 using Kledex.Store.EF.Cosmos.Extensions;
 using Kledex.UI.Extensions;
-using Kledex.Validation.FluentValidation;
+using Kledex.Validation.FluentValidation.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -52,16 +51,16 @@ namespace Kledex.Sample.EventSourcing
                     options.SaveCommandData = true;
                     options.ValidateCommands = false;
                 }, typeof(Product))
-                .AddCosmosStoreProvider(options =>
+                .AddCosmosStore(options =>
                 {
                     options.ServiceEndpoint = Configuration.GetSection("KledexCosmos:ServerEndpoint").Value;
                     options.AuthKey = Configuration.GetSection("KledexCosmos:AuthKey").Value;
                     options.OfferThroughput = 400;
                     options.ConsistencyLevel = ConsistencyLevel.Session;
                 })
-                .AddServiceBusProvider()
-                .AddFluentValidationProvider()
-                .AddMemoryCacheProvider()
+                .AddServiceBus()
+                .AddFluentValidation()
+                .AddMemoryCache()
                 .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

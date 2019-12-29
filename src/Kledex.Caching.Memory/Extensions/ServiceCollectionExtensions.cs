@@ -2,11 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Kledex.Caching.Memory
+namespace Kledex.Caching.Memory.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddMemoryCacheProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddMemoryCache(this IKledexServiceBuilder builder)
         {
             if (builder == null)
             {

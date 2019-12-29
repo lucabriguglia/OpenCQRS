@@ -8,12 +8,12 @@ namespace Kledex.Store.Cosmos.Mongo.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosDbMongoDbProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddCosmosMongoStore(this IKledexServiceBuilder builder)
         {
-            return AddCosmosDbMongoDbProvider(builder, opt => { });
+            return AddCosmosMongoStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosDbMongoDbProvider(this IKledexServiceBuilder builder, Action<DomainDbOptions> setupAction)
+        public static IKledexServiceBuilder AddCosmosMongoStore(this IKledexServiceBuilder builder, Action<DomainDbOptions> setupAction)
         {
             if (builder == null)
             {

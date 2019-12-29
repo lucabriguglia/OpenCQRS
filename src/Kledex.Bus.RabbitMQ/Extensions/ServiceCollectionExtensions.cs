@@ -14,7 +14,7 @@ namespace Kledex.Bus.RabbitMQ.Extensions
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns></returns>
-        public static IKledexServiceBuilder AddRabbitMQProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddRabbitMQ(this IKledexServiceBuilder builder)
         {
             if (builder == null)
             {

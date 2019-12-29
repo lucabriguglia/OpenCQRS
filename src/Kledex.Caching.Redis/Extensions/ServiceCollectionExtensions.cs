@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using System;
 
-namespace Kledex.Caching.Redis
+namespace Kledex.Caching.Redis.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddRedisCacheProvider(this IKledexServiceBuilder builder, IConfiguration configuration, int db = -1, object asyncState = null)
+        public static IKledexServiceBuilder AddRedisCache(this IKledexServiceBuilder builder, IConfiguration configuration, int db = -1, object asyncState = null)
         {
             if (builder == null)
             {

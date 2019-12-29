@@ -8,7 +8,7 @@ namespace Kledex.Store.EF.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddEFProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddEFStore(this IKledexServiceBuilder builder)
         {
             if (builder == null)
             {

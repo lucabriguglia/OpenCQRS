@@ -8,12 +8,12 @@ namespace Kledex.Store.EF.Cosmos.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosStoreProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddCosmosStore(this IKledexServiceBuilder builder)
         {
-            return AddCosmosStoreProvider(builder, opt => { });
+            return AddCosmosStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosStoreProvider(this IKledexServiceBuilder builder, Action<CosmosDatabaseOptions> configureOptions)
+        public static IKledexServiceBuilder AddCosmosStore(this IKledexServiceBuilder builder, Action<CosmosDatabaseOptions> configureOptions)
         {
             if (builder == null)
             {
@@ -27,7 +27,7 @@ namespace Kledex.Store.EF.Cosmos.Extensions
 
             builder.Services.Configure(configureOptions);
 
-            builder.AddEFProvider();
+            builder.AddEFStore();
 
             builder.Services.AddTransient<IDatabaseProvider, CosmosDatabaseProvider>();
 

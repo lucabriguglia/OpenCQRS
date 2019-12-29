@@ -8,12 +8,12 @@ namespace Kledex.Store.EF.InMemory.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddInMemoryStoreProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddInMemoryStore(this IKledexServiceBuilder builder)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
 
-            builder.AddEFProvider();
+            builder.AddEFStore();
 
             builder.Services.AddDbContext<DomainDbContext>(options =>
                 options.UseInMemoryDatabase(databaseName: "DomainDb"));

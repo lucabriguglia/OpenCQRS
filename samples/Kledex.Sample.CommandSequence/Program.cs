@@ -2,8 +2,8 @@
 using System;
 using Kledex.Extensions;
 using Kledex.Sample.CommandSequence.Commands;
-using Kledex.Validation.FluentValidation;
 using Kledex.Utilities;
+using Kledex.Validation.FluentValidation.Extensions;
 
 namespace Kledex.Sample.CommandSequence
 {
@@ -28,7 +28,7 @@ namespace Kledex.Sample.CommandSequence
 
             services
                 .AddKledex(typeof(Program))
-                .AddFluentValidationProvider();
+                .AddFluentValidation();
 
             return services.BuildServiceProvider();
         }

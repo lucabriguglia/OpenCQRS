@@ -1,12 +1,12 @@
 using Kledex.Bus.ServiceBus.Extensions;
-using Kledex.Caching.Memory;
+using Kledex.Caching.Memory.Extensions;
 using Kledex.Extensions;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Kledex.Store.EF.Extensions;
 using Kledex.Store.EF.SqlServer.Extensions;
 using Kledex.UI.Extensions;
-using Kledex.Validation.FluentValidation;
+using Kledex.Validation.FluentValidation.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -49,10 +49,13 @@ namespace Kledex.Sample.NoEventSourcing
                     options.SaveCommandData = true;
                     options.ValidateCommands = false;
                 }, typeof(Product))
-                .AddSqlServerStoreProvider()
-                .AddServiceBusProvider()
-                .AddFluentValidationProvider()
-                .AddMemoryCacheProvider()
+                .AddSqlServerStore(options =>
+                {
+                    options.ConnectionString = Configuration.GetConnectionString("MyDomainStore");
+                })
+                .AddServiceBus()
+                .AddFluentValidation()
+                .AddMemoryCache()
                 .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

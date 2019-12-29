@@ -14,12 +14,12 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosDbSqlProvider(this IKledexServiceBuilder builder, IConfiguration configuration)
+        public static IKledexServiceBuilder AddCosmosSqlStore(this IKledexServiceBuilder builder, IConfiguration configuration)
         {
-            return AddCosmosDbSqlProvider(builder, configuration, opt => { });
+            return AddCosmosSqlStore(builder, configuration, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosDbSqlProvider(this IKledexServiceBuilder builder, IConfiguration configuration, Action<DomainDbOptions> setupAction)
+        public static IKledexServiceBuilder AddCosmosSqlStore(this IKledexServiceBuilder builder, IConfiguration configuration, Action<DomainDbOptions> setupAction)
         {
             if (builder == null)
             {

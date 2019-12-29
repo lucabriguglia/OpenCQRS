@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Commands;
-using Kledex.Events;
 
 namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 {

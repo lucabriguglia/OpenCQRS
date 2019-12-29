@@ -13,7 +13,7 @@ namespace Kledex.Bus.ServiceBus.Extensions
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns></returns>
-        public static IKledexServiceBuilder AddServiceBusProvider(this IKledexServiceBuilder builder)
+        public static IKledexServiceBuilder AddServiceBus(this IKledexServiceBuilder builder)
         {
             if (builder == null)
             {
