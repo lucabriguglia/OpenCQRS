@@ -2,7 +2,9 @@
 using Kledex.Extensions;
 using Kledex.Store.EF.Cosmos.Configuration;
 using Kledex.Store.EF.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Kledex.Store.EF.Cosmos.Extensions
 {
@@ -27,7 +29,13 @@ namespace Kledex.Store.EF.Cosmos.Extensions
 
             builder.Services.Configure(configureOptions);
 
+            var sp = builder.Services.BuildServiceProvider();
+            var dbOptions = sp.GetService<IOptions<CosmosDatabaseOptions>>().Value;
+
             builder.AddEFStore();
+
+            builder.Services.AddDbContext<DomainDbContext>(options =>
+                options.UseCosmos(dbOptions.ServiceEndpoint, dbOptions.AuthKey, dbOptions.DatabaseName));
 
             builder.Services.AddTransient<IDatabaseProvider, CosmosDatabaseProvider>();
 

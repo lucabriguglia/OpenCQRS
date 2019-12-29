@@ -2,7 +2,9 @@
 using Kledex.Extensions;
 using Kledex.Store.EF.Configuration;
 using Kledex.Store.EF.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Kledex.Store.EF.SqlServer.Extensions
 {
@@ -25,7 +27,15 @@ namespace Kledex.Store.EF.SqlServer.Extensions
                 throw new ArgumentNullException(nameof(configureOptions));
             }
 
+            builder.Services.Configure(configureOptions);
+
+            var sp = builder.Services.BuildServiceProvider();
+            var dbOptions = sp.GetService<IOptions<DatabaseOptions>>().Value;
+
             builder.AddEFStore();
+
+            builder.Services.AddDbContext<DomainDbContext>(options =>
+                options.UseSqlServer(dbOptions.ConnectionString));
 
             builder.Services.AddTransient<IDatabaseProvider, SqlServerDatabaseProvider>();
 
