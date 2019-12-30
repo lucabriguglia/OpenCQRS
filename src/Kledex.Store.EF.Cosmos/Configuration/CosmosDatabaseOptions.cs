@@ -10,7 +10,7 @@ namespace Kledex.Store.EF.Cosmos.Configuration
         public string AggregateContainerName { get; set; } = "Aggregates";
         public string CommandContainerName { get; set; } = "Commands";
         public string EventContainerName { get; set; } = "Events";
-        public int OfferThroughput { get; set; } = 400;
-        public ConsistencyLevel ConsistencyLevel { get; set; } = ConsistencyLevel.Session;
+        //public int OfferThroughput { get; set; } = 400;
+        //public ConsistencyLevel ConsistencyLevel { get; set; } = ConsistencyLevel.Session;
     }
 }

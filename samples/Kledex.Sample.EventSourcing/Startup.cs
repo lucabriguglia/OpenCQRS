@@ -43,7 +43,7 @@ namespace Kledex.Sample.EventSourcing
             });
 
             services.AddDbContext<ReportingDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ReadModel")));
+                options.UseSqlServer(Configuration.GetConnectionString("ReportingDb")));
 
             services
                 .AddKledex(options => 
@@ -56,8 +56,6 @@ namespace Kledex.Sample.EventSourcing
                 {
                     options.ServiceEndpoint = Configuration.GetSection("KledexCosmos:ServerEndpoint").Value;
                     options.AuthKey = Configuration.GetSection("KledexCosmos:AuthKey").Value;
-                    options.OfferThroughput = 400;
-                    options.ConsistencyLevel = ConsistencyLevel.Session;
                 })
                 .AddServiceBus(options => {
                     options.ConnectionString = Configuration.GetConnectionString("MyMessageBus");

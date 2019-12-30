@@ -29,8 +29,8 @@ namespace Kledex.Store.EF.Cosmos.Extensions
 
             builder.Services.Configure(configureOptions);
 
-            var sp = builder.Services.BuildServiceProvider();
-            var dbOptions = sp.GetService<IOptions<CosmosDatabaseOptions>>().Value;
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            var dbOptions = serviceProvider.GetService<IOptions<CosmosDatabaseOptions>>().Value;
 
             builder.AddEFStore();
 
