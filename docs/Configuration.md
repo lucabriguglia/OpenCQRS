@@ -58,17 +58,21 @@ After the NuGet package of your choice has been installed, register the database
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Store.Cosmos.Mongo** | AddCosmosDbMongoDbProvider |
-| **Kledex.Store.Cosmos.Sql** | AddCosmosDbSqlProvider |
-| **Kledex.Store.EF.MySql** | AddMySqlProvider |
-| **Kledex.Store.EF.PostgreSql** | AddPostgreSqlProvider |
-| **Kledex.Store.EF.Sqlite** | AddSqliteProvider |
-| **Kledex.Store.EF.SqlServer** | AddSqlServerProvider |
+| **Kledex.Store.Cosmos.Mongo** | AddCosmosMongoStore |
+| **Kledex.Store.Cosmos.Sql** | AddCosmosSqlStore |
+| **Kledex.Store.EF.MySql** | AddMySqlStore |
+| **Kledex.Store.EF.PostgreSql** | AddPostgreSqlStore |
+| **Kledex.Store.EF.Sqlite** | AddSqliteStore |
+| **Kledex.Store.EF.SqlServer** | AddSqlServerStore |
+| **Kledex.Store.EF.Cosmos** | AddCosmosStore |
 
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerProvider(Configuration);
+    .AddSqlServerStore(options =>
+    {
+        options.ConnectionString = "your-connection-string";
+    })
 ```
 
 It is possible to set some options the the CosmosDB providers (Mongo and SQL APIs).
@@ -78,7 +82,7 @@ It is possible to set some options the the CosmosDB providers (Mongo and SQL API
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosDbSqlProvider(Configuration, options =>
+    .AddCosmosDbSqlProvider(options =>
     {
 	options.DatabaseId = "DatabaseId";
 	options.AggregateCollectionId = "AggregateCollectionId";
