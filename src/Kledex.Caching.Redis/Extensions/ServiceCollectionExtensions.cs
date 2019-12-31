@@ -9,7 +9,7 @@ namespace Kledex.Caching.Redis.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddRedisCache(this IKledexServiceBuilder builder, Action<RedisOptions> configureOptions)
+        public static IKledexServiceBuilder AddRedisCache(this IKledexServiceBuilder builder, Action<RedisCacheOptions> configureOptions)
         {
             if (builder == null)
             {
@@ -24,7 +24,7 @@ namespace Kledex.Caching.Redis.Extensions
             builder.Services.Configure(configureOptions);
 
             var sp = builder.Services.BuildServiceProvider();
-            var options = sp.GetService<IOptions<RedisOptions>>().Value;
+            var options = sp.GetService<IOptions<RedisCacheOptions>>().Value;
 
             builder.Services.AddSingleton<IConnectionMultiplexer>(x => ConnectionMultiplexer.Connect(options.ConnectionString));
             builder.Services.AddSingleton<ICacheProvider>(x => new RedisCacheProvider(x.GetRequiredService<IConnectionMultiplexer>(), options.Db, options.AsyncState));

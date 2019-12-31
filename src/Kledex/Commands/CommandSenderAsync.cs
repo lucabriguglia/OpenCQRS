@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Kledex.Configuration;
 using Kledex.Dependencies;
 using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Mapping;
 using Kledex.Validation;
 using Microsoft.Extensions.Options;
-using Options = Kledex.Configuration.Options;
 
 namespace Kledex.Commands
 {
@@ -20,24 +20,27 @@ namespace Kledex.Commands
         private readonly IObjectFactory _objectFactory;
         private readonly IStoreProvider _storeProvider;
         private readonly IValidationService _validationService;
-        private readonly Options _options;
+        private readonly MainOptions _mainOptions;
+        private readonly ValidationOptions _validationOptions;
 
-        private bool ValidateCommand(ICommand command) => command.Validate ?? _options.ValidateCommands;
-        private bool PublishEvents(ICommand command) => command.PublishEvents ?? _options.PublishEvents;
+        private bool ValidateCommand(ICommand command) => command.Validate ?? _validationOptions.ValidateAllCommands;
+        private bool PublishEvents(ICommand command) => command.PublishEvents ?? _mainOptions.PublishEvents;
 
         public CommandSender(IHandlerResolver handlerResolver,
             IEventPublisher eventPublisher,
             IObjectFactory objectFactory,
             IStoreProvider storeProvider,
             IValidationService validationService,
-            IOptions<Options> options)
+            IOptions<MainOptions> mainOptions,
+            IOptions<ValidationOptions> validationOptions)
         {
             _handlerResolver = handlerResolver;
             _eventPublisher = eventPublisher;
             _objectFactory = objectFactory;
             _storeProvider = storeProvider;
             _validationService = validationService;
-            _options = options.Value;
+            _mainOptions = mainOptions.Value;
+            _validationOptions = validationOptions?.Value ?? new ValidationOptions();
         }
 
         /// <inheritdoc />

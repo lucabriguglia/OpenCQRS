@@ -7,7 +7,7 @@ using Kledex.Tests.Fakes;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using Options = Kledex.Configuration.Options;
+using CachingOptions = Kledex.Configuration.CachingOptions;
 
 namespace Kledex.Tests.Queries
 {
@@ -18,7 +18,7 @@ namespace Kledex.Tests.Queries
 
         private Mock<IHandlerResolver> _handlerResolver;
         private Mock<ICacheManager> _cacheManager;
-        private Mock<IOptions<Options>> _options;
+        private Mock<IOptions<CachingOptions>> _options;
         private Mock<IQueryHandlerAsync<GetSomething, Something>> _queryHandler;
 
         private GetSomething _getSomething;
@@ -47,10 +47,10 @@ namespace Kledex.Tests.Queries
                 .Setup(x => x.GetOrSetAsync(_getSomethingCacheable.CacheKey, It.IsAny<int>(), It.IsAny<Func<Task<Something>>>()))
                 .ReturnsAsync(_something);
 
-            _options = new Mock<IOptions<Options>>();
+            _options = new Mock<IOptions<CachingOptions>>();
             _options
                 .Setup(x => x.Value)
-                .Returns(new Options());
+                .Returns(new CachingOptions());
 
             _sut = new QueryProcessor(_handlerResolver.Object, _cacheManager.Object, _options.Object);
         }

@@ -11,7 +11,7 @@ using Kledex.Validation;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using Options = Kledex.Configuration.Options;
+using CachingOptions = Kledex.Configuration.CachingOptions;
 
 namespace Kledex.Tests.Commands
 {
@@ -29,7 +29,7 @@ namespace Kledex.Tests.Commands
         private Mock<ICommandHandler<CreateSomething>> _commandHandler;
         private Mock<ICommandHandler<CreateAggregate>> _domainCommandHandler;
         private Mock<ISequenceCommandHandler<CommandInSequence>> _sequenceCommandHandler;
-        private Mock<IOptions<Options>> _optionsMock;
+        private Mock<IOptions<CachingOptions>> _optionsMock;
 
         private CreateSomething _createSomething;
         private CreateSomething _createSomethingConcrete;
@@ -131,10 +131,10 @@ namespace Kledex.Tests.Commands
                 .Setup(x => x.ResolveHandler<ISequenceCommandHandler<CommandInSequence>>())
                 .Returns(_sequenceCommandHandler.Object);
 
-            _optionsMock = new Mock<IOptions<Options>>();
+            _optionsMock = new Mock<IOptions<CachingOptions>>();
             _optionsMock
                 .Setup(x => x.Value)
-                .Returns(new Options());
+                .Returns(new CachingOptions());
 
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
@@ -209,7 +209,7 @@ namespace Kledex.Tests.Commands
         {
             _optionsMock
                 .Setup(x => x.Value)
-                .Returns(new Options { PublishEvents = false });
+                .Returns(new CachingOptions { PublishEvents = false });
 
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,

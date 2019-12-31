@@ -1,17 +1,17 @@
 ﻿using Kledex.Domain;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Options = Kledex.Configuration.Options;
+using CachingOptions = Kledex.Configuration.CachingOptions;
 
 namespace Kledex.Store.Cosmos.Mongo.Documents.Factories
 {
     public class CommandDocumentFactory : ICommandDocumentFactory
     {
-        private readonly Options _options;
+        private readonly CachingOptions _options;
 
         private bool SaveCommandData(IDomainCommand command) => command.SaveCommandData ?? _options.SaveCommandData;
 
-        public CommandDocumentFactory(IOptions<Options> options)
+        public CommandDocumentFactory(IOptions<CachingOptions> options)
         {
             _options = options.Value;
         }

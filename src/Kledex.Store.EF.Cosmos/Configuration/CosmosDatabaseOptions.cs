@@ -1,6 +1,4 @@
-﻿using Microsoft.Azure.Cosmos;
-
-namespace Kledex.Store.EF.Cosmos.Configuration
+﻿namespace Kledex.Store.EF.Cosmos.Configuration
 {
     public class CosmosDatabaseOptions
     {

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Options = Kledex.Configuration.Options;
 
 namespace Kledex.Queries
 {
@@ -14,17 +13,17 @@ namespace Kledex.Queries
     {
         private readonly IHandlerResolver _handlerResolver;
         private readonly ICacheManager _cacheManager;
-        private readonly Options _options;
+        private readonly CacheOptions _cacheOptions;
 
         private static readonly ConcurrentDictionary<Type, object> _queryHandlerWrappers = new ConcurrentDictionary<Type, object>();
 
         public QueryProcessor(IHandlerResolver handlerResolver, 
             ICacheManager cacheManager, 
-            IOptions<Options> options)
+            IOptions<CacheOptions> cacheOptions)
         {
             _handlerResolver = handlerResolver;
             _cacheManager = cacheManager;
-            _options = options.Value;
+            _cacheOptions = cacheOptions.Value;
         }
 
         /// <inheritdoc />
@@ -52,7 +51,7 @@ namespace Kledex.Queries
 
                 return _cacheManager.GetOrSetAsync(
                     cacheableQuery.CacheKey, 
-                    cacheableQuery.CacheTime ?? _options.CacheTime, 
+                    cacheableQuery.CacheTime ?? _cacheOptions.DefaultCacheTime, 
                     () => GetResultAsync(query));
             }
 
@@ -84,7 +83,7 @@ namespace Kledex.Queries
 
                 return _cacheManager.GetOrSet(
                     cacheableQuery.CacheKey,
-                    cacheableQuery.CacheTime ?? _options.CacheTime,
+                    cacheableQuery.CacheTime ?? _cacheOptions.DefaultCacheTime,
                     () => GetResult(query));
             }
 

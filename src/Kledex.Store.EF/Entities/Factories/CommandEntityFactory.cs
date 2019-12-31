@@ -1,19 +1,19 @@
-﻿using Kledex.Domain;
+﻿using Kledex.Configuration;
+using Kledex.Domain;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Options = Kledex.Configuration.Options;
 
 namespace Kledex.Store.EF.Entities.Factories
 {
     public class CommandEntityFactory : ICommandEntityFactory
     {
-        private readonly Options _options;
+        private readonly MainOptions _mainOptions;
 
-        private bool SaveCommandData(IDomainCommand command) => command.SaveCommandData ?? _options.SaveCommandData;
+        private bool SaveCommandData(IDomainCommand command) => command.SaveCommandData ?? _mainOptions.SaveCommandData;
 
-        public CommandEntityFactory(IOptions<Options> options)
+        public CommandEntityFactory(IOptions<MainOptions> mainOptions)
         {
-            _options = options.Value;
+            _mainOptions = mainOptions.Value;
         }
 
         public CommandEntity CreateCommand(IDomainCommand command)

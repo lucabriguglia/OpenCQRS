@@ -1,19 +1,19 @@
-﻿using Kledex.Domain;
+﻿using Kledex.Configuration;
+using Kledex.Domain;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Options = Kledex.Configuration.Options;
 
 namespace Kledex.Store.Cosmos.Sql.Documents.Factories
 {
     public class CommandDocumentFactory : ICommandDocumentFactory
     {
-        private readonly Options _options;
+        private readonly MainOptions _mainOptions;
 
-        private bool SaveCommandData(IDomainCommand command) => command.SaveCommandData ?? _options.SaveCommandData;
+        private bool SaveCommandData(IDomainCommand command) => command.SaveCommandData ?? _mainOptions.SaveCommandData;
 
-        public CommandDocumentFactory(IOptions<Options> options)
+        public CommandDocumentFactory(IOptions<MainOptions> mainOptions)
         {
-            _options = options.Value;
+            _mainOptions = mainOptions.Value;
         }
 
         public CommandDocument CreateCommand(IDomainCommand command)

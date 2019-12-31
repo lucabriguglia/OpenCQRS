@@ -1,16 +1,15 @@
 ﻿using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
-using Options = Kledex.Configuration.Options;
 
 namespace Kledex.Caching
 {
     public class CacheManager : ICacheManager
     {
         private readonly ICacheProvider _cacheProvider;
-        private readonly Options _options;
+        private readonly CacheOptions _options;
 
-        public CacheManager(ICacheProvider cacheProvider, IOptions<Options> options)
+        public CacheManager(ICacheProvider cacheProvider, IOptions<CacheOptions> options)
         {
             _cacheProvider = cacheProvider;
             _options = options.Value;
@@ -19,7 +18,7 @@ namespace Kledex.Caching
         /// <inheritdoc />
         public Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> acquireAsync)
         {
-            return GetOrSetAsync(key, _options.CacheTime, acquireAsync);
+            return GetOrSetAsync(key, _options.DefaultCacheTime, acquireAsync);
         }
 
         /// <inheritdoc />
@@ -48,7 +47,7 @@ namespace Kledex.Caching
         /// <inheritdoc />
         public T GetOrSet<T>(string key, Func<T> acquire)
         {
-            return GetOrSet(key, _options.CacheTime, acquire);
+            return GetOrSet(key, _options.DefaultCacheTime, acquire);
         }
 
         /// <inheritdoc />

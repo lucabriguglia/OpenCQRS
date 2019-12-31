@@ -1,6 +1,5 @@
 using Kledex.Bus.ServiceBus.Extensions;
 using Kledex.Caching.Memory.Extensions;
-using Kledex.Caching.Redis.Extensions;
 using Kledex.Extensions;
 using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
@@ -12,7 +11,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,7 +48,6 @@ namespace Kledex.Sample.EventSourcing
                 {
                     options.PublishEvents = true;
                     options.SaveCommandData = true;
-                    options.ValidateCommands = false;
                 }, typeof(Product))
                 .AddCosmosStore(options =>
                 {

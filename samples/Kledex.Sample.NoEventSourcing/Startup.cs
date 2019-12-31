@@ -47,7 +47,6 @@ namespace Kledex.Sample.NoEventSourcing
                 {
                     options.PublishEvents = true;
                     options.SaveCommandData = true;
-                    options.ValidateCommands = false;
                 }, typeof(Product))
                 .AddSqlServerStore(options =>
                 {
@@ -56,8 +55,14 @@ namespace Kledex.Sample.NoEventSourcing
                 .AddServiceBus(options => {
                     options.ConnectionString = Configuration.GetConnectionString("MyMessageBus");
                 })
-                .AddFluentValidation()
-                .AddMemoryCache()
+                .AddFluentValidation(options =>
+                {
+                    options.ValidateAllCommands = false;
+                })
+                .AddMemoryCache(options =>
+                {
+                    options.DefaultCacheTime = 60;
+                })
                 .AddUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
