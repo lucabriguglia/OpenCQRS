@@ -109,7 +109,7 @@ Note that the partition key is set by default to '/type'.
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosDbMongoProvider(Configuration, options =>
+    .AddCosmosMongo(options =>
     {
         options.DatabaseName = "DatabaseName";
         options.AggregateCollectionName = "AggregateCollectionName";
@@ -133,14 +133,14 @@ Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet packag
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Bus.RabbitMQ** | AddRabbitMQProvider |
-| **Kledex.Bus.ServiceBus** | AddServiceBusProvider |
+| **Kledex.Bus.RabbitMQ** | AddRabbitMQ |
+| **Kledex.Bus.ServiceBus** | AddServiceBus |
 
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerProvider(Configuration)
-    .AddServiceBusProvider();
+    .AddCosmosStore()
+    .AddServiceBus();
 ```
 
 <a name="validation"></a>
@@ -150,13 +150,13 @@ Add a validation provider if you want your commands to be validated before the c
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Validation.FluentValidation** | AddFluentValidationProvider |
+| **Kledex.Validation.FluentValidation** | AddFluentValidation |
 
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerProvider(Configuration)
-    .AddFluentValidationProvider();
+    .AddCosmosStore()
+    .AddFluentValidation();
 ```
 
 <a name="caching"></a>
@@ -166,14 +166,14 @@ Add a caching provider if you want the result of your queries to be automaticall
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Caching.Memory** | AddMemoryCacheProvider |
-| **Kledex.Caching.Redis** | AddRedisCacheProvider |
+| **Kledex.Caching.Memory** | AddMemoryCache |
+| **Kledex.Caching.Redis** | AddRedisCache |
 
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerProvider(Configuration)
-    .AddMemoryCacheProvider();
+    .AddCosmosStore()
+    .AddMemoryCache();
 ```
 
 <a name="ui"></a>
@@ -184,7 +184,7 @@ Experimental package to get a view of an aggregate and all associated events:
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerProvider(Configuration)
+    .AddCosmosStore()
     .AddUI();
 ```
 
