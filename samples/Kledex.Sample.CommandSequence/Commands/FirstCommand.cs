@@ -8,7 +8,7 @@ namespace Kledex.Sample.CommandSequence.Commands
 
         public FirstCommand()
         {
-            Validate = true;
+            ValidateCommand = true;
         }
     }
 }

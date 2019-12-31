@@ -23,7 +23,7 @@ namespace Kledex.Commands
         private readonly MainOptions _mainOptions;
         private readonly ValidationOptions _validationOptions;
 
-        private bool ValidateCommand(ICommand command) => command.Validate ?? _validationOptions.ValidateAllCommands;
+        private bool ValidateCommand(ICommand command) => command.ValidateCommand ?? _validationOptions.ValidateAllCommands;
         private bool PublishEvents(ICommand command) => command.PublishEvents ?? _mainOptions.PublishEvents;
 
         public CommandSender(IHandlerResolver handlerResolver,

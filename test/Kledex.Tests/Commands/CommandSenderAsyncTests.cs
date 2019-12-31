@@ -165,7 +165,7 @@ namespace Kledex.Tests.Commands
         [Test]
         public async Task SendAsync_ValidatesCommand()
         {
-            _createSomething.Validate = true;
+            _createSomething.ValidateCommand = true;
             await _sut.SendAsync(_createSomething);
             _validationService.Verify(x => x.ValidateAsync(It.IsAny<CreateSomething>()), Times.Once);
         }

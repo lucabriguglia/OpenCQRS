@@ -161,7 +161,7 @@ namespace Kledex.Tests.Commands
         [Test]
         public void Send_ValidatesCommand()
         {
-            _createSomething.Validate = true;
+            _createSomething.ValidateCommand = true;
             _sut.Send(_createSomething);
             _validationService.Verify(x => x.Validate(It.IsAny<CreateSomething>()), Times.Once);
         }

@@ -25,7 +25,7 @@ namespace Kledex.Sample.NoEventSourcing.Pages
                 Name = Product.Name,
                 Description = Product.Description,
                 Price = Product.Price,
-                Validate = true
+                ValidateCommand = true
             };
 
             await _dispatcher.SendAsync(command);
