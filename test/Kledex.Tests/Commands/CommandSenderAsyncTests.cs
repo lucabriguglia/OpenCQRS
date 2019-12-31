@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Kledex.Commands;
+using Kledex.Configuration;
 using Kledex.Dependencies;
 using Kledex.Domain;
 using Kledex.Events;
@@ -12,7 +13,6 @@ using Kledex.Validation;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using CachingOptions = Kledex.Configuration.CachingOptions;
 
 namespace Kledex.Tests.Commands
 {
@@ -30,7 +30,8 @@ namespace Kledex.Tests.Commands
         private Mock<ICommandHandlerAsync<CreateSomething>> _commandHandlerAsync;
         private Mock<ICommandHandlerAsync<CreateAggregate>> _domainCommandHandlerAsync;
         private Mock<ISequenceCommandHandlerAsync<CommandInSequence>> _sequenceCommandHandlerAsync;
-        private Mock<IOptions<CachingOptions>> _optionsMock;
+        private Mock<IOptions<MainOptions>> _mainOptionsMock;
+        private Mock<IOptions<ValidationOptions>> _validationOptionsMock;
 
         private CreateSomething _createSomething;
         private CreateSomething _createSomethingConcrete;
@@ -135,17 +136,23 @@ namespace Kledex.Tests.Commands
                 .Setup(x => x.ResolveHandler<ISequenceCommandHandlerAsync<CommandInSequence>>())
                 .Returns(_sequenceCommandHandlerAsync.Object);
 
-            _optionsMock = new Mock<IOptions<CachingOptions>>();
-            _optionsMock
+            _mainOptionsMock = new Mock<IOptions<MainOptions>>();
+            _mainOptionsMock
                 .Setup(x => x.Value)
-                .Returns(new CachingOptions());
+                .Returns(new MainOptions());            
+            
+            _validationOptionsMock = new Mock<IOptions<ValidationOptions>>();
+            _validationOptionsMock
+                .Setup(x => x.Value)
+                .Returns(new ValidationOptions());
 
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _objectFactory.Object,
                 _storeProvider.Object,
                 _validationService.Object,
-                _optionsMock.Object);
+                _mainOptionsMock.Object,
+                _validationOptionsMock.Object);
         }
 
         [Test]
@@ -211,16 +218,17 @@ namespace Kledex.Tests.Commands
         [Test]
         public async Task SendAsync_NotPublishesEvents_WhenSetInOptions()
         {
-            _optionsMock
+            _mainOptionsMock
                 .Setup(x => x.Value)
-                .Returns(new CachingOptions { PublishEvents = false });
+                .Returns(new MainOptions { PublishEvents = false });
 
             _sut = new CommandSender(_handlerResolver.Object,
                 _eventPublisher.Object,
                 _objectFactory.Object,
                 _storeProvider.Object,
                 new Mock<IValidationService>().Object,
-                _optionsMock.Object);
+                _mainOptionsMock.Object,
+                _validationOptionsMock.Object);
 
             await _sut.SendAsync(_createAggregate);
             _eventPublisher.Verify(x => x.PublishAsync(_aggregateCreatedConcrete), Times.Never);

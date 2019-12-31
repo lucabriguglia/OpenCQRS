@@ -1,4 +1,4 @@
-﻿namespace Kledex.Configuration
+﻿namespace Kledex.Validation
 {
     public class ValidationOptions
     {
