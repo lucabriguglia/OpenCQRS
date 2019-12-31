@@ -35,6 +35,7 @@ With Kledex you can automatically dispatch events to a message bus (Service Bus 
 | [Kledex.Store.EF.Sqlite](https://www.nuget.org/packages/Kledex.Store.EF.Sqlite) | [![Nuget Package](https://img.shields.io/badge/nuget-2.5.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.Sqlite) |
 | [Kledex.Store.EF.SqlServer](https://www.nuget.org/packages/Kledex.Store.EF.SqlServer) | [![Nuget Package](https://img.shields.io/badge/nuget-2.5.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.SqlServer) |
 | [Kledex.Store.EF.InMemory](https://www.nuget.org/packages/Kledex.Store.EF.InMemory) | [![Nuget Package](https://img.shields.io/badge/nuget-2.5.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.InMemory) |
+| [Kledex.Store.EF.Cosmos](https://www.nuget.org/packages/Kledex.Store.EF.Cosmos) | [![Nuget Package](https://img.shields.io/badge/nuget-2.5.0-blue.svg)](https://www.nuget.org/packages/Kledex.Store.EF.Cosmos) |
 
 ### Bus Providers
 
