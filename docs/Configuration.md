@@ -104,6 +104,8 @@ services
 | **CommandContainerName** | The name of the Command container | Commands |
 | **EventContainerName** | The name of the Event container | Events |
 
+Note that the partition key is set by default to '/type'.
+
 **Cosmos.Sql**
 
 This provider uses the old Microsoft.Azure.DocumentDB package.
@@ -163,7 +165,7 @@ services
 <a name="bus"></a>
 ## Message Bus
 
-A message bus provider needs to be registered as well in order to use the message bus functionalities.
+A message bus provider needs to be registered in order to use the message bus functionalities.
 Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet package has been installed, register a provider:
 
 | Package | Method |
@@ -175,8 +177,15 @@ Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet packag
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
-    .AddServiceBus();
+    .AddServiceBus(options =>
+    {
+        options.ConnectionString = "your-connection-string";
+    });
 ```
+
+| Property | Description | Default |
+| --- | --- | --- |
+| **ConnectionString** | The connection string of the database | _null_ |
 
 <a name="validation"></a>
 ## Validation
@@ -191,8 +200,13 @@ Add a validation provider if you want your commands to be validated before the c
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
-    .AddFluentValidation();
+    .AddFluentValidation(options =>
+    {
+        options.ValidateAllCommands = false;
+    });
 ```
+
+**Options**
 
 | Property | Description | Default | Notes |
 | --- | --- | --- | --- |
@@ -212,11 +226,16 @@ Add a caching provider if you want the result of your queries to be automaticall
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
-    .AddMemoryCache();
+    .AddRedisCache(options =>
+    {
+        options.ConnectionString = "your-connection-string";
+        options.DefaultCacheTime = 10;
+    });
 ```
 
 | Property | Description | Default | Notes |
 | --- | --- | --- | --- |
+| **ConnectionString** | The connection string | _null_ | Redis only |
 | **DefaultCacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
 
 <a name="ui"></a>
@@ -257,43 +276,5 @@ For Entity Framework Core (SqlServer, MySQL, PostgreSQL and Sqlite):
 public void Configure(IApplicationBuilder app)
 {
     app.UseKledex().EnsureDomainDbCreated();
-}
-```
-
-<a name="settings"></a>
-## App Settings
-
-Update appsettings.json as required.
-
-<a name="settings-connstrings"></a>
-### Connection Strings
-
-For any domain store provider or message bus provider and redis cache provider add the related connection string:
-
-```JSON
-"ConnectionStrings": {
-  "KledexDomainStore": "Server=(localdb)\\mssqllocaldb;Database=DomainStore;Trusted_Connection=True;",
-  "KledexMessageBus": "your-message-bus-connection-string",
-  "KledexRedisCache": "your-redis-cache-connectionstring"
-}
-```
-
-| Name | For |
-| --- | --- |
-| **KledexDomainStore** | SqlServer, MySql, PostgreSql, Sqlite, CosmosDB Mongo API |
-| **KledexMessageBus** | Service Bus, RabbitMQ |
-| **KledexRedisCache** | Redis Cache |
-
-<a name="settings-cosmos"></a>
-### CosmosDB SQL API
-
-Only for CosmosDB SQL API, add the following configuration section:
-
-```JSON
-{
-  "KledexCosmosSqlConfiguration": {
-    "ServerEndpoint": "https://localhost:8081",
-    "AuthKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
-  }
 }
 ```
