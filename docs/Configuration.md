@@ -77,8 +77,8 @@ Each store provider has got some options, some of them required such as the conn
 **EF.MySql, EF.PostgreSql, EF.Sqlite and EF.SqlServer**
 
 | Property | Description | Default |
-| --- | --- | --- | --- |
-| **ConnectionString** | The connection string of the database | null |
+| --- | --- | --- |
+| **ConnectionString** | The connection string of the database | _null_ |
 
 **EF.Cosmos**
 
@@ -155,7 +155,7 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
-| **ConnectionString** | The connection string of the database | null |
+| **ConnectionString** | The connection string of the database | _null_ |
 | **DatabaseName** | The Name of the Database | DomainStore |
 | **AggregateCollectionName** | The Name of the Aggregate collection | Aggregates |
 | **CommandCollectionName** | The Name of the Command collection | Commands |
