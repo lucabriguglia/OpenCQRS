@@ -26,6 +26,7 @@ In ConfigureServices method of Startup.cs:
 services.AddKledex(typeof(CreateProduct), typeof(GetProduct));
 ```
 
+You need to pass only one type per assembly that contains your command, event, query and validation handlers.
 CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
@@ -38,8 +39,6 @@ services
     {
          options.PublishEvents = true;
          options.SaveCommandData = true;
-         options.ValidateCommands = false;
-         options.CacheTime = 600;
      }, typeof(CreateProduct), typeof(GetProduct));
 ```
 
@@ -47,43 +46,78 @@ services
 | --- | --- | --- | --- |
 | **PublishEvents** | The value indicating whether events are published automatically | true | The default behavior can be overridden by setting the PublishEvents property in any command |
 | **SaveCommandData** | The value indicating whether domain commands data is saved | true | The default behavior can be overridden by setting the SaveCommandData property in any domain command |
-| **ValidateCommands** | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate property in any command |
-| **CacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
 
 <a name="store"></a>
 ### Store
 
-A domain store database provider needs to be registered as well in order to use the event sourcing functionalities.
+A domain store database provider needs to be registered in order to use the event sourcing functionalities.
 After the NuGet package of your choice has been installed, register the database provider:
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Store.Cosmos.Mongo** | AddCosmosMongoStore |
-| **Kledex.Store.Cosmos.Sql** | AddCosmosSqlStore |
-| **Kledex.Store.EF.MySql** | AddMySqlStore |
-| **Kledex.Store.EF.PostgreSql** | AddPostgreSqlStore |
-| **Kledex.Store.EF.Sqlite** | AddSqliteStore |
-| **Kledex.Store.EF.SqlServer** | AddSqlServerStore |
-| **Kledex.Store.EF.Cosmos** | AddCosmosStore |
+| **Kledex.Store.Cosmos.Mongo** | AddCosmosMongo |
+| **Kledex.Store.Cosmos.Sql** | AddCosmosSql |
+| **Kledex.Store.EF.MySql** | AddMySql |
+| **Kledex.Store.EF.PostgreSql** | AddPostgreSql |
+| **Kledex.Store.EF.Sqlite** | AddSqlite |
+| **Kledex.Store.EF.SqlServer** | AddSqlServer |
+| **Kledex.Store.EF.Cosmos** | AddCosmos |
 
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServerStore(options =>
+    .AddSqlServer(options =>
     {
         options.ConnectionString = "your-connection-string";
     })
 ```
 
-It is possible to set some options the the CosmosDB providers (Mongo and SQL APIs).
+Each store provider has got some options, some of them required such as the connection string.
 
-**CosmosDB SQL API**
+**EF.MySql, EF.PostgreSql, EF.Sqlite and EF.SqlServer**
+
+| Property | Description | Default |
+| --- | --- | --- | --- |
+| **ConnectionString** | The connection string of the database | null |
+
+**EF.Cosmos**
+
+This provider uses the new Microsoft.Azure.Cosmos package.
 
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosDbSqlProvider(options =>
+    .AddCosmos(options =>
     {
+        options.ServiceEndpoint = "your-service-end-point";
+        options.AuthKey = "your-auth-key";
+	options.DatabaseName = "DatabaseId";
+	options.AggregateContainerName = "Aggregates";
+	options.CommandContainerName = "Commands";
+	options.EventContainerName = "Events";
+    });
+```
+
+| Property | Description | Default |
+| --- | --- | --- |
+| **ServiceEndpoint** | The name of the Database | https://localhost:8081 |
+| **AuthKey** | The name of the Database | C2y6yDjf5/R+ob0N8A7Cgv30VRDJ... |
+| **DatabaseName** | The name of the Database | DomainStore |
+| **AggregateContainerName** | The name of the Aggregate container | Aggregates |
+| **CommandContainerName** | The name of the Command container | Commands |
+| **EventContainerName** | The name of the Event container | Events |
+
+**Cosmos.Sql**
+
+This provider uses the old Microsoft.Azure.DocumentDB package.
+
+```C#
+services
+    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddCosmosSql(options =>
+    {
+        options.ServiceEndpoint = "your-service-end-point";
+        options.AuthKey = "your-auth-key";
 	options.DatabaseId = "DatabaseId";
 	options.AggregateCollectionId = "AggregateCollectionId";
 	options.CommandCollectionId = "CommandCollectionId";
@@ -104,13 +138,14 @@ services
 
 Note that the partition key is set by default to '/type'.
 
-**CosmosDB Mongo API**
+**Cosmos.Mongo**
 
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosMongo(options =>
     {
+        options.ConnectionString = "your-connection-string";
         options.DatabaseName = "DatabaseName";
         options.AggregateCollectionName = "AggregateCollectionName";
         options.CommandCollectionName = "CommandCollectionName";
@@ -120,6 +155,7 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
+| **ConnectionString** | The connection string of the database | null |
 | **DatabaseName** | The Name of the Database | DomainStore |
 | **AggregateCollectionName** | The Name of the Aggregate collection | Aggregates |
 | **CommandCollectionName** | The Name of the Command collection | Commands |
@@ -159,6 +195,10 @@ services
     .AddFluentValidation();
 ```
 
+| Property | Description | Default | Notes |
+| --- | --- | --- | --- |
+| **ValidateAllCommands** | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate property in any command |
+
 <a name="caching"></a>
 ### Caching
 
@@ -175,6 +215,10 @@ services
     .AddCosmosStore()
     .AddMemoryCache();
 ```
+
+| Property | Description | Default | Notes |
+| --- | --- | --- | --- |
+| **DefaultCacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
 
 <a name="ui"></a>
 ### UI
