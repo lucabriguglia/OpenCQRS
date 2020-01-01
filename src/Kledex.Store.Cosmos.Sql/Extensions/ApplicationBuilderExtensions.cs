@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Kledex.Extensions;
+using Kledex.Store.Cosmos.Sql.Configuration;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IKledexAppBuilder EnsureCosmosDbSqlDbCreated(this IKledexAppBuilder builder, IOptions<DomainDbOptions> settings)
+        public static IKledexAppBuilder EnsureCosmosDbSqlDbCreated(this IKledexAppBuilder builder, IOptions<CosmosDbOptions> settings)
         {
             var documentClient = builder.App.ApplicationServices.GetService<IDocumentClient>();
 
@@ -44,7 +45,7 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
             }
         }
 
-        private static async Task CreateCollectionIfNotExistsAsync(IDocumentClient documentClient, string collectionId, IOptions<DomainDbOptions> settings)
+        private static async Task CreateCollectionIfNotExistsAsync(IDocumentClient documentClient, string collectionId, IOptions<CosmosDbOptions> settings)
         {
             try
             {

@@ -6,9 +6,9 @@ namespace Kledex.Store.EF.Cosmos
 {
     public class CosmosDomainDbContext : DomainDbContext
     {
-        private readonly CosmosDatabaseOptions _settings;
+        private readonly CosmosDbOptions _settings;
 
-        public CosmosDomainDbContext(DbContextOptions<DomainDbContext> options, CosmosDatabaseOptions settings)
+        public CosmosDomainDbContext(DbContextOptions<DomainDbContext> options, CosmosDbOptions settings)
             : base(options)
         {
             _settings = settings;

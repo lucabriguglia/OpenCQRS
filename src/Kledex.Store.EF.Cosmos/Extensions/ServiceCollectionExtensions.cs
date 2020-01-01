@@ -15,7 +15,7 @@ namespace Kledex.Store.EF.Cosmos.Extensions
             return AddCosmosStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosStore(this IKledexServiceBuilder builder, Action<CosmosDatabaseOptions> configureOptions)
+        public static IKledexServiceBuilder AddCosmosStore(this IKledexServiceBuilder builder, Action<CosmosDbOptions> configureOptions)
         {
             if (builder == null)
             {
@@ -30,7 +30,7 @@ namespace Kledex.Store.EF.Cosmos.Extensions
             builder.Services.Configure(configureOptions);
 
             var serviceProvider = builder.Services.BuildServiceProvider();
-            var dbOptions = serviceProvider.GetService<IOptions<CosmosDatabaseOptions>>().Value;
+            var dbOptions = serviceProvider.GetService<IOptions<CosmosDbOptions>>().Value;
 
             builder.AddEFStore();
 

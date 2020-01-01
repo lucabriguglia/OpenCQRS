@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Documents;
+﻿using Kledex.Store.Cosmos.Sql.Configuration;
+using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Extensions.Options;
@@ -18,7 +19,7 @@ namespace Kledex.Store.Cosmos.Sql.Repositories
         private readonly int? _offerThroughput;
         private readonly ConsistencyLevel? _consistencyLevel;
 
-        protected BaseDocumentRepository(string collectionId, IDocumentClient documentClient, IOptions<DomainDbOptions> settings)
+        protected BaseDocumentRepository(string collectionId, IDocumentClient documentClient, IOptions<CosmosDbOptions> settings)
         {
             _documentClient = documentClient;
             _databaseId = settings.Value.DatabaseId;

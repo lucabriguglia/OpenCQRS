@@ -6,9 +6,9 @@ namespace Kledex.Store.EF.Cosmos
 {
     public class CosmosDatabaseProvider : IDatabaseProvider
     {
-        private readonly CosmosDatabaseOptions _settings;
+        private readonly CosmosDbOptions _settings;
 
-        public CosmosDatabaseProvider(IOptions<CosmosDatabaseOptions> settings)
+        public CosmosDatabaseProvider(IOptions<CosmosDbOptions> settings)
         {
             _settings = settings.Value;
         }

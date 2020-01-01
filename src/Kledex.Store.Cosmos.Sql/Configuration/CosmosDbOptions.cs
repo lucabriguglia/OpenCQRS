@@ -1,8 +1,8 @@
 ﻿using Microsoft.Azure.Documents;
 
-namespace Kledex.Store.Cosmos.Sql
+namespace Kledex.Store.Cosmos.Sql.Configuration
 {
-    public class DomainDbOptions
+    public class CosmosDbOptions
     {
         public string DatabaseId { get; set; } = "DomainStore";
         public string AggregateCollectionId { get; set; } = "Aggregates";

@@ -1,6 +1,7 @@
 ﻿using System;
 using Kledex.Domain;
 using Kledex.Extensions;
+using Kledex.Store.Cosmos.Mongo.Configuration;
 using Kledex.Store.Cosmos.Mongo.Documents.Factories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +14,7 @@ namespace Kledex.Store.Cosmos.Mongo.Extensions
             return AddCosmosMongoStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosMongoStore(this IKledexServiceBuilder builder, Action<DomainDbOptions> setupAction)
+        public static IKledexServiceBuilder AddCosmosMongoStore(this IKledexServiceBuilder builder, Action<MongoOptions> setupAction)
         {
             if (builder == null)
             {
@@ -28,7 +29,7 @@ namespace Kledex.Store.Cosmos.Mongo.Extensions
             builder.Services.Configure(setupAction);
 
             builder.Services
-                .AddTransient<IStoreProvider, StoreProvider>();
+                .AddTransient<IStoreProvider, MongoStoreProvider>();
 
             builder.Services
                 .AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>()

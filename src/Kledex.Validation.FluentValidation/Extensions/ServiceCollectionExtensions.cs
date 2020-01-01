@@ -1,5 +1,4 @@
-﻿using Kledex.Configuration;
-using Kledex.Extensions;
+﻿using Kledex.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 

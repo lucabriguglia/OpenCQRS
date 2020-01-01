@@ -19,7 +19,7 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
             return AddCosmosSqlStore(builder, configuration, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosSqlStore(this IKledexServiceBuilder builder, IConfiguration configuration, Action<DomainDbOptions> setupAction)
+        public static IKledexServiceBuilder AddCosmosSqlStore(this IKledexServiceBuilder builder, IConfiguration configuration, Action<CosmosDbOptions> setupAction)
         {
             if (builder == null)
             {
@@ -44,7 +44,7 @@ namespace Kledex.Store.Cosmos.Sql.Extensions
             builder.Services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
             builder.Services
-                .AddTransient<IStoreProvider, StoreProvider>();
+                .AddTransient<IStoreProvider, CosmosStoreProvider>();
 
             builder.Services
                 .AddTransient<IAggregateDocumentFactory, AggregateDocumentFactory>()
