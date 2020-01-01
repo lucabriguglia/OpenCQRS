@@ -1,18 +1,11 @@
 # Configuration
 
-- [Register Services](#register)
-    - [Main](#main)
-    - [Store Provider](#store)
-    - [Message Bus Provider](#bus)
-    - [Validation Provider](#validation)
-    - [Caching Provider](#caching)
-    - [UI](#ui)
-- [Configure Services](#configure)
-    - [CosmosDB SQL API](#config-cosmos)
-    - [Entity Framework Core](#config-ef)
-- [App Settings](#settings)
-    - [Connection Strings](#settings-connstrings)
-    - [CosmosDB SQL API](#settings-cosmos)
+- [Main](#main)
+- [Store Provider](#store)
+- [Message Bus Provider](#bus)
+- [Validation Provider](#validation)
+- [Caching Provider](#caching)
+- [UI](#ui)
 
 <a name="main"></a>
 ## Main
@@ -39,6 +32,8 @@ services
      }, typeof(CreateProduct), typeof(GetProduct));
 ```
 
+**Options**
+
 | Property | Description | Default | Notes |
 | --- | --- | --- | --- |
 | **PublishEvents** | The value indicating whether events are published automatically | true | The default behavior can be overridden by setting the PublishEvents property in any command |
@@ -60,6 +55,8 @@ After the NuGet package of your choice has been installed, register the database
 | **Kledex.Store.EF.SqlServer** | AddSqlServer |
 | **Kledex.Store.EF.Cosmos** | AddCosmos |
 
+### EF.MySql, EF.PostgreSql, EF.Sqlite and EF.SqlServer
+
 ```C#
 services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
@@ -69,15 +66,22 @@ services
     })
 ```
 
-Each store provider has got some options, some of them required such as the connection string.
-
-**EF.MySql, EF.PostgreSql, EF.Sqlite and EF.SqlServer**
+**Options**
 
 | Property | Description | Default |
 | --- | --- | --- |
 | **ConnectionString** | The connection string of the database | _null_ |
 
-**EF.Cosmos**
+**Confgure in Startup**
+
+```C#
+public void Configure(IApplicationBuilder app)
+{
+    app.UseKledex().EnsureDomainDbCreated();
+}
+```
+
+### EF.Cosmos
 
 This provider uses the new Microsoft.Azure.Cosmos package.
 
@@ -88,12 +92,14 @@ services
     {
         options.ServiceEndpoint = "your-service-end-point";
         options.AuthKey = "your-auth-key";
-	options.DatabaseName = "DatabaseId";
-	options.AggregateContainerName = "Aggregates";
-	options.CommandContainerName = "Commands";
-	options.EventContainerName = "Events";
+	    options.DatabaseName = "DatabaseId";
+	    options.AggregateContainerName = "Aggregates";
+	    options.CommandContainerName = "Commands";
+	    options.EventContainerName = "Events";
     });
 ```
+
+**Options**
 
 | Property | Description | Default |
 | --- | --- | --- |
@@ -106,7 +112,16 @@ services
 
 Note that the partition key is set by default to '/type'.
 
-**Cosmos.Sql**
+**Configure in Startup**
+
+```C#
+public void Configure(IApplicationBuilder app)
+{
+    app.UseKledex().EnsureCosmosDbCreated();
+}
+```
+
+### Cosmos.Sql
 
 This provider uses the old Microsoft.Azure.DocumentDB package.
 
@@ -115,16 +130,18 @@ services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosSql(options =>
     {
-        options.ServiceEndpoint = "your-service-end-point";
-        options.AuthKey = "your-auth-key";
-	options.DatabaseId = "DatabaseId";
-	options.AggregateCollectionId = "AggregateCollectionId";
-	options.CommandCollectionId = "CommandCollectionId";
-	options.EventCollectionId = "EventCollectionId";
-	options.OfferThroughput = 400;
-	options.ConsistencyLevel = ConsistencyLevel.Session;
+		options.ServiceEndpoint = "your-service-end-point";
+		options.AuthKey = "your-auth-key";
+		options.DatabaseId = "DatabaseId";
+		options.AggregateCollectionId = "AggregateCollectionId";
+		options.CommandCollectionId = "CommandCollectionId";
+		options.EventCollectionId = "EventCollectionId";
+		options.OfferThroughput = 400;
+		options.ConsistencyLevel = ConsistencyLevel.Session;
     });
 ```
+
+**Options**
 
 | Property | Description | Default |
 | --- | --- | --- |
@@ -139,7 +156,16 @@ services
 
 Note that the partition key is set by default to '/type'.
 
-**Cosmos.Mongo**
+**Configure in Startup**
+
+```C#
+public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> settings)
+{
+    app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
+}
+```
+
+### Cosmos.Mongo
 
 ```C#
 services
@@ -153,6 +179,8 @@ services
         options.EventCollectionName = "EventCollectionName";
     });
 ```
+
+**Options**
 
 | Property | Description | Default |
 | --- | --- | --- |
@@ -182,6 +210,8 @@ services
         options.ConnectionString = "your-connection-string";
     });
 ```
+
+**Options**
 
 | Property | Description | Default |
 | --- | --- | --- |
@@ -233,6 +263,8 @@ services
     });
 ```
 
+**Options**
+
 | Property | Description | Default | Notes |
 | --- | --- | --- | --- |
 | **ConnectionString** | The connection string | _null_ | Redis only |
@@ -248,33 +280,4 @@ services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddUI();
-```
-
-<a name="configure"></a>
-## Configure Services
-
-In Configure method of Startup.cs:
-
-<a name="config-cosmos"></a>
-### CosmosDB SQL API
-
-For CosmosDB SQL API:
-
-```C#
-public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> settings)
-{
-    app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
-}
-```
-
-<a name="config-ef"></a>
-### Entity Framework Core
-
-For Entity Framework Core (SqlServer, MySQL, PostgreSQL and Sqlite):
-
-```C#
-public void Configure(IApplicationBuilder app)
-{
-    app.UseKledex().EnsureDomainDbCreated();
-}
 ```
