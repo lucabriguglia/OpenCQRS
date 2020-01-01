@@ -92,10 +92,10 @@ services
     {
         options.ServiceEndpoint = "your-service-end-point";
         options.AuthKey = "your-auth-key";
-	    options.DatabaseName = "DatabaseId";
-	    options.AggregateContainerName = "Aggregates";
-	    options.CommandContainerName = "Commands";
-	    options.EventContainerName = "Events";
+	options.DatabaseName = "DatabaseId";
+	options.AggregateContainerName = "Aggregates";
+	options.CommandContainerName = "Commands";
+	options.EventContainerName = "Events";
     });
 ```
 
@@ -130,14 +130,14 @@ services
     .AddKledex(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosSql(options =>
     {
-		options.ServiceEndpoint = "your-service-end-point";
-		options.AuthKey = "your-auth-key";
-		options.DatabaseId = "DatabaseId";
-		options.AggregateCollectionId = "AggregateCollectionId";
-		options.CommandCollectionId = "CommandCollectionId";
-		options.EventCollectionId = "EventCollectionId";
-		options.OfferThroughput = 400;
-		options.ConsistencyLevel = ConsistencyLevel.Session;
+	options.ServiceEndpoint = "your-service-end-point";
+	options.AuthKey = "your-auth-key";
+	options.DatabaseId = "DatabaseId";
+	options.AggregateCollectionId = "AggregateCollectionId";
+	options.CommandCollectionId = "CommandCollectionId";
+	options.EventCollectionId = "EventCollectionId";
+	options.OfferThroughput = 400;
+	options.ConsistencyLevel = ConsistencyLevel.Session;
     });
 ```
 
