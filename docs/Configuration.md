@@ -14,11 +14,8 @@
     - [Connection Strings](#settings-connstrings)
     - [CosmosDB SQL API](#settings-cosmos)
 
-<a name="register"></a>
-## Register services
-
 <a name="main"></a>
-### Main
+## Main
 
 In ConfigureServices method of Startup.cs:
 
@@ -48,7 +45,7 @@ services
 | **SaveCommandData** | The value indicating whether domain commands data is saved | true | The default behavior can be overridden by setting the SaveCommandData property in any domain command |
 
 <a name="store"></a>
-### Store
+## Store
 
 A domain store database provider needs to be registered in order to use the event sourcing functionalities.
 After the NuGet package of your choice has been installed, register the database provider:
@@ -100,8 +97,8 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
-| **ServiceEndpoint** | The name of the Database | https://localhost:8081 |
-| **AuthKey** | The name of the Database | C2y6yDjf5/R+ob0N8A7Cgv30VRDJ... |
+| **ServiceEndpoint** | The service end point | https://localhost:8081 |
+| **AuthKey** | The auth key | C2y6yDjf5/R+ob0N8A7Cgv30VRDJ... |
 | **DatabaseName** | The name of the Database | DomainStore |
 | **AggregateContainerName** | The name of the Aggregate container | Aggregates |
 | **CommandContainerName** | The name of the Command container | Commands |
@@ -129,6 +126,8 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
+| **ServiceEndpoint** | The service end point | https://localhost:8081 |
+| **AuthKey** | The auth key | C2y6yDjf5/R+ob0N8A7Cgv30VRDJ... |
 | **DatabaseId** | The Id of the Database | DomainStore |
 | **AggregateCollectionId** | The Id of the Aggregate collection | Aggregates |
 | **CommandCollectionId** | The Id of the Command collection | Commands |
@@ -162,7 +161,7 @@ services
 | **EventCollectionName** | The Name of the Event collection | Events |
 
 <a name="bus"></a>
-### Message Bus
+## Message Bus
 
 A message bus provider needs to be registered as well in order to use the message bus functionalities.
 Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet package has been installed, register a provider:
@@ -180,7 +179,7 @@ services
 ```
 
 <a name="validation"></a>
-### Validation
+## Validation
 
 Add a validation provider if you want your commands to be validated before the command handler is executed:
 
@@ -200,7 +199,7 @@ services
 | **ValidateAllCommands** | The value indicating whether all commands need to be validated before being sent to the handler | false | The default value can be overridden by setting the Validate property in any command |
 
 <a name="caching"></a>
-### Caching
+## Caching
 
 Add a caching provider if you want the result of your queries to be automatically cached:
 
@@ -221,7 +220,7 @@ services
 | **DefaultCacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
 
 <a name="ui"></a>
-### UI
+## UI
 
 Experimental package to get a view of an aggregate and all associated events:
 
