@@ -1,5 +1,10 @@
 # Release Notes
 
+## Kledex 2.5
+_**Released 04/01/2020**_
+- Entity Framework Cosmos Store Provider
+- Changes to registration and configuration (BREAKING CHANGES)
+
 ## Kledex 2.4.1
 _**Released 26/12/2019**_
 - Performance improvements for command validation and queries
