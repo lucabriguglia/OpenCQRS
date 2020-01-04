@@ -10,13 +10,13 @@
 <a name="main"></a>
 ## Main
 
-In ConfigureServices method of Startup.cs:
+First, register the main package in the ConfigureServices method of Startup.cs:
 
 ```C#
 services.AddKledex(typeof(CreateProduct), typeof(GetProduct));
 ```
 
-You need to pass only one type per assembly that contains your command, event, query and validation handlers.
+All command, event, query and validation handlers will be registered automatically by passing one type per assembly.
 CreateProduct is an sample command and GetProduct is a sample query.
 In this scenario, commands and queries are in two different assemblies.
 Both assemblies need to be registered.
@@ -42,8 +42,8 @@ services
 <a name="store"></a>
 ## Store
 
-A domain store database provider needs to be registered in order to use the event sourcing functionalities.
-After the NuGet package of your choice has been installed, register the database provider:
+In order to use the event sourcing functionalities you need to install and register a store provider.
+The following are the providers that are currently supported:
 
 | Package | Method |
 | --- | --- |
@@ -54,6 +54,8 @@ After the NuGet package of your choice has been installed, register the database
 | **Kledex.Store.EF.Sqlite** | AddSqlite |
 | **Kledex.Store.EF.SqlServer** | AddSqlServer |
 | **Kledex.Store.EF.Cosmos** | AddCosmos |
+
+The are different registration and configuration options available for each provider:
 
 ### EF.MySql, EF.PostgreSql, EF.Sqlite and EF.SqlServer
 
@@ -193,8 +195,8 @@ services
 <a name="bus"></a>
 ## Message Bus
 
-A message bus provider needs to be registered in order to use the message bus functionalities.
-Kledex currently supports Azure Service Bus and RabbitMQ. After the NuGet package has been installed, register a provider:
+In order to use the message bus functionalities you need to register a message bus provider.
+Kledex currently supports Azure Service Bus and RabbitMQ:
 
 | Package | Method |
 | --- | --- |
@@ -245,7 +247,7 @@ services
 <a name="caching"></a>
 ## Caching
 
-Add a caching provider if you want the result of your queries to be automatically cached:
+Add a caching provider if you want the result of your queries to be cached automatically:
 
 | Package | Method |
 | --- | --- |
