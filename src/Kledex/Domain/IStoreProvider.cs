@@ -14,6 +14,13 @@ namespace Kledex.Domain
         Task SaveAsync(SaveStoreData request);
 
         /// <summary>
+        /// Deletes the store data asynchronously.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        Task DeleteAsync(DeleteStoreData request);
+
+        /// <summary>
         /// Gets the events asynchronously.
         /// </summary>
         /// <param name="aggregateId">The aggregate identifier.</param>
@@ -27,6 +34,13 @@ namespace Kledex.Domain
         void Save(SaveStoreData request);
 
         /// <summary>
+        /// Deletes the store data.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        void Delete(DeleteStoreData request);
+
+        /// <summary>
         /// Gets the events.
         /// </summary>
         /// <param name="aggregateId">The aggregate identifier.</param>
@@ -36,6 +50,16 @@ namespace Kledex.Domain
 
     public class DefaultStoreProvider : IStoreProvider
     {
+        public void Delete(DeleteStoreData request)
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
+        public Task DeleteAsync(DeleteStoreData request)
+        {
+            throw new NotImplementedException(Consts.StoreRequiredMessage);
+        }
+
         public IEnumerable<IDomainEvent> GetEvents(Guid aggregateId)
         {
             throw new NotImplementedException(Consts.StoreRequiredMessage);

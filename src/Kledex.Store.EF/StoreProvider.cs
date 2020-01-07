@@ -30,6 +30,25 @@ namespace Kledex.Store.EF
             _versionService = versionService;
         }
 
+        public void Delete(DeleteStoreData request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(DeleteStoreData request)
+        {
+            using (var dbContext = _dbContextFactory.CreateDbContext())
+            {
+                // Remove events
+
+                // Remove command
+
+                // Remove aggregate if no events
+
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
         public IEnumerable<IDomainEvent> GetEvents(Guid aggregateId)
         {
             var result = new List<DomainEvent>();

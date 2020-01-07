@@ -52,6 +52,12 @@ namespace Kledex
         }
 
         /// <inheritdoc />
+        public Task StartAsync(ISaga saga)
+        {
+            return Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
         public Task<TResult> SendAsync<TResult>(ICommand command)
         {
             return _commandSender.SendAsync<TResult>(command);

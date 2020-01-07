@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Kledex.Commands
 {
-    [Obsolete("Please use Saga instead.")]
-    public abstract class CommandSequence : ICommandSequence
+    public abstract class Saga : ISaga
     {
         private readonly List<ICommand> _commands = new List<ICommand>();
         public ReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
 
         /// <summary>
-        /// Adds the command to the sequence collection.
+        /// Adds the command to the saga collection.
         /// </summary>
         /// <param name="command">The command.</param>
         protected void AddCommand(ICommand command)

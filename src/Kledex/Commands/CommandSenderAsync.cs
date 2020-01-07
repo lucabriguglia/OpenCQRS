@@ -64,6 +64,12 @@ namespace Kledex.Commands
         }
 
         /// <inheritdoc />
+        public Task StartAsync(ISaga saga)
+        {
+            return ProcessSagaAsync(saga);
+        }
+
+        /// <inheritdoc />
         public async Task<TResult> SendAsync<TResult>(ICommand command)
         {
             var concreteCommand = _objectFactory.CreateConcreteObject(command);
@@ -93,6 +99,20 @@ namespace Kledex.Commands
             {
                 var concreteCommand = _objectFactory.CreateConcreteObject(command);
                 var response = await ProcessAsync(command, () => GetSequenceCommandResponseAsync(concreteCommand, lastStepResponse));
+                lastStepResponse = response;
+            }
+
+            return lastStepResponse;
+        }
+
+        private async Task<CommandResponse> ProcessSagaAsync(ISaga saga)
+        {
+            CommandResponse lastStepResponse = null;
+
+            foreach (var command in saga.Commands)
+            {
+                var concreteCommand = _objectFactory.CreateConcreteObject(command);
+                var response = await ProcessAsync(command, () => GetSagaCommandResponseAsync(concreteCommand, lastStepResponse));
                 lastStepResponse = response;
             }
 
@@ -159,6 +179,13 @@ namespace Kledex.Commands
             where TCommand : ICommand
         {
             var handler = _handlerResolver.ResolveHandler<ISequenceCommandHandlerAsync<TCommand>>();
+            return handler.HandleAsync(command, previousStepResponse);
+        }
+
+        private Task<CommandResponse> GetSagaCommandResponseAsync<TCommand>(TCommand command, CommandResponse previousStepResponse)
+            where TCommand : ICommand
+        {
+            var handler = _handlerResolver.ResolveHandler<ISagaCommandHandlerAsync<TCommand>>();
             return handler.HandleAsync(command, previousStepResponse);
         }
 

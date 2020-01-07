@@ -5,7 +5,6 @@ namespace Kledex.Domain
 {
     public interface IDomainCommand : ICommand
     {
-        Guid Id { get; set; }
         Guid AggregateRootId { get; set; }
         int? ExpectedVersion { get; set; }
         bool? SaveCommandData { get; set; }

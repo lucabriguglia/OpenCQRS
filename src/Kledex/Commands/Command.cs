@@ -4,6 +4,7 @@ namespace Kledex.Commands
 {
     public abstract class Command : ICommand
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string UserId { get; set; }
         public string Source { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;

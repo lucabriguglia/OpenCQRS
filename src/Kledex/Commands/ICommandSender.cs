@@ -26,10 +26,18 @@ namespace Kledex.Domain
 
         /// <summary>
         /// Sends the specified command sequence asynchronously.
-        /// The command handler must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
+        /// The command handlers must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="commandSequence">The command sequence.</param>
+        [Obsolete("Please use StartAsync(ISaga saga) instead.")]
         Task SendAsync(ICommandSequence commandSequence);
+
+        /// <summary>
+        /// Starts the saga asynchronously.
+        /// The command handlers must implement Kledex.Commands.ISagaCommandHandlerAsync&lt;TCommand&gt;.
+        /// </summary>
+        /// <param name="commandSequence">The command sequence.</param>
+        Task StartAsync(ISaga saga);
 
         /// <summary>
         /// Sends the specified command asynchronously.
