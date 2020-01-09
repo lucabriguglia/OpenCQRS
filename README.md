@@ -2,7 +2,7 @@
 
 [![Build Status](https://lucabriguglia.visualstudio.com/Kledex/_apis/build/status/lucabriguglia.Kledex?branchName=master)](https://lucabriguglia.visualstudio.com/Kledex/_build/latest?definitionId=1&branchName=master)
 
-Kledex is a .NET Core framework that can be used to create a simple and clean design by enforcing single responsibility and separation of concerns.
+Kledex is a .NET Standard framework that can be used to create a simple and clean design by enforcing single responsibility and separation of concerns.
 
 Its advanced features are ideal for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing.
 
