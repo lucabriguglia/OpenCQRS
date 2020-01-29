@@ -217,7 +217,7 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
-| **ConnectionString** | The connection string of the database | _null_ |
+| **ConnectionString** | The connection string of the message bus | _null_ |
 
 <a name="validation"></a>
 ## Validation
