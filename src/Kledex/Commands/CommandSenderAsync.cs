@@ -81,8 +81,8 @@ namespace Kledex.Commands
         /// <inheritdoc />
         public async Task<TResult> SendAsync<TResult>(ICommandSequence commandSequence)
         {
-            var lastStepReponse = await ProcessCommandSequenceAsync(commandSequence);
-            return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
+            var lastStepResponse = await ProcessCommandSequenceAsync(commandSequence);
+            return lastStepResponse?.Result != null ? (TResult)lastStepResponse.Result : default;
         }
 
         private async Task<CommandResponse> ProcessCommandSequenceAsync(ICommandSequence commandSequence)
