@@ -10,8 +10,6 @@ With Kledex you can automatically dispatch events to a message bus (Service Bus 
 
 **Full Documentation**: [Kledex Wiki](https://lucabriguglia.github.io/Kledex).
 
-**Visual Studio Template**: [DDD-CQRS-ES Starter Kit](https://github.com/lucabriguglia/DDD-CQRS-ES-Starter-Kit).
-
 ## Main Flow
 
 ![Send Command Flow](docs/assets/img/SendCommandFlow.svg)
