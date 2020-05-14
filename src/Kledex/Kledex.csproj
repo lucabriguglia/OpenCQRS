@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.4" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="ReflectionMagic" Version="4.1.0" />
     <PackageReference Include="Scrutor" Version="3.1.0" />
     <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
