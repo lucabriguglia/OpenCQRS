@@ -4,18 +4,20 @@ using Kledex.Exceptions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Kledex.Queries
 {
     /// <inheritdoc />
+    [SuppressMessage("ReSharper", "IdentifierTypo")]
     public class QueryProcessor : IQueryProcessor
     {
         private readonly IHandlerResolver _handlerResolver;
         private readonly ICacheManager _cacheManager;
         private readonly CacheOptions _cacheOptions;
 
-        private static readonly ConcurrentDictionary<Type, object> _queryHandlerWrappers = new ConcurrentDictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, object> QueryHandlerWrappers = new ConcurrentDictionary<Type, object>();
 
         public QueryProcessor(IHandlerResolver handlerResolver, 
             ICacheManager cacheManager, 
@@ -34,12 +36,12 @@ namespace Kledex.Queries
                 throw new ArgumentNullException(nameof(query));
             }
 
-            Task<TResult> GetResultAsync(IQuery<TResult> query)
+            Task<TResult> GetResultAsync(IQuery<TResult> queryForHandler)
             {
-                var queryType = query.GetType();
-                var handler = (BaseQueryHandlerWrapper<TResult>)_queryHandlerWrappers.GetOrAdd(queryType,
+                var queryType = queryForHandler.GetType();
+                var handler = (BaseQueryHandlerWrapper<TResult>)QueryHandlerWrappers.GetOrAdd(queryType,
                     t => Activator.CreateInstance(typeof(QueryHandlerWrapper<,>).MakeGenericType(queryType, typeof(TResult))));
-                return handler.HandleAsync(query, _handlerResolver);
+                return handler.HandleAsync(queryForHandler, _handlerResolver);
             }
 
             if (query is ICacheableQuery<TResult> cacheableQuery)
@@ -66,12 +68,12 @@ namespace Kledex.Queries
                 throw new ArgumentNullException(nameof(query));
             }
 
-            TResult GetResult(IQuery<TResult> query)
+            TResult GetResult(IQuery<TResult> queryForHandler)
             {
-                var queryType = query.GetType();
-                var handler = (BaseQueryHandlerWrapper<TResult>)_queryHandlerWrappers.GetOrAdd(queryType,
+                var queryType = queryForHandler.GetType();
+                var handler = (BaseQueryHandlerWrapper<TResult>)QueryHandlerWrappers.GetOrAdd(queryType,
                     t => Activator.CreateInstance(typeof(QueryHandlerWrapper<,>).MakeGenericType(queryType, typeof(TResult))));
-                return handler.Handle(query, _handlerResolver);
+                return handler.Handle(queryForHandler, _handlerResolver);
             }
 
             if (query is ICacheableQuery<TResult> cacheableQuery)
