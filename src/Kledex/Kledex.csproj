@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.4" />
     <PackageReference Include="ReflectionMagic" Version="4.1.0" />
     <PackageReference Include="Scrutor" Version="3.1.0" />
+    <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
