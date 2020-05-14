@@ -4,13 +4,11 @@ using Kledex.Exceptions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Kledex.Queries
 {
     /// <inheritdoc />
-    [SuppressMessage("ReSharper", "IdentifierTypo")]
     public class QueryProcessor : IQueryProcessor
     {
         private readonly IHandlerResolver _handlerResolver;
