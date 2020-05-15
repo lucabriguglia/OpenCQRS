@@ -13,6 +13,8 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: NuGetToolInstaller@1
+
 - script: dotnet build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'dotnet build $(buildConfiguration)'
 

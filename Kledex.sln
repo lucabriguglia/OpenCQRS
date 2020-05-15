@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{54E87113-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEF09A92-D2CB-4107-A2D8-67FFC42DBC3E}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines-1.yml = azure-pipelines-1.yml
 		azure-pipelines.yml = azure-pipelines.yml
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		Directory.Build.props = Directory.Build.props
@@ -98,7 +99,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{05D6EE8E-C35
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Sample.CommandSequence", "samples\Kledex.Sample.CommandSequence\Kledex.Sample.CommandSequence.csproj", "{6DB19E10-1942-44CC-B592-01A34CEE8C77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kledex.Store.EF.Cosmos", "src\Kledex.Store.EF.Cosmos\Kledex.Store.EF.Cosmos.csproj", "{E11E8FAB-DE31-4702-8459-2ECCE463EE14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kledex.Store.EF.Cosmos", "src\Kledex.Store.EF.Cosmos\Kledex.Store.EF.Cosmos.csproj", "{E11E8FAB-DE31-4702-8459-2ECCE463EE14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
