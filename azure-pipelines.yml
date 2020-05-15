@@ -14,6 +14,8 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  inputs:
+    checkLatest: true
 
 - script: dotnet build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'dotnet build $(buildConfiguration)'
