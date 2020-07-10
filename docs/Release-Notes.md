@@ -1,5 +1,16 @@
 # Release Notes
 
+## Kledex 3.0
+_**Released ??/??/2020**_
+- Remove queries (BREAKING CHANGES)
+- Remove Kledex.UI package (BREAKING CHANGES)
+- Add IDomainService to get info about aggregates and events
+- Various improvements
+
+## Kledex 2.5.1
+_**Released 018/01/2020**_
+- Minor changes
+
 ## Kledex 2.5
 _**Released 04/01/2020**_
 - Entity Framework Cosmos Store Provider

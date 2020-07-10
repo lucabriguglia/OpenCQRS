@@ -5,7 +5,6 @@
 - [Message Bus Provider](#bus)
 - [Validation Provider](#validation)
 - [Caching Provider](#caching)
-- [UI](#ui)
 
 <a name="main"></a>
 ## Main
@@ -247,7 +246,7 @@ services
 <a name="caching"></a>
 ## Caching
 
-Add a caching provider if you want the result of your queries to be cached automatically:
+Add a caching provider if you want to use the Cache Manager (ICacheManager):
 
 | Package | Method |
 | --- | --- |
@@ -271,15 +270,3 @@ services
 | --- | --- | --- | --- |
 | **ConnectionString** | The connection string | _null_ | Redis only |
 | **DefaultCacheTime** | The value indicating the default cache time (in seconds) | 60 | The default value can be overridden by setting the CacheTime property in any cacheable query |
-
-<a name="ui"></a>
-## UI
-
-Experimental package to get a view of an aggregate and all associated events:
-
-```C#
-services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosStore()
-    .AddUI();
-```

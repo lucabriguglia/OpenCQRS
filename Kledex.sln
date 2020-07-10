@@ -67,7 +67,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D7A5-4562-8B9B-1C27B83EE580}"
 	ProjectSection(SolutionItems) = preProject
 		docs\Basics.md = docs\Basics.md
-		docs\Caching-Queries.md = docs\Caching-Queries.md
 		docs\Command-Sequence.md = docs\Command-Sequence.md
 		docs\Command-Validation.md = docs\Command-Validation.md
 		docs\Commands.md = docs\Commands.md
@@ -78,10 +77,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1282A8FB-D
 		docs\Installation.md = docs\Installation.md
 		docs\Message-Bus.md = docs\Message-Bus.md
 		docs\Providers.md = docs\Providers.md
-		docs\Queries.md = docs\Queries.md
 		docs\Release-Notes.md = docs\Release-Notes.md
 		docs\Samples.md = docs\Samples.md
-		docs\UI.md = docs\UI.md
 		docs\With-Event-Sourcing.md = docs\With-Event-Sourcing.md
 		docs\Without-Event-Sourcing.md = docs\Without-Event-Sourcing.md
 	EndProjectSection

@@ -48,8 +48,3 @@ Kledex currently supports the following validation providers:
 Kledex currently supports the following caching providers:
 - **Kledex.Caching.Memory**
 - **Kledex.Caching.Redis**
-
-## UI package
-
-UI experimental package:
-- **Kledex.UI**
