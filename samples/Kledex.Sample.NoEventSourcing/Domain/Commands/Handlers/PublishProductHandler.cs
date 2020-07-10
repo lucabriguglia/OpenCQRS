@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Domain;
 using Microsoft.EntityFrameworkCore;
 using Kledex.Sample.NoEventSourcing.Domain.Events;
 using Kledex.Sample.NoEventSourcing.Data;
@@ -31,16 +29,10 @@ namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
 
             await _dbContext.SaveChangesAsync();
 
-            return new CommandResponse
+            return new CommandResponse(new ProductPublished
             {
-                Events = new List<IDomainEvent>()
-                {
-                    new ProductPublished
-                    {
-                        AggregateRootId = product.Id
-                    }
-                }
-            };
+                AggregateRootId = product.Id
+            });
         }
     }
 }

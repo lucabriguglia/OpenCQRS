@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kledex.Sample.EventSourcing.Domain.Commands;
+using Kledex.Sample.EventSourcing.Reporting;
 using Kledex.Sample.EventSourcing.Reporting.Data;
-using Kledex.Sample.EventSourcing.Reporting.Queries;
 using Kledex.UI.Models;
-using Kledex.UI.Queries;
+using Kledex.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,10 +13,16 @@ namespace Kledex.Sample.EventSourcing.Pages
     public class EditModel : PageModel
     {
         private readonly IDispatcher _dispatcher;
+        private readonly IAggregateService _aggregateService;
+        private readonly IProductReportingService _productReportingService;
 
-        public EditModel(IDispatcher dispatcher)
+        public EditModel(IDispatcher dispatcher, 
+            IAggregateService aggregateService,
+            IProductReportingService productReportingService)
         {
             _dispatcher = dispatcher;
+            _aggregateService = aggregateService;
+            _productReportingService = productReportingService;
         }
 
         [BindProperty]
@@ -26,15 +32,9 @@ namespace Kledex.Sample.EventSourcing.Pages
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            Product = await _dispatcher.GetResultAsync(new GetProduct
-            {
-                ProductId = id
-            });
+            Product = await _productReportingService.GetProduct(id);
 
-            AggregateModel = await _dispatcher.GetResultAsync(new GetAggregateModel
-            {
-                AggregateRootId = id
-            });
+            AggregateModel = await _aggregateService.GetAggregateAsync(id);
 
             return Page();
         }

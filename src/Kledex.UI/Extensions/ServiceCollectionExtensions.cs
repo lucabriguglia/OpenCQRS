@@ -1,7 +1,7 @@
 ﻿using System;
 using Kledex.Extensions;
 using Kledex.UI.Configuration;
-using Kledex.UI.Queries;
+using Kledex.UI.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kledex.UI.Extensions
@@ -39,7 +39,7 @@ namespace Kledex.UI.Extensions
             builder.Services.Configure(setupAction);
 
             builder.Services.Scan(s => s
-                .FromAssembliesOf(typeof(GetAggregateModel))
+                .FromAssembliesOf(typeof(AggregateModel))
                 .AddClasses()
                 .AsImplementedInterfaces());
 

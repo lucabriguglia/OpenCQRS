@@ -12,18 +12,19 @@ namespace Kledex.Sample.NoEventSourcing.Pages
     public class ListModel : PageModel
     {
         private readonly IDispatcher _dispatcher;
+        private readonly IProductReportingService _productReportingService;
 
-        public ListModel(IDispatcher dispatcher)
+        public ListModel(IDispatcher dispatcher, IProductReportingService productReportingService)
         {
             _dispatcher = dispatcher;
+            _productReportingService = productReportingService;
         }
 
         public IList<Product> Products { get; private set; }
 
         public async Task OnGetAsync()
         {
-            var query = new GetProducts();
-            Products = await _dispatcher.GetResultAsync(query);
+            Products = await _productReportingService.GetProducts();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(Guid id)

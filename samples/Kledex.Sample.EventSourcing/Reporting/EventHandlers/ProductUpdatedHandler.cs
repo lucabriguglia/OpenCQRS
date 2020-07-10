@@ -5,7 +5,7 @@ using Kledex.Sample.EventSourcing.Domain.Events;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
+namespace Kledex.Sample.EventSourcing.Reporting.EventHandlers
 {
     public class ProductUpdatedHandler : IEventHandlerAsync<ProductUpdated>
     {

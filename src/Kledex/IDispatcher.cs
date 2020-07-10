@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Kledex.Bus;
 using Kledex.Commands;
 using Kledex.Events;
-using Kledex.Queries;
 
 namespace Kledex
 {
@@ -68,15 +67,6 @@ namespace Kledex
             where TEvent : IEvent;
 
         /// <summary>
-        /// Asynchronously gets the result.
-        /// The query handler must implement Kledex.Queries.IQueryHandlerAsync&lt;TQuery, TResult&gt;.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="query">The query.</param>
-        /// <returns>TResult</returns>
-        Task<TResult> GetResultAsync<TResult>(IQuery<TResult> query);
-
-        /// <summary>
         /// Dispatches the bus message asynchronously.
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
@@ -139,14 +129,5 @@ namespace Kledex
         /// <param name="event">The event.</param>
         void Publish<TEvent>(TEvent @event) 
             where TEvent : IEvent;
-
-        /// <summary>
-        /// Gets the result.
-        /// The query handler must implement Kledex.Queries.IQueryHandler&lt;TQuery, TResult&gt;.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="query">The query.</param>
-        /// <returns>TResult</returns>
-        TResult GetResult<TResult>(IQuery<TResult> query);
     }
 }
