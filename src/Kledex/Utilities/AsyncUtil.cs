@@ -10,7 +10,7 @@ namespace Kledex.Utilities
     /// </summary>
     public static class AsyncUtil
     {
-        private static readonly TaskFactory _taskFactory = new
+        private static readonly TaskFactory TaskFactory = new
             TaskFactory(CancellationToken.None,
                         TaskCreationOptions.None,
                         TaskContinuationOptions.None,
@@ -22,7 +22,7 @@ namespace Kledex.Utilities
         /// </summary>
         /// <param name="task">Task method to execute</param>
         public static void RunSync(Func<Task> task)
-            => _taskFactory
+            => TaskFactory
                 .StartNew(task)
                 .Unwrap()
                 .GetAwaiter()
@@ -36,7 +36,7 @@ namespace Kledex.Utilities
         /// <param name="task">Task<T> method to execute</param>
         /// <returns></returns>
         public static TResult RunSync<TResult>(Func<Task<TResult>> task)
-            => _taskFactory
+            => TaskFactory
                 .StartNew(task)
                 .Unwrap()
                 .GetAwaiter()
