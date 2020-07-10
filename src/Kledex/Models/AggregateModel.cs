@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Kledex.Domain;
 
-namespace Kledex.UI.Models
+namespace Kledex.Models
 {
     public class AggregateModel
     {
@@ -12,12 +13,14 @@ namespace Kledex.UI.Models
 
             foreach (var @event in domainEvents)
             {
-                Events.Add(new EventModel(@event));
+                _events.Add(new EventModel(@event));
                 Version++;
             }
         }
 
-        public IList<EventModel> Events { get; set; } = new List<EventModel>();
-        public int Version { get; set; }
+        public int Version { get; }
+
+        public ReadOnlyCollection<EventModel> Events => _events.AsReadOnly();
+        private readonly List<EventModel> _events = new List<EventModel>();
     }
 }

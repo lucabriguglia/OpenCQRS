@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kledex.Domain;
-using Kledex.UI.Models;
+using Kledex.Models;
 
-namespace Kledex.UI.Services
+namespace Kledex.Services
 {
-    public class AggregateService : IAggregateService
+    public class DomainService : IDomainService
     {
         private readonly IStoreProvider _storeProvider;
 
-        public AggregateService(IStoreProvider storeProvider)
+        public DomainService(IStoreProvider storeProvider)
         {
             _storeProvider = storeProvider;
         }

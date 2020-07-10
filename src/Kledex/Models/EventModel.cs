@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Kledex.Domain;
 
-namespace Kledex.UI.Models
+namespace Kledex.Models
 {
     public class EventModel
     {
@@ -26,19 +27,23 @@ namespace Kledex.UI.Models
                             x.Name != nameof(@event.Source) &&
                             x.Name != nameof(@event.TimeStamp));
 
+            var data = new Dictionary<string, string>();
+
             foreach (var propertyInfo in properties)
             {
-                Data.Add(propertyInfo.Name, propertyInfo.GetValue(@event, null)?.ToString());
+                data.Add(propertyInfo.Name, propertyInfo.GetValue(@event, null)?.ToString());
             }
+
+            Data = new ReadOnlyDictionary<string, string>(data);
         }
 
-        public Guid Id { get; set; }
-        public Guid AggregateRootId { get; set; }
-        public Guid CommandId { get; set; }
-        public string UserId { get; set; }
-        public string Source { get; set; }
-        public DateTime TimeStamp { get; set; }
-        public string Type { get; set; }
-        public Dictionary<string, string> Data { get; set; } = new Dictionary<string, string>();
+        public Guid Id { get; }
+        public Guid AggregateRootId { get; }
+        public Guid CommandId { get; }
+        public string UserId { get; }
+        public string Source { get; }
+        public DateTime TimeStamp { get; }
+        public string Type { get; }
+        public ReadOnlyDictionary<string, string> Data { get; }
     }
 }

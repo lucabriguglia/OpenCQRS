@@ -5,7 +5,6 @@ using Kledex.Sample.EventSourcing.Domain;
 using Kledex.Sample.EventSourcing.Reporting.Data;
 using Kledex.Store.Cosmos.Sql.Configuration;
 using Kledex.Store.EF.Cosmos.Extensions;
-using Kledex.UI.Extensions;
 using Kledex.Validation.FluentValidation.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -61,8 +60,7 @@ namespace Kledex.Sample.EventSourcing
                 //.AddRedisCache(options => {
                 //    options.ConnectionString = Configuration.GetConnectionString("MyRedisCache");
                 //})
-                .AddMemoryCache()
-                .AddUI();
+                .AddMemoryCache();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.UI.Models;
+using Kledex.Models;
 
-namespace Kledex.UI.Services
+namespace Kledex.Services
 {
-    public interface IAggregateService
+    public interface IDomainService
     {
         Task<AggregateModel> GetAggregateAsync(Guid aggregateId);
     }

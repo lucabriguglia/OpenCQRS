@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kledex.Models;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Kledex.Sample.NoEventSourcing.Domain.Commands;
 using Kledex.Sample.NoEventSourcing.Reporting;
-using Kledex.UI.Models;
-using Kledex.UI.Services;
+using Kledex.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,15 +13,15 @@ namespace Kledex.Sample.NoEventSourcing.Pages
     public class EditModel : PageModel
     {
         private readonly IDispatcher _dispatcher;
-        private readonly IAggregateService _aggregateService;
+        private readonly IDomainService _domainService;
         private readonly IProductReportingService _productService;
 
         public EditModel(IDispatcher dispatcher,
-            IAggregateService aggregateService,
+            IDomainService domainService,
             IProductReportingService productService)
         {
             _dispatcher = dispatcher;
-            _aggregateService = aggregateService;
+            _domainService = domainService;
             _productService = productService;
         }
 
@@ -34,7 +34,7 @@ namespace Kledex.Sample.NoEventSourcing.Pages
         {
             Product = await _productService.GetProduct(id);
 
-            AggregateModel = await _aggregateService.GetAggregateAsync(id);
+            AggregateModel = await _domainService.GetAggregateAsync(id);
 
             return Page();
         }

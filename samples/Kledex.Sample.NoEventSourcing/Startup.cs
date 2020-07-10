@@ -5,7 +5,6 @@ using Kledex.Sample.NoEventSourcing.Data;
 using Kledex.Sample.NoEventSourcing.Domain;
 using Kledex.Store.EF.Extensions;
 using Kledex.Store.EF.SqlServer.Extensions;
-using Kledex.UI.Extensions;
 using Kledex.Validation.FluentValidation.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,8 +61,7 @@ namespace Kledex.Sample.NoEventSourcing
                 .AddMemoryCache(options =>
                 {
                     options.DefaultCacheTime = 60;
-                })
-                .AddUI();
+                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
