@@ -39,14 +39,5 @@ namespace Kledex.Dependencies
             var handlerType = type.MakeGenericType(paramType);
             return ResolveHandler(handlerType);
         }
-
-        public object ResolveQueryHandler(object query, Type type)
-        {
-            var queryType = query.GetType();
-            var queryInterface = queryType.GetInterfaces()[0];
-            var resultType = queryInterface.GetGenericArguments().FirstOrDefault();
-            var handlerType = type.MakeGenericType(queryType, resultType);
-            return ResolveHandler(handlerType);
-        }
     }
 }

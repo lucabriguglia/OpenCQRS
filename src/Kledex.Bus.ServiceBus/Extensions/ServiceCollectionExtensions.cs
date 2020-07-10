@@ -1,5 +1,4 @@
 ﻿using Kledex.Bus.ServiceBus.Factories;
-using Kledex.Bus.ServiceBus.Queues;
 using Kledex.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;

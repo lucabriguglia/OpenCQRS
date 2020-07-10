@@ -4,7 +4,7 @@ using Kledex.Bus.ServiceBus.Factories;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
 
-namespace Kledex.Bus.ServiceBus.Queues
+namespace Kledex.Bus.ServiceBus
 {
     public class ServiceBusProvider : IBusProvider
     {
