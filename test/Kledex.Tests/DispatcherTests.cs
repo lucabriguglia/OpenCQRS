@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Kledex.Bus;
+using Kledex.Commands;
 using Kledex.Domain;
 using Kledex.Events;
 using Kledex.Tests.Fakes;

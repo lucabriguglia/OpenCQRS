@@ -45,8 +45,8 @@ namespace Kledex.Commands
         /// <inheritdoc />
         public TResult Send<TResult>(ICommandSequence commandSequence)
         {
-            var lastStepReponse = ProcessSequenceCommand(commandSequence);
-            return lastStepReponse?.Result != null ? (TResult)lastStepReponse.Result : default;
+            var lastStepResponse = ProcessSequenceCommand(commandSequence);
+            return lastStepResponse?.Result != null ? (TResult)lastStepResponse.Result : default;
         }
 
         private CommandResponse ProcessSequenceCommand(ICommandSequence commandSequence)

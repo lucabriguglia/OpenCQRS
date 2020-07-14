@@ -20,5 +20,10 @@ namespace Kledex.Services
             var aggregate = new AggregateModel(events);
             return aggregate;
         }
+
+        public async Task SaveStoreDataAsync(SaveStoreData request)
+        {
+            await _storeProvider.SaveAsync(request);
+        }
     }
 }

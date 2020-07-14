@@ -1,8 +1,7 @@
-﻿using Kledex.Commands;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace Kledex.Domain
+namespace Kledex.Commands
 {
     /// <summary>
     /// ICommandSender
