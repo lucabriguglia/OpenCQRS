@@ -47,13 +47,13 @@ The following are the providers that are currently supported:
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Store.Cosmos.Mongo** | AddCosmosMongo |
-| **Kledex.Store.Cosmos.Sql** | AddCosmosSql |
-| **Kledex.Store.EF.MySql** | AddMySql |
-| **Kledex.Store.EF.PostgreSql** | AddPostgreSql |
-| **Kledex.Store.EF.Sqlite** | AddSqlite |
-| **Kledex.Store.EF.SqlServer** | AddSqlServer |
-| **Kledex.Store.EF.Cosmos** | AddCosmos |
+| **OpenCqrs.Store.Cosmos.Mongo** | AddCosmosMongo |
+| **OpenCqrs.Store.Cosmos.Sql** | AddCosmosSql |
+| **OpenCqrs.Store.EF.MySql** | AddMySql |
+| **OpenCqrs.Store.EF.PostgreSql** | AddPostgreSql |
+| **OpenCqrs.Store.EF.Sqlite** | AddSqlite |
+| **OpenCqrs.Store.EF.SqlServer** | AddSqlServer |
+| **OpenCqrs.Store.EF.Cosmos** | AddCosmos |
 
 The are different registration and configuration options available for each provider:
 
@@ -196,12 +196,12 @@ services
 ## Message Bus
 
 In order to use the message bus functionalities you need to register a message bus provider.
-Kledex currently supports Azure Service Bus and RabbitMQ:
+OpenCQRS currently supports Azure Service Bus and RabbitMQ:
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Bus.RabbitMQ** | AddRabbitMQ |
-| **Kledex.Bus.ServiceBus** | AddServiceBus |
+| **OpenCqrs.Bus.RabbitMQ** | AddRabbitMQ |
+| **OpenCqrs.Bus.ServiceBus** | AddServiceBus |
 
 ```C#
 services
@@ -226,7 +226,7 @@ Add a validation provider if you want your commands to be validated before the c
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Validation.FluentValidation** | AddFluentValidation |
+| **OpenCqrs.Validation.FluentValidation** | AddFluentValidation |
 
 ```C#
 services
@@ -251,8 +251,8 @@ Add a caching provider if you want the result of your queries to be cached autom
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Caching.Memory** | AddMemoryCache |
-| **Kledex.Caching.Redis** | AddRedisCache |
+| **OpenCqrs.Caching.Memory** | AddMemoryCache |
+| **OpenCqrs.Caching.Redis** | AddRedisCache |
 
 ```C#
 services

@@ -110,7 +110,7 @@ Message from third command handler. Result from second handler: Second result
 Final result: Third result
 ```
 
-You can find the sample code [here](https://github.com/lucabriguglia/Kledex/tree/master/samples/Kledex.Sample.CommandSequence).
+You can find the sample code [here](https://github.com/lucabriguglia/OpenCQRS/tree/master/samples/OpenCqrs.Sample.CommandSequence).
 
 ## Related
 

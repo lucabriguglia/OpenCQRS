@@ -6,7 +6,7 @@ namespace OpenCqrs.Store.EF.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IKledexAppBuilder EnsureDomainDbCreated(this IKledexAppBuilder builder)
+        public static IOpenCqrsAppBuilder EnsureDomainDbCreated(this IOpenCqrsAppBuilder builder)
         {
             using (var serviceScope = builder.App.ApplicationServices.CreateScope())
             {

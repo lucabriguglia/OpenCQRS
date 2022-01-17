@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Kledex.Store.EF.Migrations
+namespace OpenCqrs.Store.EF.Migrations
 {
     public partial class InitialCreate : Migration
     {

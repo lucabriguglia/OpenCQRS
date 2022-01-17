@@ -6,12 +6,12 @@ namespace OpenCqrs.Caching.Memory.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddMemoryCache(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddMemoryCache(this IOpenCqrsServiceBuilder builder)
         {
             return AddMemoryCache(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddMemoryCache(this IKledexServiceBuilder builder, Action<CacheOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddMemoryCache(this IOpenCqrsServiceBuilder builder, Action<CacheOptions> configureOptions)
         {
             if (builder == null)
             {

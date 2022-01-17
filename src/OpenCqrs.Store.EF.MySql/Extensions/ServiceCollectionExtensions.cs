@@ -10,12 +10,12 @@ namespace OpenCqrs.Store.EF.MySql.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddMySqlStore(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddMySqlStore(this IOpenCqrsServiceBuilder builder)
         {
             return AddMySqlStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddMySqlStore(this IKledexServiceBuilder builder, Action<DatabaseOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddMySqlStore(this IOpenCqrsServiceBuilder builder, Action<DatabaseOptions> configureOptions)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

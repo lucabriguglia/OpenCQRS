@@ -10,12 +10,12 @@ namespace OpenCqrs.Store.EF.SqlServer.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddSqlServerStore(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddSqlServerStore(this IOpenCqrsServiceBuilder builder)
         {
             return AddSqlServerStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddSqlServerStore(this IKledexServiceBuilder builder, Action<DatabaseOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddSqlServerStore(this IOpenCqrsServiceBuilder builder, Action<DatabaseOptions> configureOptions)
         {
             if (builder == null)
             {

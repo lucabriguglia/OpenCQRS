@@ -2,6 +2,6 @@
 {
     public static class CacheKeys
     {
-        public static string ProductsCacheKey = "Kledex | Products";
+        public static string ProductsCacheKey = "OpenCQRS | Products";
     }
 }

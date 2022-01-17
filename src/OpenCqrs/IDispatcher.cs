@@ -14,7 +14,7 @@ namespace OpenCqrs
     {
         /// <summary>
         /// Sends the specified command asynchronously.
-        /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
         Task SendAsync<TCommand>(TCommand command)
@@ -29,14 +29,14 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the specified command sequence asynchronously.
-        /// The command handler must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="commandSequence">The command sequence.</param>
         Task SendAsync(ICommandSequence commandSequence);
 
         /// <summary>
         /// Sends the specified command asynchronously.
-        /// The command handler must implement Kledex.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
         /// <returns>A custom object set as result in the command hadler response.</returns>
@@ -51,7 +51,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the specified command sequence asynchronously.
-        /// The command handler must implement Kledex.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ISequenceCommandHandlerAsync&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="commandSequence">The command sequence.</param>
@@ -60,7 +60,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Asynchronously publishes the specified event.
-        /// The event handler must implement Kledex.Events.IEventHandlerAsync&lt;TEvent&gt;.
+        /// The event handler must implement OpenCqrs.Events.IEventHandlerAsync&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -69,7 +69,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Asynchronously gets the result.
-        /// The query handler must implement Kledex.Queries.IQueryHandlerAsync&lt;TQuery, TResult&gt;.
+        /// The query handler must implement OpenCqrs.Queries.IQueryHandlerAsync&lt;TQuery, TResult&gt;.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="query">The query.</param>
@@ -87,7 +87,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
         void Send<TCommand>(TCommand command)
@@ -102,14 +102,14 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the specified command sequence.
-        /// The command handler must implement Kledex.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <param name="commandSequence">The command sequence.</param>
         void Send(ICommandSequence commandSequence);
 
         /// <summary>
         /// Sends the specified command.
-        /// The command handler must implement Kledex.Commands.ICommandHandler&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ICommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <param name="command">The command.</param>
         /// <returns>A custom object set as result in the command hadler response.</returns>
@@ -124,7 +124,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Sends the sequence specified command sequence.
-        /// The command handler must implement Kledex.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
+        /// The command handler must implement OpenCqrs.Commands.ISequenceCommandHandler&lt;TCommand&gt;.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="commandSequence">The command sequence.</param>
@@ -133,7 +133,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Publishes the specified event.
-        /// The event handler must implement Kledex.Events.IEventHandler&lt;TEvent&gt;.
+        /// The event handler must implement OpenCqrs.Events.IEventHandler&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -142,7 +142,7 @@ namespace OpenCqrs
 
         /// <summary>
         /// Gets the result.
-        /// The query handler must implement Kledex.Queries.IQueryHandler&lt;TQuery, TResult&gt;.
+        /// The query handler must implement OpenCqrs.Queries.IQueryHandler&lt;TQuery, TResult&gt;.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="query">The query.</param>

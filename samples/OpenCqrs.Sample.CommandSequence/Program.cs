@@ -27,7 +27,7 @@ namespace OpenCqrs.Sample.CommandSequence
             var services = new ServiceCollection();
 
             services
-                .AddKledex(typeof(Program))
+                .AddOpenCqrs(typeof(Program))
                 .AddFluentValidation();
 
             return services.BuildServiceProvider();

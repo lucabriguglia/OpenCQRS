@@ -6,12 +6,12 @@ namespace OpenCqrs.Validation.FluentValidation.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddFluentValidation(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddFluentValidation(this IOpenCqrsServiceBuilder builder)
         {
             return AddFluentValidation(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddFluentValidation(this IKledexServiceBuilder builder, Action<ValidationOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddFluentValidation(this IOpenCqrsServiceBuilder builder, Action<ValidationOptions> configureOptions)
         {
             if (builder == null)
             {

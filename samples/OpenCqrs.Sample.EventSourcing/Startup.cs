@@ -44,15 +44,15 @@ namespace OpenCqrs.Sample.EventSourcing
                 options.UseSqlServer(Configuration.GetConnectionString("ReportingDb")));
 
             services
-                .AddKledex(options => 
+                .AddOpenCqrs(options => 
                 {
                     options.PublishEvents = true;
                     options.SaveCommandData = true;
                 }, typeof(Product))
                 .AddCosmosStore(options =>
                 {
-                    options.ServiceEndpoint = Configuration.GetSection("KledexCosmos:ServerEndpoint").Value;
-                    options.AuthKey = Configuration.GetSection("KledexCosmos:AuthKey").Value;
+                    options.ServiceEndpoint = Configuration.GetSection("OpenCqrsCosmos:ServerEndpoint").Value;
+                    options.AuthKey = Configuration.GetSection("OpenCqrsCosmos:AuthKey").Value;
                 })
                 .AddServiceBus(options => {
                     options.ConnectionString = Configuration.GetConnectionString("MyMessageBus");
@@ -71,8 +71,8 @@ namespace OpenCqrs.Sample.EventSourcing
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ReportingDbContext dbContext, IOptions<CosmosDbOptions> settings)
         {
             dbContext.Database.EnsureCreated();
-            //app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
-            app.UseKledex().EnsureCosmosDbCreated();
+            //app.UseOpenCqrs().EnsureCosmosDbSqlDbCreated(settings);
+            app.UseOpenCqrs().EnsureCosmosDbCreated();
 
             if (env.IsDevelopment())
             {

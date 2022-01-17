@@ -7,7 +7,7 @@ namespace OpenCqrs.Bus.ServiceBus.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddServiceBus(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddServiceBus(this IOpenCqrsServiceBuilder builder)
         {
             return AddServiceBus(builder, opt => { });
         }
@@ -17,7 +17,7 @@ namespace OpenCqrs.Bus.ServiceBus.Extensions
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns></returns>
-        public static IKledexServiceBuilder AddServiceBus(this IKledexServiceBuilder builder, Action<BusOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddServiceBus(this IOpenCqrsServiceBuilder builder, Action<BusOptions> configureOptions)
         {
             if (builder == null)
             {

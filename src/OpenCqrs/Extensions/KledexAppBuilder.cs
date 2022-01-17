@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Builder;
 
 namespace OpenCqrs.Extensions
 {
-    public class KledexAppBuilder : IKledexAppBuilder
+    public class OpenCqrsAppBuilder : IOpenCqrsAppBuilder
     {
         public IApplicationBuilder App { get; }
 
-        public KledexAppBuilder(IApplicationBuilder app)
+        public OpenCqrsAppBuilder(IApplicationBuilder app)
         {
             App = app ?? throw new ArgumentNullException(nameof(app));
         }

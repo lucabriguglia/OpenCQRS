@@ -2,7 +2,7 @@
 
 namespace OpenCqrs.Extensions
 {
-    public interface IKledexAppBuilder
+    public interface IOpenCqrsAppBuilder
     {
         IApplicationBuilder App { get; }
     }

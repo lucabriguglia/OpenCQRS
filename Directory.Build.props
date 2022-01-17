@@ -5,9 +5,9 @@
     <Authors>Luca Briguglia</Authors>
     <Copyright>Copyright Luca Briguglia</Copyright>
     <Product>OpenCQRS</Product>
-    <PackageProjectUrl>https://github.com/lucabriguglia/Kledex</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/lucabriguglia/OpenCQRS</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/lucabriguglia/Kledex</RepositoryUrl>
+    <RepositoryUrl>https://github.com/lucabriguglia/OpenCQRS</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

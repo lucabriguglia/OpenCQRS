@@ -10,12 +10,12 @@ namespace OpenCqrs.Store.EF.PostgreSql.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddPostgreSqlStore(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddPostgreSqlStore(this IOpenCqrsServiceBuilder builder)
         {
             return AddPostgreSqlStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddPostgreSqlStore(this IKledexServiceBuilder builder, Action<DatabaseOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddPostgreSqlStore(this IOpenCqrsServiceBuilder builder, Action<DatabaseOptions> configureOptions)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

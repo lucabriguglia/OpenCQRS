@@ -10,7 +10,7 @@ namespace OpenCqrs.Events
     {
         /// <summary>
         /// Asynchronously publishes the specified event.
-        /// The event handler must implement Kledex.Events.IEventHandlerAsync&lt;TEvent&gt;.
+        /// The event handler must implement OpenCqrs.Events.IEventHandlerAsync&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -19,7 +19,7 @@ namespace OpenCqrs.Events
 
         /// <summary>
         /// Asynchronously publishes the specified event.
-        /// The event handler must implement Kledex.Events.IEventHandlerAsync&lt;TEvent&gt;.
+        /// The event handler must implement OpenCqrs.Events.IEventHandlerAsync&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="events">The events.</param>
@@ -28,7 +28,7 @@ namespace OpenCqrs.Events
 
         /// <summary>
         /// Publishes the specified event.
-        /// The event handler must implement Kledex.Events.IEventHandler&lt;TEvent&gt;.
+        /// The event handler must implement OpenCqrs.Events.IEventHandler&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
@@ -37,7 +37,7 @@ namespace OpenCqrs.Events
 
         /// <summary>
         /// Publishes the specified event.
-        /// The event handler must implement Kledex.Events.IEventHandler&lt;TEvent&gt;.
+        /// The event handler must implement OpenCqrs.Events.IEventHandler&lt;TEvent&gt;.
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="events">The events.</param>

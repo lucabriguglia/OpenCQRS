@@ -10,12 +10,12 @@ namespace OpenCqrs.Store.EF.Cosmos.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosStore(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddCosmosStore(this IOpenCqrsServiceBuilder builder)
         {
             return AddCosmosStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosStore(this IKledexServiceBuilder builder, Action<CosmosDbOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddCosmosStore(this IOpenCqrsServiceBuilder builder, Action<CosmosDbOptions> configureOptions)
         {
             if (builder == null)
             {

@@ -9,12 +9,12 @@ namespace OpenCqrs.Store.Cosmos.Mongo.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosMongoStore(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddCosmosMongoStore(this IOpenCqrsServiceBuilder builder)
         {
             return AddCosmosMongoStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosMongoStore(this IKledexServiceBuilder builder, Action<MongoOptions> setupAction)
+        public static IOpenCqrsServiceBuilder AddCosmosMongoStore(this IOpenCqrsServiceBuilder builder, Action<MongoOptions> setupAction)
         {
             if (builder == null)
             {

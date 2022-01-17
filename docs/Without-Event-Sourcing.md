@@ -1,6 +1,6 @@
 # Domain Commands Without Event Sourcing
 
-Event Sourcing functionalities of Kledex can be used just as an advanced logging system for your domain. The single source of truth can be a SQL Server database with normalised data (or any other data provider) and use the read model for optimised queries or use just one data store altogether.
+Event Sourcing functionalities of OpenCQRS can be used just as an advanced logging system for your domain. The single source of truth can be a SQL Server database with normalised data (or any other data provider) and use the read model for optimised queries or use just one data store altogether.
 
 First, create a domain object that inherits from **AggregateRoot**.
 This is how a Product class might look like:

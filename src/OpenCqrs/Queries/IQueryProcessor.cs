@@ -9,9 +9,9 @@ namespace OpenCqrs.Queries
     {
         /// <summary>
         /// Asynchronously gets the result.
-        /// The query handler must implement Kledex.Queries.IQueryHandlerAsync&lt;TQuery, TResult&gt;.
+        /// The query handler must implement OpenCqrs.Queries.IQueryHandlerAsync&lt;TQuery, TResult&gt;.
         /// In order to have the result automatically cached, the query needs to inherits from the 
-        /// Kledex.Queries.CacheableQuery&lt;TResult&gt; abstract class and set at least the cache key.
+        /// OpenCqrs.Queries.CacheableQuery&lt;TResult&gt; abstract class and set at least the cache key.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="query">The query.</param>
@@ -20,9 +20,9 @@ namespace OpenCqrs.Queries
 
         /// <summary>
         /// Gets the result.
-        /// The query handler must implement Kledex.Queries.IQueryHandler&lt;TQuery, TResult&gt;.
+        /// The query handler must implement OpenCqrs.Queries.IQueryHandler&lt;TQuery, TResult&gt;.
         /// In order to have the result automatically cached, the query needs to inherits from the 
-        /// Kledex.Queries.CacheableQuery&lt;TResult&gt; abstract class and set at least the cache key.
+        /// OpenCqrs.Queries.CacheableQuery&lt;TResult&gt; abstract class and set at least the cache key.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="query">The query.</param>

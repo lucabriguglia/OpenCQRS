@@ -9,7 +9,7 @@ namespace OpenCqrs.Caching.Redis.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddRedisCache(this IKledexServiceBuilder builder, Action<RedisCacheOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddRedisCache(this IOpenCqrsServiceBuilder builder, Action<RedisCacheOptions> configureOptions)
         {
             if (builder == null)
             {

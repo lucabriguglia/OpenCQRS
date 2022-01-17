@@ -11,7 +11,7 @@ namespace OpenCqrs.Store.Cosmos.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IKledexAppBuilder EnsureCosmosDbSqlDbCreated(this IKledexAppBuilder builder, IOptions<CosmosDbOptions> settings)
+        public static IOpenCqrsAppBuilder EnsureCosmosDbSqlDbCreated(this IOpenCqrsAppBuilder builder, IOptions<CosmosDbOptions> settings)
         {
             var documentClient = builder.App.ApplicationServices.GetService<IDocumentClient>();
 

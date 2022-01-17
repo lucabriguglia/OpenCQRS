@@ -9,7 +9,7 @@ namespace OpenCqrs.Bus.RabbitMQ.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddRabbitMQ(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddRabbitMQ(this IOpenCqrsServiceBuilder builder)
         {
             return AddRabbitMQ(builder, opt => { });
         }
@@ -19,7 +19,7 @@ namespace OpenCqrs.Bus.RabbitMQ.Extensions
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns></returns>
-        public static IKledexServiceBuilder AddRabbitMQ(this IKledexServiceBuilder builder, Action<BusOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddRabbitMQ(this IOpenCqrsServiceBuilder builder, Action<BusOptions> configureOptions)
         {
             if (builder == null)
             {

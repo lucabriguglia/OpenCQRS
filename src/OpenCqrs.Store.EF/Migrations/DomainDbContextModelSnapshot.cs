@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using OpenCqrs.Store.EF;
 
-namespace Kledex.Store.EF.Migrations
+namespace OpenCqrs.Store.EF.Migrations
 {
     [DbContext(typeof(DomainDbContext))]
     partial class DomainDbContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace Kledex.Store.EF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Kledex.EF.Entities.AggregateEntity", b =>
+            modelBuilder.Entity("OpenCqrs.EF.Entities.AggregateEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -31,7 +31,7 @@ namespace Kledex.Store.EF.Migrations
                     b.ToTable("DomainAggregate");
                 });
 
-            modelBuilder.Entity("Kledex.EF.Entities.CommandEntity", b =>
+            modelBuilder.Entity("OpenCqrs.EF.Entities.CommandEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -53,7 +53,7 @@ namespace Kledex.Store.EF.Migrations
                     b.ToTable("DomainCommand");
                 });
 
-            modelBuilder.Entity("Kledex.EF.Entities.EventEntity", b =>
+            modelBuilder.Entity("OpenCqrs.EF.Entities.EventEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();

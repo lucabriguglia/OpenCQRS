@@ -13,7 +13,7 @@ namespace OpenCqrs.UI.Extensions
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns></returns>
-        public static IKledexServiceBuilder AddUI(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddUI(this IOpenCqrsServiceBuilder builder)
         {
             return AddUI(builder, opt => {});
         }
@@ -24,7 +24,7 @@ namespace OpenCqrs.UI.Extensions
         /// <param name="builder">The builder.</param>
         /// <param name="setupAction"></param>
         /// <returns></returns>
-        public static IKledexServiceBuilder AddUI(this IKledexServiceBuilder builder, Action<UIOptions> setupAction)
+        public static IOpenCqrsServiceBuilder AddUI(this IOpenCqrsServiceBuilder builder, Action<UIOptions> setupAction)
         {
             if (builder == null)
             {

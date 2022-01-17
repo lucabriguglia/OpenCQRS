@@ -14,12 +14,12 @@ namespace OpenCqrs.Store.Cosmos.Sql.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddCosmosSqlStore(this IKledexServiceBuilder builder, IConfiguration configuration)
+        public static IOpenCqrsServiceBuilder AddCosmosSqlStore(this IOpenCqrsServiceBuilder builder, IConfiguration configuration)
         {
             return AddCosmosSqlStore(builder, configuration, opt => { });
         }
 
-        public static IKledexServiceBuilder AddCosmosSqlStore(this IKledexServiceBuilder builder, IConfiguration configuration, Action<CosmosDbOptions> setupAction)
+        public static IOpenCqrsServiceBuilder AddCosmosSqlStore(this IOpenCqrsServiceBuilder builder, IConfiguration configuration, Action<CosmosDbOptions> setupAction)
         {
             if (builder == null)
             {
@@ -36,11 +36,11 @@ namespace OpenCqrs.Store.Cosmos.Sql.Extensions
                 throw new ArgumentNullException(nameof(setupAction));
             }
 
-            builder.Services.Configure<KledexCosmosSqlConfiguration>(configuration.GetSection("KledexCosmosSqlConfiguration"));
+            builder.Services.Configure<OpenCqrsCosmosSqlConfiguration>(configuration.GetSection("OpenCqrsCosmosSqlConfiguration"));
             builder.Services.Configure(setupAction);
 
-            var endpoint = configuration.GetSection("KledexCosmosSqlConfiguration:ServerEndpoint").Value;
-            var key = configuration.GetSection("KledexCosmosSqlConfiguration:AuthKey").Value;
+            var endpoint = configuration.GetSection("OpenCqrsCosmosSqlConfiguration:ServerEndpoint").Value;
+            var key = configuration.GetSection("OpenCqrsCosmosSqlConfiguration:AuthKey").Value;
             builder.Services.AddSingleton<IDocumentClient>(x => new DocumentClient(new Uri(endpoint), key));
 
             builder.Services

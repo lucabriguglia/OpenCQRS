@@ -43,7 +43,7 @@ namespace OpenCqrs.Sample.NoEventSourcing
                 options.UseSqlServer(Configuration.GetConnectionString("SampleDb")));
 
             services
-                .AddKledex(options =>
+                .AddOpenCqrs(options =>
                 {
                     options.PublishEvents = true;
                     options.SaveCommandData = true;
@@ -72,7 +72,7 @@ namespace OpenCqrs.Sample.NoEventSourcing
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SampleDbContext dbContext)
         {
             dbContext.Database.EnsureCreated();
-            app.UseKledex().EnsureDomainDbCreated();
+            app.UseOpenCqrs().EnsureDomainDbCreated();
 
             if (env.IsDevelopment())
             {

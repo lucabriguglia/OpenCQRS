@@ -10,12 +10,12 @@ namespace OpenCqrs.Store.EF.Sqlite.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddSqliteStore(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddSqliteStore(this IOpenCqrsServiceBuilder builder)
         {
             return AddSqliteStore(builder, opt => { });
         }
 
-        public static IKledexServiceBuilder AddSqliteStore(this IKledexServiceBuilder builder, Action<DatabaseOptions> configureOptions)
+        public static IOpenCqrsServiceBuilder AddSqliteStore(this IOpenCqrsServiceBuilder builder, Action<DatabaseOptions> configureOptions)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

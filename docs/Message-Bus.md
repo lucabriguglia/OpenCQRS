@@ -14,7 +14,7 @@ Once your connection string and queue(s) are created, you need to update the con
 ```JSON
 {
   "ConnectionStrings": {
-    "KledexMessageBus": "your-azure-service-bus-connection-string",
+    "OpenCqrsMessageBus": "your-azure-service-bus-connection-string",
   }
 }
 ```

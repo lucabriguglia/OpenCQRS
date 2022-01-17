@@ -5,7 +5,7 @@
     <Version>6.5.0</Version>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
-    <PackageTags>OpenCQRS, Kledex, .net, core, mediator, ddd, cqrs, event sourcing, clean design, clean code, commands, queries, events</PackageTags>
+    <PackageTags>OpenCQRS, OpenCqrs, .net, core, mediator, ddd, cqrs, event sourcing, clean design, clean code, commands, queries, events</PackageTags>
     <PackageLicense>Apache-2.0</PackageLicense>
     <SourcesPackage>true</SourcesPackage> <!-- This should be removed in a future release of the sources lib -->
   </PropertyGroup>

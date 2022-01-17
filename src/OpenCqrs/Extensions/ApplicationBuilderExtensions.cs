@@ -4,9 +4,9 @@ namespace OpenCqrs.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IKledexAppBuilder UseKledex(this IApplicationBuilder app)
+        public static IOpenCqrsAppBuilder UseOpenCqrs(this IApplicationBuilder app)
         {
-            return new KledexAppBuilder(app);
+            return new OpenCqrsAppBuilder(app);
         }
     }
 }

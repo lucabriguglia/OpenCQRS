@@ -8,7 +8,7 @@ namespace OpenCqrs.Store.EF.InMemory.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IKledexServiceBuilder AddInMemoryStore(this IKledexServiceBuilder builder)
+        public static IOpenCqrsServiceBuilder AddInMemoryStore(this IOpenCqrsServiceBuilder builder)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));

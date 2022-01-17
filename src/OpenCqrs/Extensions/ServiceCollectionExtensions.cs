@@ -9,20 +9,20 @@ namespace OpenCqrs.Extensions
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds Kledex. 
+        /// Adds OpenCqrs. 
         /// Pass any of the types that are contained in the assemblies where your messages and handlers are.
         /// One for each assembly.
         /// e.g. typeOf(CreatePost) where CreatePost is one of your commands.
         /// </summary>
         /// <param name="services">The services.</param>
         /// <param name="types">The types.</param>
-        public static IKledexServiceBuilder AddKledex(this IServiceCollection services, params Type[] types)
+        public static IOpenCqrsServiceBuilder AddOpenCqrs(this IServiceCollection services, params Type[] types)
         {
-            return AddKledex(services, opt => {}, types);
+            return AddOpenCqrs(services, opt => {}, types);
         }
 
         /// <summary>
-        /// Adds Kledex. 
+        /// Adds OpenCqrs. 
         /// Pass any of the types that are contained in the assemblies where your messages and handlers are.
         /// One for each assembly.
         /// e.g. typeOf(CreatePost) where CreatePost is one of your commands.
@@ -30,7 +30,7 @@ namespace OpenCqrs.Extensions
         /// <param name="services">The services.</param>
         /// <param name="setupAction">The options.</param>
         /// <param name="types">The types.</param>
-        public static IKledexServiceBuilder AddKledex(this IServiceCollection services, Action<MainOptions> setupAction, params Type[] types)
+        public static IOpenCqrsServiceBuilder AddOpenCqrs(this IServiceCollection services, Action<MainOptions> setupAction, params Type[] types)
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
@@ -49,7 +49,7 @@ namespace OpenCqrs.Extensions
 
             services.Configure(setupAction);
 
-            return new KledexServiceBuilder(services);
+            return new OpenCqrsServiceBuilder(services);
         }
     }
 }
