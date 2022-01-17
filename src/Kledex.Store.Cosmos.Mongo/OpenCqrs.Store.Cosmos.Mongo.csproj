@@ -2,20 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>CosmosDB (SQL API) database provider for OpenCQRS domain store.</Description>
-    <PackageTags>$(PackageTags), cosmosdb, sql, documentdb</PackageTags>
+    <Description>CosmosDB (MongoDB API) database provider for OpenCQRS domain store.</Description>
+    <PackageTags>$(PackageTags), cosmosdb, mongodb</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.16.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kledex\Kledex.csproj" />
+    <ProjectReference Include="..\Kledex\OpenCqrs.csproj" />
   </ItemGroup>
 
 </Project>

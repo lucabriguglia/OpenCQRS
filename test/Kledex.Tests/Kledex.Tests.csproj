@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Kledex\Kledex.csproj" />
+    <ProjectReference Include="..\..\src\Kledex\OpenCqrs.csproj" />
   </ItemGroup>
 
   <ItemGroup>

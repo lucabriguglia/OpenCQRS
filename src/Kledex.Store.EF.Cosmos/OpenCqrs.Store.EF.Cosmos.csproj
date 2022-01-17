@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kledex.Store.EF\Kledex.Store.EF.csproj" />
-    <ProjectReference Include="..\Kledex\Kledex.csproj" />
+    <ProjectReference Include="..\Kledex.Store.EF\OpenCqrs.Store.EF.csproj" />
+    <ProjectReference Include="..\Kledex\OpenCqrs.csproj" />
   </ItemGroup>
 
 </Project>

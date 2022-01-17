@@ -2,19 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>OpenCQRS Memory Cache Provider</Description>
-    <PackageTags>$(PackageTags), caching, memory</PackageTags>
+    <Description>SQLite database provider for OpenCQRS domain store.</Description>
+    <PackageTags>$(PackageTags), ef, entity framework, sqlite</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kledex\Kledex.csproj" />
+    <ProjectReference Include="..\Kledex.Store.EF\OpenCqrs.Store.EF.csproj" />
   </ItemGroup>
 
 </Project>

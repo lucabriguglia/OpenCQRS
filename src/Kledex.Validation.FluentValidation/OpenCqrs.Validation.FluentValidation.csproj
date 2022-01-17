@@ -2,19 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>MySQL database provider for OpenCQRS domain store.</Description>
-    <PackageTags>$(PackageTags), ef, entity framework, mysql</PackageTags>
+    <Description>FluentValidation provider for OpenCQRS validation</Description>
+    <PackageTags>$(PackageTags), validation, fluentvalidation</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kledex.Store.EF\Kledex.Store.EF.csproj" />
+    <ProjectReference Include="..\Kledex\OpenCqrs.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,20 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>Service Bus provider for OpenCQRS message bus.</Description>
-    <PackageTags>$(PackageTags), ef, entity framework, azure, servicebus, messagebus, bus</PackageTags>
+    <Description>OpenCQRS Redis Cache Provider</Description>
+    <PackageTags>$(PackageTags), caching, redis</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kledex\Kledex.csproj" />
+    <ProjectReference Include="..\Kledex\OpenCqrs.csproj" />
   </ItemGroup>
 
 </Project>

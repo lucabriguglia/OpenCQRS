@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Kledex.Bus.ServiceBus\Kledex.Bus.ServiceBus.csproj" />
+    <ProjectReference Include="..\..\src\Kledex.Bus.ServiceBus\OpenCqrs.Bus.ServiceBus.csproj" />
   </ItemGroup>
 
   <ItemGroup>
