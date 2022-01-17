@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.16.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
   </ItemGroup>
 

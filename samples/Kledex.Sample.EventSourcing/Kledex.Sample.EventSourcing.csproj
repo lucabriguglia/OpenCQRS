@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Kledex.Bus.ServiceBus\Kledex.Bus.ServiceBus.csproj" />
     <ProjectReference Include="..\..\src\Kledex.Caching.Memory\Kledex.Caching.Memory.csproj" />
     <ProjectReference Include="..\..\src\Kledex.Caching.Redis\Kledex.Caching.Redis.csproj" />

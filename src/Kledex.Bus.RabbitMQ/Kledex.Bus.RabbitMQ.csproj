@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
   </ItemGroup>
