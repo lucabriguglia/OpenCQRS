@@ -1,6 +1,6 @@
 # Caching Queries
 
-With Kledex it is possible to automatically cache the result of a query using one of the available providers (Memory or Redis). First, you need to configure a cache provider as explained [here](Configuration#caching). Next, as per any normal queries, create the model for the result and the query. The only difference with a normal query is that it needs to inherit from the **CacheableQuery<>** abstract class (or implements the **ICacheableQuery<>** interface) in order to set the _Cache Key_ and the _Cache Time_:
+With OpenCQRS it is possible to automatically cache the result of a query using one of the available providers (Memory or Redis). First, you need to configure a cache provider as explained [here](Configuration#caching). Next, as per any normal queries, create the model for the result and the query. The only difference with a normal query is that it needs to inherit from the **CacheableQuery<>** abstract class (or implements the **ICacheableQuery<>** interface) in order to set the _Cache Key_ and the _Cache Time_:
 
 ```C#
 public class Something

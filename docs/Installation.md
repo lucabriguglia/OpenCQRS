@@ -4,52 +4,52 @@ Installing the various packages:
 
 Via Package Manager
 
-    Install-Package Kledex
+    Install-Package OpenCqrs
    
 Or via .NET CLI
 
-    dotnet add package Kledex
+    dotnet add package OpenCqrs
     
 Or via Paket CLI
 
-    paket add Kledex
+    paket add OpenCqrs
 
 ## Main package
 
-- **Kledex**
+- **OpenCqrs**
 
 ## Database provider packages
 
-Kledex currently supports the following database providers:
+OpenCQRS currently supports the following database providers:
 
 For CosmosDB:
-- **Kledex.Store.Cosmos.Sql**
-- **Kledex.Store.Cosmos.Mongo**
+- **OpenCqrs.Store.Cosmos.Sql**
+- **OpenCqrs.Store.Cosmos.Mongo**
 
 For Entity Framework Core:
-- **Kledex.Store.EF.SqlServer**
-- **Kledex.Store.EF.MySql**
-- **Kledex.Store.EF.PostgreSql**
-- **Kledex.Store.EF.Sqlite**
+- **OpenCqrs.Store.EF.SqlServer**
+- **OpenCqrs.Store.EF.MySql**
+- **OpenCqrs.Store.EF.PostgreSql**
+- **OpenCqrs.Store.EF.Sqlite**
 
 ## Message bus provider packages
 
-Kledex currently supports the following message bus providers:
-- **Kledex.Bus.ServiceBus**
-- **Kledex.Bus.RabbitMQ**
+OpenCqrs currently supports the following message bus providers:
+- **OpenCqrs.Bus.ServiceBus**
+- **OpenCqrs.Bus.RabbitMQ**
 
 ## Validation provider package
 
-Kledex currently supports the following validation providers:
-- **Kledex.Validation.FluentValidation**
+OpenCqrs currently supports the following validation providers:
+- **OpenCqrs.Validation.FluentValidation**
 
 ## Caching provider packages
 
-Kledex currently supports the following caching providers:
-- **Kledex.Caching.Memory**
-- **Kledex.Caching.Redis**
+OpenCqrs currently supports the following caching providers:
+- **OpenCqrs.Caching.Memory**
+- **OpenCqrs.Caching.Redis**
 
 ## UI package
 
 UI experimental package:
-- **Kledex.UI**
+- **OpenCqrs.UI**

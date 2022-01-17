@@ -13,7 +13,7 @@
 First, register the main package in the ConfigureServices method of Startup.cs:
 
 ```C#
-services.AddKledex(typeof(CreateProduct), typeof(GetProduct));
+services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
 ```
 
 All command, event, query and validation handlers will be registered automatically by passing one type per assembly.
@@ -25,7 +25,7 @@ It is possible to set a few options for the main package:
 
 ```C#
 services
-    .AddKledex(options =>
+    .AddOpenCqrs(options =>
     {
          options.PublishEvents = true;
          options.SaveCommandData = true;
@@ -61,7 +61,7 @@ The are different registration and configuration options available for each prov
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddSqlServer(options =>
     {
         options.ConnectionString = "your-connection-string";
@@ -79,7 +79,7 @@ services
 ```C#
 public void Configure(IApplicationBuilder app)
 {
-    app.UseKledex().EnsureDomainDbCreated();
+    app.UseOpenCqrs().EnsureDomainDbCreated();
 }
 ```
 
@@ -89,7 +89,7 @@ This provider uses the new Microsoft.Azure.Cosmos package.
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmos(options =>
     {
         options.ServiceEndpoint = "your-service-end-point";
@@ -119,7 +119,7 @@ Note that the partition key is set by default to '/type'.
 ```C#
 public void Configure(IApplicationBuilder app)
 {
-    app.UseKledex().EnsureCosmosDbCreated();
+    app.UseOpenCqrs().EnsureCosmosDbCreated();
 }
 ```
 
@@ -129,7 +129,7 @@ This provider uses the old Microsoft.Azure.DocumentDB package.
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosSql(options =>
     {
 	options.ServiceEndpoint = "your-service-end-point";
@@ -163,7 +163,7 @@ Note that the partition key is set by default to '/type'.
 ```C#
 public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> settings)
 {
-    app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
+    app.UseOpenCqrs().EnsureCosmosDbSqlDbCreated(settings);
 }
 ```
 
@@ -171,7 +171,7 @@ public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> s
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosMongo(options =>
     {
         options.ConnectionString = "your-connection-string";
@@ -205,7 +205,7 @@ Kledex currently supports Azure Service Bus and RabbitMQ:
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddServiceBus(options =>
     {
@@ -230,7 +230,7 @@ Add a validation provider if you want your commands to be validated before the c
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddFluentValidation(options =>
     {
@@ -256,7 +256,7 @@ Add a caching provider if you want the result of your queries to be cached autom
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddRedisCache(options =>
     {
@@ -279,7 +279,7 @@ Experimental package to get a view of an aggregate and all associated events:
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddUI();
 ```

@@ -1,6 +1,6 @@
 # Command Sequence
 
-With Kledex is possible to create a squence of commands that will be executed in the specified order.
+With OpenCQRS is possible to create a squence of commands that will be executed in the specified order.
 
 First, create the commands that need to be part of the sequence:
 
@@ -21,7 +21,7 @@ public class ThirdCommand : Command
 Next, as you would have done normally create the handlers for your commands. 
 The only difference is that the handlers need to implement the **ISequenceCommandHandlerAsync<>** interface.
 The _HandlerAsync_ of this interface accepts an extra parameter which is a _CommandResponse_.
-Kledex will pass automatically the command response of the previous command in the sequence.
+OpenCQRS will pass automatically the command response of the previous command in the sequence.
 For the first handler it would obviously be null.
 
 First command handler:
