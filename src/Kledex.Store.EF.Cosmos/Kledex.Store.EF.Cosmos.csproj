@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>Entity Framework Cosmos database provider for Kledex domain store.</Description>
+    <Description>Entity Framework Cosmos database provider for OpenCQRS domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, cosmos</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

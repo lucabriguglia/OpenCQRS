@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>SQLite database provider for Kledex domain store.</Description>
+    <Description>SQLite database provider for OpenCQRS domain store.</Description>
     <PackageTags>$(PackageTags), ef, entity framework, sqlite</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>Kledex Memory Cache Provider</Description>
+    <Description>OpenCQRS Memory Cache Provider</Description>
     <PackageTags>$(PackageTags), caching, memory</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

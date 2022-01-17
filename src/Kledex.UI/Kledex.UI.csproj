@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>Kledex.UI</Description>
+    <Description>OpenCQRS.UI</Description>
     <PackageTags>$(PackageTags), ui</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

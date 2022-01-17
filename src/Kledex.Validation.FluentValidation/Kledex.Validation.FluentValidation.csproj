@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>FluentValidation provider for Kledex validation</Description>
+    <Description>FluentValidation provider for OpenCQRS validation</Description>
     <PackageTags>$(PackageTags), validation, fluentvalidation</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

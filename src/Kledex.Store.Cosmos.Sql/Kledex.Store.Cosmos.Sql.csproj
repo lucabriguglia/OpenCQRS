@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Description>CosmosDB (SQL API) database provider for Kledex domain store.</Description>
+    <Description>CosmosDB (SQL API) database provider for OpenCQRS domain store.</Description>
     <PackageTags>$(PackageTags), cosmosdb, sql, documentdb</PackageTags>
     <PackageLicenseExpression>$(PackageLicense)</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
