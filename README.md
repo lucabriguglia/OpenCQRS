@@ -1,3 +1,5 @@
+# *** Soon to be re-re-named as OpenCQRS, Version set to 6.5 and upgraded to .NET 6 ***
+
 # Kledex
 
 [![Build Status](https://lucabriguglia.visualstudio.com/Kledex/_apis/build/status/lucabriguglia.Kledex?branchName=master)](https://lucabriguglia.visualstudio.com/Kledex/_build/latest?definitionId=1&branchName=master)
