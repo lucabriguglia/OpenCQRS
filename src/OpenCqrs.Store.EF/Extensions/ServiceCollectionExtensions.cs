@@ -1,10 +1,10 @@
-﻿using Kledex.Extensions;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using OpenCqrs.Extensions;
 
 // ReSharper disable InconsistentNaming
 
-namespace Kledex.Store.EF.Extensions
+namespace OpenCqrs.Store.EF.Extensions
 {
     public static class ServiceCollectionExtensions
     {

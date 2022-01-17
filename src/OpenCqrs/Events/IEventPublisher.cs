@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Kledex.Events
+namespace OpenCqrs.Events
 {
     /// <summary>
     /// IEventPublisher

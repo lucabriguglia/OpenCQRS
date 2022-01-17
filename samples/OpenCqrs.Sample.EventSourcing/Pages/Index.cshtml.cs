@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kledex.Sample.EventSourcing.Pages
+namespace OpenCqrs.Sample.EventSourcing.Pages
 {
     public class IndexModel : PageModel
     {

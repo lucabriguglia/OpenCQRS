@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Exceptions
+namespace OpenCqrs.Exceptions
 {
     public class ConcurrencyException : Exception
     {

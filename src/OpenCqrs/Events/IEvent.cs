@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Events
+namespace OpenCqrs.Events
 {
     public interface IEvent
     {

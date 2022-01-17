@@ -1,6 +1,6 @@
-﻿using Kledex.Queries;
+﻿using OpenCqrs.Queries;
 
-namespace Kledex.Tests.Fakes
+namespace OpenCqrs.Tests.Fakes
 {
     public class GetSomething : IQuery<Something>
     {

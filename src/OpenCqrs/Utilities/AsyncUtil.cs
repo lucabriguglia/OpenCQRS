@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kledex.Utilities
+namespace OpenCqrs.Utilities
 {
     /// <summary>
     /// Helper class to run async methods within a sync process.

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kledex.Commands
+namespace OpenCqrs.Commands
 {
     public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommand
     {

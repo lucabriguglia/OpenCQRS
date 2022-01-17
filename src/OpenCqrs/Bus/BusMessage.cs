@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Kledex.Bus
+namespace OpenCqrs.Bus
 {
     public abstract class BusMessage : IBusMessage
     {

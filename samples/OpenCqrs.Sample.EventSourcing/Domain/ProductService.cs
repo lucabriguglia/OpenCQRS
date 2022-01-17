@@ -1,8 +1,8 @@
-﻿using Kledex.Commands;
-using Kledex.Sample.EventSourcing.Domain.Commands;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using OpenCqrs.Commands;
+using OpenCqrs.Sample.EventSourcing.Domain.Commands;
 
-namespace Kledex.Sample.EventSourcing.Domain
+namespace OpenCqrs.Sample.EventSourcing.Domain
 {
     public class ProductService : IProductService
     {

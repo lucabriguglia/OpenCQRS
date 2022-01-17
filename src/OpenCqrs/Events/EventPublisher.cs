@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Bus;
-using Kledex.Dependencies;
+using OpenCqrs.Bus;
+using OpenCqrs.Dependencies;
 
-namespace Kledex.Events
+namespace OpenCqrs.Events
 {
     /// <inheritdoc />
     public class EventPublisher : IEventPublisher

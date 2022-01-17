@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Kledex.Bus
+namespace OpenCqrs.Bus
 {
     public class BusMessageDispatcher : IBusMessageDispatcher
     {

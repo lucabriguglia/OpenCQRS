@@ -1,4 +1,4 @@
-﻿namespace Kledex.Validation
+﻿namespace OpenCqrs.Validation
 {
     public class ValidationError
     {

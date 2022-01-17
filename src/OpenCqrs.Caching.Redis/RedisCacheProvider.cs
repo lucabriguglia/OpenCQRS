@@ -1,9 +1,9 @@
-﻿using StackExchange.Redis;
-using System;
+﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using StackExchange.Redis;
 
-namespace Kledex.Caching.Redis
+namespace OpenCqrs.Caching.Redis
 {
     public class RedisCacheProvider : ICacheProvider
     {

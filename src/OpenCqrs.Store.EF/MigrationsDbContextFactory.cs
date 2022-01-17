@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Kledex.Store.EF
+namespace OpenCqrs.Store.EF
 {
     public class MigrationsDbContextFactory : IDesignTimeDbContextFactory<DomainDbContext>
     {

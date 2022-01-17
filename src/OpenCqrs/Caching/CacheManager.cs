@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
-namespace Kledex.Caching
+namespace OpenCqrs.Caching
 {
     public class CacheManager : ICacheManager
     {

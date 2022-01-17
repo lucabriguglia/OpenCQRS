@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Domain;
 using Microsoft.EntityFrameworkCore;
-using Kledex.Sample.NoEventSourcing.Domain.Events;
-using Kledex.Sample.NoEventSourcing.Data;
-using Kledex.Commands;
+using OpenCqrs.Commands;
+using OpenCqrs.Domain;
+using OpenCqrs.Sample.NoEventSourcing.Data;
+using OpenCqrs.Sample.NoEventSourcing.Domain.Events;
 
-namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Handlers
+namespace OpenCqrs.Sample.NoEventSourcing.Domain.Commands.Handlers
 {
     public class PublishProductHandler : ICommandHandlerAsync<PublishProduct>
     {

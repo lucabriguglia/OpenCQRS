@@ -1,4 +1,4 @@
-﻿namespace Kledex.Commands
+﻿namespace OpenCqrs.Commands
 {
     public interface ISequenceCommandHandler<in TCommand> where TCommand : ICommand
     {

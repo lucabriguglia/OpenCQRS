@@ -1,8 +1,8 @@
-﻿using Kledex.Domain;
-using Kledex.Sample.EventSourcing.Domain.Events;
-using System;
+﻿using System;
+using OpenCqrs.Domain;
+using OpenCqrs.Sample.EventSourcing.Domain.Events;
 
-namespace Kledex.Sample.EventSourcing.Domain
+namespace OpenCqrs.Sample.EventSourcing.Domain
 {
     public class Product : AggregateRoot
     {

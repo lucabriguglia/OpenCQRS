@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Kledex.Mapping
+namespace OpenCqrs.Mapping
 {
     public class ObjectFactory : IObjectFactory
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kledex.Dependencies
+namespace OpenCqrs.Dependencies
 {
     public class Resolver : IResolver
     {

@@ -1,4 +1,4 @@
-﻿namespace Kledex.UI.Configuration
+﻿namespace OpenCqrs.UI.Configuration
 {
     public class UIOptions
     {

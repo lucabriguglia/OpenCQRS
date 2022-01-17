@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Sample.EventSourcing.Domain.Commands;
-using Kledex.Sample.EventSourcing.Reporting.Data;
-using Kledex.Sample.EventSourcing.Reporting.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OpenCqrs.Sample.EventSourcing.Domain.Commands;
+using OpenCqrs.Sample.EventSourcing.Reporting.Data;
+using OpenCqrs.Sample.EventSourcing.Reporting.Queries;
 
-namespace Kledex.Sample.EventSourcing.Pages
+namespace OpenCqrs.Sample.EventSourcing.Pages
 {
     public class ListModel : PageModel
     {

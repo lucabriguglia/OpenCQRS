@@ -1,11 +1,11 @@
 ﻿using System;
-using Kledex.Domain;
-using Kledex.Extensions;
-using Kledex.Store.Cosmos.Mongo.Configuration;
-using Kledex.Store.Cosmos.Mongo.Documents.Factories;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Domain;
+using OpenCqrs.Extensions;
+using OpenCqrs.Store.Cosmos.Mongo.Configuration;
+using OpenCqrs.Store.Cosmos.Mongo.Documents.Factories;
 
-namespace Kledex.Store.Cosmos.Mongo.Extensions
+namespace OpenCqrs.Store.Cosmos.Mongo.Extensions
 {
     public static class ServiceCollectionExtensions
     {

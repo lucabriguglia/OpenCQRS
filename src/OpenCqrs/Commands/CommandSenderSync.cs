@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Kledex.Domain;
+using OpenCqrs.Domain;
 
-namespace Kledex.Commands
+namespace OpenCqrs.Commands
 {
     /// <inheritdoc />
     public partial class CommandSender : ICommandSender

@@ -1,4 +1,4 @@
-﻿namespace Kledex.Sample.NoEventSourcing.Domain
+﻿namespace OpenCqrs.Sample.NoEventSourcing.Domain
 {
     public enum ProductStatus
     {

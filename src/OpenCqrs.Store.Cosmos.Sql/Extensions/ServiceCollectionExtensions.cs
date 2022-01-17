@@ -1,16 +1,16 @@
 ﻿using System;
-using Kledex.Domain;
-using Kledex.Extensions;
-using Kledex.Store.Cosmos.Sql.Configuration;
-using Kledex.Store.Cosmos.Sql.Documents;
-using Kledex.Store.Cosmos.Sql.Documents.Factories;
-using Kledex.Store.Cosmos.Sql.Repositories;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Domain;
+using OpenCqrs.Extensions;
+using OpenCqrs.Store.Cosmos.Sql.Configuration;
+using OpenCqrs.Store.Cosmos.Sql.Documents;
+using OpenCqrs.Store.Cosmos.Sql.Documents.Factories;
+using OpenCqrs.Store.Cosmos.Sql.Repositories;
 
-namespace Kledex.Store.Cosmos.Sql.Extensions
+namespace OpenCqrs.Store.Cosmos.Sql.Extensions
 {
     public static class ServiceCollectionExtensions
     {

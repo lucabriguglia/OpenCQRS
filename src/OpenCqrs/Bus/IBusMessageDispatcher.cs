@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kledex.Bus
+namespace OpenCqrs.Bus
 {
     public interface IBusMessageDispatcher
     {

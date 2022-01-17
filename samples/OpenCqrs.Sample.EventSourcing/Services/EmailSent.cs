@@ -1,6 +1,6 @@
-﻿using Kledex.Events;
+﻿using OpenCqrs.Events;
 
-namespace Kledex.Sample.EventSourcing.Services
+namespace OpenCqrs.Sample.EventSourcing.Services
 {
     public class EmailSent : Event
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Kledex.Sample.EventSourcing
+namespace OpenCqrs.Sample.EventSourcing
 {
     public class Program
     {

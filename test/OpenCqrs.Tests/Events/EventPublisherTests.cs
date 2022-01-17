@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Bus;
-using Kledex.Dependencies;
-using Kledex.Events;
-using Kledex.Tests.Fakes;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Bus;
+using OpenCqrs.Dependencies;
+using OpenCqrs.Events;
+using OpenCqrs.Tests.Fakes;
 
-namespace Kledex.Tests.Events
+namespace OpenCqrs.Tests.Events
 {
     [TestFixture]
     public class EventPublisherTests

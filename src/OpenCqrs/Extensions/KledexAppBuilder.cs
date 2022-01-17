@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 
-namespace Kledex.Extensions
+namespace OpenCqrs.Extensions
 {
     public class KledexAppBuilder : IKledexAppBuilder
     {

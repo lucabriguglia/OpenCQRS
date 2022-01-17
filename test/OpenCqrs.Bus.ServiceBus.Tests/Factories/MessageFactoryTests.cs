@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Kledex.Bus.ServiceBus.Factories;
-using Kledex.Bus.ServiceBus.Tests.Fakes;
+using OpenCqrs.Bus.ServiceBus.Factories;
+using OpenCqrs.Bus.ServiceBus.Tests.Fakes;
 
-namespace Kledex.Bus.ServiceBus.Tests.Factories
+namespace OpenCqrs.Bus.ServiceBus.Tests.Factories
 {
     public class MessageFactoryTests
     {

@@ -1,12 +1,3 @@
-using Kledex.Bus.ServiceBus.Extensions;
-using Kledex.Caching.Memory.Extensions;
-using Kledex.Extensions;
-using Kledex.Sample.NoEventSourcing.Data;
-using Kledex.Sample.NoEventSourcing.Domain;
-using Kledex.Store.EF.Extensions;
-using Kledex.Store.EF.SqlServer.Extensions;
-using Kledex.UI.Extensions;
-using Kledex.Validation.FluentValidation.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,8 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenCqrs.Bus.ServiceBus.Extensions;
+using OpenCqrs.Caching.Memory.Extensions;
+using OpenCqrs.Extensions;
+using OpenCqrs.Sample.NoEventSourcing.Data;
+using OpenCqrs.Sample.NoEventSourcing.Domain;
+using OpenCqrs.Store.EF.Extensions;
+using OpenCqrs.Store.EF.SqlServer.Extensions;
+using OpenCqrs.UI.Extensions;
+using OpenCqrs.Validation.FluentValidation.Extensions;
 
-namespace Kledex.Sample.NoEventSourcing
+namespace OpenCqrs.Sample.NoEventSourcing
 {
     public class Startup
     {

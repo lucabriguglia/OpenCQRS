@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
-using Kledex.Bus;
-using Kledex.Domain;
-using Kledex.Events;
-using Kledex.Queries;
-using Kledex.Tests.Fakes;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Bus;
+using OpenCqrs.Commands;
+using OpenCqrs.Events;
+using OpenCqrs.Queries;
+using OpenCqrs.Tests.Fakes;
 
-namespace Kledex.Tests
+namespace OpenCqrs.Tests
 {
     [TestFixture]
     public class DispatcherTests

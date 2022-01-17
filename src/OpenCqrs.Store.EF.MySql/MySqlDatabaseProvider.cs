@@ -1,8 +1,8 @@
-﻿using Kledex.Store.EF.Configuration;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Store.EF.Configuration;
 
-namespace Kledex.Store.EF.MySql
+namespace OpenCqrs.Store.EF.MySql
 {
     public class MySqlDatabaseProvider : IDatabaseProvider
     {

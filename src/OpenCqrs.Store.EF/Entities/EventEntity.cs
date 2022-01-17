@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Store.EF.Entities
+namespace OpenCqrs.Store.EF.Entities
 {
     public class EventEntity
     {

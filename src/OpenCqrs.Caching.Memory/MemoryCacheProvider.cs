@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 
-namespace Kledex.Caching.Memory
+namespace OpenCqrs.Caching.Memory
 {
     public class MemoryCacheProvider : ICacheProvider
     {

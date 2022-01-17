@@ -1,4 +1,4 @@
-﻿namespace Kledex.Store.EF.Cosmos.Configuration
+﻿namespace OpenCqrs.Store.EF.Cosmos.Configuration
 {
     public class CosmosDbOptions
     {

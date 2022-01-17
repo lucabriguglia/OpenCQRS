@@ -1,4 +1,4 @@
-﻿namespace Kledex.Caching.Redis.Configuration
+﻿namespace OpenCqrs.Caching.Redis.Configuration
 {
     public class RedisCacheOptions : CacheOptions
     {

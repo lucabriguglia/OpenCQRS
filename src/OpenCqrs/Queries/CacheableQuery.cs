@@ -1,4 +1,4 @@
-﻿namespace Kledex.Queries
+﻿namespace OpenCqrs.Queries
 {
     public abstract class CacheableQuery<TResult> : Query<TResult>, ICacheableQuery<TResult>
     {

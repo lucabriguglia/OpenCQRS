@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Sample.NoEventSourcing.Domain.Commands
+namespace OpenCqrs.Sample.NoEventSourcing.Domain.Commands
 {
     public class DeleteProduct : DomainCommand<Product>
     {

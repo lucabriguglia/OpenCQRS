@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Sample.EventSourcing.Domain.Commands;
-using Kledex.Sample.EventSourcing.Reporting.Data;
-using Kledex.Sample.EventSourcing.Reporting.Queries;
-using Kledex.UI.Models;
-using Kledex.UI.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OpenCqrs.Sample.EventSourcing.Domain.Commands;
+using OpenCqrs.Sample.EventSourcing.Reporting.Data;
+using OpenCqrs.Sample.EventSourcing.Reporting.Queries;
+using OpenCqrs.UI.Models;
+using OpenCqrs.UI.Queries;
 
-namespace Kledex.Sample.EventSourcing.Pages
+namespace OpenCqrs.Sample.EventSourcing.Pages
 {
     public class EditModel : PageModel
     {

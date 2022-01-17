@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Kledex.Utilities
+namespace OpenCqrs.Utilities
 {
     /// <summary>
     /// https://codeblog.jonskeet.uk/2008/08/09/making-reflection-fly-and-exploring-delegates/

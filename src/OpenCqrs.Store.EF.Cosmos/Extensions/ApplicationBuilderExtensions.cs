@@ -1,7 +1,7 @@
-﻿using Kledex.Extensions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Extensions;
 
-namespace Kledex.Store.EF.Cosmos.Extensions
+namespace OpenCqrs.Store.EF.Cosmos.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

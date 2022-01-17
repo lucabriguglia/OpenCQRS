@@ -1,8 +1,8 @@
-﻿using Kledex.Store.EF.Configuration;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Store.EF.Configuration;
 
-namespace Kledex.Store.EF.PostgreSql
+namespace OpenCqrs.Store.EF.PostgreSql
 {
     public class PostgreSqlDatabaseProvider : IDatabaseProvider
     {

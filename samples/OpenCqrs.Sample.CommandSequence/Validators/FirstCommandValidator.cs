@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Kledex.Sample.CommandSequence.Commands;
+using OpenCqrs.Sample.CommandSequence.Commands;
 
-namespace Kledex.Sample.CommandSequence.Validators
+namespace OpenCqrs.Sample.CommandSequence.Validators
 {
     public class FirstCommandValidator : AbstractValidator<FirstCommand>
     {

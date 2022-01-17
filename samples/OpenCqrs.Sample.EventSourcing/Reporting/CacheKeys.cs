@@ -1,4 +1,4 @@
-﻿namespace Kledex.Sample.EventSourcing.Reporting
+﻿namespace OpenCqrs.Sample.EventSourcing.Reporting
 {
     public static class CacheKeys
     {

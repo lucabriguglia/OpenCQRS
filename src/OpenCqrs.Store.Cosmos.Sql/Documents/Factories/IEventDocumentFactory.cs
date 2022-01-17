@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Store.Cosmos.Sql.Documents.Factories
+namespace OpenCqrs.Store.Cosmos.Sql.Documents.Factories
 {
     public interface IEventDocumentFactory
     {

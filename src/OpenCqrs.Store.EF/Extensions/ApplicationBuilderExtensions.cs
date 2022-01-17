@@ -1,8 +1,8 @@
-﻿using Kledex.Extensions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Extensions;
 
-namespace Kledex.Store.EF.Extensions
+namespace OpenCqrs.Store.EF.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

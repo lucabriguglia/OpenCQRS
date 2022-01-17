@@ -1,11 +1,11 @@
-﻿using Kledex.Caching.Redis.Configuration;
-using Kledex.Extensions;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Caching.Redis.Configuration;
+using OpenCqrs.Extensions;
 using StackExchange.Redis;
-using System;
 
-namespace Kledex.Caching.Redis.Extensions
+namespace OpenCqrs.Caching.Redis.Extensions
 {
     public static class ServiceCollectionExtensions
     {

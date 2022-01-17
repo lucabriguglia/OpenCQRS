@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Sample.EventSourcing.Domain.Commands
+namespace OpenCqrs.Sample.EventSourcing.Domain.Commands
 {
     public class UpdateProduct : DomainCommand<Product>
     {

@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Sample.NoEventSourcing.Domain
+namespace OpenCqrs.Sample.NoEventSourcing.Domain
 {
     public class Product : AggregateRoot
     {

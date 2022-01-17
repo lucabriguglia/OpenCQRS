@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Kledex.Caching;
-using Kledex.Events;
-using Kledex.Sample.EventSourcing.Domain.Events;
+using OpenCqrs.Caching;
+using OpenCqrs.Events;
+using OpenCqrs.Sample.EventSourcing.Domain.Events;
 
-namespace Kledex.Sample.EventSourcing.Reporting.EventHandlers
+namespace OpenCqrs.Sample.EventSourcing.Reporting.EventHandlers
 {
     public class EventHandlersForCaching : 
         IEventHandlerAsync<ProductCreated>,

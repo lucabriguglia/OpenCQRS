@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Kledex.Extensions;
-using Kledex.Store.Cosmos.Sql.Configuration;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Extensions;
+using OpenCqrs.Store.Cosmos.Sql.Configuration;
 
-namespace Kledex.Store.Cosmos.Sql.Extensions
+namespace OpenCqrs.Store.Cosmos.Sql.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace Kledex.Store.Cosmos.Sql.Configuration
+﻿namespace OpenCqrs.Store.Cosmos.Sql.Configuration
 {
     public class KledexCosmosSqlConfiguration
     {

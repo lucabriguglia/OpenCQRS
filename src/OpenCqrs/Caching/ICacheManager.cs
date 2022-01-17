@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Kledex.Caching
+namespace OpenCqrs.Caching
 {
     public interface ICacheManager
     {

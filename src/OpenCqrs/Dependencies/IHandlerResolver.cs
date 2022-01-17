@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Dependencies
+namespace OpenCqrs.Dependencies
 {
     public interface IHandlerResolver
     {

@@ -1,4 +1,4 @@
-﻿namespace Kledex.Bus
+﻿namespace OpenCqrs.Bus
 {
     public class BusOptions
     {

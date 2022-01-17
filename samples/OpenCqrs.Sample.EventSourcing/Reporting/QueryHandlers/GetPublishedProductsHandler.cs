@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Kledex.Queries;
-using Kledex.Sample.EventSourcing.Domain;
-using Kledex.Sample.EventSourcing.Reporting.Data;
-using Kledex.Sample.EventSourcing.Reporting.Queries;
 using Microsoft.EntityFrameworkCore;
+using OpenCqrs.Queries;
+using OpenCqrs.Sample.EventSourcing.Domain;
+using OpenCqrs.Sample.EventSourcing.Reporting.Data;
+using OpenCqrs.Sample.EventSourcing.Reporting.Queries;
 
-namespace Kledex.Sample.EventSourcing.Reporting.QueryHandlers
+namespace OpenCqrs.Sample.EventSourcing.Reporting.QueryHandlers
 {
     public class GetPublishedProductsHandler : IQueryHandlerAsync<GetPublishedProducts, IEnumerable<ProductEntity>>
     {

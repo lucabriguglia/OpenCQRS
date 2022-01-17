@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Events;
-using Kledex.Sample.EventSourcing.Domain.Events;
-using Kledex.Sample.EventSourcing.Reporting.Data;
 using Microsoft.EntityFrameworkCore;
+using OpenCqrs.Events;
+using OpenCqrs.Sample.EventSourcing.Domain;
+using OpenCqrs.Sample.EventSourcing.Domain.Events;
+using OpenCqrs.Sample.EventSourcing.Reporting.Data;
 
-namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
+namespace OpenCqrs.Sample.EventSourcing.Reporting.EventHandlers
 {
     public class ProductWithdrewHandler : IEventHandlerAsync<ProductWithdrew>
     {

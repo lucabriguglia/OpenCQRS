@@ -1,9 +1,9 @@
-﻿using Kledex.Commands;
-using Kledex.Sample.CommandSequence.Commands;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using OpenCqrs.Commands;
+using OpenCqrs.Sample.CommandSequence.Commands;
 
-namespace Kledex.Sample.CommandSequence.Handlers
+namespace OpenCqrs.Sample.CommandSequence.Handlers
 {
     public class SecondCommandHandler : ISequenceCommandHandlerAsync<SecondCommand>
     {

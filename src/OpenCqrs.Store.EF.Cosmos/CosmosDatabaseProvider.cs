@@ -1,8 +1,8 @@
-﻿using Kledex.Store.EF.Cosmos.Configuration;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Store.EF.Cosmos.Configuration;
 
-namespace Kledex.Store.EF.Cosmos
+namespace OpenCqrs.Store.EF.Cosmos
 {
     public class CosmosDatabaseProvider : IDatabaseProvider
     {

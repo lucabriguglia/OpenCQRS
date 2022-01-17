@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Kledex.Commands;
-using Kledex.Configuration;
-using Kledex.Dependencies;
-using Kledex.Domain;
-using Kledex.Events;
-using Kledex.Mapping;
-using Kledex.Tests.Fakes;
-using Kledex.Validation;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
+using OpenCqrs.Commands;
+using OpenCqrs.Configuration;
+using OpenCqrs.Dependencies;
+using OpenCqrs.Domain;
+using OpenCqrs.Events;
+using OpenCqrs.Mapping;
+using OpenCqrs.Tests.Fakes;
+using OpenCqrs.Validation;
 
-namespace Kledex.Tests.Commands
+namespace OpenCqrs.Tests.Commands
 {
     [TestFixture]
     public class CommandSenderSyncTests

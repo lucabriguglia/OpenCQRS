@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
-using Kledex.Commands;
-using Kledex.Dependencies;
+using OpenCqrs.Commands;
+using OpenCqrs.Dependencies;
 
-namespace Kledex.Validation.FluentValidation
+namespace OpenCqrs.Validation.FluentValidation
 {
     public class FluentValidationProvider : IValidationProvider
     {

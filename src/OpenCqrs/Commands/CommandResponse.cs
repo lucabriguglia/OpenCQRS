@@ -1,7 +1,7 @@
-﻿using Kledex.Events;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using OpenCqrs.Events;
 
-namespace Kledex.Commands
+namespace OpenCqrs.Commands
 {
     public class CommandResponse
     {

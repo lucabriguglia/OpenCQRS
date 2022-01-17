@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Commands;
-using Kledex.Domain;
+using OpenCqrs.Commands;
+using OpenCqrs.Domain;
 
-namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
+namespace OpenCqrs.Sample.EventSourcing.Domain.Commands.Handlers
 {
     public class UpdateProductHandler : ICommandHandlerAsync<UpdateProduct>
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Queries;
-using Kledex.Sample.NoEventSourcing.Data;
-using Kledex.Sample.NoEventSourcing.Domain;
 using Microsoft.EntityFrameworkCore;
+using OpenCqrs.Queries;
+using OpenCqrs.Sample.NoEventSourcing.Data;
+using OpenCqrs.Sample.NoEventSourcing.Domain;
 
-namespace Kledex.Sample.NoEventSourcing.Reporting.Handlers
+namespace OpenCqrs.Sample.NoEventSourcing.Reporting.Handlers
 {
     public class GetProductHandler : IQueryHandlerAsync<GetProduct, Product>
     {

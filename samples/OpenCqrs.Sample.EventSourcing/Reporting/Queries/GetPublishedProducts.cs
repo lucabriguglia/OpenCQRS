@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Kledex.Queries;
-using Kledex.Sample.EventSourcing.Reporting.Data;
+using OpenCqrs.Queries;
+using OpenCqrs.Sample.EventSourcing.Reporting.Data;
 
-namespace Kledex.Sample.EventSourcing.Reporting.Queries
+namespace OpenCqrs.Sample.EventSourcing.Reporting.Queries
 {
     public class GetPublishedProducts : Query<IEnumerable<ProductEntity>>
     {

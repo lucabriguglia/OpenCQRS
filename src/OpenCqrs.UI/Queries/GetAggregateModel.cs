@@ -1,8 +1,8 @@
 ﻿using System;
-using Kledex.Queries;
-using Kledex.UI.Models;
+using OpenCqrs.Queries;
+using OpenCqrs.UI.Models;
 
-namespace Kledex.UI.Queries
+namespace OpenCqrs.UI.Queries
 {
     public class GetAggregateModel : IQuery<AggregateModel>
     {

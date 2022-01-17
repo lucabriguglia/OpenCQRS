@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Kledex.Bus
+namespace OpenCqrs.Bus
 {
     public interface IBusMessage
     {

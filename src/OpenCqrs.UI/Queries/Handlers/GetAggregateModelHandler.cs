@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Kledex.Domain;
-using Kledex.Queries;
-using Kledex.UI.Models;
+using OpenCqrs.Domain;
+using OpenCqrs.Queries;
+using OpenCqrs.UI.Models;
 
-namespace Kledex.UI.Queries.Handlers
+namespace OpenCqrs.UI.Queries.Handlers
 {
     public class GetAggregateModelHandler : IQueryHandlerAsync<GetAggregateModel, AggregateModel>
     {

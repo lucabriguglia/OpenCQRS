@@ -1,6 +1,6 @@
-﻿using Kledex.Commands;
+﻿using OpenCqrs.Commands;
 
-namespace Kledex.Tests.Fakes
+namespace OpenCqrs.Tests.Fakes
 {
     public class SampleCommandSequence : CommandSequence
     {

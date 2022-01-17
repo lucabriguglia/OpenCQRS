@@ -1,6 +1,6 @@
 using RabbitMQ.Client;
 
-namespace Kledex.Bus.RabbitMQ.Factories
+namespace OpenCqrs.Bus.RabbitMQ.Factories
 {
     /// <summary>
     /// IMessageFactory

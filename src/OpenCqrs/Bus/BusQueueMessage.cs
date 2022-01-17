@@ -1,4 +1,4 @@
-﻿namespace Kledex.Bus
+﻿namespace OpenCqrs.Bus
 {
     public abstract class BusQueueMessage : BusMessage, IBusQueueMessage
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Kledex.Store.Cosmos.Mongo.Documents
+namespace OpenCqrs.Store.Cosmos.Mongo.Documents
 {
     public class EventDocument
     {

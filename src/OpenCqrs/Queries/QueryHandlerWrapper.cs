@@ -1,7 +1,7 @@
-﻿using Kledex.Dependencies;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using OpenCqrs.Dependencies;
 
-namespace Kledex.Queries
+namespace OpenCqrs.Queries
 {
     internal abstract class BaseQueryHandlerWrapper<TResult>
     {

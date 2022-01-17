@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Sample.EventSourcing.Domain.Events
+namespace OpenCqrs.Sample.EventSourcing.Domain.Events
 {
     public class ProductWithdrew : DomainEvent
     {

@@ -1,12 +1,12 @@
 ﻿using System;
-using Kledex.Exceptions;
+using OpenCqrs.Exceptions;
 
-namespace Kledex.Domain
+namespace OpenCqrs.Domain
 {
     public class VersionService : IVersionService
     {
         /// <inheritdoc />
-        /// <exception cref="T:Kledex.Exceptions.ConcurrencyException"></exception>
+        /// <exception cref="T:OpenCqrs.Exceptions.ConcurrencyException"></exception>
         public int GetNextVersion(Guid aggregateRootId, int currentVersion, int? expectedVersion)
         {
             if (expectedVersion.HasValue && expectedVersion.Value > 0 && expectedVersion.Value != currentVersion)

@@ -1,9 +1,9 @@
-﻿using Kledex.Configuration;
-using Kledex.Domain;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using OpenCqrs.Configuration;
+using OpenCqrs.Domain;
 
-namespace Kledex.Store.Cosmos.Mongo.Documents.Factories
+namespace OpenCqrs.Store.Cosmos.Mongo.Documents.Factories
 {
     public class CommandDocumentFactory : ICommandDocumentFactory
     {

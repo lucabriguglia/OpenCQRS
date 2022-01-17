@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Store.EF.Entities.Factories
+namespace OpenCqrs.Store.EF.Entities.Factories
 {
     public class AggregateEntityFactory : IAggregateEntityFactory
     {

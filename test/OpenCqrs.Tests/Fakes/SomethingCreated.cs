@@ -1,9 +1,9 @@
 ﻿using System;
-using Kledex.Bus;
-using Kledex.Events;
 using System.Collections.Generic;
+using OpenCqrs.Bus;
+using OpenCqrs.Events;
 
-namespace Kledex.Tests.Fakes
+namespace OpenCqrs.Tests.Fakes
 {
     public class SomethingCreated : Event, IBusQueueMessage
     {

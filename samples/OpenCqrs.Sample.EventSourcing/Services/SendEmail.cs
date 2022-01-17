@@ -1,6 +1,6 @@
-﻿using Kledex.Commands;
+﻿using OpenCqrs.Commands;
 
-namespace Kledex.Sample.EventSourcing.Services
+namespace OpenCqrs.Sample.EventSourcing.Services
 {
     public class SendEmail : Command
     {

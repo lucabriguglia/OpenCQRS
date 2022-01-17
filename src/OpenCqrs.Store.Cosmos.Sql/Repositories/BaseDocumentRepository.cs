@@ -1,15 +1,15 @@
-﻿using Kledex.Store.Cosmos.Sql.Configuration;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
+using Microsoft.Extensions.Options;
+using OpenCqrs.Store.Cosmos.Sql.Configuration;
 
-namespace Kledex.Store.Cosmos.Sql.Repositories
+namespace OpenCqrs.Store.Cosmos.Sql.Repositories
 {
     public abstract class BaseDocumentRepository<TDocument> : IDocumentRepository<TDocument> where TDocument : class
     {

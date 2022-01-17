@@ -1,4 +1,4 @@
-﻿namespace Kledex.Configuration
+﻿namespace OpenCqrs.Configuration
 {
     public class MainOptions
     {

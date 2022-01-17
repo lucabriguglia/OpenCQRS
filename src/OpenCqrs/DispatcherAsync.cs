@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Bus;
-using Kledex.Commands;
-using Kledex.Domain;
-using Kledex.Events;
-using Kledex.Queries;
+using OpenCqrs.Bus;
+using OpenCqrs.Commands;
+using OpenCqrs.Events;
+using OpenCqrs.Queries;
 
-namespace Kledex
+namespace OpenCqrs
 {
     /// <inheritdoc />
     /// <summary>
     /// Dispatcher
     /// </summary>
-    /// <seealso cref="T:Kledex.IDispatcher" />
+    /// <seealso cref="T:OpenCqrs.IDispatcher" />
     public partial class Dispatcher : IDispatcher
     {
         private readonly ICommandSender _commandSender;

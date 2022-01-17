@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kledex.Queries
+namespace OpenCqrs.Queries
 {
     /// <summary>
     /// IQueryProcessor

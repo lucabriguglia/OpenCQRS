@@ -1,10 +1,9 @@
-﻿using Kledex.Bus.ServiceBus.Factories;
-using Kledex.Bus.ServiceBus.Queues;
-using Kledex.Extensions;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using OpenCqrs.Bus.ServiceBus.Factories;
+using OpenCqrs.Extensions;
 
-namespace Kledex.Bus.ServiceBus.Extensions
+namespace OpenCqrs.Bus.ServiceBus.Extensions
 {
     public static class ServiceCollectionExtensions
     {

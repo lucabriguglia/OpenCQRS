@@ -1,12 +1,12 @@
 ﻿using System;
-using Kledex.Extensions;
-using Kledex.Store.EF.Cosmos.Configuration;
-using Kledex.Store.EF.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Extensions;
+using OpenCqrs.Store.EF.Cosmos.Configuration;
+using OpenCqrs.Store.EF.Extensions;
 
-namespace Kledex.Store.EF.Cosmos.Extensions
+namespace OpenCqrs.Store.EF.Cosmos.Extensions
 {
     public static class ServiceCollectionExtensions
     {

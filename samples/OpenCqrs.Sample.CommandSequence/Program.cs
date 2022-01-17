@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using Kledex.Extensions;
-using Kledex.Sample.CommandSequence.Commands;
-using Kledex.Utilities;
-using Kledex.Validation.FluentValidation.Extensions;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Extensions;
+using OpenCqrs.Sample.CommandSequence.Commands;
+using OpenCqrs.Utilities;
+using OpenCqrs.Validation.FluentValidation.Extensions;
 
-namespace Kledex.Sample.CommandSequence
+namespace OpenCqrs.Sample.CommandSequence
 {
     class Program
     {

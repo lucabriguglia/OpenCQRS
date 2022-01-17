@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kledex.Domain
+namespace OpenCqrs.Domain
 {
     /// <inheritdoc />
     public class Repository<T> : IRepository<T> where T : IAggregateRoot

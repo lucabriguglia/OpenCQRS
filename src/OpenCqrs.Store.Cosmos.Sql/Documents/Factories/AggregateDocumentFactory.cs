@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Store.Cosmos.Sql.Documents.Factories
+namespace OpenCqrs.Store.Cosmos.Sql.Documents.Factories
 {
     public class AggregateDocumentFactory : IAggregateDocumentFactory
     {

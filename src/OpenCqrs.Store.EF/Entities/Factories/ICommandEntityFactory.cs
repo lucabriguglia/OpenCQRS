@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Store.EF.Entities.Factories
+namespace OpenCqrs.Store.EF.Entities.Factories
 {
     public interface ICommandEntityFactory
     {

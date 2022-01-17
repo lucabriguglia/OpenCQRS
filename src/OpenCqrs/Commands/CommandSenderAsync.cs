@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Kledex.Configuration;
-using Kledex.Dependencies;
-using Kledex.Domain;
-using Kledex.Events;
-using Kledex.Mapping;
-using Kledex.Validation;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Configuration;
+using OpenCqrs.Dependencies;
+using OpenCqrs.Domain;
+using OpenCqrs.Events;
+using OpenCqrs.Mapping;
+using OpenCqrs.Validation;
 
-namespace Kledex.Commands
+namespace OpenCqrs.Commands
 {
     /// <inheritdoc />
     public partial class CommandSender : ICommandSender

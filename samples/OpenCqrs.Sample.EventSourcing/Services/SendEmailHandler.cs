@@ -1,9 +1,9 @@
-﻿using Kledex.Commands;
-using Kledex.Events;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using OpenCqrs.Commands;
+using OpenCqrs.Events;
 
-namespace Kledex.Sample.EventSourcing.Services
+namespace OpenCqrs.Sample.EventSourcing.Services
 {
     public class SendEmailHandler : ICommandHandlerAsync<SendEmail>
     {

@@ -1,4 +1,4 @@
-﻿namespace Kledex.Mapping
+﻿namespace OpenCqrs.Mapping
 {
     /// <summary>
     /// IObjectFactory

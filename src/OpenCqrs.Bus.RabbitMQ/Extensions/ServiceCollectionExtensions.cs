@@ -1,11 +1,11 @@
-﻿using Kledex.Bus.RabbitMQ.Factories;
-using Kledex.Extensions;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using OpenCqrs.Bus.RabbitMQ.Factories;
+using OpenCqrs.Extensions;
 
 // ReSharper disable InconsistentNaming
 
-namespace Kledex.Bus.RabbitMQ.Extensions
+namespace OpenCqrs.Bus.RabbitMQ.Extensions
 {
     public static class ServiceCollectionExtensions
     {

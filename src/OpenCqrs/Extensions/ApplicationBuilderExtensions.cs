@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Kledex.Extensions
+namespace OpenCqrs.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace Kledex.Store.Cosmos.Mongo.Configuration
+﻿namespace OpenCqrs.Store.Cosmos.Mongo.Configuration
 {
     public class MongoOptions
     {

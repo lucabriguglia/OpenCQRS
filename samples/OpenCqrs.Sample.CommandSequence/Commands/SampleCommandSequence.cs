@@ -1,6 +1,6 @@
-﻿namespace Kledex.Sample.CommandSequence.Commands
+﻿namespace OpenCqrs.Sample.CommandSequence.Commands
 {
-    public class SampleCommandSequence : Kledex.Commands.CommandSequence
+    public class SampleCommandSequence : OpenCqrs.Commands.CommandSequence
     {
         public SampleCommandSequence()
         {

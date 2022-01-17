@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Bus;
-using Kledex.Commands;
-using Kledex.Events;
-using Kledex.Queries;
+using OpenCqrs.Bus;
+using OpenCqrs.Commands;
+using OpenCqrs.Events;
+using OpenCqrs.Queries;
 
-namespace Kledex
+namespace OpenCqrs
 {
     /// <summary>
     /// IDispatcher

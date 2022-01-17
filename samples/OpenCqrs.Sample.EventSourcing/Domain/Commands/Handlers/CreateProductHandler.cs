@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Kledex.Commands;
+using OpenCqrs.Commands;
 
-namespace Kledex.Sample.EventSourcing.Domain.Commands.Handlers
+namespace OpenCqrs.Sample.EventSourcing.Domain.Commands.Handlers
 {
     public class CreateProductHandler : ICommandHandlerAsync<CreateProduct>
     {

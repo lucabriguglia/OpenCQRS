@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using AutoMapper;
-using Kledex.Events;
-using Kledex.Queries;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Events;
+using OpenCqrs.Queries;
 
-namespace Kledex.Extensions
+namespace OpenCqrs.Extensions
 {
     public static class AutoMapperExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Commands
+namespace OpenCqrs.Commands
 {
     public interface ICommand
     {

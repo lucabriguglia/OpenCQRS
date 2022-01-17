@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Kledex.Domain
+namespace OpenCqrs.Domain
 {
     public class SaveStoreData
     {

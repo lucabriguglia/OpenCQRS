@@ -1,4 +1,4 @@
-﻿namespace Kledex
+﻿namespace OpenCqrs
 {
     public static class Consts
     {

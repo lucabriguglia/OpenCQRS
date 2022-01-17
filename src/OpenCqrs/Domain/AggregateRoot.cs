@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ReflectionMagic;
 
-namespace Kledex.Domain
+namespace OpenCqrs.Domain
 {
     public abstract class AggregateRoot : IAggregateRoot
     {

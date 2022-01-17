@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Kledex.Bus.ServiceBus.Tests.Fakes
+namespace OpenCqrs.Bus.ServiceBus.Tests.Fakes
 {
     internal class SomeBusMessage : IBusMessage
     {

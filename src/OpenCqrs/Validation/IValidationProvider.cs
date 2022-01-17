@@ -1,8 +1,8 @@
 ﻿using System;
-using Kledex.Commands;
 using System.Threading.Tasks;
+using OpenCqrs.Commands;
 
-namespace Kledex.Validation
+namespace OpenCqrs.Validation
 {
     public interface IValidationProvider
     {

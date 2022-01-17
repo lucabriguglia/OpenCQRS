@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Kledex.Validation
+namespace OpenCqrs.Validation
 {
     public class ValidationResponse
     {

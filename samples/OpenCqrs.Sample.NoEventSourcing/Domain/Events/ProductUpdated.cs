@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Sample.NoEventSourcing.Domain.Events
+namespace OpenCqrs.Sample.NoEventSourcing.Domain.Events
 {
     public class ProductUpdated : DomainEvent
     {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Kledex.Sample.NoEventSourcing.Domain.Commands.Validators
+namespace OpenCqrs.Sample.NoEventSourcing.Domain.Commands.Validators
 {
     public class CreateProductValidator : AbstractValidator<CreateProduct>
     {

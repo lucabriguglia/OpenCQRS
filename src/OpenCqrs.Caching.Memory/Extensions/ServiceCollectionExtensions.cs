@@ -1,8 +1,8 @@
-﻿using Kledex.Extensions;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using OpenCqrs.Extensions;
 
-namespace Kledex.Caching.Memory.Extensions
+namespace OpenCqrs.Caching.Memory.Extensions
 {
     public static class ServiceCollectionExtensions
     {

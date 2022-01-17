@@ -1,7 +1,7 @@
 ﻿using System;
-using Kledex.Events;
+using OpenCqrs.Events;
 
-namespace Kledex.Domain
+namespace OpenCqrs.Domain
 {
     public abstract class DomainEvent : Event, IDomainEvent
     {

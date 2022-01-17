@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kledex.Domain
+namespace OpenCqrs.Domain
 {
     public abstract class Entity : IEntity
     {

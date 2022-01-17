@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Kledex.Commands
+namespace OpenCqrs.Commands
 {
     public interface ICommandSequence
     {

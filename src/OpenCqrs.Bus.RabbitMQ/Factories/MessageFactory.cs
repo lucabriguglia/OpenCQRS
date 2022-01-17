@@ -3,7 +3,7 @@ using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
-namespace Kledex.Bus.RabbitMQ.Factories
+namespace OpenCqrs.Bus.RabbitMQ.Factories
 {
     public class MessageFactory : IMessageFactory
     {

@@ -1,6 +1,6 @@
-﻿using Kledex.Commands;
+﻿using OpenCqrs.Commands;
 
-namespace Kledex.Sample.CommandSequence.Commands
+namespace OpenCqrs.Sample.CommandSequence.Commands
 {
     public class FirstCommand : Command
     {

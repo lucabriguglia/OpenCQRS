@@ -1,14 +1,14 @@
-﻿using AutoFixture;
-using Kledex.Tests.Fakes;
-using Kledex.Validation;
-using Moq;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kledex.Exceptions;
+using AutoFixture;
+using Moq;
+using NUnit.Framework;
+using OpenCqrs.Exceptions;
+using OpenCqrs.Tests.Fakes;
+using OpenCqrs.Validation;
 
-namespace Kledex.Tests.Validation
+namespace OpenCqrs.Tests.Validation
 {
     [TestFixture]
     public class ValidationServiceTests

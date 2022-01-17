@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Kledex.Exceptions;
+using OpenCqrs.Exceptions;
 
-namespace Kledex.Dependencies
+namespace OpenCqrs.Dependencies
 {
     public class HandlerResolver : IHandlerResolver
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Kledex.Bus.ServiceBus.Factories;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Options;
+using OpenCqrs.Bus.ServiceBus.Factories;
 
-namespace Kledex.Bus.ServiceBus.Queues
+namespace OpenCqrs.Bus.ServiceBus
 {
     public class ServiceBusProvider : IBusProvider
     {

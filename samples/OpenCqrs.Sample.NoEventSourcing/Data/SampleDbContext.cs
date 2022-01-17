@@ -1,7 +1,7 @@
-﻿using Kledex.Sample.NoEventSourcing.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenCqrs.Sample.NoEventSourcing.Domain;
 
-namespace Kledex.Sample.NoEventSourcing.Data
+namespace OpenCqrs.Sample.NoEventSourcing.Data
 {
     public class SampleDbContext : DbContext
     {

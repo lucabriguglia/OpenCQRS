@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Kledex.Sample.NoEventSourcing.Domain;
-using Kledex.Sample.NoEventSourcing.Domain.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OpenCqrs.Sample.NoEventSourcing.Domain;
+using OpenCqrs.Sample.NoEventSourcing.Domain.Commands;
 
-namespace Kledex.Sample.NoEventSourcing.Pages
+namespace OpenCqrs.Sample.NoEventSourcing.Pages
 {
     public class CreateModel : PageModel
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Kledex.Sample.EventSourcing.Reporting.Data
+namespace OpenCqrs.Sample.EventSourcing.Reporting.Data
 {
     public class ReportingDbContext : DbContext
     {

@@ -4,6 +4,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using OpenCqrs.Store.EF;
 
 namespace Kledex.Store.EF.Migrations
 {

@@ -1,6 +1,6 @@
-﻿using Kledex.Domain;
+﻿using OpenCqrs.Domain;
 
-namespace Kledex.Tests.Fakes
+namespace OpenCqrs.Tests.Fakes
 {
     public class Aggregate : AggregateRoot
     {

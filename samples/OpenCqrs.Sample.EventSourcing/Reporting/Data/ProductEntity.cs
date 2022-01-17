@@ -1,7 +1,7 @@
-﻿using Kledex.Sample.EventSourcing.Domain;
-using System;
+﻿using System;
+using OpenCqrs.Sample.EventSourcing.Domain;
 
-namespace Kledex.Sample.EventSourcing.Reporting.Data
+namespace OpenCqrs.Sample.EventSourcing.Reporting.Data
 {
     public class ProductEntity
     {

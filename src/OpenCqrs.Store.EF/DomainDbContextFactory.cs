@@ -1,7 +1,7 @@
 ﻿using System;
-using Kledex.Dependencies;
+using OpenCqrs.Dependencies;
 
-namespace Kledex.Store.EF
+namespace OpenCqrs.Store.EF
 {
     public class DomainDbContextFactory : IDomainDbContextFactory
     {

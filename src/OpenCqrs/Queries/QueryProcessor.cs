@@ -1,12 +1,12 @@
-using Kledex.Caching;
-using Kledex.Dependencies;
-using Kledex.Exceptions;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using OpenCqrs.Caching;
+using OpenCqrs.Dependencies;
+using OpenCqrs.Exceptions;
 
-namespace Kledex.Queries
+namespace OpenCqrs.Queries
 {
     /// <inheritdoc />
     public class QueryProcessor : IQueryProcessor

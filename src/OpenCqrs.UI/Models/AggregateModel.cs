@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Kledex.Domain;
+using OpenCqrs.Domain;
 
-namespace Kledex.UI.Models
+namespace OpenCqrs.UI.Models
 {
     public class AggregateModel
     {

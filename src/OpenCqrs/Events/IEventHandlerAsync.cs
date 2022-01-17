@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kledex.Events
+namespace OpenCqrs.Events
 {
     public interface IEventHandlerAsync<in TEvent> where TEvent : IEvent
     {

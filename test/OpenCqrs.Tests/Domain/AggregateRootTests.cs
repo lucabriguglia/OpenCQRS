@@ -1,12 +1,12 @@
-﻿namespace Kledex.Tests.Domain
-{
-    using Kledex.Domain;
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using NUnit.Framework;
+using OpenCqrs.Domain;
 
+namespace OpenCqrs.Tests.Domain
+{
     [TestFixture]
     public class AggregateRootTests
     {

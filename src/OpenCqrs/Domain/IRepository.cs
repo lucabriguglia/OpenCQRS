@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Kledex.Domain
+namespace OpenCqrs.Domain
 {
     public interface IRepository<T> where T : IAggregateRoot
     {

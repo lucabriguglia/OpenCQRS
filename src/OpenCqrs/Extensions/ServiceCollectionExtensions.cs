@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Kledex.Configuration;
-using Kledex.Domain;
 using Microsoft.Extensions.DependencyInjection;
+using OpenCqrs.Configuration;
+using OpenCqrs.Domain;
 
-namespace Kledex.Extensions
+namespace OpenCqrs.Extensions
 {
     public static class ServiceCollectionExtensions
     {

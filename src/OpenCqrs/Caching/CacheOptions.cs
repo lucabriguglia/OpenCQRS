@@ -1,4 +1,4 @@
-﻿namespace Kledex.Caching
+﻿namespace OpenCqrs.Caching
 {
     public class CacheOptions
     {

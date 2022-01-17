@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Kledex.Extensions
+namespace OpenCqrs.Extensions
 {
     public interface IKledexServiceBuilder
     {

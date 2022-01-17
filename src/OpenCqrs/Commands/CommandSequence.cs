@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Kledex.Commands
+namespace OpenCqrs.Commands
 {
     public abstract class CommandSequence : ICommandSequence
     {
