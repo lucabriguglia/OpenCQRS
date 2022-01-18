@@ -47,13 +47,13 @@ The following are the providers that are currently supported:
 
 | Package | Method |
 | --- | --- |
-| **OpenCqrs.Store.Cosmos.Mongo** | AddCosmosMongo |
-| **OpenCqrs.Store.Cosmos.Sql** | AddCosmosSql |
-| **OpenCqrs.Store.EF.MySql** | AddMySql |
-| **OpenCqrs.Store.EF.PostgreSql** | AddPostgreSql |
-| **OpenCqrs.Store.EF.Sqlite** | AddSqlite |
-| **OpenCqrs.Store.EF.SqlServer** | AddSqlServer |
-| **OpenCqrs.Store.EF.Cosmos** | AddCosmos |
+| **OpenCqrs.Store.Cosmos.Mongo** | AddCosmosMongoStore |
+| **OpenCqrs.Store.Cosmos.Sql** | AddCosmosSqlStore |
+| **OpenCqrs.Store.EF.MySql** | AddMySqlStore |
+| **OpenCqrs.Store.EF.PostgreSql** | AddPostgreSqlStore |
+| **OpenCqrs.Store.EF.Sqlite** | AddSqliteStore |
+| **OpenCqrs.Store.EF.SqlServer** | AddSqlServerStore |
+| **OpenCqrs.Store.EF.Cosmos** | AddCosmosStore |
 
 The are different registration and configuration options available for each provider:
 
@@ -62,7 +62,7 @@ The are different registration and configuration options available for each prov
 ```C#
 services
     .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServer(options =>
+    .AddSqlServerStore(options =>
     {
         options.ConnectionString = "your-connection-string";
     })
@@ -90,7 +90,7 @@ This provider uses the new Microsoft.Azure.Cosmos package.
 ```C#
 services
     .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmos(options =>
+    .AddCosmosStore(options =>
     {
         options.ConnectionString = "your-connection-string";
 	    options.DatabaseName = "DatabaseId";
@@ -104,7 +104,7 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
-| **ConnectionString** | The service end point | AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5...= |
+| **ConnectionString** | The service connection string | AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5...= |
 | **DatabaseName** | The name of the Database | DomainStore |
 | **AggregateContainerName** | The name of the Aggregate container | Aggregates |
 | **CommandContainerName** | The name of the Command container | Commands |
@@ -128,7 +128,7 @@ This provider uses the old Microsoft.Azure.DocumentDB package.
 ```C#
 services
     .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosSql(options =>
+    .AddCosmosSqlStore(options =>
     {
 	    options.ServiceEndpoint = "your-service-end-point";
 	    options.AuthKey = "your-auth-key";
@@ -170,7 +170,7 @@ public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> s
 ```C#
 services
     .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosMongo(options =>
+    .AddCosmosMongoStore(options =>
     {
         options.ConnectionString = "your-connection-string";
         options.DatabaseName = "DatabaseName";
