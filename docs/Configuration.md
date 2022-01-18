@@ -92,12 +92,11 @@ services
     .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmos(options =>
     {
-        options.ServiceEndpoint = "your-service-end-point";
-        options.AuthKey = "your-auth-key";
-	options.DatabaseName = "DatabaseId";
-	options.AggregateContainerName = "Aggregates";
-	options.CommandContainerName = "Commands";
-	options.EventContainerName = "Events";
+        options.ConnectionString = "your-connection-string";
+	    options.DatabaseName = "DatabaseId";
+	    options.AggregateContainerName = "Aggregates";
+	    options.CommandContainerName = "Commands";
+	    options.EventContainerName = "Events";
     });
 ```
 
@@ -105,8 +104,7 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
-| **ServiceEndpoint** | The service end point | https://localhost:8081 |
-| **AuthKey** | The auth key | C2y6yDjf5/R+ob0N8A7Cgv30VRDJ... |
+| **ConnectionString** | The service end point | AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5...= |
 | **DatabaseName** | The name of the Database | DomainStore |
 | **AggregateContainerName** | The name of the Aggregate container | Aggregates |
 | **CommandContainerName** | The name of the Command container | Commands |
@@ -132,14 +130,14 @@ services
     .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosSql(options =>
     {
-	options.ServiceEndpoint = "your-service-end-point";
-	options.AuthKey = "your-auth-key";
-	options.DatabaseId = "DatabaseId";
-	options.AggregateCollectionId = "AggregateCollectionId";
-	options.CommandCollectionId = "CommandCollectionId";
-	options.EventCollectionId = "EventCollectionId";
-	options.OfferThroughput = 400;
-	options.ConsistencyLevel = ConsistencyLevel.Session;
+	    options.ServiceEndpoint = "your-service-end-point";
+	    options.AuthKey = "your-auth-key";
+	    options.DatabaseId = "DatabaseId";
+	    options.AggregateCollectionId = "AggregateCollectionId";
+	    options.CommandCollectionId = "CommandCollectionId";
+	    options.EventCollectionId = "EventCollectionId";
+	    options.OfferThroughput = 400;
+	    options.ConsistencyLevel = ConsistencyLevel.Session;
     });
 ```
 
