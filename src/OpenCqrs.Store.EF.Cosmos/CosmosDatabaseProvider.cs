@@ -17,7 +17,7 @@ namespace OpenCqrs.Store.EF.Cosmos
         {
             var optionsBuilder = new DbContextOptionsBuilder<DomainDbContext>();
 
-            optionsBuilder.UseCosmos(_settings.ServiceEndpoint,  _settings.AuthKey, _settings.DatabaseName);
+            optionsBuilder.UseCosmos(_settings.ConnectionString, _settings.DatabaseName);
 
             return new CosmosDomainDbContext(optionsBuilder.Options, _settings);
         }

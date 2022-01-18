@@ -35,7 +35,7 @@ namespace OpenCqrs.Store.EF.Cosmos.Extensions
             builder.AddEFStore();
 
             builder.Services.AddDbContext<DomainDbContext>(options =>
-                options.UseCosmos(dbOptions.ServiceEndpoint, dbOptions.AuthKey, dbOptions.DatabaseName));
+                options.UseCosmos(dbOptions.ConnectionString, dbOptions.DatabaseName));
 
             builder.Services.AddTransient<IDatabaseProvider, CosmosDatabaseProvider>();
 

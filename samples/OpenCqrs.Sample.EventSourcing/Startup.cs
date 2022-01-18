@@ -51,8 +51,7 @@ namespace OpenCqrs.Sample.EventSourcing
                 }, typeof(Product))
                 .AddCosmosStore(options =>
                 {
-                    options.ServiceEndpoint = Configuration.GetSection("OpenCqrsCosmos:ServerEndpoint").Value;
-                    options.AuthKey = Configuration.GetSection("OpenCqrsCosmos:AuthKey").Value;
+                    options.ConnectionString = Configuration.GetConnectionString("MyDomainStore");
                 })
                 .AddServiceBus(options => {
                     options.ConnectionString = Configuration.GetConnectionString("MyMessageBus");
