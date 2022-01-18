@@ -15,7 +15,7 @@ namespace OpenCqrs.Queries
         private readonly ICacheManager _cacheManager;
         private readonly CacheOptions _cacheOptions;
 
-        private static readonly ConcurrentDictionary<Type, object> _queryHandlerWrappers = new ConcurrentDictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, object> QueryHandlerWrappers = new();
 
         public QueryProcessor(IHandlerResolver handlerResolver, 
             ICacheManager cacheManager, 
@@ -34,28 +34,28 @@ namespace OpenCqrs.Queries
                 throw new ArgumentNullException(nameof(query));
             }
 
-            Task<TResult> GetResultAsync(IQuery<TResult> query)
+            Task<TResult> GetResultAsync(IQuery<TResult> q)
             {
-                var queryType = query.GetType();
-                var handler = (BaseQueryHandlerWrapper<TResult>)_queryHandlerWrappers.GetOrAdd(queryType,
+                var queryType = q.GetType();
+                var handler = (QueryHandlerWrapperBase<TResult>)QueryHandlerWrappers.GetOrAdd(queryType,
                     t => Activator.CreateInstance(typeof(QueryHandlerWrapper<,>).MakeGenericType(queryType, typeof(TResult))));
-                return handler.HandleAsync(query, _handlerResolver);
+                return handler.HandleAsync(q, _handlerResolver);
             }
 
-            if (query is ICacheableQuery<TResult> cacheableQuery)
+            if (query is not ICacheableQuery<TResult> cacheableQuery)
             {
-                if (string.IsNullOrEmpty(cacheableQuery.CacheKey))
-                {
-                    throw new QueryException("Cache key is required.");
-                }
-
-                return _cacheManager.GetOrSetAsync(
-                    cacheableQuery.CacheKey, 
-                    cacheableQuery.CacheTime ?? _cacheOptions.DefaultCacheTime, 
-                    () => GetResultAsync(query));
+                return GetResultAsync(query);
             }
 
-            return GetResultAsync(query);
+            if (string.IsNullOrEmpty(cacheableQuery.CacheKey))
+            {
+                throw new QueryException("Cache key is required.");
+            }
+
+            return _cacheManager.GetOrSetAsync(
+                cacheableQuery.CacheKey, 
+                cacheableQuery.CacheTime ?? _cacheOptions.DefaultCacheTime, 
+                () => GetResultAsync(query));
         }
 
         /// <inheritdoc />
@@ -66,28 +66,28 @@ namespace OpenCqrs.Queries
                 throw new ArgumentNullException(nameof(query));
             }
 
-            TResult GetResult(IQuery<TResult> query)
+            TResult GetResult(IQuery<TResult> q)
             {
-                var queryType = query.GetType();
-                var handler = (BaseQueryHandlerWrapper<TResult>)_queryHandlerWrappers.GetOrAdd(queryType,
+                var queryType = q.GetType();
+                var handler = (QueryHandlerWrapperBase<TResult>)QueryHandlerWrappers.GetOrAdd(queryType,
                     t => Activator.CreateInstance(typeof(QueryHandlerWrapper<,>).MakeGenericType(queryType, typeof(TResult))));
-                return handler.Handle(query, _handlerResolver);
+                return handler.Handle(q, _handlerResolver);
             }
 
-            if (query is ICacheableQuery<TResult> cacheableQuery)
+            if (query is not ICacheableQuery<TResult> cacheableQuery)
             {
-                if (string.IsNullOrEmpty(cacheableQuery.CacheKey))
-                {
-                    throw new QueryException("Cache key is required.");
-                }
-
-                return _cacheManager.GetOrSet(
-                    cacheableQuery.CacheKey,
-                    cacheableQuery.CacheTime ?? _cacheOptions.DefaultCacheTime,
-                    () => GetResult(query));
+                return GetResult(query);
             }
 
-            return GetResult(query);
+            if (string.IsNullOrEmpty(cacheableQuery.CacheKey))
+            {
+                throw new QueryException("Cache key is required.");
+            }
+
+            return _cacheManager.GetOrSet(
+                cacheableQuery.CacheKey,
+                cacheableQuery.CacheTime ?? _cacheOptions.DefaultCacheTime,
+                () => GetResult(query));
         }
     }
 }

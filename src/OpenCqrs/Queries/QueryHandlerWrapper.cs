@@ -3,18 +3,7 @@ using OpenCqrs.Dependencies;
 
 namespace OpenCqrs.Queries
 {
-    internal abstract class BaseQueryHandlerWrapper<TResult>
-    {
-        protected static THandler GetHandler<THandler>(IHandlerResolver handlerResolver)
-        {
-            return handlerResolver.ResolveHandler<THandler>();
-        }
-
-        public abstract Task<TResult> HandleAsync(IQuery<TResult> query, IHandlerResolver serviceFactory);
-        public abstract TResult Handle(IQuery<TResult> query, IHandlerResolver serviceFactory);
-    }
-
-    internal class QueryHandlerWrapper<TQuery, TResult> : BaseQueryHandlerWrapper<TResult>
+    internal class QueryHandlerWrapper<TQuery, TResult> : QueryHandlerWrapperBase<TResult>
         where TQuery : IQuery<TResult>
     {
         public override Task<TResult> HandleAsync(IQuery<TResult> query, IHandlerResolver handlerResolver)
