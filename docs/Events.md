@@ -1,6 +1,6 @@
 # Events
 
-Kledex automatically publishes events unless the feature is disabled (global or command). Events can also be published directly using the dispatcher. Either way there are a few steps to follow in order to handle the events.
+OpenCQRS automatically publishes events unless the feature is disabled (global or command). Events can also be published directly using the dispatcher. Either way there are a few steps to follow in order to handle the events.
 
 First, create an event that inherits from the **Event** class:
 

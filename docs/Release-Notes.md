@@ -1,5 +1,10 @@
 # Release Notes
 
+## OpenCQRS 6.5
+_**Released 31/01/2022**_
+- Rebranding (from Kledex to OpenCQRS)
+- Upgrade to .NET 6
+
 ## Kledex 2.5
 _**Released 04/01/2020**_
 - Entity Framework Cosmos Store Provider

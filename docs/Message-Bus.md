@@ -1,11 +1,11 @@
 # Message Bus
 
-Kledex supports Azure Service Bus and RabbitMQ and commands/events can be automatically sent to a bus.
+OpenCQRS supports Azure Service Bus and RabbitMQ and commands/events can be automatically sent to a bus.
 
 **Azure Service Bus**
 
 First you need to create your own namespace and queue(s)/topic(s) on Azure.
-Queues and Topics are **NOT** currently created automatically by Kledex, so you need to create them manually using the Azure Portal.
+Queues and Topics are **NOT** currently created automatically by OpenCQRS, so you need to create them manually using the Azure Portal.
 
 Please, follow the instruction contained on the following page: https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-get-started-with-queues.
 
@@ -14,7 +14,7 @@ Once your connection string and queue(s) are created, you need to update the con
 ```JSON
 {
   "ConnectionStrings": {
-    "KledexMessageBus": "your-azure-service-bus-connection-string",
+    "OpenCqrsMessageBus": "your-azure-service-bus-connection-string",
   }
 }
 ```

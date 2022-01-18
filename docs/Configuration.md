@@ -13,7 +13,7 @@
 First, register the main package in the ConfigureServices method of Startup.cs:
 
 ```C#
-services.AddKledex(typeof(CreateProduct), typeof(GetProduct));
+services.AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct));
 ```
 
 All command, event, query and validation handlers will be registered automatically by passing one type per assembly.
@@ -25,7 +25,7 @@ It is possible to set a few options for the main package:
 
 ```C#
 services
-    .AddKledex(options =>
+    .AddOpenCqrs(options =>
     {
          options.PublishEvents = true;
          options.SaveCommandData = true;
@@ -47,13 +47,13 @@ The following are the providers that are currently supported:
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Store.Cosmos.Mongo** | AddCosmosMongo |
-| **Kledex.Store.Cosmos.Sql** | AddCosmosSql |
-| **Kledex.Store.EF.MySql** | AddMySql |
-| **Kledex.Store.EF.PostgreSql** | AddPostgreSql |
-| **Kledex.Store.EF.Sqlite** | AddSqlite |
-| **Kledex.Store.EF.SqlServer** | AddSqlServer |
-| **Kledex.Store.EF.Cosmos** | AddCosmos |
+| **OpenCqrs.Store.Cosmos.Mongo** | AddCosmosMongoStore |
+| **OpenCqrs.Store.Cosmos.Sql** | AddCosmosSqlStore |
+| **OpenCqrs.Store.EF.MySql** | AddMySqlStore |
+| **OpenCqrs.Store.EF.PostgreSql** | AddPostgreSqlStore |
+| **OpenCqrs.Store.EF.Sqlite** | AddSqliteStore |
+| **OpenCqrs.Store.EF.SqlServer** | AddSqlServerStore |
+| **OpenCqrs.Store.EF.Cosmos** | AddCosmosStore |
 
 The are different registration and configuration options available for each provider:
 
@@ -61,8 +61,8 @@ The are different registration and configuration options available for each prov
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddSqlServer(options =>
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+    .AddSqlServerStore(options =>
     {
         options.ConnectionString = "your-connection-string";
     })
@@ -79,7 +79,7 @@ services
 ```C#
 public void Configure(IApplicationBuilder app)
 {
-    app.UseKledex().EnsureDomainDbCreated();
+    app.UseOpenCqrs().EnsureDomainDbCreated();
 }
 ```
 
@@ -89,15 +89,14 @@ This provider uses the new Microsoft.Azure.Cosmos package.
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmos(options =>
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+    .AddCosmosStore(options =>
     {
-        options.ServiceEndpoint = "your-service-end-point";
-        options.AuthKey = "your-auth-key";
-	options.DatabaseName = "DatabaseId";
-	options.AggregateContainerName = "Aggregates";
-	options.CommandContainerName = "Commands";
-	options.EventContainerName = "Events";
+        options.ConnectionString = "your-connection-string";
+	    options.DatabaseName = "DatabaseId";
+	    options.AggregateContainerName = "Aggregates";
+	    options.CommandContainerName = "Commands";
+	    options.EventContainerName = "Events";
     });
 ```
 
@@ -105,8 +104,7 @@ services
 
 | Property | Description | Default |
 | --- | --- | --- |
-| **ServiceEndpoint** | The service end point | https://localhost:8081 |
-| **AuthKey** | The auth key | C2y6yDjf5/R+ob0N8A7Cgv30VRDJ... |
+| **ConnectionString** | The service connection string | AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5...= |
 | **DatabaseName** | The name of the Database | DomainStore |
 | **AggregateContainerName** | The name of the Aggregate container | Aggregates |
 | **CommandContainerName** | The name of the Command container | Commands |
@@ -119,7 +117,7 @@ Note that the partition key is set by default to '/type'.
 ```C#
 public void Configure(IApplicationBuilder app)
 {
-    app.UseKledex().EnsureCosmosDbCreated();
+    app.UseOpenCqrs().EnsureCosmosDbCreated();
 }
 ```
 
@@ -129,17 +127,17 @@ This provider uses the old Microsoft.Azure.DocumentDB package.
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosSql(options =>
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+    .AddCosmosSqlStore(options =>
     {
-	options.ServiceEndpoint = "your-service-end-point";
-	options.AuthKey = "your-auth-key";
-	options.DatabaseId = "DatabaseId";
-	options.AggregateCollectionId = "AggregateCollectionId";
-	options.CommandCollectionId = "CommandCollectionId";
-	options.EventCollectionId = "EventCollectionId";
-	options.OfferThroughput = 400;
-	options.ConsistencyLevel = ConsistencyLevel.Session;
+	    options.ServiceEndpoint = "your-service-end-point";
+	    options.AuthKey = "your-auth-key";
+	    options.DatabaseId = "DatabaseId";
+	    options.AggregateCollectionId = "AggregateCollectionId";
+	    options.CommandCollectionId = "CommandCollectionId";
+	    options.EventCollectionId = "EventCollectionId";
+	    options.OfferThroughput = 400;
+	    options.ConsistencyLevel = ConsistencyLevel.Session;
     });
 ```
 
@@ -163,7 +161,7 @@ Note that the partition key is set by default to '/type'.
 ```C#
 public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> settings)
 {
-    app.UseKledex().EnsureCosmosDbSqlDbCreated(settings);
+    app.UseOpenCqrs().EnsureCosmosDbSqlDbCreated(settings);
 }
 ```
 
@@ -171,8 +169,8 @@ public void Configure(IApplicationBuilder app, IOptions<DomainDbConfiguration> s
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
-    .AddCosmosMongo(options =>
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
+    .AddCosmosMongoStore(options =>
     {
         options.ConnectionString = "your-connection-string";
         options.DatabaseName = "DatabaseName";
@@ -196,16 +194,16 @@ services
 ## Message Bus
 
 In order to use the message bus functionalities you need to register a message bus provider.
-Kledex currently supports Azure Service Bus and RabbitMQ:
+OpenCQRS currently supports Azure Service Bus and RabbitMQ:
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Bus.RabbitMQ** | AddRabbitMQ |
-| **Kledex.Bus.ServiceBus** | AddServiceBus |
+| **OpenCqrs.Bus.RabbitMQ** | AddRabbitMQ |
+| **OpenCqrs.Bus.ServiceBus** | AddServiceBus |
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddServiceBus(options =>
     {
@@ -226,11 +224,11 @@ Add a validation provider if you want your commands to be validated before the c
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Validation.FluentValidation** | AddFluentValidation |
+| **OpenCqrs.Validation.FluentValidation** | AddFluentValidation |
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddFluentValidation(options =>
     {
@@ -251,12 +249,12 @@ Add a caching provider if you want the result of your queries to be cached autom
 
 | Package | Method |
 | --- | --- |
-| **Kledex.Caching.Memory** | AddMemoryCache |
-| **Kledex.Caching.Redis** | AddRedisCache |
+| **OpenCqrs.Caching.Memory** | AddMemoryCache |
+| **OpenCqrs.Caching.Redis** | AddRedisCache |
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddRedisCache(options =>
     {
@@ -279,7 +277,7 @@ Experimental package to get a view of an aggregate and all associated events:
 
 ```C#
 services
-    .AddKledex(typeof(CreateProduct), typeof(GetProduct))
+    .AddOpenCqrs(typeof(CreateProduct), typeof(GetProduct))
     .AddCosmosStore()
     .AddUI();
 ```
