@@ -2,6 +2,12 @@
 
 [![.Build](https://github.com/lucabriguglia/OpenCQRS/actions/workflows/dotnet.yml/badge.svg)](https://github.com/lucabriguglia/OpenCQRS/actions/workflows/dotnet.yml)
 
+**PROJECT NO LONGER MAINTAINED**
+
+IT WAS MADE PRIVATE WHEN IT HAD **681 STARS** AND THEN MADE PUBLIC AGAIN FOR ARCHIVE PURPOSES
+
+<hr>
+
 OpenCQRS is a .NET 6 framework that can be used to create a simple and clean design by enforcing single responsibility and separation of concerns.
 
 Its advanced features are ideal for Domain Driven Design (DDD), Command Query Responsibilty Segragation (CQRS) and Event Sourcing.
